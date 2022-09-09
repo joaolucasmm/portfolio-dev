@@ -1,0 +1,18 @@
+.container-return {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    height: 50px;
+    width: 50px;
+    border-radius: 8px;
+    border: 4px solid black;
+    background: red;
+    .return {
+        height: 46px;
+        width: 48px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 46px;
+    }
+}

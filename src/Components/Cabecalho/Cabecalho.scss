@@ -1,0 +1,57 @@
+@import '../UI/variables.scss';
+
+.cabecalho {
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    align-items: center;
+    height: 4.75rem;
+    background: $dark-blue;
+    flex-direction: row;
+
+    .cabecalho-container {
+       
+        .cabecalho__logo {
+            width: 3rem;
+            
+        }
+    }
+
+    .menu-cabecalho {
+        width: 70%;
+        transition: .25s;
+
+        .menu-itens {
+            display: flex;            
+            list-style-type: none;
+            .container__menu-item {
+                display: flex;
+                height: 30px;
+                width: 150px;
+                list-style-type: none;
+                margin: 0 1rem 0 1rem;
+                text-align: center;
+                transition: transform .2s;
+                .menu-item {
+                    width: 130px;
+                    height:max-content;
+                    color: black;
+                    font-weight: bold;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    display: flex;
+                    text-align: center;
+                    justify-content: center;
+                    padding-bottom: 1rem;
+                    padding-top: 1rem;
+                    border-radius: 2rem;
+                    background-color: $purple;
+                    border: 1px solid black;
+                }
+            }
+            .container__menu-item:hover {
+                transform: scale(0.9);
+            }
+        }
+    }
+
+}

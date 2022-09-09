@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+$background-img: url('../../Assets/Images/5172658.jpg');
+
+html {
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: $background-img;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}

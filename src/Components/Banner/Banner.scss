@@ -1,0 +1,33 @@
+@import '../UI/variables.scss';
+
+.container-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    .banner {
+        background: $marine;
+        display: flex;
+        align-items: center;
+        width: 75%;
+        height: 50%;
+        margin-top: 30px;
+        opacity: 1;
+        justify-content: space-evenly;
+        border-bottom-left-radius: 250px;
+        border-top-right-radius: 250px;
+        border-bottom-right-radius: 80px;
+        border-top-left-radius: 80px;
+        .banner__text {
+            align-items: center;
+            margin-top: auto;
+            margin-bottom: auto;
+            height: max-content;
+        }
+        .banner__imagem {
+            height: 260px;
+            border-radius: 130px;
+            border: 3px solid black;
+        }
+    }
+}
