@@ -2,7 +2,7 @@
   "name": "meu-site",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://joaolucasmm.github.io/meu-site",
+  "homepage": "https://joaolucasmm.github.io/portifolio",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
