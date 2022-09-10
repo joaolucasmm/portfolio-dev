@@ -25,3 +25,13 @@
         }
     }
 }
+
+@media (max-width: $breakpoint-tablet) {
+    .container-projects {
+        .projects {
+            .projects__container {
+                flex-direction: column;
+            }
+        }
+    }
+}

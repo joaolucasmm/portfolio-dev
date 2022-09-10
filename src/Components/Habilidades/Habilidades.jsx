@@ -6,7 +6,7 @@ function Habilidades(){
         <div id='habilidades' className='container-skill'>
             <div className='skill'>  
             
-            <h1>Habilidades</h1>
+                <h1 className='skill__title'>Habilidades</h1>
                 <ul className='skill-list'>
                     <span className='skill-list__span'>
                         <li className='skill-list__text'><FaHtml5 />HTML</li>

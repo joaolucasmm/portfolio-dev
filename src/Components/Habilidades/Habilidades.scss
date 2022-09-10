@@ -46,3 +46,26 @@
         }
     }
 }
+
+@media (max-width: $breakpoint-tablet) {
+    .container-skill {
+        .skill {
+            height: 90%;
+            .skill__title {
+                margin-bottom: 1rem;
+            }
+            .skill-list {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 90%;
+                .skill-list__span {
+                    padding-top: 0;
+                    .skill-list__text {
+                        width: 4rem;
+                    }
+                }
+            }
+        }
+    }
+}

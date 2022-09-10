@@ -33,3 +33,13 @@
         }
     }
 }
+
+@media (max-width: $breakpoint-tablet) {
+    .container-contact {
+        .contact {
+            .container-item {
+                width: 80%;
+            }
+        }
+    }
+}
