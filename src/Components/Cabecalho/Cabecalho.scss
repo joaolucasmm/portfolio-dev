@@ -23,12 +23,14 @@
         .menu-itens {
             display: flex;            
             list-style-type: none;
+            align-items: center;
+            padding: 0;
             .container__menu-item {
                 display: flex;
                 height: 30px;
                 width: 150px;
                 list-style-type: none;
-                margin: 0 1rem 0 1rem;
+                margin: 0 1rem 1.8rem 1rem;
                 text-align: center;
                 transition: transform .2s;
                 .menu-item {
@@ -53,5 +55,22 @@
             }
         }
     }
+}
 
+
+@media (max-width: $breakpoint-tablet) {
+    .cabecalho {
+        height: 15rem;
+        flex-direction: column;
+        .menu-cabecalho {
+            .menu-itens {
+                flex-direction: column;
+                .container__menu-item {
+                    
+                    .menu-item {
+                    }
+                }
+            }
+        }
+    }
 }
