@@ -94,6 +94,20 @@
   border: 3px solid black;
 }
 
+@media (max-width: 768px) {
+  .container-banner .banner {
+    flex-direction: column-reverse;
+    height: 80%;
+  }
+  .container-banner .banner .banner__imagem {
+    height: 240px;
+    margin-top: 50px;
+  }
+  .container-banner .banner .banner__text {
+    margin-top: 0;
+    margin-bottom: auto;
+  }
+}
 .container-skill {
   display: flex;
   justify-content: center;

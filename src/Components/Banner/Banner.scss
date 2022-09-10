@@ -31,3 +31,20 @@
         }
     }
 }
+
+@media (max-width: $breakpoint-tablet) {
+    .container-banner {
+        .banner {
+            flex-direction: column-reverse;
+            height: 80%;
+            .banner__imagem {
+                height: 240px;
+                margin-top: 50px;
+            }
+            .banner__text {
+                margin-top: 0;
+                margin-bottom: auto;
+            }
+        }
+    }
+}
