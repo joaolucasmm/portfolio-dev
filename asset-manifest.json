@@ -1,19 +1,20 @@
 {
   "files": {
     "main.css": "/portfolio/static/css/main.8791e8a5.css",
-    "main.js": "/portfolio/static/js/main.f95fcf9c.js",
+    "main.js": "/portfolio/static/js/main.e22ea8ad.js",
     "static/js/496.60a35b8f.chunk.js": "/portfolio/static/js/496.60a35b8f.chunk.js",
+    "static/media/fruta-e-fruto.png": "/portfolio/static/media/fruta-e-fruto.fc859d83e1af3ce70365.png",
     "static/media/5172658.jpg": "/portfolio/static/media/5172658.77a5e04e69772b8e4c75.jpg",
     "static/media/petshop.png": "/portfolio/static/media/petshop.7bf440ceeadaf22b2318.png",
     "static/media/avatar.jpg": "/portfolio/static/media/avatar.1dc260d232b447cd0b83.jpg",
     "static/media/JL.svg": "/portfolio/static/media/JL.592b1dbdde9f9a3af4fc899b601011b3.svg",
     "index.html": "/portfolio/index.html",
     "main.8791e8a5.css.map": "/portfolio/static/css/main.8791e8a5.css.map",
-    "main.f95fcf9c.js.map": "/portfolio/static/js/main.f95fcf9c.js.map",
+    "main.e22ea8ad.js.map": "/portfolio/static/js/main.e22ea8ad.js.map",
     "496.60a35b8f.chunk.js.map": "/portfolio/static/js/496.60a35b8f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8791e8a5.css",
-    "static/js/main.f95fcf9c.js"
+    "static/js/main.e22ea8ad.js"
   ]
 }
