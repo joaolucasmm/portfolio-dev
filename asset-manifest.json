@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.3d8f73b5.css",
+    "main.css": "/portfolio/static/css/main.8638e06a.css",
     "main.js": "/portfolio/static/js/main.8d38f00d.js",
     "static/js/496.60a35b8f.chunk.js": "/portfolio/static/js/496.60a35b8f.chunk.js",
     "static/media/fruta-e-fruto.png": "/portfolio/static/media/fruta-e-fruto.fc859d83e1af3ce70365.png",
@@ -9,12 +9,12 @@
     "static/media/avatar.jpg": "/portfolio/static/media/avatar.1dc260d232b447cd0b83.jpg",
     "static/media/JL.svg": "/portfolio/static/media/JL.592b1dbdde9f9a3af4fc899b601011b3.svg",
     "index.html": "/portfolio/index.html",
-    "main.3d8f73b5.css.map": "/portfolio/static/css/main.3d8f73b5.css.map",
+    "main.8638e06a.css.map": "/portfolio/static/css/main.8638e06a.css.map",
     "main.8d38f00d.js.map": "/portfolio/static/js/main.8d38f00d.js.map",
     "496.60a35b8f.chunk.js.map": "/portfolio/static/js/496.60a35b8f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3d8f73b5.css",
+    "static/css/main.8638e06a.css",
     "static/js/main.8d38f00d.js"
   ]
 }
