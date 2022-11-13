@@ -87,6 +87,11 @@
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
+  width: 40%;
+}
+.container-banner .banner .banner__text .banner__bio {
+  justify-content: center;
+  text-align: justify;
 }
 .container-banner .banner .banner__imagem {
   height: 260px;
@@ -95,9 +100,12 @@
 }
 
 @media (max-width: 768px) {
+  .container-banner {
+    height: 120vh;
+  }
   .container-banner .banner {
     flex-direction: column-reverse;
-    height: 80%;
+    height: 90%;
   }
   .container-banner .banner .banner__imagem {
     height: 240px;
@@ -106,6 +114,7 @@
   .container-banner .banner .banner__text {
     margin-top: 0;
     margin-bottom: auto;
+    width: 80%;
   }
 }
 .container-skill {

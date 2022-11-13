@@ -23,6 +23,11 @@
             margin-top: auto;
             margin-bottom: auto;
             height: max-content;
+            width: 40%;
+            .banner__bio {
+                justify-content: center;
+                text-align: justify;
+            }
         }
         .banner__imagem {
             height: 260px;
@@ -34,9 +39,10 @@
 
 @media (max-width: $breakpoint-tablet) {
     .container-banner {
+        height: 120vh;
         .banner {
             flex-direction: column-reverse;
-            height: 80%;
+            height: 90%;
             .banner__imagem {
                 height: 240px;
                 margin-top: 50px;
@@ -44,6 +50,7 @@
             .banner__text {
                 margin-top: 0;
                 margin-bottom: auto;
+                width: 80%;
             }
         }
     }
