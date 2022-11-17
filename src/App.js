@@ -10,6 +10,7 @@ import Footer from './Components/Footer/Footer';
 import Projetos from './Components/Projetos/Projetos';
 import Contato from './Components/Contato/Contato';
 import Retorno from './Components/Retorno/Retorno';
+import Card from './Components/Card/Card';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 				<Cabecalho />
 			</Router>
 			
+			<Card />
 			<Banner />
 			<Habilidades />
 			<Projetos />

@@ -1,6 +1,7 @@
 import React from 'react';
 import petshop from '../../Assets/Images/petshop.png';
 import frutaEfruto from '../../Assets/Images/fruta-e-fruto.png';
+import myLinks from '../../Assets/Images/my-links.png';
 
 function Projetos() {
     return (
@@ -19,6 +20,12 @@ function Projetos() {
                         <a href='https://github.com/joaolucasmm/bootstrap-study'>
                             <img src={frutaEfruto} className='project__image' alt='Print do blog de receitas'/></a>
                         <p>Projeto de landpage de blog de receitas utilizando bootstrap para montagem de layout.</p>
+                    </div>
+                    <div className='project'>
+                        <h2><a className='project__link' href='https://joaolucasmm.github.io/my-links/'>My Links</a></h2>
+                        <a href='https://github.com/joaolucasmm/my-links'>
+                            <img src={myLinks} className='project__image' alt='Print da LinkTree'/></a>
+                        <p>Página com links para todos meus perfis online.</p>
                     </div>
                 </div>
             </div>

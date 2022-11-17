@@ -18,6 +18,14 @@
                 background: white;
                 margin: 1rem;
                 opacity: 0.88;
+                .project__link {
+                    color: black;
+                    text-decoration: none;
+                    transition: font-size .2s;
+                }
+                .project__link:hover {
+                    font-size: 1.08em;
+                }
                 .project__image {
                     max-width:100%;
                 }
