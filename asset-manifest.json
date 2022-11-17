@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.8638e06a.css",
-    "main.js": "/portfolio/static/js/main.0603b32b.js",
+    "main.css": "/portfolio/static/css/main.d5150d50.css",
+    "main.js": "/portfolio/static/js/main.3350ec01.js",
     "static/js/496.83318a24.chunk.js": "/portfolio/static/js/496.83318a24.chunk.js",
     "static/media/fruta-e-fruto.png": "/portfolio/static/media/fruta-e-fruto.fc859d83e1af3ce70365.png",
+    "static/media/my-links.png": "/portfolio/static/media/my-links.51df3d528a5cc68fcaa3.png",
     "static/media/5172658.jpg": "/portfolio/static/media/5172658.77a5e04e69772b8e4c75.jpg",
     "static/media/petshop.png": "/portfolio/static/media/petshop.7bf440ceeadaf22b2318.png",
     "static/media/avatar.jpg": "/portfolio/static/media/avatar.1dc260d232b447cd0b83.jpg",
     "static/media/JL.svg": "/portfolio/static/media/JL.592b1dbdde9f9a3af4fc899b601011b3.svg",
     "index.html": "/portfolio/index.html",
-    "main.8638e06a.css.map": "/portfolio/static/css/main.8638e06a.css.map",
-    "main.0603b32b.js.map": "/portfolio/static/js/main.0603b32b.js.map",
+    "main.d5150d50.css.map": "/portfolio/static/css/main.d5150d50.css.map",
+    "main.3350ec01.js.map": "/portfolio/static/js/main.3350ec01.js.map",
     "496.83318a24.chunk.js.map": "/portfolio/static/js/496.83318a24.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8638e06a.css",
-    "static/js/main.0603b32b.js"
+    "static/css/main.d5150d50.css",
+    "static/js/main.3350ec01.js"
   ]
 }
