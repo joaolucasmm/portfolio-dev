@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.d5150d50.css",
-    "main.js": "/portfolio/static/js/main.3350ec01.js",
+    "main.css": "/portfolio/static/css/main.ce2c04bc.css",
+    "main.js": "/portfolio/static/js/main.bd749e6a.js",
     "static/js/496.83318a24.chunk.js": "/portfolio/static/js/496.83318a24.chunk.js",
     "static/media/fruta-e-fruto.png": "/portfolio/static/media/fruta-e-fruto.fc859d83e1af3ce70365.png",
     "static/media/my-links.png": "/portfolio/static/media/my-links.51df3d528a5cc68fcaa3.png",
@@ -10,12 +10,12 @@
     "static/media/avatar.jpg": "/portfolio/static/media/avatar.1dc260d232b447cd0b83.jpg",
     "static/media/JL.svg": "/portfolio/static/media/JL.592b1dbdde9f9a3af4fc899b601011b3.svg",
     "index.html": "/portfolio/index.html",
-    "main.d5150d50.css.map": "/portfolio/static/css/main.d5150d50.css.map",
-    "main.3350ec01.js.map": "/portfolio/static/js/main.3350ec01.js.map",
+    "main.ce2c04bc.css.map": "/portfolio/static/css/main.ce2c04bc.css.map",
+    "main.bd749e6a.js.map": "/portfolio/static/js/main.bd749e6a.js.map",
     "496.83318a24.chunk.js.map": "/portfolio/static/js/496.83318a24.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d5150d50.css",
-    "static/js/main.3350ec01.js"
+    "static/css/main.ce2c04bc.css",
+    "static/js/main.bd749e6a.js"
   ]
 }
