@@ -19,8 +19,6 @@ function App() {
 			<Router>
 				<Cabecalho />
 			</Router>
-			
-			<Card />
 			<Banner />
 			<Habilidades />
 			<Projetos />

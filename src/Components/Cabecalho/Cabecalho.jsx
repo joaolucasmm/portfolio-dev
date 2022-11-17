@@ -24,7 +24,9 @@ function Cabecalho() {
                     <li className='container__menu-item'><a href='#habilidades' className='menu-item'>Habilidades</a></li>
                     <li className='container__menu-item'><a href='#projetos' className='menu-item'>Projetos</a></li>
                     <li className='container__menu-item'><a href='#contato' className='menu-item'>Contato</a></li>
-
+                    <li className='container__menu-item'><a href='../../Assets/Documents/JoaoLucasMirandaMenegasso.pdf' 
+                        className='menu-item' target="_blank">Currículo</a></li>
+                    
                 </ul>
             </nav>
 

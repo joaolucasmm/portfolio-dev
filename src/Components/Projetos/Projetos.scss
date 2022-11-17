@@ -36,6 +36,7 @@
 
 @media (max-width: $breakpoint-tablet) {
     .container-projects {
+        height: 130vh;
         .projects {
             .projects__container {
                 flex-direction: column;
