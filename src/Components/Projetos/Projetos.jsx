@@ -2,6 +2,7 @@ import React from 'react';
 import petshop from '../../Assets/Images/petshop.png';
 import frutaEfruto from '../../Assets/Images/fruta-e-fruto.png';
 import myLinks from '../../Assets/Images/my-links.png';
+import pokedex from '../../Assets/Images/pokedex.png';
 
 function Projetos() {
     return (
@@ -26,6 +27,12 @@ function Projetos() {
                         <a href='https://github.com/joaolucasmm/my-links'>
                             <img src={myLinks} className='project__image' alt='Print da LinkTree'/></a>
                         <p>Página com links para todos meus perfis online.</p>
+                    </div>
+                    <div className='project'>
+                        <h2><a className='project__link' href='https://joaolucasmm.github.io/Pokedex/'>Pokédex</a></h2>
+                        <a href='https://github.com/joaolucasmm/Pokedex'>
+                            <img src={pokedex} className='project__image' alt='Print da Pokedex'/></a>
+                        <p>Pokedex feita com API.</p>
                     </div>
                 </div>
             </div>
