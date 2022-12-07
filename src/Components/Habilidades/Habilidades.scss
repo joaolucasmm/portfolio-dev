@@ -49,8 +49,9 @@
 
 @media (max-width: $breakpoint-tablet) {
     .container-skill {
+        height: 130vh;
         .skill {
-            height: 90%;
+            height: 80%;
             .skill__title {
                 margin-bottom: 1rem;
             }

@@ -53,7 +53,7 @@
 
 @media (max-width: 768px) {
   .cabecalho {
-    height: 15rem;
+    height: 19rem;
     flex-direction: column;
   }
   .cabecalho .menu-cabecalho .menu-itens {
@@ -101,7 +101,7 @@
 
 @media (max-width: 768px) {
   .container-banner {
-    height: 120vh;
+    height: 145vh;
   }
   .container-banner .banner {
     flex-direction: column-reverse;
@@ -166,8 +166,11 @@
 }
 
 @media (max-width: 768px) {
+  .container-skill {
+    height: 130vh;
+  }
   .container-skill .skill {
-    height: 90%;
+    height: 80%;
   }
   .container-skill .skill .skill__title {
     margin-bottom: 1rem;
@@ -221,7 +224,7 @@
 
 @media (max-width: 768px) {
   .container-projects {
-    height: 130vh;
+    height: 230vh;
   }
   .container-projects .projects .projects__container {
     flex-direction: column;
