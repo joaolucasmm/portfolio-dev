@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   height: 4.75rem;
-  background: rgba(22, 33, 62, 0.8901960784);
+  background: rgba(11, 29, 81, 0.8901960784);
   flex-direction: row;
 }
 .cabecalho .cabecalho-container .cabecalho__logo {
@@ -44,7 +44,7 @@
   padding-bottom: 1rem;
   padding-top: 1rem;
   border-radius: 2rem;
-  background-color: rgba(81, 5, 194, 0.768627451);
+  background-color: rgba(63, 104, 136, 0.8901960784);
   border: 1px solid black;
 }
 .cabecalho .menu-cabecalho .menu-itens .container__menu-item:hover {
@@ -67,7 +67,7 @@
   height: 100vh;
 }
 .container-banner .banner {
-  background: rgba(15, 52, 96, 0.8901960784);
+  background: rgba(63, 104, 136, 0.8901960784);
   display: flex;
   align-items: center;
   width: 75%;
@@ -127,7 +127,7 @@
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
-  background-color: rgba(15, 52, 96, 0.8901960784);
+  background-color: rgba(63, 104, 136, 0.8901960784);
   border-radius: 30px;
   width: 80%;
 }
@@ -198,7 +198,7 @@
   width: 80%;
   margin: auto;
   margin-bottom: 2rem;
-  background: rgba(15, 52, 96, 0.8901960784);
+  background: rgba(63, 104, 136, 0.8901960784);
   border-radius: 30px;
 }
 .container-projects .projects .projects__container {
@@ -237,12 +237,11 @@
   height: 100vh;
 }
 .container-contact .contact {
-  background: rgba(15, 52, 96, 0.8901960784);
+  background: rgba(63, 104, 136, 0.8901960784);
   border-radius: 30px;
   width: 80%;
 }
 .container-contact .contact .container-item {
-  background: rgba(255, 255, 255, 0.3215686275);
   display: inline-block;
   width: 30%;
   border-radius: 30px;

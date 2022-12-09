@@ -46,7 +46,7 @@
                     padding-bottom: 1rem;
                     padding-top: 1rem;
                     border-radius: 2rem;
-                    background-color: $purple;
+                    background-color: $blue;
                     border: 1px solid black;
                 }
             }
@@ -65,11 +65,6 @@
         .menu-cabecalho {
             .menu-itens {
                 flex-direction: column;
-                .container__menu-item {
-                    
-                    .menu-item {
-                    }
-                }
             }
         }
     }
