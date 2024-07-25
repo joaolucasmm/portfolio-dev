@@ -1,22 +1,23 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.02965ecf.css",
-    "main.js": "/portfolio/static/js/main.ced125a4.js",
-    "static/js/496.83318a24.chunk.js": "/portfolio/static/js/496.83318a24.chunk.js",
+    "main.css": "/portfolio/static/css/main.f14c800d.css",
+    "main.js": "/portfolio/static/js/main.e10174a7.js",
+    "static/js/488.83041cd7.chunk.js": "/portfolio/static/js/488.83041cd7.chunk.js",
     "static/media/fruta-e-fruto.png": "/portfolio/static/media/fruta-e-fruto.fc859d83e1af3ce70365.png",
     "static/media/my-links.png": "/portfolio/static/media/my-links.51df3d528a5cc68fcaa3.png",
     "static/media/5172658.jpg": "/portfolio/static/media/5172658.77a5e04e69772b8e4c75.jpg",
     "static/media/pokedex.png": "/portfolio/static/media/pokedex.15150618119a4ee27932.png",
     "static/media/petshop.png": "/portfolio/static/media/petshop.7bf440ceeadaf22b2318.png",
     "static/media/avatar.jpg": "/portfolio/static/media/avatar.1dc260d232b447cd0b83.jpg",
-    "static/media/JL.svg": "/portfolio/static/media/JL.592b1dbdde9f9a3af4fc899b601011b3.svg",
+    "static/media/screenshotTictactoe.png": "/portfolio/static/media/screenshotTictactoe.9af629c3ae2fcc9a6ff7.png",
+    "static/media/JL.svg": "/portfolio/static/media/JL.956e16d659358378dd40709c0170a03a.svg",
     "index.html": "/portfolio/index.html",
-    "main.02965ecf.css.map": "/portfolio/static/css/main.02965ecf.css.map",
-    "main.ced125a4.js.map": "/portfolio/static/js/main.ced125a4.js.map",
-    "496.83318a24.chunk.js.map": "/portfolio/static/js/496.83318a24.chunk.js.map"
+    "main.f14c800d.css.map": "/portfolio/static/css/main.f14c800d.css.map",
+    "main.e10174a7.js.map": "/portfolio/static/js/main.e10174a7.js.map",
+    "488.83041cd7.chunk.js.map": "/portfolio/static/js/488.83041cd7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.02965ecf.css",
-    "static/js/main.ced125a4.js"
+    "static/css/main.f14c800d.css",
+    "static/js/main.e10174a7.js"
   ]
 }
