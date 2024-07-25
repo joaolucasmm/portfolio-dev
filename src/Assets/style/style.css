@@ -31,7 +31,6 @@
 }
 .cabecalho .menu-cabecalho .menu-itens .container__menu-item .menu-item {
   width: 130px;
-  height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
   color: black;
@@ -84,7 +83,6 @@
   align-items: center;
   margin-top: auto;
   margin-bottom: auto;
-  height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
   width: 40%;
@@ -124,7 +122,6 @@
   height: 100vh;
 }
 .container-skill .skill {
-  height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
   background-color: rgba(63, 104, 136, 0.8901960784);
@@ -193,6 +190,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding-bottom: 20rem;
 }
 .container-projects .projects {
   width: 80%;
