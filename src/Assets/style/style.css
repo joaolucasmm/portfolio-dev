@@ -1,25 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
-.cabecalho {
+.header {
   border-radius: 0 0 10px 10px;
   display: flex;
   align-items: center;
   height: 4.75rem;
   flex-direction: row;
 }
-.cabecalho .cabecalho-container .cabecalho__logo {
+.header .header-container .header__logo {
   width: 3rem;
 }
-.cabecalho .menu-cabecalho {
+.header .menu-header {
   width: 70%;
   transition: 0.25s;
 }
-.cabecalho .menu-cabecalho .menu-itens {
+.header .menu-header .menu-itens {
   display: flex;
   list-style-type: none;
   align-items: center;
   padding: 0;
 }
-.cabecalho .menu-cabecalho .menu-itens .container__menu-item {
+.header .menu-header .menu-itens .container__menu-item {
   display: flex;
   height: 30px;
   width: 150px;
@@ -28,7 +28,7 @@
   text-align: center;
   transition: transform 0.2s;
 }
-.cabecalho .menu-cabecalho .menu-itens .container__menu-item .menu-item {
+.header .menu-header .menu-itens .container__menu-item .menu-item {
   width: 130px;
   height: -moz-max-content;
   height: max-content;
@@ -45,16 +45,16 @@
   background-color: rgba(63, 104, 136, 0.8901960784);
   border: 1px solid black;
 }
-.cabecalho .menu-cabecalho .menu-itens .container__menu-item:hover {
+.header .menu-header .menu-itens .container__menu-item:hover {
   transform: scale(0.9);
 }
 
 @media (max-width: 768px) {
-  .cabecalho {
+  .header {
     height: 19rem;
     flex-direction: column;
   }
-  .cabecalho .menu-cabecalho .menu-itens {
+  .header .menu-header .menu-itens {
     flex-direction: column;
   }
 }
