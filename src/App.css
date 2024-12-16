@@ -28,11 +28,59 @@
   color: #61dafb;
 }
 
+.translate {
+  width: 130px;
+  height:max-content;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  border-radius: 2rem;
+  background-color:  rgba(63, 104, 136, 0.8901960784);
+  border: 1px solid black;
+}
+
+.container__translate {
+  display: flex;
+  height: 30px;
+  width: 150px;
+  list-style-type: none;
+  margin: 0 1rem 1.8rem 1rem;
+  text-align: center;
+  transition: transform .2s;
+}
+
+.container__translate:hover {
+  transform: scale(0.9);
+}
+
+.container__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(11, 29, 81, 0.8901960784);;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .container__header {
+    flex-direction: column;
+  }
+  
+  .container__translate:hover {
+    transform: scale(0.9);
   }
 }

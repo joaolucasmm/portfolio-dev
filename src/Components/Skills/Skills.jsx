@@ -1,9 +1,10 @@
 import React from 'react';
 import { FaReact, FaJs, FaSass, FaGit, FaHtml5, FaCss3 } from 'react-icons/fa';
+import { SiTypescript, SiWebdriverio, SiArduino, SiSap } from "react-icons/si";
 
 function Habilidades(){
     return(
-        <div id='habilidades' className='container-skill'>
+        <div id='skills' className='container-skill'>
             <div className='skill'>  
             
                 <h1 className='skill__title'>Habilidades</h1>
@@ -20,6 +21,14 @@ function Habilidades(){
                     <span className='skill-list__span'>
                         <li className='skill-list__text'><FaSass />SASS</li>
                         <li className='skill-list__text'><FaGit />GIT</li>
+                    </span>
+                    <span className='skill-list__span'>
+                        <li className='skill-list__text'><SiWebdriverio />Webdriver.io</li>
+                        <li className='skill-list__text'><SiTypescript />Typescript</li>
+                    </span>
+                    <span className='skill-list__span'>
+                        <li className='skill-list__text'><SiArduino />Arduino</li>
+                        <li className='skill-list__text'><SiSap />CAP</li>
                     </span>
                 </ul>
             </div>
