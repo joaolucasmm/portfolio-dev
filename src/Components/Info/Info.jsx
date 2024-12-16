@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin, FaEnvelope, FaPhoneAlt } from "react-icons/fa";;
 
 function Contato() {
     return(
-        <div id='contato' className='container-contact'>
+        <div id='info' className='container-contact'>
             <div className='contact'>
                 <h1>Contato</h1>
                 <span className='container-item'>
