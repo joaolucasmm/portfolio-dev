@@ -4,7 +4,6 @@
   display: flex;
   align-items: center;
   height: 4.75rem;
-  background: rgba(11, 29, 81, 0.8901960784);
   flex-direction: row;
 }
 .cabecalho .cabecalho-container .cabecalho__logo {
@@ -164,10 +163,11 @@
 
 @media (max-width: 768px) {
   .container-skill {
+    margin-top: 5rem;
     height: 130vh;
   }
   .container-skill .skill {
-    height: 80%;
+    height: 110%;
   }
   .container-skill .skill .skill__title {
     margin-bottom: 1rem;
