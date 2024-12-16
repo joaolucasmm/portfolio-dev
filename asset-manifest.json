@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.512d591f.css",
-    "main.js": "/portfolio/static/js/main.d6e5b4d3.js",
+    "main.css": "/portfolio/static/css/main.fa8dabbc.css",
+    "main.js": "/portfolio/static/js/main.c727d6a6.js",
     "static/js/488.83041cd7.chunk.js": "/portfolio/static/js/488.83041cd7.chunk.js",
     "static/media/fruta-e-fruto.png": "/portfolio/static/media/fruta-e-fruto.fc859d83e1af3ce70365.png",
     "static/media/my-links.png": "/portfolio/static/media/my-links.51df3d528a5cc68fcaa3.png",
@@ -12,12 +12,12 @@
     "static/media/screenshotTictactoe.png": "/portfolio/static/media/screenshotTictactoe.9af629c3ae2fcc9a6ff7.png",
     "static/media/JL.svg": "/portfolio/static/media/JL.592b1dbdde9f9a3af4fc899b601011b3.svg",
     "index.html": "/portfolio/index.html",
-    "main.512d591f.css.map": "/portfolio/static/css/main.512d591f.css.map",
-    "main.d6e5b4d3.js.map": "/portfolio/static/js/main.d6e5b4d3.js.map",
+    "main.fa8dabbc.css.map": "/portfolio/static/css/main.fa8dabbc.css.map",
+    "main.c727d6a6.js.map": "/portfolio/static/js/main.c727d6a6.js.map",
     "488.83041cd7.chunk.js.map": "/portfolio/static/js/488.83041cd7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.512d591f.css",
-    "static/js/main.d6e5b4d3.js"
+    "static/css/main.fa8dabbc.css",
+    "static/js/main.c727d6a6.js"
   ]
 }
