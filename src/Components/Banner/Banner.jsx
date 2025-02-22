@@ -7,7 +7,7 @@ function Banner() {
             <div className='banner'>
                 <span className='banner__text'>
                     <h1 className='banner__title'>Olá, eu sou João Lucas</h1>
-                    <h2 className='banner__subtitle'>Desenvolvedor Front End!</h2>
+                    <h2 className='banner__subtitle'>Desenvolvedor Web Júnior!</h2>
                     <p className='banner__bio'>Sou estudante de engenharia física desde 2017 na UFRGS.
                     Comecei a trabalhar com desenvolvimento ainda quando fiz curso técnico em mecatrônica em 2014. 
                     Em 2022 migrei para o desenvolvimento front end e me tornei desenvolvedor em React. 
