@@ -1,5 +1,8 @@
 # Portfolio
-## Getting Started with Create React App
+
+This is the repository used as my professional website portfolio. The goal of this project is to serve as a web resume that also shows my development skills in its own building.
+
+As my skills evolve, so will this repository and my end goals is to make this website look as professional as it can be, adding more functionalities, making the UI more appealing and keeping the usuability very straight-forward. 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
