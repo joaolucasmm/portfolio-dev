@@ -6,13 +6,13 @@
     "liveSassCompile.settings.excludeList": [
         "/**/node_modules/**",
         "/.vscode/**",
-        "**/Components/Cabecalho/**",
+        "**/Components/Header/**",
         "**/Components/Banner/**",
-        "**/Components/Habilidades/**",
-        "**/Components/Projetos/**",
-        "**/Components/Contato/**",
+        "**/Components/Skills/**",
+        "**/Components/Projects/**",
+        "**/Components/Info/**",
         "**/Components/Footer/**",
-        "**/Components/Retorno/**",
+        "**/Components/Return/**",
         "**/Components/UI/**",
     ]
 }
