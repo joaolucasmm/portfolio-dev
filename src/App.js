@@ -33,15 +33,7 @@ function App() {
 			<Banner language={language} />
 			<Skills language={language} />
 			<Projects language={language} />
-			{language === "english" ? (
-				<>
-					<InfoEN />
-				</>
-			) : (
-				<>
-					<Info />
-				</>
-			)}
+			<Info language={language} />
 			<Retorno />
 			<Footer />
 		</div>
