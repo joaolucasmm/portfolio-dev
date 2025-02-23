@@ -31,15 +31,14 @@ function App() {
 				</div>
 			</Router>
 			<Banner language={language} />
+			<Skills language={language} />
 			{language === "english" ? (
 				<>
-					<SkillsEN />
 					<ProjectsEN />
 					<InfoEN />
 				</>
 			) : (
 				<>
-					<Skills />
 					<Projects />
 					<Info />
 				</>
