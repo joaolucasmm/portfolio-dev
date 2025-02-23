@@ -1,18 +1,15 @@
-function textSelector(language, textPosition) {    
-    const skillsTextPortuguese = [
-        "Habilidades"
-    ];
+import sendMessage from "../../Functions/sendMessage";
 
-    const skillsTextEnglish = [
-        "Skills"
-    ];
+const textPortuguese = [
+    "Habilidades"
+];
 
-    switch (language) {
-        case "portuguese":
-            return skillsTextPortuguese[textPosition];
-        default:
-            return skillsTextEnglish[textPosition];
-    }
+const textEnglish = [
+    "Skills"
+];
+
+function textSelector(language, textPosition) {
+    return sendMessage(language, textPosition, { textEnglish, textPortuguese });
 }
 
 export default textSelector;

@@ -1,4 +1,4 @@
-import sendMessage from "../../Functions/textSelector";
+import sendMessage from "../../Functions/sendMessage";
 
 const textPortuguese = [
     "Habilidades",
