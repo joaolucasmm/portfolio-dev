@@ -32,14 +32,13 @@ function App() {
 			</Router>
 			<Banner language={language} />
 			<Skills language={language} />
+			<Projects language={language} />
 			{language === "english" ? (
 				<>
-					<ProjectsEN />
 					<InfoEN />
 				</>
 			) : (
 				<>
-					<Projects />
 					<Info />
 				</>
 			)}
