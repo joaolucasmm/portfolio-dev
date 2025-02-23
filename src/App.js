@@ -9,7 +9,7 @@ import Skills from './Components/Skills/Skills';
 import Footer from './Components/Footer/Footer';
 import Projects from './Components/Projects/Projects';
 import Info from './Components/Info/Info';
-import Retorno from './Components/Retorno/Retorno';
+import Return from './Components/Return/Return';
 
 function App() {
 	const [language, setLanguage] = useState("english");
@@ -29,7 +29,7 @@ function App() {
 			<Skills language={language} />
 			<Projects language={language} />
 			<Info language={language} />
-			<Retorno />
+			<Return />
 			<Footer />
 		</div>
 	);
