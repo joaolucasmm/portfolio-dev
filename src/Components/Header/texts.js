@@ -1,24 +1,21 @@
-function textSelector(language, textPosition) {    
-    const headerTextPortuguese = [
-        "Habilidades",
-        "Projetos",
-        "Contato",
-        "Currículo"
-    ];
+import sendMessage from "../../Functions/textSelector";
 
-    const headerTextEnglish = [
-        "Skills",
-        "Projects",
-        "Contact",
-        "Resume"
-    ];
+const textPortuguese = [
+    "Habilidades",
+    "Projetos",
+    "Contato",
+    "Currículo"
+];
 
-    switch (language) {
-        case "portuguese":
-            return headerTextPortuguese[textPosition];
-        default:
-            return headerTextEnglish[textPosition];
-    }
+const textEnglish = [
+    "Skills",
+    "Projects",
+    "Contact",
+    "Resume"
+];
+
+function textSelector(language, textPosition) {
+    return sendMessage(language, textPosition, {textEnglish, textPortuguese});
 }
 
 export default textSelector;
