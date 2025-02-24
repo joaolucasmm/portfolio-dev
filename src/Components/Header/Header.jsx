@@ -6,6 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 function DrawerAppBar({ props, links, setLanguage, language }) {
     return (
@@ -13,8 +14,10 @@ function DrawerAppBar({ props, links, setLanguage, language }) {
             <CssBaseline />
             <AppBar component="nav">
                 <Toolbar className="header-toolbar">
-                    <Typography variant="h4" component="div" className="header-title">
-                        João Lucas
+                    <Typography variant="h4" component={Link} className="header-title"     to="/"
+                    sx={{ textDecoration: 'none' }}
+                    color='#FFF'>
+                    João Lucas
                     </Typography>
                     <Box className="header-buttons">
                         {props.map((item, i) => (
