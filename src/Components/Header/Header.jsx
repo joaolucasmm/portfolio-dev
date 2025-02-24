@@ -7,30 +7,28 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-function DrawerAppBar({ props, setLanguage, language }) {
+function DrawerAppBar({ props, links, setLanguage, language }) {
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box className="header-container">
             <CssBaseline />
             <AppBar component="nav">
-                <Toolbar>
+                <Toolbar className="header-toolbar">
                     <Typography
                         variant="h4"
                         component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                        className="header-title"
                     >
                         João Lucas
                     </Typography>
-                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                        {props.map((item) => (
-                            <Button key={item} sx={{ color: '#fff' }}>
+                    <Box className="header-buttons">
+                        {props.map((item, i) => (
+                            <Button key={item} href={links[i]} sx={{ color: '#fff' }}>
                                 {item}
                             </Button>
-                        ))
-                        }
+                        ))}
                         <Button
                             className='translate'
                             onClick={() => setLanguage(language === "english" ? "portuguese" : "english")}
-                            sx={{ color: '#fff' }}
                         >
                             {language === "english" ? "Portuguese" : "English"}
                         </Button>
@@ -46,10 +44,11 @@ function Header({ language, setLanguage }) {
         ? 'https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegassoResume.pdf'
         : 'https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegasso.pdf';
 
-    const pages = [textSelector(language, 0), textSelector(language, 1), textSelector(language, 2)];
+    const content = [textSelector(language, 0), textSelector(language, 1), textSelector(language, 2)];
+    const links = ['#skills', '#projects', '#info'];
 
     return (
-        <DrawerAppBar props={pages} setLanguage={setLanguage} language={language} />
+        <DrawerAppBar props={content} links={links} setLanguage={setLanguage} language={language} />
     );
 }
 

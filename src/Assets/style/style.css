@@ -1,63 +1,64 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
-.header {
-  border-radius: 0 0 10px 10px;
+.header-container {
   display: flex;
-  align-items: center;
-  height: 4.75rem;
-  flex-direction: row;
-}
-.header .header-container .header__logo {
-  width: 3rem;
-}
-.header .menu-header {
-  width: 70%;
-  transition: 0.25s;
-}
-.header .menu-header .menu-itens {
-  display: flex;
-  list-style-type: none;
-  align-items: center;
-  padding: 0;
-}
-.header .menu-header .menu-itens .container__menu-item {
-  display: flex;
-  height: 30px;
-  width: 150px;
-  list-style-type: none;
-  margin: 0 1rem 1.8rem 1rem;
-  text-align: center;
-  transition: transform 0.2s;
-}
-.header .menu-header .menu-itens .container__menu-item .menu-item {
-  width: 130px;
-  height: -moz-max-content;
-  height: max-content;
-  color: black;
-  font-weight: bold;
-  text-decoration: none;
-  text-transform: uppercase;
-  display: flex;
-  text-align: center;
+  flex-direction: column;
   justify-content: center;
-  padding-bottom: 1rem;
-  padding-top: 1rem;
-  border-radius: 2rem;
-  background-color: rgba(63, 104, 136, 0.8901960784);
-  border: 1px solid black;
+  align-items: center;
+  text-align: center;
 }
-.header .menu-header .menu-itens .container__menu-item:hover {
-  transform: scale(0.9);
+@media (min-width: 600px) {
+  .header-container {
+    flex-direction: column;
+  }
 }
 
-@media (max-width: 768px) {
-  .header {
-    height: 19rem;
-    flex-direction: column;
-  }
-  .header .menu-header .menu-itens {
-    flex-direction: column;
+.header-title {
+  flex-grow: 1;
+  display: block;
+}
+@media (min-width: 600px) {
+  .header-title {
+    display: block;
   }
 }
+
+.header-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@media (min-width: 600px) {
+  .header-toolbar {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+.header-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@media (min-width: 600px) {
+  .header-buttons {
+    display: flex;
+    flex-direction: row;
+  }
+}
+.header-buttons .translate {
+  color: #fff;
+}
+.header-buttons button {
+  margin-bottom: 10px;
+}
+@media (min-width: 600px) {
+  .header-buttons button {
+    margin-bottom: 0;
+    margin-left: 10px;
+  }
+}
+
 .container-banner {
   display: flex;
   justify-content: center;
@@ -163,11 +164,10 @@
 
 @media (max-width: 768px) {
   .container-skill {
-    margin-top: 5rem;
     height: 130vh;
   }
   .container-skill .skill {
-    height: 110%;
+    height: 80%;
   }
   .container-skill .skill .skill__title {
     margin-bottom: 1rem;
