@@ -42,7 +42,7 @@ function DrawerAppBar({ props, links, setLanguage, language }) {
 function Header({ language, setLanguage }) {
     const resumeLink = language === "english"
         ? 'https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegassoResume.pdf'
-        : 'https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegasso.pdf';
+        : 'https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegassoCurriculo.pdf';
 
     const content = [textSelector(language, 0), textSelector(language, 1), textSelector(language, 2), textSelector(language, 3)];
     const links = ['#skills', '#projects', '#info', resumeLink];
