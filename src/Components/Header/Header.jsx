@@ -44,8 +44,8 @@ function Header({ language, setLanguage }) {
         ? 'https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegassoResume.pdf'
         : 'https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegasso.pdf';
 
-    const content = [textSelector(language, 0), textSelector(language, 1), textSelector(language, 2)];
-    const links = ['#skills', '#projects', '#info'];
+    const content = [textSelector(language, 0), textSelector(language, 1), textSelector(language, 2), textSelector(language, 3)];
+    const links = ['#skills', '#projects', '#info', resumeLink];
 
     return (
         <DrawerAppBar props={content} links={links} setLanguage={setLanguage} language={language} />
