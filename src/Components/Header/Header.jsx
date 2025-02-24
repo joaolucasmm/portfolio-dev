@@ -13,16 +13,12 @@ function DrawerAppBar({ props, links, setLanguage, language }) {
             <CssBaseline />
             <AppBar component="nav">
                 <Toolbar className="header-toolbar">
-                    <Typography
-                        variant="h4"
-                        component="div"
-                        className="header-title"
-                    >
+                    <Typography variant="h4" component="div" className="header-title">
                         João Lucas
                     </Typography>
                     <Box className="header-buttons">
                         {props.map((item, i) => (
-                            <Button key={item} href={links[i]} sx={{ color: '#fff' }}>
+                            <Button key={item} href={links[i]} variant='outlined' sx={{ color: '#fff'}}>
                                 {item}
                             </Button>
                         ))}
