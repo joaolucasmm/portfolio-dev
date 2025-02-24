@@ -17,12 +17,7 @@ function App() {
 		<div className="App">
 			<Router>
 				<div className='container__header'>
-					<Header language={language} />
-					<div className='container__translate'>
-						<button className='translate' onClick={() => setLanguage(language === "english" ? "portuguese" : "english")}>
-							{language === "english" ? "Portuguese" : "English"}
-						</button>
-					</div>
+					<Header language={language} setLanguage={setLanguage} />
 				</div>
 			</Router>
 			<Banner language={language} />

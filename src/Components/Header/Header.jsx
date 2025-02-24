@@ -1,32 +1,55 @@
 import React from 'react';
-import imagem from '../../Assets/Images/JL.svg';
-import { Link } from 'react-router-dom';
 import textSelector from './texts';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
-function Header({ language }) {
-    const resumeLink = language === "english" 
-        ? 'https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegassoResume.pdf' 
+function DrawerAppBar({ props, setLanguage, language }) {
+    return (
+        <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <AppBar component="nav">
+                <Toolbar>
+                    <Typography
+                        variant="h4"
+                        component="div"
+                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                    >
+                        João Lucas
+                    </Typography>
+                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                        {props.map((item) => (
+                            <Button key={item} sx={{ color: '#fff' }}>
+                                {item}
+                            </Button>
+                        ))
+                        }
+                        <Button
+                            className='translate'
+                            onClick={() => setLanguage(language === "english" ? "portuguese" : "english")}
+                            sx={{ color: '#fff' }}
+                        >
+                            {language === "english" ? "Portuguese" : "English"}
+                        </Button>
+                    </Box>
+                </Toolbar>
+            </AppBar>
+        </Box>
+    );
+}
+
+function Header({ language, setLanguage }) {
+    const resumeLink = language === "english"
+        ? 'https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegassoResume.pdf'
         : 'https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegasso.pdf';
 
+    const pages = [textSelector(language, 0), textSelector(language, 1), textSelector(language, 2)];
+
     return (
-        <header id='home' className='header'>
-            <div className='menu-site'>
-                <span className='menu-site__icone'></span>
-            </div>
-            <div className='header-container'>
-                <Link to='/' className=''>
-                    <img className='header__logo' src={imagem} alt='Logo JL' />
-                </Link>
-            </div>
-            <nav className='menu-header'>
-                <ul className='menu-itens'>
-                    <li className='container__menu-item'><a href='#skills' className='menu-item'>{textSelector(language, 0)}</a></li>
-                    <li className='container__menu-item'><a href='#projects' className='menu-item'>{textSelector(language, 1)}</a></li>
-                    <li className='container__menu-item'><a href='#info' className='menu-item'>{textSelector(language, 2)}</a></li>
-                    <li className='container__menu-item'><a href={resumeLink} className='menu-item' target="_blank" rel='noreferrer'>{textSelector(language, 3)}</a></li>
-                </ul>
-            </nav>
-        </header>
+        <DrawerAppBar props={pages} setLanguage={setLanguage} language={language} />
     );
 }
 
