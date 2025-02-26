@@ -87,13 +87,14 @@ jobs:
       - name: configure git safe directory
         run: git config --global --add safe.directory /github/workspace
       - name: clone destination repo
-        run: |
-          git clone https://joaolucasmm:${{ secrets.PROD_TOKEN }}@github.com/joaolucasmm/portfolio.git
-          cd portfolio
+        run: git clone https://joaolucasmm:${{ secrets.PROD_TOKEN }}@github.com/joaolucasmm/portfolio.git /tmp/portfolio
       - name: copy files
         run: |
+          rsync -av --exclude='.git' ./ /tmp/portfolio/
+          cd /tmp/portfolio
           git add .
           git commit -m "Update from CI"
       - name: push to another repository
         run: |
+          cd /tmp/portfolio
           git push origin main
