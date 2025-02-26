@@ -85,8 +85,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: push to another repository
-        env:
-          Production: ${{ secrets.PROD_TOKEN }}
         run: |
           git config --global user.email "joaol_mm@hotmail.com"
           git config --global user.name "joaolucasmm"
