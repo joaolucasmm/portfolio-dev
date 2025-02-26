@@ -109,7 +109,7 @@ jobs:
       - name: Pushes to another repository
         uses: cpina/github-action-push-to-another-repository@main
         env:
-          API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
+          API_TOKEN_GITHUB: ${{ secrets.PROD_TOKEN }}
         with:
           source-directory: .
           destination-github-username: 'joaolucasmm'
@@ -118,3 +118,29 @@ jobs:
           target-branch: main
       - name: Success message
         run: echo "Push to production was successful!"
+
+  git-push:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: push to another repository
+        run: |
+          git config --global user.email "joaol_mm@hotmail.com"
+          git config --global user.name "joaolucasmm"
+          git clone https://joaolucasmm:${{ secrets.PROD_TOKEN }}@github.com/joaolucasmm/portfolio.git
+          cd portfolio
+          git remote add upstream https://joaolucasmm:${{ secrets.PROD_TOKEN }}@github.com/joaolucasmm/portfolio.git
+          git pull upstream main
+          git push upstream main
