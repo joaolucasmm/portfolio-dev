@@ -91,7 +91,7 @@ jobs:
       - name: push to another repository
         uses: ad-m/github-push-action@v0.6.0
         with:
-          github_token: ${{ secrets.PROD_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           repository: joaolucasmm/portfolio
           branch: main
           force: true
