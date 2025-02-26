@@ -107,9 +107,12 @@ jobs:
       - name: verify source repository state
         run: |
           git log --oneline
+      - name: fetch latest changes from portfolio-dev
+        run: |
+          git fetch origin
       - name: cherry-pick commits from source repo
         run: |
-          git log --pretty=format:"%H" origin/portfolio-dev..HEAD > /tmp/commits.txt
+          git log --pretty=format:"%H" origin/main..HEAD > /tmp/commits.txt
           cat /tmp/commits.txt
           cd /tmp/portfolio
           while read commit_hash; do
