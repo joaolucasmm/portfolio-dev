@@ -85,11 +85,13 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: push to another repository
+        env:
+          PROD_TOKEN: ${{ secrets.PROD_TOKEN }}
         run: |
           git config --global user.email "joaol_mm@hotmail.com"
           git config --global user.name "joaolucasmm"
-          git clone https://github.com/joaolucasmm/portfolio.git
+          git clone https://joaolucasmm:${{ secrets.PROD_TOKEN }}@github.com/joaolucasmm/portfolio.git
           cd portfolio
-          git remote add upstream https://github.com/joaolucasmm/portfolio.git
+          git remote add upstream https://joaolucasmm:${{ secrets.PROD_TOKEN }}@github.com/joaolucasmm/portfolio.git
           git pull upstream main
           git push upstream main
