@@ -107,10 +107,15 @@ jobs:
       - name: cherry-pick commits from source repo
         run: |
           git log --pretty=format:"%H" origin/main..HEAD > /tmp/commits.txt
+          cat /tmp/commits.txt
           cd /tmp/portfolio
           while read commit_hash; do
             git cherry-pick $commit_hash || git cherry-pick --skip
           done < /tmp/commits.txt
+      - name: verify repository state
+        run: |
+          cd /tmp/portfolio
+          git log --oneline
       - name: push to another repository
         run: |
           cd /tmp/portfolio
