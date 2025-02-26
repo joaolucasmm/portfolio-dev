@@ -68,57 +68,6 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  send-to-prod:
-    needs: test
-    if: github.ref == 'refs/heads/main'
-
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: checkout repo
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: configure git safe directory
-        run: git config --global --add safe.directory /github/workspace
-      - name: push to another repository
-        uses: github-actions-x/commit@v2.6
-        with:
-          github_token: ${{ secrets.PROD_TOKEN }}
-          repository: joaolucasmm/portfolio
-          branch: main
-          force: true
-
-  sent-test:
-    needs: test
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Debug secrets
-        run: echo "PROD_TOKEN is ${{ secrets.PROD_TOKEN }}"
-      - name: Pushes to another repository
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.PROD_TOKEN }}
-        with:
-          source-directory: .
-          destination-github-username: 'joaolucasmm'
-          destination-repository-name: 'portfolio'
-          user-email: joaol_mm@hotmail.com
-          target-branch: main
-      - name: Success message
-        run: echo "Push to production was successful!"
-
   git-push:
     needs: test
     if: github.ref == 'refs/heads/main'
@@ -135,12 +84,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: push to another repository
+      - name: configure git safe directory
+        run: git config --global --add safe.directory /github/workspace
+      - name: clone destination repo
         run: |
-          git config --global user.email "joaol_mm@hotmail.com"
-          git config --global user.name "joaolucasmm"
           git clone https://joaolucasmm:${{ secrets.PROD_TOKEN }}@github.com/joaolucasmm/portfolio.git
           cd portfolio
-          git remote add upstream https://joaolucasmm:${{ secrets.PROD_TOKEN }}@github.com/joaolucasmm/portfolio.git
-          git pull upstream main
-          git push upstream main
+      - name: copy files
+        run: |
+          cp -r ../* .
+          git add .
+          git commit -m "Update from CI"
+      - name: push to another repository
+        run: |
+          git push origin main
