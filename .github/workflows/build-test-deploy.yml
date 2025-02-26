@@ -95,6 +95,7 @@ jobs:
           git config --global user.email "joaol_mm@hotmail.com"
           git config --global user.name "joaolucasmm"
           git add .
+          git restore --staged ./.github/workflows/build-test-deploy.yml
           git commit -m "Update from CI"
       - name: push to another repository
         run: |
