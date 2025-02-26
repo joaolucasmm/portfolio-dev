@@ -116,6 +116,9 @@ jobs:
           cat /tmp/commits.txt
           cd /tmp/portfolio
           while read commit_hash; do
+            cd /github/workspace
+            git cherry-pick $commit_hash || git cherry-pick --skip
+            cd /tmp/portfolio
             git cherry-pick $commit_hash || git cherry-pick --skip
           done < /tmp/commits.txt
       - name: verify destination repository state
