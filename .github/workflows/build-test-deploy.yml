@@ -30,8 +30,47 @@ jobs:
       - run: npm install
       - run: npm test
 
-  deploy:
+  deploy-dev:
     needs: test
+    if: github.ref == 'refs/heads/Development'
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    environment:
+      name: Development
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: use node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - name: configure github pages
+        uses: actions/configure-pages@v4
+        with:
+          static_site_generator: next
+      - run: npm install
+      - run: npm run build
+      - name: upload artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './build/'
+      - name: deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  deploy-prod:
+    needs: test
+    if: github.ref == 'refs/heads/main'
 
     permissions:
       contents: write
@@ -63,6 +102,12 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: './build/'
-      - name: deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: push to another repository
+        run: |
+          git config --global user.email "joaol_mm@hotmail.com"
+          git config --global user.name "joaolucasmm"
+          git clone https://github.com/joaolucasmm/portfolio.git
+          cd portfolio
+          git remote add upstream https://github.com/joaolucasmm/portfolio.git
+          git pull upstream main
+          git push upstream main
