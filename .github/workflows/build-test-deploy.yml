@@ -92,6 +92,8 @@ jobs:
         run: |
           rsync -av --exclude='.git' ./ /tmp/portfolio/
           cd /tmp/portfolio
+          git config --global user.email "joaol_mm@hotmail.com"
+          git config --global user.name "joaolucasmm"
           git add .
           git commit -m "Update from CI"
       - name: push to another repository
