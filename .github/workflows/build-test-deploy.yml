@@ -102,9 +102,10 @@ jobs:
     needs: test
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    container: ubuntu
     steps:
       - uses: actions/checkout@v2
+      - name: Debug secrets
+        run: echo "PROD_TOKEN is ${{ secrets.PROD_TOKEN }}"
       - name: Pushes to another repository
         uses: cpina/github-action-push-to-another-repository@main
         env:
