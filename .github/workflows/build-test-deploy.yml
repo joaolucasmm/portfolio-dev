@@ -68,7 +68,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  deploy-prod:
+  send-to-prod:
     needs: test
     if: github.ref == 'refs/heads/main'
 
@@ -76,6 +76,10 @@ jobs:
       contents: write
       pages: write
       id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     
     runs-on: ubuntu-latest
     
@@ -83,7 +87,7 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.PROD_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: push to another repository
         uses: ad-m/github-push-action@v0.6.0
         with:
@@ -91,3 +95,4 @@ jobs:
           repository: joaolucasmm/portfolio
           branch: main
           force: true
+
