@@ -92,7 +92,6 @@ jobs:
           cd portfolio
       - name: copy files
         run: |
-          cp -r ../* .
           git add .
           git commit -m "Update from CI"
       - name: push to another repository
