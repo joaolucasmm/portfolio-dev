@@ -112,8 +112,8 @@ jobs:
           git fetch origin
       - name: cherry-pick commits from source repo
         run: |
-          cd /github/workspace
           git fetch origin
+          git log --pretty=format:"%H" origin/main..HEAD
           git log --pretty=format:"%H" origin/main..HEAD > /tmp/commits.txt
           cat /tmp/commits.txt
           cd /tmp/portfolio
