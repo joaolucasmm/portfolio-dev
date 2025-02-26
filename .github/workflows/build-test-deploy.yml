@@ -104,6 +104,9 @@ jobs:
           else
             git commit -m "Update from CI"
           fi
+      - name: verify source repository state
+        run: |
+          git log --oneline
       - name: cherry-pick commits from source repo
         run: |
           git log --pretty=format:"%H" origin/main..HEAD > /tmp/commits.txt
@@ -112,7 +115,7 @@ jobs:
           while read commit_hash; do
             git cherry-pick $commit_hash || git cherry-pick --skip
           done < /tmp/commits.txt
-      - name: verify repository state
+      - name: verify destination repository state
         run: |
           cd /tmp/portfolio
           git log --oneline
