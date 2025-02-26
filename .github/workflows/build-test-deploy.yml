@@ -106,7 +106,6 @@ jobs:
           fi
       - name: cherry-pick commits from source repo
         run: |
-          cd /github/workspace
           git log --pretty=format:"%H" origin/main..HEAD > /tmp/commits.txt
           cd /tmp/portfolio
           while read commit_hash; do
