@@ -83,13 +83,11 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PROD_TOKEN }}
       - name: push to another repository
-        run: |
-          git config --global user.email "joaol_mm@hotmail.com"
-          git config --global user.name "joaolucasmm"
-          git clone https://joaolucasmm:${{ secrets.PROD_TOKEN }}@github.com/joaolucasmm/portfolio.git
-          cd portfolio
-          git remote add upstream https://joaolucasmm:${{ secrets.PROD_TOKEN }}@github.com/joaolucasmm/portfolio.git
-          git pull upstream main
-          git push upstream main
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.PROD_TOKEN }}
+          repository: joaolucasmm/portfolio
+          branch: main
+          force: true
