@@ -96,7 +96,14 @@ jobs:
           git config --global user.name "joaolucasmm"
           git add .
           git restore --staged ./.github/workflows/build-test-deploy.yml
-          git commit -m "Update from CI"
+      - name: commit changes if any
+        run: |
+          cd /tmp/portfolio
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update from CI"
+          fi
       - name: push to another repository
         run: |
           cd /tmp/portfolio
