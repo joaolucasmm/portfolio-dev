@@ -1,52 +1,110 @@
 @import '../UI/variables.scss';
 
+
 .container-banner {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+
     .banner {
-        background: $blue;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        width: 75%;
-        height: 50%;
-        margin-top: 30px;
-        opacity: 1;
-        justify-content: space-evenly;
-        border-bottom-left-radius: 250px;
-        border-top-right-radius: 250px;
-        border-bottom-right-radius: 80px;
-        border-top-left-radius: 80px;
+
         .banner__text {
+            display: inline-block;
+            flex-direction: column;
             align-items: center;
+            text-align: justify;
             margin-top: auto;
             margin-bottom: auto;
             height: max-content;
-            width: 40%;
-            .banner__bio {
-                justify-content: center;
-                text-align: justify;
+
+            .banner__title {
+                letter-spacing: 5px;
+                font-family: monospace;
+                border-right: 5px solid;
+                width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                animation: 
+                    typing 2s steps(22),
+                    cursor .4s step-end infinite alternate;
+            }
+            @keyframes cursor {
+                50% { border-color: transparent;}
+            }
+            @keyframes typing {
+                from { width: 0;}
             }
         }
-        .banner__imagem {
-            height: 260px;
-            border-radius: 130px;
-            border: 3px solid black;
-        }
+    }
+
+    .banner__imagem {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        height: 260px;
+        border-radius: 130px;
+        border: 3px solid black;
     }
 }
+
+// .container-banner {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     height: 100vh;
+
+//     .banner {
+//         background: $blue;
+//         display: flex;
+//         align-items: center;
+//         width: 75%;
+//         height: 50%;
+//         margin-top: 30px;
+//         opacity: 1;
+//         justify-content: space-evenly;
+//         border-bottom-left-radius: 250px;
+//         border-top-right-radius: 250px;
+//         border-bottom-right-radius: 80px;
+//         border-top-left-radius: 80px;
+
+//         .banner__text {
+//             align-items: center;
+//             margin-top: auto;
+//             margin-bottom: auto;
+//             height: max-content;
+//             width: 40%;
+
+//             .banner__bio {
+//                 justify-content: center;
+//                 text-align: justify;
+//             }
+//         }
+
+//         .banner__imagem {
+//             height: 260px;
+//             border-radius: 130px;
+//             border: 3px solid black;
+//         }
+//     }
+// }
 
 @media (max-width: $breakpoint-tablet) {
     .container-banner {
         height: 145vh;
+
         .banner {
             flex-direction: column-reverse;
             height: 90%;
+
             .banner__imagem {
                 height: 240px;
                 margin-top: 50px;
             }
+
             .banner__text {
                 margin-top: 0;
                 margin-bottom: auto;
