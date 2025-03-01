@@ -4,6 +4,14 @@ This is the repository used as my professional website portfolio. The goal of th
 
 As my skills evolve, so will this repository and my end goals is to make this website look as professional as it can be, adding more functionalities, making the UI more appealing and keeping the usuability very straight-forward. 
 
+There are two stages for this project in two diferents repositories:
+
+**Development:** https://github.com/joaolucasmm/portfolio-dev/
+
+**Production:** https://github.com/joaolucasmm/portfolio/
+
+Please make sure you are in the correct directory before making any changes.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

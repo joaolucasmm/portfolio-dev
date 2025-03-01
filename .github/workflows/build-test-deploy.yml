@@ -30,7 +30,7 @@ jobs:
       - run: npm install
       - run: npm test
 
-  deploy:
+  deploy-dev:
     needs: test
     if: github.ref == 'refs/heads/Development'
 
@@ -67,3 +67,63 @@ jobs:
       - name: deploy
         id: deployment
         uses: actions/deploy-pages@v4
+
+  git-push:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: configure git safe directory
+        run: git config --global --add safe.directory /github/workspace
+      - name: clone destination repo
+        run: git clone https://joaolucasmm:${{ secrets.PROD_TOKEN }}@github.com/joaolucasmm/portfolio.git /tmp/portfolio
+      - name: copy files
+        run: |
+          rsync -av --exclude='.git' ./ /tmp/portfolio/
+          cd /tmp/portfolio
+          git config --global user.email "joaol_mm@hotmail.com"
+          git config --global user.name "joaolucasmm"
+          git add .
+          git restore --staged ./.github/workflows/build-test-deploy.yml
+      - name: commit changes if any
+        run: |
+          cd /tmp/portfolio
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update from CI"
+          fi
+      - name: verify source repository state
+        run: |
+          git log --oneline
+      - name: fetch latest changes from portfolio-dev
+        run: |
+          git fetch --all
+      - name: cherry-pick commits from source repo
+        run: |
+          git fetch --all
+          git log --pretty=format:"%H" origin/main..HEAD > /tmp/commits.txt
+          cat /tmp/commits.txt
+          cd /tmp/portfolio
+          while IFS= read -r commit_hash; do
+            git cherry-pick $commit_hash || git cherry-pick --skip
+          done < /tmp/commits.txt
+      - name: verify destination repository state
+        run: |
+          cd /tmp/portfolio
+          git log --oneline
+      - name: push to another repository
+        run: |
+          cd /tmp/portfolio
+          git push origin main
