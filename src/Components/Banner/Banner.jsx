@@ -12,7 +12,7 @@ function Banner({ language }) {
                     <h1 className='banner__title'>
                         <Typewriter
                         options={{
-                            strings: [textSelector(language, 0)],
+                            strings: [textSelector(language, 0), "teste"],
                             autoStart: true,
                             loop: true,
                             pauseFor: 5000
