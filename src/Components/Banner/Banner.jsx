@@ -1,7 +1,7 @@
 import React from 'react';
 import imagem from '../../Assets/Images/avatar.jpg';
 import textSelector from './texts';
-import { Box Card, CardContent, createTheme, Grid2 as Grid, ListItem as Item, Paper, ThemeProvider } from '@mui/material';
+import { Box, Card, CardContent, createTheme, Grid2 as Grid, ListItem as Item, Paper, ThemeProvider } from '@mui/material';
 import Typewriter from 'typewriter-effect';
 import variables from '../UI/variables.scss';
 
