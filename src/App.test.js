@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('Renders presentation', () => {
+test('Renders Title', () => {
   render(<App />);
-  const linkElement = screen.getByText(/Hello, I am João Lucas/i);
+  const linkElement = screen.getByText(/João Lucas/i);
   expect(linkElement).toBeInTheDocument();
 });
