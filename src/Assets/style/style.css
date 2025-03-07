@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+:export {
+  breakpointTablet: 768px;
+}
+
 .header-container {
   display: flex;
   flex-direction: column;
@@ -14,7 +18,7 @@
   margin-bottom: 10px;
   text-align: center;
 }
-@media (min-width: 600px) {
+@media (min-width: 768px) {
   .header-title {
     margin-bottom: 10px;
     text-align: center;
@@ -28,7 +32,7 @@
   align-items: center;
   width: 100%;
 }
-@media (min-width: 600px) {
+@media (min-width: 768px) {
   .header-toolbar {
     flex-direction: column;
     justify-content: center;
@@ -40,7 +44,7 @@
   flex-direction: column;
   align-items: center;
 }
-@media (min-width: 600px) {
+@media (min-width: 768px) {
   .header-buttons {
     display: flex;
     flex-direction: row;
@@ -52,18 +56,30 @@
 .header-buttons button {
   margin-bottom: 10px;
 }
-@media (min-width: 600px) {
+@media (min-width: 768px) {
   .header-buttons button {
     margin-bottom: 0;
     margin-left: 10px;
   }
 }
 
+:export {
+  breakpointTablet: 768px;
+}
+
+.banner__card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 65vh;
+  margin-top: 10%;
+}
+
 .container-banner {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 400px;
 }
 .container-banner .banner {
   display: flex;
@@ -75,8 +91,7 @@
   flex-direction: column;
   align-items: center;
   text-align: justify;
-  margin-top: auto;
-  margin-bottom: auto;
+  margin-top: 10%;
   height: -moz-max-content;
   height: max-content;
 }
@@ -84,6 +99,10 @@
   letter-spacing: 5px;
   font-family: monospace;
   width: 100%;
+  height: 100px;
+}
+.container-banner .banner .banner__text .banner__subtitle {
+  margin-top: 0;
 }
 .container-banner .banner__imagem {
   display: block;
@@ -95,23 +114,34 @@
 }
 
 @media (max-width: 768px) {
+  .banner__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 140vh;
+  }
   .container-banner {
-    height: 145vh;
+    display: flex;
+    flex-direction: column;
+    height: 600px;
   }
-  .container-banner .banner {
-    flex-direction: column-reverse;
-    height: 90%;
-  }
-  .container-banner .banner .banner__imagem {
-    height: 240px;
-    margin-top: 50px;
-  }
-  .container-banner .banner .banner__text {
+  .container-banner .banner__text {
     margin-top: 0;
     margin-bottom: auto;
-    width: 80%;
+  }
+  .container-banner .banner__container-image {
+    flex-direction: column-reverse;
+    min-width: 260px;
+  }
+  .container-banner .banner__container-image .banner__imagem {
+    height: 240px;
   }
 }
+:export {
+  breakpointTablet: 768px;
+}
+
 .container-skill {
   display: flex;
   justify-content: center;
@@ -182,6 +212,10 @@
     width: 4rem;
   }
 }
+:export {
+  breakpointTablet: 768px;
+}
+
 .container-projects {
   display: flex;
   justify-content: center;
@@ -225,6 +259,10 @@
     flex-direction: column;
   }
 }
+:export {
+  breakpointTablet: 768px;
+}
+
 .container-contact {
   display: flex;
   justify-content: center;
@@ -282,8 +320,16 @@
   font-size: 46px;
 }
 
+:export {
+  breakpointTablet: 768px;
+}
+
 footer {
   background: #808080;
+}
+
+:export {
+  breakpointTablet: 768px;
 }
 
 html {

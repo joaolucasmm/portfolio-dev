@@ -1,11 +1,19 @@
 @import '../UI/variables.scss';
 
+.banner__card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65vh;
+    margin-top: 10%;
+}
+
 
 .container-banner {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 400px;
 
     .banner {
         display: flex;
@@ -17,15 +25,20 @@
             flex-direction: column;
             align-items: center;
             text-align: justify;
-            margin-top: auto;
-            margin-bottom: auto;
+            margin-top: 10%;
             height: max-content;
 
             .banner__title {
                 letter-spacing: 5px;
                 font-family: monospace;
                 width: 100%;
+                height: 100px; // Adicionar esta linha para definir uma altura fixa
             }
+
+            .banner__subtitle {
+                margin-top: 0; // Garantir que não haja margem superior
+            }
+
         }
     }
 
@@ -39,64 +52,31 @@
     }
 }
 
-// .container-banner {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     height: 100vh;
-
-//     .banner {
-//         background: $blue;
-//         display: flex;
-//         align-items: center;
-//         width: 75%;
-//         height: 50%;
-//         margin-top: 30px;
-//         opacity: 1;
-//         justify-content: space-evenly;
-//         border-bottom-left-radius: 250px;
-//         border-top-right-radius: 250px;
-//         border-bottom-right-radius: 80px;
-//         border-top-left-radius: 80px;
-
-//         .banner__text {
-//             align-items: center;
-//             margin-top: auto;
-//             margin-bottom: auto;
-//             height: max-content;
-//             width: 40%;
-
-//             .banner__bio {
-//                 justify-content: center;
-//                 text-align: justify;
-//             }
-//         }
-
-//         .banner__imagem {
-//             height: 260px;
-//             border-radius: 130px;
-//             border: 3px solid black;
-//         }
-//     }
-// }
-
 @media (max-width: $breakpoint-tablet) {
-    .container-banner {
-        height: 145vh;
+    .banner__card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 140vh;
+    }
 
-        .banner {
+    .container-banner {
+        display: flex;
+        flex-direction: column;
+        height: 600px;
+
+        .banner__text {
+            margin-top: 0;
+            margin-bottom: auto;
+        }
+
+        .banner__container-image {
             flex-direction: column-reverse;
-            height: 90%;
+            min-width: 260px;
 
             .banner__imagem {
                 height: 240px;
-                margin-top: 50px;
-            }
-
-            .banner__text {
-                margin-top: 0;
-                margin-bottom: auto;
-                width: 80%;
             }
         }
     }
