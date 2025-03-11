@@ -7,3 +7,7 @@ $grey: #808080;
 $white: #ffffff52;
 
 $breakpoint-tablet: 768px;
+
+:export {
+  breakpointTablet: $breakpoint-tablet;
+}
