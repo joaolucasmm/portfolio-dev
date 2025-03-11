@@ -6,22 +6,19 @@
     align-items: center;
     height: 100vh;
     .skill {
-        height: max-content;
-        background-color: $blue;
-        border-radius: 30px;
-        width: 80%;
+        align-items: center;
+        width: 1000px;
+        height: 570px;
         .skill-list {
-            
             display: flex;
             margin: auto;
-            width: 80%;
+            width: 60%;
             height: 16rem;
             justify-content: space-evenly;
             text-align: center;
-            padding: 0 15px 0 15px;
             .skill-list__span {
                 text-align: center;
-                padding-top: 2rem;
+                width: 150px;
                 .skill-list__text {
                     display: flex;
                     flex-direction: column;
@@ -32,7 +29,6 @@
                     padding-bottom: 1rem;
                     padding-left: 2rem;
                     padding-right: 2rem;
-                    background: $pink;
                     border-radius: 16px;
                     border: 2px solid black;
                     margin-bottom: 1rem;
@@ -49,21 +45,23 @@
 
 @media (max-width: $breakpoint-tablet) {
     .container-skill {
-        height: 130vh;
         .skill {
-            height: 80%;
+            width: 500px;
+            height: 570px;            
             .skill__title {
                 margin-bottom: 1rem;
             }
             .skill-list {
-                flex-direction: column;
+                flex-direction: row;
                 align-items: center;
                 justify-content: center;
                 height: 90%;
+                width: 100%;
                 .skill-list__span {
+                    width: 8rem;
                     padding-top: 0;
                     .skill-list__text {
-                        width: 4rem;
+                        // width: 8rem;
                     }
                 }
             }
