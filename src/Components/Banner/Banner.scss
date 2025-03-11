@@ -1,6 +1,7 @@
 @import '../UI/variables.scss';
 
 .banner__card {
+    font-family: monospace;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,14 +59,15 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 120vh;
+        height: 130vh;
         padding-top: 20rem;
+        margin-top: 5%;
     }
 
     .container-banner {
         display: flex;
         flex-direction: column;
-        height: 600px;
+        height: 850px;
 
         .banner__text {
             margin-top: 0;
