@@ -10,6 +10,7 @@ import Footer from './Components/Footer/Footer';
 import Projects from './Components/Projects/Projects';
 import Info from './Components/Info/Info';
 import Return from './Components/Return/Return';
+import Experience from './Components/Experience/Experience';
 
 function App() {
 	const [language, setLanguage] = useState("english");
@@ -20,10 +21,11 @@ function App() {
 					<Header language={language} setLanguage={setLanguage} />
 				</div>
 			</Router>
-			<Banner language={language} />
-			<Skills language={language} />
-			<Projects language={language} />
-			<Info language={language} />
+			<Banner language={language}  styleSection='section'/>
+			<Skills language={language}  styleSection='section'/>
+			<Projects language={language}  styleSection='section'/>
+			<Experience language={language} styleSection='section section_secondaryColor'/>
+			<Info language={language}  styleSection='section'/>
 			<Return />
 			<Footer />
 		</div>
