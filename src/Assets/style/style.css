@@ -320,6 +320,36 @@
   font-size: 46px;
 }
 
+.experience_container {
+  max-width: 1140px;
+  margin: auto;
+}
+.experience_container .experience_content {
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+}
+.experience_container .experience_content .experience_list {
+  background-color: transparent;
+}
+.experience_container .experience_content .experience_display {
+  background-color: transparent;
+}
+.experience_container .experience_content .experience_display .card {
+  background-color: transparent;
+}
+.experience_container .experience_content .experience_display .card .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.experience_container .experience_content .experience_display .card .company {
+  display: flex;
+}
+.experience_container .experience_content .experience_display .card .description {
+  text-align: justify;
+}
+
 :export {
   breakpointTablet: 768px;
 }
