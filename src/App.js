@@ -11,6 +11,7 @@ import Projects from './Components/Projects/Projects';
 import Info from './Components/Info/Info';
 import Return from './Components/Return/Return';
 import Experience from './Components/Experience/Experience';
+import Education from './Components/Education/Education';
 
 function App() {
 	const [language, setLanguage] = useState("english");
@@ -25,6 +26,7 @@ function App() {
 			<Skills language={language}  styleSection='section'/>
 			<Projects language={language}  styleSection='section'/>
 			<Experience language={language} styleSection='section section_secondaryColor'/>
+			<Education language={language} styleSection='section'/>
 			<Info language={language}  styleSection='section'/>
 			<Return />
 			<Footer />

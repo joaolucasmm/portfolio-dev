@@ -350,6 +350,36 @@
   text-align: justify;
 }
 
+.education_container {
+  max-width: 1140px;
+  margin: auto;
+}
+.education_container .education_content {
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+}
+.education_container .education_content .education_list {
+  background-color: transparent;
+}
+.education_container .education_content .education_display {
+  background-color: transparent;
+}
+.education_container .education_content .education_display .card {
+  background-color: transparent;
+}
+.education_container .education_content .education_display .card .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.education_container .education_content .education_display .card .company {
+  display: flex;
+}
+.education_container .education_content .education_display .card .description {
+  text-align: justify;
+}
+
 :export {
   breakpointTablet: 768px;
 }
