@@ -13,6 +13,7 @@ import Return from './Components/Return/Return';
 import Experience from './Components/Experience/Experience';
 import Education from './Components/Education/Education';
 import Services from './Components/Services/Services';
+import Hero from './Components/Hero/Hero';
 
 function App() {
 	const [language, setLanguage] = useState("english");
@@ -23,6 +24,7 @@ function App() {
 					<Header language={language} setLanguage={setLanguage} />
 				</div>
 			</Router>
+			<Hero language={language} styleSection='section'/>
 			<Banner language={language}  styleSection='section'/>
 			<Skills language={language}  styleSection='section section_secondaryColor'/>
 			<Projects language={language}  styleSection='section'/>
