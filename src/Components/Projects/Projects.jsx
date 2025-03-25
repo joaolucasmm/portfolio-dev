@@ -1,51 +1,91 @@
-import React from 'react';
-import petshop from '../../Assets/Images/petshop.png';
-import frutaEfruto from '../../Assets/Images/fruta-e-fruto.png';
-import myLinks from '../../Assets/Images/my-links.png';
-import pokedex from '../../Assets/Images/pokedex.png';
-import tictactoe from '../../Assets/Images/screenshotTictactoe.png';
-import textSelector from './texts';
+import { useState } from "react";
+import petshop from "../../Assets/Images/petshop.png";
+import frutaEfruto from "../../Assets/Images/fruta-e-fruto.png";
+import myLinks from "../../Assets/Images/my-links.png";
+import pokedex from "../../Assets/Images/pokedex.png";
+import tictactoe from "../../Assets/Images/screenshotTictactoe.png";
+import textSelector from "./texts";
+import Dialog from "./Dialog/Dialog";
+import ProjectCard from "./ProjectCard/ProjectCard";
 
-function Projects({ language }) {
+function Projects({ styleSection, language }) {
+    const [open, setOpen] = useState(false);
+    const [projectIndex, setProjectIndex] = useState(0);
+
+    const handleClickOpen = (item) => {
+        setOpen(true);
+        setProjectIndex(item);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const projects = [
+        {
+            title: textSelector(language, 1),
+            image: petshop,
+            description: textSelector(language, 6),
+        },
+        {
+            title: textSelector(language, 4),
+            image: frutaEfruto,
+            description: textSelector(language, 7),
+        },
+        {
+            title: textSelector(language, 7),
+            image: myLinks,
+            description: textSelector(language, 8),
+        },
+        {
+            title: textSelector(language, 10),
+            image: pokedex,
+            description: textSelector(language, 9),
+        },
+        {
+            title: textSelector(language, 13),
+            image: tictactoe,
+            description: textSelector(language, 10),
+        },
+    ];
+
     return (
-        <div id='projects' className='container-projects'>
-            <div className='projects'>
-                <h1 className='projects__title'>{textSelector(language, 0)}</h1>
-                <div className='projects__container'>
-                    <div className='project'>
-                        <h2>Petshop</h2>
-                        <a href='https://github.com/joaolucasmm/petshop'>
-                            <img src={petshop} className='project__image' alt='Print do blog de pets'/></a>    
-                        <p>{textSelector(language, 1)}</p>
-                    </div>
-                    <div className='project'>
-                        <h2>Fruta & Fruto</h2>
-                        <a href='https://github.com/joaolucasmm/bootstrap-study'>
-                            <img src={frutaEfruto} className='project__image' alt='Print do blog de receitas'/></a>
-                        <p>{textSelector(language, 2)}</p>
-                    </div>
-                    <div className='project'>
-                        <h2><a className='project__link' href='https://joaolucasmm.github.io/my-links/'>My Links</a></h2>
-                        <a href='https://github.com/joaolucasmm/my-links'>
-                            <img src={myLinks} className='project__image' alt='Print da LinkTree'/></a>
-                        <p>{textSelector(language, 3)}</p>
-                    </div>
-                    
-                </div>
-                <div className='projects__container'>
-                    <div className='project'>
-                        <h2><a className='project__link' href='https://joaolucasmm.github.io/Pokedex/'>Pokédex</a></h2>
-                        <a href='https://github.com/joaolucasmm/Pokedex'>
-                            <img src={pokedex} className='project__image' alt='Print da Pokedex'/></a>
-                        <p>{textSelector(language, 4)}</p>
-                    </div>
-                    <div className='project'>
-                        <h2><a className='project__link' href='https://joaolucasmm.github.io/TicTacToe/'>TicTacToe</a></h2>
-                        <a href='https://github.com/joaolucasmm/TicTacToe'>
-                            <img src={tictactoe} className='project__image' alt='Print do TicTacToe'/></a>
-                        <p>{textSelector(language, 5)}</p>
-                    </div>
-                </div>
+        <div className={styleSection}>
+            <div className="container_projects">
+                <h1 className="projects__title">{textSelector(language, 0)}</h1>
+                <Dialog
+                    open={open}
+                    handleClose={handleClose}
+                    projectIndex={projectIndex}
+                    title={textSelector(language, projectIndex * 3 + 1)}
+                    image={
+                        projectIndex === 0
+                            ? petshop
+                            : projectIndex === 1
+                            ? frutaEfruto
+                            : projectIndex === 2
+                            ? myLinks
+                            : projectIndex === 3
+                            ? pokedex
+                            : tictactoe
+                    }
+                    fullDescription={textSelector(
+                        language,
+                        projectIndex * 3 + 3
+                    )}
+                />
+                <span className="project_items">
+                    {projects.map((project, index) => (
+                        <ProjectCard
+                            key={index}
+                            title={project.title}
+                            image={project.image}
+                            language={language}
+                            handleClickOpen={() => handleClickOpen(index)}
+                            description={project.description}
+                        />
+                    ))}
+                </span>
             </div>
         </div>
     );
