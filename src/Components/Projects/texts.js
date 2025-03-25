@@ -11,11 +11,21 @@ const textPortuguese = [
 
 const textEnglish = [
     "Projects",
+    "Petshop",
     "Blog page project about petshop using Single Page Application (SPA) concepts, utilizing API for post calls.",
+    "FullDescription",
+    "Fruta e Fruto",
     "Recipe blog landing page project using bootstrap for layout design.",
+    "FullDescription",
+    "My Links",
     "Page with links to all my online profiles.",
+    "FullDescription",
+    "Pokedex",
     "Functional Pokedex made with API.",
-    "TicTacToe game made in React."
+    "FullDescription",
+    "TicTacToe",
+    "TicTacToe game made in React.",
+    "FullDescription"
 ];
 
 function textSelector(language, textPosition) {
