@@ -1,47 +1,41 @@
-@import '../UI/variables';
+@import "../UI/variables";
 
-.container-skill {
+.container_skill {
     font-family: monospace;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    .skill {
-        align-items: center;
-        width: 1000px;
-        height: 570px;
-        .skill__title {
-            padding-top: 2rem;
-        }
-        .skill-list {
-            display: flex;
-            margin: auto;
-            width: 60%;
-            height: 16rem;
-            justify-content: space-evenly;
+    width: 70vw;
+    .skill__title {
+        padding-top: 2rem;
+    }
+    .skill-list {
+        display: flex;
+        margin: auto;
+        height: 16rem;
+        justify-content: space-evenly;
+        text-align: center;
+        .skill-list__span {
             text-align: center;
-            .skill-list__span {
-                text-align: center;
-                width: 150px;
-                .skill-list__text {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: 1rem;
-                    padding-top: 1.2rem;
-                    padding-bottom: 1.2rem;
-                    padding-left: 2rem;
-                    padding-right: 2rem;
-                    border-radius: 16px;
-                    border: 2px solid black;
-                    margin-bottom: 1rem;
-                    list-style-type: none;
-                    transition: transform .2s;
-                }
-                .skill-list__text:hover {
-                    transform: scale(1.2);
-                }
+            width: 150px;
+            .skill-list__text {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-size: 1rem;
+                padding-top: 1.2rem;
+                padding-bottom: 1.2rem;
+                padding-left: 2rem;
+                padding-right: 2rem;
+                border-radius: 16px;
+                border: 2px solid black;
+                list-style-type: none;
+                transition: transform 0.2s;
+            }
+            .skill-list__text:hover {
+                transform: scale(1.2);
             }
         }
     }
@@ -51,7 +45,7 @@
     .container-skill {
         .skill {
             width: 500px;
-            height: 570px;            
+            height: 570px;
             .skill__title {
                 margin-bottom: 1rem;
             }
