@@ -284,24 +284,25 @@
   breakpointTablet: 768px;
 }
 
-.container-contact {
+.info_container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
-.container-contact .contact {
-  background: rgba(63, 104, 136, 0.8901960784);
-  border-radius: 30px;
-  width: 80%;
-}
-.container-contact .contact .container-item {
+.info_container .info_list {
   display: inline-block;
-  width: 30%;
-  border-radius: 30px;
   margin-bottom: 2rem;
 }
-.container-contact .contact .container-item .contact__item {
+.info_container .info_list .info_button {
+  transition: transform 0.2s;
+}
+.info_container .info_list .info_button:hover {
+  color: blue;
+  transform: scale(1.2);
+}
+.info_container .info_list .contact__item {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -309,11 +310,11 @@
   padding: 0.8rem;
   color: black;
 }
-.container-contact .contact .container-item .contact__item .contact__text {
+.info_container .info_list .contact__item .contact__text {
   padding-left: 1.2rem;
   color: black;
 }
-.container-contact .contact .container-item .contact__item .contact__text:visited {
+.info_container .info_list .contact__item .contact__text:visited {
   color: black;
 }
 

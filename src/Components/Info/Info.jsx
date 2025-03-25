@@ -50,9 +50,9 @@ function Info({ styleSection, language }) {
                         <List>
                             {[textSelector(language, 1), textSelector(language, 2), textSelector(language, 3), textSelector(language, 4)].map((text, index) => (
                                 <Fragment key={index}>
-                                    <ListItem disablePadding>
+                                    <ListItem disablePadding className='info_button'>
                                         {card(index)}
-                                        <ListItemButton
+                                        <ListItemButton 
                                             selected={selectedIndex === index}
                                             onMouseOver={(event) => handleListItemHover(event, index)}
                                             onClick={(event) => handleListItemClick(event, index)}
