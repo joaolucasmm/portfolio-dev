@@ -32,7 +32,6 @@ function App() {
 			<Education language={language} styleSection='section'/>
 			<Info language={language}  styleSection='section section_secondaryColor'/>
 			<Services language={language} styleSection='section'/>
-			<Return />
 			<Footer />
 		</div>
 	);
