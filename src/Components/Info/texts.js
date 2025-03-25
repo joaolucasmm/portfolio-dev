@@ -2,7 +2,7 @@ import sendMessage from "../../Functions/sendMessage";
 
 const textPortuguese = [
     "Contato",
-    "GitHub",
+    "GitHub/@joaolucasmm",
     "LinkedIn",
     "joaol_mm@hotmail.com",
     "(48) 996330209"
@@ -10,7 +10,7 @@ const textPortuguese = [
 
 const textEnglish = [
     "Contact info",
-    "GitHub",
+    "GitHub/@joaolucasmm",
     "LinkedIn",
     "joaol_mm@hotmail.com",
     "(48) 996330209"
