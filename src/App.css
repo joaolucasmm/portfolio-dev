@@ -76,6 +76,10 @@
   width: 100vw;
 }
 
+.projects {
+  height: 150vh;
+}
+
 .section_secondaryColor {
   background-color: #AAAAAA;
 }

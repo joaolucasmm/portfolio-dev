@@ -25,13 +25,13 @@ function App() {
 				</div>
 			</Router>
 			<Hero language={language} styleSection='section'/>
-			<Banner language={language}  styleSection='section'/>
+			{/* <Banner language={language}  styleSection='section'/> */}
 			<Skills language={language}  styleSection='section section_secondaryColor'/>
-			<Projects language={language}  styleSection='section'/>
-			<Experience language={language} styleSection='section section_secondaryColor'/>
-			<Education language={language} styleSection='section'/>
-			<Info language={language}  styleSection='section section_secondaryColor'/>
-			<Services language={language} styleSection='section'/>
+			<Projects language={language}  styleSection='section projects'/>
+			<Services language={language} styleSection='section section_secondaryColor'/>
+			<Experience language={language} styleSection='section'/>
+			<Education language={language} styleSection='section section_secondaryColor'/>
+			<Info language={language}  styleSection='section'/>
 			<Footer />
 		</div>
 	);
