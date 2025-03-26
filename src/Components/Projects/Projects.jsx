@@ -30,6 +30,8 @@ function Projects({ styleSection, language }) {
             date: textSelector(language, 2),
             image: myLinks,
             description: textSelector(language, 3),
+            projectURL: "https://joaolucasmm.github.io/my-links/",
+            projectRepository: "https://github.com/joaolucasmm/my-links",
             fullDescription: textSelector(language, 4),
             tags: {
                 0: "ReactJS",
@@ -43,6 +45,8 @@ function Projects({ styleSection, language }) {
             date: textSelector(language, 1 * 4 + 2),
             image: pokedex,
             description: textSelector(language, 1 * 4 + 3),
+            projectURL: "https://joaolucasmm.github.io/Pokedex/",
+            projectRepository: "https://github.com/joaolucasmm/Pokedex",
             fullDescription: textSelector(language, 1 * 4 + 4),
             tags: {
                 0: "ReactJS",
@@ -57,6 +61,8 @@ function Projects({ styleSection, language }) {
             date: textSelector(language, 2 * 4 + 2),
             image: tictactoe,
             description: textSelector(language, 2 * 4 + 3),
+            projectURL: "https://joaolucasmm.github.io/TicTacToe/",
+            projectRepository: "https://github.com/joaolucasmm/TicTacToe",
             fullDescription: textSelector(language, 2 * 4 + 4),
             tags: {
                 0: "ReactJS",
@@ -94,6 +100,9 @@ function Projects({ styleSection, language }) {
                     handleClose={handleClose}
                     title={projects[projectIndex].title}
                     image={projects[projectIndex].image}
+                    projectURL={projects[projectIndex].projectURL}
+                    projectRepository={projects[projectIndex].projectRepository}
+                    projectLinkedin={projects[projectIndex].projectLinkedin}
                     fullDescription={projects[projectIndex].fullDescription}
                     tags={projects[projectIndex].tags}
                     handleTagSelection={handleTagSelection}
@@ -153,6 +162,9 @@ function Projects({ styleSection, language }) {
                             date={project.date}
                             image={project.image}
                             language={language}
+                            projectURL={project.projectURL}
+                            projectRepository={project.projectRepository}
+                            projectLinkedin={project.projectLinkedin}
                             handleClickOpen={() => handleClickOpen(index)}
                             description={project.description}
                         />
