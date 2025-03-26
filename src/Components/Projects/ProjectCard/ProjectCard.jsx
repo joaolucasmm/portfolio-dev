@@ -29,7 +29,7 @@ function projectDialog({
     language,
     projectURL,
     projectRepository,
-    projectLinkedin,
+    projectLinkedin = "https://www.linkedin.com/in/jo%C3%A3o-lucas-miranda-menegasso/",
     description,
     handleClickOpen,
 }) {
