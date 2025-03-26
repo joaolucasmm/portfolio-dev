@@ -11,19 +11,16 @@ const textPortuguese = [
 
 const textEnglish = [
     "Projects",
-    "Petshop",
-    "Blog page project about petshop using Single Page Application (SPA) concepts, utilizing API for post calls.",
-    "FullDescription",
-    "Fruta e Fruto",
-    "Recipe blog landing page project using bootstrap for layout design.",
-    "FullDescription",
     "My Links",
+    "November 16, 2022",
     "Page with links to all my online profiles.",
     "FullDescription",
     "Pokedex",
+    "November 18, 2022",
     "Functional Pokedex made with API.",
     "FullDescription",
     "TicTacToe",
+    "July 24, 2024",
     "TicTacToe game made in React.",
     "FullDescription"
 ];

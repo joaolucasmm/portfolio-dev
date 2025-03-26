@@ -9,7 +9,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import InfoIcon from "@mui/icons-material/Info";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-function projectDialog({title, image, language, description, handleClickOpen}) {
+function projectDialog({title, date, image, language, description, handleClickOpen}) {
     return(
     <Card sx={{ width: 345 }}>
                     <CardHeader
@@ -19,7 +19,7 @@ function projectDialog({title, image, language, description, handleClickOpen}) {
                             </IconButton>
                         }
                         title={title}
-                        subheader="September 14, 2016"
+                        subheader={date}
                     />
                     <CardMedia
                         component="img"
