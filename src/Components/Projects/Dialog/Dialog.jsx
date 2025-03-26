@@ -11,8 +11,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkIcon from "@mui/icons-material/Link";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import {
+    FaReact,
+    FaJs,
+    FaHtml5,
+    FaCss3
+} from "react-icons/fa";
 
-function projectDialog({ projectIndex, open, handleClose, title, image, fullDescription }) {
+function projectDialog({ open, handleClose, title, image, fullDescription, tags, handleTagSelection }) {
     return (
         <Fragment>
             <Dialog
@@ -55,22 +61,34 @@ function projectDialog({ projectIndex, open, handleClose, title, image, fullDesc
                                 occaecat cupidatat non proident, sunt in culpa
                                 qui officia deserunt mollit anim id est laborum.
                             </section>
-                            <section>
+                            <section className="dialog_buttons">
                                 <Button>
                                     <LinkIcon />
-                                    Site
+                                    Site do projeto
                                 </Button>
                                 <Button>
                                     <GitHubIcon />
-                                    Git
+                                    Repositório no GitHub
                                 </Button>
                                 <Button>
                                     <LinkedInIcon />
-                                    Linkedin
+                                    Post no LinkedIn
                                 </Button>
                             </section>
-                            <section>
-                                <Chip label="Tag" variant="outlined" />
+                            <section className="dialog_tags">
+                                {tags && Object.values(tags).map((tag, index) => {
+                                    if (tag === "ReactJS") {
+                                        return <Chip key={index} label={tag} icon={<FaReact />} variant="outlined" className="tag" onClick={() => handleTagSelection(tag)} />;
+                                    } else if (tag === "JavaScript") {
+                                        return <Chip key={index} label={tag} icon={<FaJs />} variant="outlined" className="tag" onClick={() => handleTagSelection(tag)} />;
+                                    } else if (tag === "HTML") {
+                                        return <Chip key={index} label={tag} icon={<FaHtml5 />} variant="outlined" className="tag" onClick={() => handleTagSelection(tag)} />;
+                                    } else if (tag === "CSS") {
+                                        return <Chip key={index} label={tag} icon={<FaCss3 />} variant="outlined" className="tag" onClick={() => handleTagSelection(tag)} />;
+                                    } else {
+                                        return <Chip key={index} label={tag} variant="outlined"  className="tag" onClick={() => handleTagSelection(tag)} />;
+                                    }
+                                })}
                             </section>
                         </span>
                     </DialogContentText>
