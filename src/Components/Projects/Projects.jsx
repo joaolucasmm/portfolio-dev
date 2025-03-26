@@ -75,7 +75,7 @@ function Projects({ styleSection, language }) {
 
     const handleTagSelection = (tag) => {
         setTags((prevTags) =>
-            prevTags === "All" ? [tag] : prevTags.includes(tag) ? prevTags : [...prevTags, tag]
+            prevTags === "All" ? [tag] : prevTags.includes(tag) ? prevTags : prevTags.filter(t => t !== "All").concat(tag)
         );
         handleClose();
     };
