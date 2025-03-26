@@ -157,7 +157,7 @@ function Projects({ styleSection, language }) {
                 <span className="project_items">
                     {filteredProjects.map((project, index) => (
                         <ProjectCard
-                            key={index}
+                            projectKey={index}
                             title={project.title}
                             date={project.date}
                             image={project.image}

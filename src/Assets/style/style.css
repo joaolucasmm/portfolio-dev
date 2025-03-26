@@ -249,6 +249,16 @@
   justify-content: space-evenly;
   row-gap: 25px;
 }
+.container_projects .project_items [class^=project_settings] {
+  display: none;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1;
+  width: -moz-max-content;
+  width: max-content;
+  background: rgba(255, 255, 255, 0.768627451);
+}
 
 .dialog_title {
   text-align: center;
