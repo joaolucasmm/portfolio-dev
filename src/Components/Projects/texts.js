@@ -2,11 +2,25 @@ import sendMessage from "../../Functions/sendMessage";
 
 const textPortuguese = [
     "Projetos",
-    "Projeto de página de blog sobre pets usando conceitos de Single Page Application (SPA), utilizando API para chamada de posts.",
-    "Projeto de landpage de blog de receitas utilizando bootstrap para montagem de layout.",
-    "Página com links para todos meus perfis online.",
-    "Pokedex feita com API.",
-    "Jogo da velha feito em React."
+    "Meus Links",
+    "16 de Novembro de 2022",
+    "Página feita em ReactJS com links para todos meus perfis online.",
+    "Descrição completa",
+    "Pokedex",
+    "18 de Novembro de 2022",
+    "Pokedex para pesquisa de pokémons com consumo de API RESTful.",
+    "Descrição completa",
+    "Jogo da Velha",
+    "24 de Julho de 2024",
+    "Jogo da velha feito em ReactJS.",
+    "Descrição completa",
+    "Link",
+    "Repositório",
+    "Post",
+    "Todos",
+    "Site do Projeto",
+    "Repositório no GitHub",
+    "Post no LinkedIn"
 ];
 
 const textEnglish = [
@@ -22,7 +36,14 @@ const textEnglish = [
     "TicTacToe",
     "July 24, 2024",
     "TicTacToe game made in React.",
-    "FullDescription"
+    "FullDescription",
+    "Link",
+    "Repository",
+    "Post",
+    "All",
+    "Project Website",
+    "GitHub Repository",
+    "LinkedIn Post"
 ];
 
 function textSelector(language, textPosition) {

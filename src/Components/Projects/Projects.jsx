@@ -109,7 +109,7 @@ function Projects({ styleSection, language }) {
                 />
                 <span className="project_tags">
                     <Chip
-                        label="All"
+                        label={textSelector(language, 16)}
                         variant={tags.includes("All") ? undefined : "outlined"}
                         className="tag"
                         onClick={() => setTags("All")}

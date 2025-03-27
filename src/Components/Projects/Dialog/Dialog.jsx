@@ -12,6 +12,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkIcon from "@mui/icons-material/Link";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { FaReact, FaJs, FaHtml5, FaCss3 } from "react-icons/fa";
+import textSelector from "../texts";
 
 function projectDialog({
     open,
@@ -24,6 +25,7 @@ function projectDialog({
     fullDescription,
     tags,
     handleTagSelection,
+    language
 }) {
     return (
         <Fragment>
@@ -72,7 +74,7 @@ function projectDialog({
                                     }
                                 >
                                     <LinkIcon />
-                                    Site do projeto
+                                    {textSelector(language, 17)}
                                 </Button>
                                 <Button
                                     onClick={() =>
@@ -80,7 +82,7 @@ function projectDialog({
                                     }
                                 >
                                     <GitHubIcon />
-                                    Repositório no GitHub
+                                    {textSelector(language, 18)}
                                 </Button>
                                 <Button
                                     onClick={() =>
@@ -88,7 +90,7 @@ function projectDialog({
                                     }
                                 >
                                     <LinkedInIcon />
-                                    Post no LinkedIn
+                                    {textSelector(language, 19)}
                                 </Button>
                             </section>
                             <section className="dialog_tags">

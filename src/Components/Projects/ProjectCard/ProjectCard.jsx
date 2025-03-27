@@ -20,6 +20,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 import InboxIcon from "@mui/icons-material/Inbox";
 import DraftsIcon from "@mui/icons-material/Drafts";
+import textSelector from "../texts";
 
 function projectDialog({
     projectKey,
@@ -65,7 +66,7 @@ function projectDialog({
                             <ListItemIcon>
                                 <LinkIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Link" onClick={() => {window.open(projectURL, "_blank")}}/>
+                            <ListItemText primary={textSelector(language,13)} onClick={() => {window.open(projectURL, "_blank")}}/>
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
@@ -73,7 +74,7 @@ function projectDialog({
                             <ListItemIcon>
                                 <GitHubIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Repositório" onClick={() => {window.open(projectRepository, "_blank")}}/>
+                            <ListItemText primary={textSelector(language,14)} onClick={() => {window.open(projectRepository, "_blank")}}/>
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
@@ -81,7 +82,7 @@ function projectDialog({
                             <ListItemIcon>
                                 <LinkedInIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Post" onClick={() => {window.open(projectLinkedin, "_blank")}}/>
+                            <ListItemText primary={textSelector(language,15)} onClick={() => {window.open(projectLinkedin, "_blank")}}/>
                         </ListItemButton>
                     </ListItem>
                 </List>
