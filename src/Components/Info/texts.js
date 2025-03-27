@@ -13,7 +13,7 @@ const textEnglish = [
     "GitHub/@joaolucasmm",
     "LinkedIn",
     "joaol_mm@hotmail.com",
-    "(48) 996330209"
+    "+55 (48) 996330209"
 ];
     
 function textSelector(language, textPosition) {
