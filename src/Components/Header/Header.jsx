@@ -89,7 +89,7 @@ function DrawerAppBar({ props, links, setLanguage, language }) {
                     <InputLabel
                         id="demo-select-small-label"
                     >
-                        Language
+                        {textSelector(language, 6)}
                     </InputLabel>
                     <Select
                         labelId="demo-select-small-label"
@@ -139,7 +139,7 @@ function DrawerAppBar({ props, links, setLanguage, language }) {
                 </Toolbar>
                 <FormControlLabel
                     control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
-                    label="Night Mode"
+                    label={textSelector(language, 7)}
                     className="header_nightmode"
                 />
             </AppBar>

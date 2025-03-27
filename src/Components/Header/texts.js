@@ -6,7 +6,9 @@ const textPortuguese = [
     "Serviços",
     "Experiência",
     "Educação",
-    "Contato"
+    "Contato",
+    "Idioma",
+    "Modo escuro"
 ];
 
 const textEnglish = [
@@ -15,7 +17,9 @@ const textEnglish = [
     "Services",
     "Experience",
     "Education",
-    "Info"
+    "Info",
+    "Language",
+    "Dark mode"
 ];
 
 function textSelector(language, textPosition) {
