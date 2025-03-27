@@ -13,7 +13,7 @@ import Switch from "@mui/material/Switch";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
@@ -72,11 +72,6 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 function DrawerAppBar({ props, links, setLanguage, language }) {
-    const [age, setAge] = React.useState("");
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
-
     return (
         <Box className="header-container">
             <CssBaseline />
@@ -123,18 +118,6 @@ function DrawerAppBar({ props, links, setLanguage, language }) {
                                 {item}
                             </Button>
                         ))}
-                        {/* <Button
-                            className="translate"
-                            onClick={() =>
-                                setLanguage(
-                                    language === "english"
-                                        ? "portuguese"
-                                        : "english"
-                                )
-                            }
-                        >
-                            {language === "english" ? "Portuguese" : "English"}
-                        </Button> */}
                     </Box>
                 </Toolbar>
                 <FormControlLabel
@@ -148,11 +131,6 @@ function DrawerAppBar({ props, links, setLanguage, language }) {
 }
 
 function Header({ language, setLanguage }) {
-    const resumeLink =
-        language === "english"
-            ? "https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegassoResume.pdf"
-            : "https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegassoCurriculo.pdf";
-
     const content = [
         textSelector(language, 0),
         textSelector(language, 1),

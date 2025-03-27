@@ -18,6 +18,8 @@ function card(index) {
             return (<FaEnvelope size='2em' />);
         case 3:
             return (<FaPhoneAlt size='2em' />);
+        default:
+            return null;
     }
 }
 

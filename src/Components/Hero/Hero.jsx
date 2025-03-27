@@ -2,13 +2,6 @@ import React from "react";
 import image from "../../Assets/Images/avatar.jpg";
 import Typewriter from "typewriter-effect";
 import Grid from "@mui/material/Grid2";
-import CardContent from "@mui/material/CardContent";
-import CodeIcon from "@mui/icons-material/Code";
-import Typography from "@mui/material/Typography";
-
-import TerminalIcon from "@mui/icons-material/Terminal";
-import DataObjectIcon from "@mui/icons-material/DataObject";
-import SourceIcon from "@mui/icons-material/Source";
 import textSelector from "./texts";
 import { Button } from "@mui/material";
 

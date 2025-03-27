@@ -1,6 +1,4 @@
 import { useState } from "react";
-import petshop from "../../Assets/Images/petshop.png";
-import frutaEfruto from "../../Assets/Images/fruta-e-fruto.png";
 import { FaReact, FaJs, FaHtml5, FaCss3 } from "react-icons/fa";
 import myLinks from "../../Assets/Images/my-links.png";
 import pokedex from "../../Assets/Images/pokedex.png";
