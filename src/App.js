@@ -14,6 +14,7 @@ import Experience from './Components/Experience/Experience';
 import Education from './Components/Education/Education';
 import Services from './Components/Services/Services';
 import Hero from './Components/Hero/Hero';
+import About from './Components/About/About';
 
 function App() {
 	const [language, setLanguage] = useState("english");
@@ -25,9 +26,11 @@ function App() {
 				</div>
 			</Router>
 			<Hero language={language} styleSection='section'/>
-			{/* <Banner language={language}  styleSection='section'/> */}
-			<Skills language={language}  styleSection='section section_secondaryColor'/>
-			<Projects language={language}  styleSection='section projects'/>
+			<div className='section about'>
+				<About language={language} />
+				<Skills language={language} />
+			</div>
+			<Projects language={language}  styleSection='section'/>
 			<Services language={language} styleSection='section section_secondaryColor'/>
 			<Experience language={language} styleSection='section'/>
 			<Education language={language} styleSection='section section_secondaryColor'/>
