@@ -1,0 +1,13 @@
+.container_about {
+    display: flex;
+    width: 800px;
+    .about_content {
+        text-align: justify;
+        .about_title {
+            text-align: center;
+        }
+        .about_presentation {
+            text-align: center;
+        }
+    }
+}
