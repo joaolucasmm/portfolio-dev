@@ -29,7 +29,12 @@ function card(language, selectedIndex) {
                     {textSelector(language, selectedIndex+10)}
                 </Typography>
                 <Typography className='description' variant="body2">
-                    {textSelector(language, selectedIndex+15)}
+                    {textSelector(language, 14+selectedIndex*2)}
+                </Typography>
+                <Typography className='description' variant="body2">
+                    <p>
+                        {textSelector(language, 14+selectedIndex*2+1)}
+                    </p>
                 </Typography>
             </CardContent>
             <CardActions>
