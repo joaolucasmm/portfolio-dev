@@ -10,8 +10,14 @@ import TerminalIcon from '@mui/icons-material/Terminal';
 import DataObjectIcon from '@mui/icons-material/DataObject';
 import SourceIcon from '@mui/icons-material/Source';
 import textSelector from './texts';
+import { Button } from '@mui/material';
 
 function Hero({ styleSection, language }) {
+    const resumeLink =
+    language === "english"
+        ? "https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegassoResume.pdf"
+        : "https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegassoCurriculo.pdf";
+
     return (
         <div className={styleSection}>
             <div className='hero_container'>
@@ -44,10 +50,10 @@ function Hero({ styleSection, language }) {
                     </Grid>
                     <Grid size={4} />
                     <Grid size={2} className='button'>
-                        Download CV
+                        <Button href={resumeLink} target='_blank'>Download Resume</Button>
                     </Grid>
                     <Grid size={2} className='button'>
-                        Contato
+                        <Button href="https://google.com" target='_blank'>Contato</Button>
                     </Grid>
                     <Grid size={4} />
                 </Grid>
