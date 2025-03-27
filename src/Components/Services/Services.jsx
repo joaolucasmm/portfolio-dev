@@ -19,7 +19,6 @@ function Services({ styleSection, language }) {
                         </Typography>
                         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                             {textSelector(language, 2)}
-                            Desenvolvo sites profissionais, blogs, SaaS, landing pages, ecommerce e entre outros websites.
                         </Typography>
                     </CardContent>
                 </Card>
