@@ -42,7 +42,7 @@ function Info({ styleSection, language }) {
     };
 
     return (
-        <div className={styleSection}>
+        <div id='info' className={styleSection}>
             <div className="info_container">
                 <h1>{textSelector(language,0)}</h1>
                 <div className='info_content'>

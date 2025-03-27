@@ -26,7 +26,7 @@ function App() {
 				</div>
 			</Router>
 			<Hero language={language} styleSection='section'/>
-			<div className='section about'>
+			<div id='about' className='section about'>
 				<About language={language} />
 				<Skills language={language} />
 			</div>

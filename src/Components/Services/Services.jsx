@@ -7,7 +7,7 @@ import textSelector from './texts';
 
 function Services({ styleSection, language }) {
     return (
-        <div className={styleSection}>
+        <div id='services' className={styleSection}>
             <div className='services_container'>
                 <h1>{textSelector(language, 0)}</h1>
                 <div className='services_content'>

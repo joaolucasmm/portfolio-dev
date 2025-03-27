@@ -47,7 +47,7 @@ function Education({ styleSection, language }) {
     };
 
     return (
-        <div className={styleSection}>
+        <div id='education' className={styleSection}>
             <div className="education_container">
                 <h1>{textSelector(language,0)}</h1>
                 <div className='education_content'>

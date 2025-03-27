@@ -1,17 +1,21 @@
 import sendMessage from "../../Functions/sendMessage";
 
 const textPortuguese = [
-    "Habilidades",
+    "Sobre",
     "Projetos",
-    "Contato",
-    "Currículo"
+    "Serviços",
+    "Experiência",
+    "Educação",
+    "Contato"
 ];
 
 const textEnglish = [
-    "Skills",
+    "About",
     "Projects",
-    "Contact",
-    "Resume"
+    "Services",
+    "Experience",
+    "Education",
+    "Info"
 ];
 
 function textSelector(language, textPosition) {

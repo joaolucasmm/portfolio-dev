@@ -92,7 +92,7 @@ function Projects({ styleSection, language }) {
               );
 
     return (
-        <div className={styleSection}>
+        <div id='projects' className={styleSection}>
             <div className="container_projects">
                 <h1 className="projects__title">{textSelector(language, 0)}</h1>
                 <Dialog

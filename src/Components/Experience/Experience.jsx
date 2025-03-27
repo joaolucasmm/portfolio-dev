@@ -47,7 +47,7 @@ function Experience({ styleSection, language }) {
     };
 
     return (
-        <div className={styleSection}>
+        <div id='experience' className={styleSection}>
             <div className="experience_container">
                 <h1>{textSelector(language,0)}</h1>
                 <div className='experience_content'>
