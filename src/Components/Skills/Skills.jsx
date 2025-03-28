@@ -12,12 +12,8 @@ import { SiTypescript, SiWebdriverio, SiArduino, SiSap } from "react-icons/si";
 import textSelector from "./texts";
 
 import {
-    Box,
-    Card,
-    CardContent,
     Grid2 as Grid,
     ListItem as Item,
-    Paper,
 } from "@mui/material";
 
 function Skills({ styleSection, language }) {
