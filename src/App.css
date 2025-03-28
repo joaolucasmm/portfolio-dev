@@ -82,6 +82,14 @@
   scroll-snap-align: start;
 }
 
+.email_dialog {
+  display: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50vw;
+}
+
 .projects {
   height: 150vh;
 }

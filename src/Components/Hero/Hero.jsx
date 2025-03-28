@@ -1,11 +1,10 @@
-import React from "react";
 import image from "../../Assets/Images/avatar.jpg";
 import Typewriter from "typewriter-effect";
 import Grid from "@mui/material/Grid2";
 import textSelector from "./texts";
 import { Button } from "@mui/material";
 
-function Hero({ styleSection, language }) {
+function Hero({ styleSection, language, setEmailDialog }) {
     const resumeLink =
         language === "english"
             ? "https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegassoResume.pdf"
@@ -49,7 +48,7 @@ function Hero({ styleSection, language }) {
                         </Button>
                     </Grid>
                     <Grid size={2} className="button">
-                        <Button href="https://google.com" target="_blank">
+                        <Button onClick={() => setEmailDialog(true)}>
                             Contato
                         </Button>
                     </Grid>

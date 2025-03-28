@@ -1,0 +1,20 @@
+.container_email {
+    width: 80vw;
+    margin: auto;
+    .dialog_content {
+        .email_form {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            padding: 1rem;
+            .form_fields {
+                display: flex;
+                flex-direction: column;
+                gap: 1.1rem;
+                .email_input {
+                    width: 30rem;
+                }
+            }
+        }
+    }
+}
