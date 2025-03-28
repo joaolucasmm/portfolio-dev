@@ -25,7 +25,7 @@ function App() {
 					<Header language={language} setLanguage={setLanguage} />
 				</div>
 			</Router>
-			<EmailDialog styleSection='section email_dialog' emailDialog={emailDialog} setEmailDialog={setEmailDialog}/>
+			<EmailDialog styleSection='email_dialog' emailDialog={emailDialog} setEmailDialog={setEmailDialog}/>
 			<Hero language={language} styleSection='section' setEmailDialog={setEmailDialog}/>
 			<div id='about' className='section about'>
 				<About language={language} />

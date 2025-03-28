@@ -388,6 +388,9 @@
 .info_container .info_list .contact__item .contact__text:visited {
   color: black;
 }
+.info_container .info_alert {
+  width: 15rem;
+}
 
 @media (max-width: 768px) {
   .container-contact .contact .container-item {
