@@ -13,9 +13,11 @@ import Education from './Components/Education/Education';
 import Services from './Components/Services/Services';
 import Hero from './Components/Hero/Hero';
 import About from './Components/About/About';
+import EmailDialog from './Components/EmailDialog/EmailDialog';
 
 function App() {
 	const [language, setLanguage] = useState("english");
+	const [emailDialog, setEmailDialog] = useState(false);
 	return (
 		<div className="App">
 			<Router>
@@ -23,7 +25,8 @@ function App() {
 					<Header language={language} setLanguage={setLanguage} />
 				</div>
 			</Router>
-			<Hero language={language} styleSection='section'/>
+			<EmailDialog styleSection='email_dialog' emailDialog={emailDialog} setEmailDialog={setEmailDialog}/>
+			<Hero language={language} styleSection='section' setEmailDialog={setEmailDialog}/>
 			<div id='about' className='section about'>
 				<About language={language} />
 				<Skills language={language} />

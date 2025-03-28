@@ -98,6 +98,25 @@
   text-align: center;
 }
 
+.container_email {
+  width: 80vw;
+  margin: auto;
+}
+.container_email .dialog_content .email_form {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 1rem;
+}
+.container_email .dialog_content .email_form .form_fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.container_email .dialog_content .email_form .form_fields .email_input {
+  width: 30rem;
+}
+
 .container_about {
   display: flex;
   width: 800px;
@@ -368,6 +387,9 @@
 }
 .info_container .info_list .contact__item .contact__text:visited {
   color: black;
+}
+.info_container .info_alert {
+  width: 15rem;
 }
 
 @media (max-width: 768px) {
