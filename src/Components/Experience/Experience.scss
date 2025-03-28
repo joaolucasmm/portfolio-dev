@@ -1,0 +1,29 @@
+.experience_container {
+    max-width: 1140px;
+    margin: auto;
+    .experience_content {
+        display: flex;
+        flex-direction: row;
+        background-color: transparent;
+        .experience_list {
+            background-color: transparent;
+        }
+        .experience_display {
+            background-color: transparent;
+            .card {
+                background-color: transparent;
+                .header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .company {
+                    display: flex;
+                }
+                .description {
+                    text-align: justify;
+                }
+            }
+        }
+    }
+}

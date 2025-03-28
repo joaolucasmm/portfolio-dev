@@ -1,19 +1,21 @@
 @import '../UI/variables.scss';
 
-.container-contact {
+.info_container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    .contact {
-        background: $blue;
-        border-radius: 30px;
-        width: 80%;
-        .container-item {
+        .info_list {
             display: inline-block;
-            width: 30%;
-            border-radius: 30px;
             margin-bottom: 2rem;
+            .info_button {
+                transition: transform .2s;
+            }
+            .info_button:hover {
+                color: blue;
+                transform: scale(1.2);
+            }
             .contact__item {
                 display: flex;
                 flex-direction: row;
@@ -29,7 +31,7 @@
                     color: black;
                 }
             }
-        }
+        
     }
 }
 

@@ -11,6 +11,33 @@
   text-align: center;
   width: 100%;
 }
+.header-container .header_appbar {
+  display: flex;
+  flex-direction: row;
+}
+.header-container .header_appbar .header-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .header-container .header_appbar .header-toolbar {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+.header-container .header_appbar .header_language {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  z-index: 1;
+}
+.header-container .header_appbar .header_nightmode {
+  position: absolute;
+  right: 0;
+  top: 12px;
+}
 
 .header-title {
   flex-grow: 1;
@@ -23,19 +50,6 @@
     margin-bottom: 10px;
     text-align: center;
     width: 100%;
-  }
-}
-
-.header-toolbar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-@media (min-width: 768px) {
-  .header-toolbar {
-    flex-direction: column;
-    justify-content: center;
   }
 }
 
@@ -61,6 +75,41 @@
     margin-bottom: 0;
     margin-left: 10px;
   }
+}
+
+.hero_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 1400px;
+}
+.hero_container .image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 260px;
+  border-radius: 130px;
+  border: 3px solid black;
+}
+.hero_container .text {
+  text-align: justify;
+}
+.hero_container .button {
+  text-align: center;
+}
+
+.container_about {
+  display: flex;
+  width: 800px;
+}
+.container_about .about_content {
+  text-align: justify;
+}
+.container_about .about_content .about_title {
+  text-align: center;
+}
+.container_about .about_content .about_presentation {
+  text-align: center;
 }
 
 :export {
@@ -145,34 +194,26 @@
   breakpointTablet: 768px;
 }
 
-.container-skill {
+.container_skill {
   font-family: monospace;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  width: 70vw;
 }
-.container-skill .skill {
-  align-items: center;
-  width: 1000px;
-  height: 570px;
-}
-.container-skill .skill .skill__title {
-  padding-top: 2rem;
-}
-.container-skill .skill .skill-list {
+.container_skill .skill-list {
   display: flex;
   margin: auto;
-  width: 60%;
   height: 16rem;
   justify-content: space-evenly;
   text-align: center;
 }
-.container-skill .skill .skill-list .skill-list__span {
+.container_skill .skill-list .skill-list__span {
   text-align: center;
   width: 150px;
 }
-.container-skill .skill .skill-list .skill-list__span .skill-list__text {
+.container_skill .skill-list .skill-list__span .skill-list__text {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -184,11 +225,10 @@
   padding-right: 2rem;
   border-radius: 16px;
   border: 2px solid black;
-  margin-bottom: 1rem;
   list-style-type: none;
   transition: transform 0.2s;
 }
-.container-skill .skill .skill-list .skill-list__span .skill-list__text:hover {
+.container_skill .skill-list .skill-list__span .skill-list__text:hover {
   transform: scale(1.2);
 }
 
@@ -216,39 +256,72 @@
   breakpointTablet: 768px;
 }
 
-.container-projects {
+.container_projects {
   display: flex;
+  flex-direction: column;
+}
+.container_projects .project_tags {
+  display: flex;
+  gap: 10px;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  padding-bottom: 20rem;
+  padding-bottom: 10px;
 }
-.container-projects .projects {
-  width: 80%;
-  margin: auto;
-  margin-bottom: 2rem;
-  background: rgba(63, 104, 136, 0.8901960784);
-  border-radius: 30px;
-}
-.container-projects .projects .projects__container {
+.container_projects .project_items {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 1200px;
+  justify-content: space-evenly;
+  row-gap: 25px;
 }
-.container-projects .projects .projects__container .project {
-  padding: 1rem;
-  background: white;
-  margin: 1rem;
-  opacity: 0.88;
+.container_projects .project_items [class^=project_settings] {
+  display: none;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1;
+  width: -moz-max-content;
+  width: max-content;
+  background: rgba(255, 255, 255, 0.768627451);
 }
-.container-projects .projects .projects__container .project .project__link {
-  color: black;
-  text-decoration: none;
-  transition: font-size 0.2s;
+
+.dialog_title {
+  text-align: center;
 }
-.container-projects .projects .projects__container .project .project__link:hover {
-  font-size: 1.08em;
+
+.dialog_content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
-.container-projects .projects .projects__container .project .project__image {
-  max-width: 100%;
+.dialog_content .dialog_media {
+  width: 800px;
+}
+.dialog_content .dialog_description {
+  width: 550px;
+}
+.dialog_content .dialog_rows {
+  display: flex;
+  flex-direction: column;
+}
+.dialog_content .dialog_buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0.6rem;
+}
+.dialog_content .dialog_tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.dialog_content .dialog_tags .tag {
+  transition: transform 0.2s;
+}
+.dialog_content .dialog_tags .tag:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
@@ -263,24 +336,25 @@
   breakpointTablet: 768px;
 }
 
-.container-contact {
+.info_container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
-.container-contact .contact {
-  background: rgba(63, 104, 136, 0.8901960784);
-  border-radius: 30px;
-  width: 80%;
-}
-.container-contact .contact .container-item {
+.info_container .info_list {
   display: inline-block;
-  width: 30%;
-  border-radius: 30px;
   margin-bottom: 2rem;
 }
-.container-contact .contact .container-item .contact__item {
+.info_container .info_list .info_button {
+  transition: transform 0.2s;
+}
+.info_container .info_list .info_button:hover {
+  color: blue;
+  transform: scale(1.2);
+}
+.info_container .info_list .contact__item {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -288,11 +362,11 @@
   padding: 0.8rem;
   color: black;
 }
-.container-contact .contact .container-item .contact__item .contact__text {
+.info_container .info_list .contact__item .contact__text {
   padding-left: 1.2rem;
   color: black;
 }
-.container-contact .contact .container-item .contact__item .contact__text:visited {
+.info_container .info_list .contact__item .contact__text:visited {
   color: black;
 }
 
@@ -318,6 +392,77 @@
   justify-content: center;
   align-items: center;
   font-size: 46px;
+}
+
+.experience_container {
+  max-width: 1140px;
+  margin: auto;
+}
+.experience_container .experience_content {
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+}
+.experience_container .experience_content .experience_list {
+  background-color: transparent;
+}
+.experience_container .experience_content .experience_display {
+  background-color: transparent;
+}
+.experience_container .experience_content .experience_display .card {
+  background-color: transparent;
+}
+.experience_container .experience_content .experience_display .card .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.experience_container .experience_content .experience_display .card .company {
+  display: flex;
+}
+.experience_container .experience_content .experience_display .card .description {
+  text-align: justify;
+}
+
+.services_container {
+  display: flex;
+  flex-direction: column;
+}
+.services_container .services_content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 1120px;
+}
+
+.education_container {
+  max-width: 1140px;
+  margin: auto;
+}
+.education_container .education_content {
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+}
+.education_container .education_content .education_list {
+  background-color: transparent;
+}
+.education_container .education_content .education_display {
+  background-color: transparent;
+}
+.education_container .education_content .education_display .card {
+  background-color: transparent;
+}
+.education_container .education_content .education_display .card .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.education_container .education_content .education_display .card .company {
+  display: flex;
+}
+.education_container .education_content .education_display .card .description {
+  text-align: justify;
 }
 
 :export {

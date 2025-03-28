@@ -14,52 +14,53 @@ const theme = createTheme({
     },
 });
 
-function Banner({ language }) {
+function Banner({ language, styleSection }) {
     return (
-        <ThemeProvider theme={theme}>
-            <Card sx={{ minWidth: 600,boxShadow: 0 }} className='banner__card'>
-                <CardContent>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            '& > :not(style)': {
-                                m: 1,
-                                width: { tablet: 500, desktop: 1000 },
-                                height: { tablet: 800, desktop: 500 }
-                            },
-                        }}
-                    >
-                        <Paper elevation={3} >
-                            <Grid container spacing={2} sx={{ minWidth: { tablet: 400, desktop: 600 } }} className='container-banner'>
-                                <Grid size={4} className='banner' sx={{ minWidth: { tablet: 400, desktop: 500 } }} >
-                                    <Item className='banner__text'>
+        <div className={styleSection}>
+            <ThemeProvider theme={theme}>
+                <Card sx={{ minWidth: 600, boxShadow: 0 }} className='banner__card'>
+                    <CardContent>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                '& > :not(style)': {
+                                    m: 1,
+                                    width: { tablet: 500, desktop: 1000 },
+                                    height: { tablet: 800, desktop: 500 }
+                                },
+                            }}
+                        >
+                            <Paper elevation={3} >
+                                <Grid container spacing={2} sx={{ minWidth: { tablet: 400, desktop: 600 } }} className='container-banner'>
+                                    <Grid size={4} className='banner' sx={{ minWidth: { tablet: 400, desktop: 500 } }} >
+                                        <Item className='banner__text'>
 
-                                        <h1 className='banner__title'>
-                                            <Typewriter
-                                                options={{
-                                                    strings: [textSelector(language, 0)],
-                                                    autoStart: true,
-                                                    loop: true,
-                                                    pauseFor: 5000
-                                                }}
-                                            />
-                                        </h1>
+                                            <h1 className='banner__title'>
+                                                <Typewriter
+                                                    options={{
+                                                        strings: [textSelector(language, 0)],
+                                                        autoStart: true,
+                                                        loop: true,
+                                                        pauseFor: 5000
+                                                    }}
+                                                />
+                                            </h1>
 
-                                        <h2 className='banner__subtitle'>{textSelector(language, 1)}</h2>
-                                        <p className='banner__bio'>{textSelector(language, 2)}</p>
-                                    </Item>
+                                            <h2 className='banner__subtitle'>{textSelector(language, 1)}</h2>
+                                            <p className='banner__bio'>{textSelector(language, 2)}</p>
+                                        </Item>
+                                    </Grid>
+                                    <Grid size={4} className='banner__container-image'>
+                                        <Item><img className='banner__imagem' src={imagem} alt='Logo Doguito' /></Item>
+                                    </Grid>
                                 </Grid>
-                                <Grid size={4} className='banner__container-image'>
-                                    <Item><img className='banner__imagem' src={imagem} alt='Logo Doguito' /></Item>
-                                </Grid>
-                            </Grid>
-                        </Paper>
-                    </Box>
-                </CardContent>
-            </Card >
-        </ThemeProvider>
-
+                            </Paper>
+                        </Box>
+                    </CardContent>
+                </Card >
+            </ThemeProvider>
+        </div>
     );
 };
 
