@@ -98,7 +98,7 @@ function projectDialog({
                 <IconButton aria-label="add to favorites">
                     <InfoIcon onClick={() => handleClickOpen()} />
                 </IconButton>
-                <IconButton aria-label="share">
+                <IconButton aria-label="share" onClick={() => window.open("https://api.whatsapp.com/send?text=" + projectURL, "_blank")}>
                     <ShareIcon />
                 </IconButton>
             </CardActions>
