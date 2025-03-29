@@ -33,7 +33,7 @@ function card(language, selectedIndex) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Learn More</Button>
+                <Button size="small" onClick={() => window.open((selectedIndex === 2) ? "https://www.ifsc.edu.br/tecnicos-integrados/-/visualizar/mecatronica/Campus-Criciuma/172/228/nO9EQhPgKNer" : "https://engfis.if.ufrgs.br/index.php/P%C3%A1gina_principal", "_blank")}>{textSelector(language, 9)}</Button>
             </CardActions>
         </Fragment>
     )
