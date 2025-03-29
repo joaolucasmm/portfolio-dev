@@ -1,6 +1,17 @@
+@import './Components/UI/variables.scss';
+
 .App {
   text-align: center;
   width: 100vw;
+}
+
+.bg_lightMode {
+  background-color: $color0;
+}
+
+
+.bg_darkMode {
+  background-color: $color4;
 }
 
 .App-logo {
@@ -94,9 +105,6 @@
   height: 150vh;
 }
 
-.section_secondaryColor {
-  /* background-color: #AAAAAA; */
-}
 
 @keyframes App-logo-spin {
   from {
