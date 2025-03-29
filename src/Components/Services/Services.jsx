@@ -4,6 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CodeIcon from '@mui/icons-material/Code';
 import textSelector from './texts';
+import variables from "../UI/variables.scss";
 
 function Services({ styleSection, language }) {
     return (
@@ -11,7 +12,7 @@ function Services({ styleSection, language }) {
             <div className='services_container'>
                 <h1>{textSelector(language, 0)}</h1>
                 <div className='services_content'>
-                <Card sx={{ maxWidth: 345 }}>
+                <Card sx={{ maxWidth: 345, bgcolor:variables.color1 }}>
                     <CodeIcon />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
@@ -22,7 +23,7 @@ function Services({ styleSection, language }) {
                         </Typography>
                     </CardContent>
                 </Card>
-                <Card sx={{ maxWidth: 345 }}>
+                <Card sx={{ maxWidth: 345, bgcolor:variables.color1 }}>
                     <CodeIcon />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
@@ -34,7 +35,7 @@ function Services({ styleSection, language }) {
                         </Typography>
                     </CardContent>
                 </Card>
-                <Card sx={{ maxWidth: 345 }}>
+                <Card sx={{ maxWidth: 345, bgcolor:variables.color1 }}>
                     <CodeIcon />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
