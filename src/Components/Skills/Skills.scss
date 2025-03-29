@@ -33,6 +33,7 @@
                 border: 2px solid black;
                 list-style-type: none;
                 transition: transform 0.2s;
+                background-color: $color1;
             }
             .skill-list__text:hover {
                 transform: scale(1.2);
