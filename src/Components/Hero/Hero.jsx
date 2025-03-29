@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid2";
 import textSelector from "./texts";
 import { Button } from "@mui/material";
 
-function Hero({ styleSection, language, setEmailDialog }) {
+function Hero({ styleSection, language, setEmailDialog, darkMode}) {
     const resumeLink =
         language === "english"
             ? "https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegassoResume.pdf"
@@ -42,13 +42,13 @@ function Hero({ styleSection, language, setEmailDialog }) {
                         </div>
                     </Grid>
                     <Grid size={4} />
-                    <Grid size={2} className="button">
-                        <Button href={resumeLink} target="_blank">
+                    <Grid size={2}>
+                        <Button className={"button " + (darkMode && "button_dark")} variant="outlined" href={resumeLink} target="_blank">
                             Download Resume
                         </Button>
                     </Grid>
-                    <Grid size={2} className="button">
-                        <Button onClick={() => setEmailDialog(true)}>
+                    <Grid size={2}>
+                        <Button className={"button " + (darkMode && "button_dark")} variant="outlined" onClick={() => setEmailDialog(true)}>
                             Contato
                         </Button>
                     </Grid>
