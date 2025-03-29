@@ -1,16 +1,20 @@
+@import '../UI/variables.scss';
+
 .experience_container {
     max-width: 1140px;
     margin: auto;
     .experience_content {
         display: flex;
         flex-direction: row;
+        color: black;
         background-color: transparent;
         .experience_list {
             background-color: transparent;
         }
+        background-color: transparent;
         .experience_display {
-            background-color: transparent;
             .card {
+                color: black;
                 background-color: transparent;
                 .header {
                     display: flex;
@@ -18,12 +22,31 @@
                     align-items: center;
                 }
                 .company {
+                    font-weight: bold;
                     display: flex;
                 }
                 .description {
                     text-align: justify;
                 }
+                .learn_more {
+                    color: $color5;
+                    font-style: oblique;
+                    background: $color3;
+                    transition: transform .2s;
+                }
+                .learn_more_dark {
+                    color: $color0;
+                }
+                .learn_more:hover {
+                    transform: scale(1.1);
+                }
+            }
+            .card_dark {
+                color: white;
             }
         }
+    }
+    .experience_content_dark {
+        color: white;
     }
 }

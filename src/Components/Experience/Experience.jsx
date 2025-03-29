@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import textSelector from './texts';
 
-function card(language, selectedIndex) {
+function card(language, selectedIndex, darkMode) {
     return(
         <Fragment>
             <CardContent>
@@ -25,7 +25,7 @@ function card(language, selectedIndex) {
                         {textSelector(language, selectedIndex+5)}
                     </Typography>
                 </div>
-                <Typography className='company' sx={{ color: 'text.secondary', mb: 1.5 }}>
+                <Typography className='company' sx={{ mb: 1.5 }}>
                     {textSelector(language, selectedIndex+10)}
                 </Typography>
                 <Typography className='description' variant="body2">
@@ -38,13 +38,13 @@ function card(language, selectedIndex) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={() => window.open(selectedIndex < 4 ? "https://www.sap.com/about/company.html" : "http://www.ufrgs.br/ufrgs/ensino/apresentacao", "_blank")}>{textSelector(language, 26)}</Button>
+                <Button size="small" className={"learn_more " + (darkMode && "learn_more_dark")} onClick={() => window.open(selectedIndex < 4 ? "https://www.sap.com/about/company.html" : "http://www.ufrgs.br/ufrgs/ensino/apresentacao", "_blank")}>{textSelector(language, 26)}</Button>
             </CardActions>
         </Fragment>
     )
 }
 
-function Experience({ styleSection, language }) {
+function Experience({ styleSection, language, darkMode }) {
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     const handleListItemClick = (event, index) => {
@@ -55,7 +55,7 @@ function Experience({ styleSection, language }) {
         <div id='experience' className={styleSection}>
             <div className="experience_container">
                 <h1>{textSelector(language,0)}</h1>
-                <div className='experience_content'>
+                <div className={'experience_content ' + (darkMode && "experience_content_dark")}>
                     <Box className='experience_list' sx={{ width: '100%', maxWidth: 300 }}>
                         <List>
                             {[textSelector(language, 1), textSelector(language, 2), textSelector(language, 3), textSelector(language, 4), textSelector(language, 5)].map((text, index) => (
@@ -75,7 +75,7 @@ function Experience({ styleSection, language }) {
                         </List>
                     </Box>
                     <Box className='experience_display' sx={{ minWidth: 275, width: 1400 }}>
-                        <Card variant="text" className='card'>{card(language, selectedIndex+1)}</Card>
+                        <Card variant="text" className={'card ' + (darkMode && "card_dark")}>{card(language, selectedIndex+1, darkMode)}</Card>
                     </Box>
                 </div>
             </div>
