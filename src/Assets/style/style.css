@@ -642,7 +642,7 @@
   transition: transform 0.2s;
 }
 .info_container .info_list .info_button:hover {
-  color: blue;
+  color: #7d67d2;
   transform: scale(1.2);
 }
 .info_container .info_list .contact__item {
