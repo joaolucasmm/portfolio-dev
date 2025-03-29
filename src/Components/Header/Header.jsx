@@ -71,7 +71,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     },
 }));
 
-function DrawerAppBar({ props, links, setLanguage, language }) {
+function DrawerAppBar({ props, links, setLanguage, language, darkMode, setDarkMode }) {
     return (
         <Box className="header-container">
             <CssBaseline />
@@ -113,7 +113,7 @@ function DrawerAppBar({ props, links, setLanguage, language }) {
                                 key={item}
                                 href={links[i]}
                                 variant="outlined"
-                                sx={{ color: "#fff" }}
+                                className="button"
                             >
                                 {item}
                             </Button>
@@ -121,7 +121,8 @@ function DrawerAppBar({ props, links, setLanguage, language }) {
                     </Box>
                 </Toolbar>
                 <FormControlLabel
-                    control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
+                    control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked 
+                    onClick={() => darkMode ? setDarkMode(false) : setDarkMode(true) } />}
                     label={textSelector(language, 7)}
                     className="header_nightmode"
                 />
@@ -130,7 +131,7 @@ function DrawerAppBar({ props, links, setLanguage, language }) {
     );
 }
 
-function Header({ language, setLanguage }) {
+function Header({ language, setLanguage, darkMode, setDarkMode }) {
     const content = [
         textSelector(language, 0),
         textSelector(language, 1),
@@ -154,6 +155,8 @@ function Header({ language, setLanguage }) {
             links={links}
             setLanguage={setLanguage}
             language={language}
+            darkMode={darkMode}
+            setDarkMode={setDarkMode}
         />
     );
 }
