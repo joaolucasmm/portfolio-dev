@@ -94,42 +94,6 @@
     background-color: $color4;
 }
 
-
-// .container-projects {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     height: 100vh;
-//     padding-bottom: 20rem;
-//     .projects {
-//         width: 80%;
-//         margin: auto;
-//         margin-bottom: 2rem;
-//         background: $blue;
-//         border-radius: 30px;
-//         .projects__container {
-//             display: flex;
-//             .project {
-//                 padding: 1rem;
-//                 background: white;
-//                 margin: 1rem;
-//                 opacity: 0.88;
-//                 .project__link {
-//                     color: black;
-//                     text-decoration: none;
-//                     transition: font-size .2s;
-//                 }
-//                 .project__link:hover {
-//                     font-size: 1.08em;
-//                 }
-//                 .project__image {
-//                     max-width:100%;
-//                 }
-//             }
-//         }
-//     }
-// }
-
 @media (max-width: $breakpoint-tablet) {
     .container-projects {
         height: 230vh;

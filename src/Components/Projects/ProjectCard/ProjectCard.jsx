@@ -17,6 +17,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkIcon from "@mui/icons-material/Link";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import textSelector from "../texts";
+import variables from "../../UI/variables.scss";
 
 function projectDialog({
     projectKey,
@@ -42,7 +43,7 @@ function projectDialog({
     };
 
     return (
-        <Card sx={{ width: 345, position: 'relative' }} onClick={() => handleCardClick(projectKey)}>
+        <Card sx={{ width: 345, position: 'relative', bgcolor:variables.color1}} onClick={() => handleCardClick(projectKey)}>
             <CardHeader
                 action={
                     <IconButton
