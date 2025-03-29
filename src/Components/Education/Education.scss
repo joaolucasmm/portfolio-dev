@@ -5,12 +5,14 @@
         display: flex;
         flex-direction: row;
         background-color: transparent;
+        color: black;
         .education_list {
             background-color: transparent;
         }
         .education_display {
             background-color: transparent;
             .card {
+                color: black;
                 background-color: transparent;
                 .header {
                     display: flex;
@@ -18,12 +20,31 @@
                     align-items: center;
                 }
                 .company {
+                    font-weight: bold;
                     display: flex;
                 }
                 .description {
                     text-align: justify;
                 }
+                .learn_more {
+                    color: $color5;
+                    font-style: oblique;
+                    background: $color3;
+                    transition: transform .2s;
+                }
+                .learn_more_dark {
+                    color: $color0;
+                }
+                .learn_more:hover {
+                    transform: scale(1.1);
+                }
+            }
+            .card_dark {
+                color: white;
             }
         }
+    }
+    .education_content_dark {
+        color: white;
     }
 }

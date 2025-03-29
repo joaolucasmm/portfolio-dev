@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import textSelector from './texts';
 
-function card(language, selectedIndex) {
+function card(language, selectedIndex, darkMode) {
     return(
         <Fragment>
             <CardContent>
@@ -25,7 +25,7 @@ function card(language, selectedIndex) {
                         {textSelector(language, selectedIndex+2)}
                     </Typography>
                 </div>
-                <Typography className='company' sx={{ color: 'text.secondary', mb: 1.5 }}>
+                <Typography className='company' sx={{ mb: 1.5 }}>
                     {textSelector(language, selectedIndex+4)}
                 </Typography>
                 <Typography className='description' variant="body2">
@@ -33,13 +33,13 @@ function card(language, selectedIndex) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Learn More</Button>
+                <Button size="small" className={"learn_more " + (darkMode && "learn_more_dark")} onClick={() => window.open((selectedIndex === 2) ? "https://www.ifsc.edu.br/tecnicos-integrados/-/visualizar/mecatronica/Campus-Criciuma/172/228/nO9EQhPgKNer" : "https://engfis.if.ufrgs.br/index.php/P%C3%A1gina_principal", "_blank")}>{textSelector(language, 9)}</Button>
             </CardActions>
         </Fragment>
     )
 }
 
-function Education({ styleSection, language }) {
+function Education({ styleSection, language, darkMode }) {
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     const handleListItemClick = (event, index) => {
@@ -50,7 +50,7 @@ function Education({ styleSection, language }) {
         <div id='education' className={styleSection}>
             <div className="education_container">
                 <h1>{textSelector(language,0)}</h1>
-                <div className='education_content'>
+                <div className={'education_content ' + (darkMode && "education_content_dark")}>
                     <Box className='education_list' sx={{ width: '100%', maxWidth: 300 }}>
                         <List>
                             {[textSelector(language, 1), textSelector(language, 2)].map((text, index) => (
@@ -70,7 +70,7 @@ function Education({ styleSection, language }) {
                         </List>
                     </Box>
                     <Box className='education_display' sx={{ minWidth: 275, width: 1400 }}>
-                        <Card variant="text" className='card'>{card(language, selectedIndex+1)}</Card>
+                        <Card variant="text" className={'card ' + (darkMode && 'card_dark')}>{card(language, selectedIndex+1, darkMode)}</Card>
                     </Box>
                 </div>
             </div>

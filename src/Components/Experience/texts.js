@@ -26,7 +26,8 @@ const textPortuguese = [
     "Manutenção e reparo de computadores. Instalação e configuração de software. Organização de inventário. Manutenção de rede.",
     "Tools: Excel, Google Forms, OS installer, hardware tools.",
     "Desenvolvimento de Website Educacional sobre Vitaminas e Coenzimas + Website de Avaliação Virtual da Proteína Total no Soro Sanguíneo.",
-    "Linguagens e Ferramentas: Javascript, PHP, HTML5, CSS, Adobe Animate and Apache Server"
+    "Linguagens e Ferramentas: Javascript, PHP, HTML5, CSS, Adobe Animate and Apache Server",
+    "Saiba mais"
 ]
 
 
@@ -56,7 +57,8 @@ const textEnglish = [
     "Maintenance and repair of computers. Software installation and configuration. Inventory organization. Network maintenance.",
     "Tools: Excel, Google Forms, OS installer, hardware tools.",
     "Development of Vitamins and coenzymes educational website + Virtual evaluation of total protein in blood serum website.",
-    "Languages and Tools: Javascript, PHP, HTML5, CSS, Adobe Animate and Apache Server."
+    "Languages and Tools: Javascript, PHP, HTML5, CSS, Adobe Animate and Apache Server.",
+    "Learn more"
 ]
 
 function textSelector(language, textPosition) {

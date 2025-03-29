@@ -1,4 +1,4 @@
-@import '../UI/variables.scss';
+@import "../UI/variables.scss";
 
 .container_projects {
     display: flex;
@@ -24,83 +24,75 @@
             right: 2rem;
             z-index: 1;
             width: max-content;
-            background: #FFFFFFc4;
+            background: $color2;
+            opacity: 0.9;
         }
     }
+}
 
-}
-.dialog_title {
-    text-align: center;
-}
-.dialog_content {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    .dialog_media {
-        width: 800px;
+.project_dialog {
+    background-color: $color2;
+    .dialog_title {
+        text-align: center;
     }
-    .dialog_description {
-        width: 550px;
-    }
-    .dialog_rows {
-        display: flex;
-        flex-direction: column;
-    }
-    .dialog_buttons {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin: 0.6rem;
-    }
-    .dialog_tags {
+    .dialog_content {
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
-        gap: 10px;
-        .tag {
-            transition: transform .2s;
+        justify-content: space-around;
+        color: $color5;
+        font-weight: bold;
+        .dialog_media {
+            width: 800px;
         }
-        .tag:hover {
-            cursor: pointer;
-            transform: scale(1.1);
+        .dialog_description {
+            width: 550px;
+        }
+        .dialog_rows {
+            display: flex;
+            flex-direction: column;
+        }
+        .dialog_buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 0.6rem;
+            .button {
+                font-weight: bold;
+                color: $color5;
+                transition: transform .2s;
+            }
+            .button_dark {
+                color: $color0;
+            }
+            .button:hover {
+                transform: scale(1.2);
+            }
+        }
+        .dialog_tags {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 10px;
+            .tag {
+                transition: transform 0.2s;
+                color: $color5;
+            }
+            .tag_dark {
+                color: $color0;
+            }
+            .tag:hover {
+                cursor: pointer;
+                transform: scale(1.1);
+            }
         }
     }
+    .dialog_content_dark {
+        color: $color0;
+    }
 }
-
-// .container-projects {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     height: 100vh;
-//     padding-bottom: 20rem;
-//     .projects {
-//         width: 80%;
-//         margin: auto;
-//         margin-bottom: 2rem;
-//         background: $blue;
-//         border-radius: 30px;
-//         .projects__container {
-//             display: flex;
-//             .project {
-//                 padding: 1rem;
-//                 background: white;
-//                 margin: 1rem;
-//                 opacity: 0.88;
-//                 .project__link {
-//                     color: black;
-//                     text-decoration: none;
-//                     transition: font-size .2s;
-//                 }
-//                 .project__link:hover {
-//                     font-size: 1.08em;
-//                 }
-//                 .project__image {
-//                     max-width:100%;
-//                 }
-//             }
-//         }
-//     }
-// }
+.project_dialog_dark {
+    background-color: $color4;
+}
 
 @media (max-width: $breakpoint-tablet) {
     .container-projects {

@@ -1,6 +1,16 @@
+@import './Components/UI/variables.scss';
+
 .App {
   text-align: center;
-  width: 100vw;
+}
+
+.bg_lightMode {
+  background-color: $color0;
+}
+
+
+.bg_darkMode {
+  background-color: $color4;
 }
 
 .App-logo {
@@ -72,14 +82,26 @@
   padding-top: 8rem;
 }
 
+@keyframes appear {
+  from{
+    opacity: 0;
+    scale: 0.5;
+  } to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
 .section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100vw;
   scroll-snap-align: start;
+  animation: appear 0.2s;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
 }
 
 .email_dialog {
@@ -94,9 +116,6 @@
   height: 150vh;
 }
 
-.section_secondaryColor {
-  /* background-color: #AAAAAA; */
-}
 
 @keyframes App-logo-spin {
   from {

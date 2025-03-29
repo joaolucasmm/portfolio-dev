@@ -1,3 +1,5 @@
+@import '../UI/variables.scss';
+
 .hero_container {
     display: flex;
     flex-direction: row;
@@ -18,5 +20,14 @@
 
     .button {
         text-align: center;
+        color: $color5;
+        border-color: $color5;
+        transition: transform .2s;
+    }
+    .button_dark {
+        color: white;
+    }
+    .button:hover {
+        transform: scale(0.9);
     }
 }

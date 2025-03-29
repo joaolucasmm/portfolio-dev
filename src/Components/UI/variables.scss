@@ -1,19 +1,27 @@
-$dark-blue: #0B1D51e3; //#16213ee3;
+$dark-blue: #0b1d51e3; //#16213ee3;
 $marine: #0f3460e3;
 $blue: #3f6888e3;
 $purple: #797596c4;
-$pink: #E94560;
+$pink: #e94560;
 $grey: #808080;
 $white: #ffffff52;
 
-$color1: #9077e5;
-$color2: #7d67d2;
-$color3: #6a57c0;
-$color4: #5746ad;
-$color5: #44369a;
+$color0: #c0aefd;   //background
+$color1: #9077e5aa;   //bg box
+$color2: #7d67d2;    //icons/destaques/links
+$color3: #6a57c0aa;   //bg box
+$color4: #5746ad;   //backbround
+$color5: #44369a;   // header
 
 $breakpoint-tablet: 768px;
 
 :export {
-  breakpointTablet: $breakpoint-tablet;
+    breakpointTablet: $breakpoint-tablet;
+    color0: $color0;   //background
+    color1: $color1;   //bg box
+    color2: $color2;
+    color3: $color3;
+    color4: $color4;
+    color5: $color5;
+    
 }

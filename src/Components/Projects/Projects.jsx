@@ -8,7 +8,7 @@ import Dialog from "./Dialog/Dialog";
 import ProjectCard from "./ProjectCard/ProjectCard";
 import Chip from "@mui/material/Chip";
 
-function Projects({ styleSection, language }) {
+function Projects({ styleSection, language, darkMode }) {
     const [open, setOpen] = useState(false);
     const [projectIndex, setProjectIndex] = useState(0);
     const [tags, setTags] = useState(["All"]);
@@ -104,6 +104,7 @@ function Projects({ styleSection, language }) {
                     fullDescription={projects[projectIndex].fullDescription}
                     tags={projects[projectIndex].tags}
                     handleTagSelection={handleTagSelection}
+                    darkMode={darkMode}
                 />
                 <span className="project_tags">
                     <Chip

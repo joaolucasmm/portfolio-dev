@@ -63,6 +63,7 @@ function Info({ styleSection, language }) {
                         className="info_list"
                         sx={{ width: "100%", maxWidth: 300 }}
                     >
+                        <h1>{textSelector(language, 0)}</h1>
                         <List>
                             {[
                                 textSelector(language, 1),
