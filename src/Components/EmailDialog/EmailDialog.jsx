@@ -9,7 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import CloseIcon from "@mui/icons-material/Close";
 import { TextField } from "@mui/material";
 
-const EmailDialog = ({ styleSection, handleClose, title, emailDialog, setEmailDialog }) => {
+const EmailDialog = ({ styleSection, handleClose, title, emailDialog, setEmailDialog, darkMode }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [stateMessage, setStateMessage] = useState(null);
     const sendEmail = (e) => {
@@ -56,6 +56,7 @@ const EmailDialog = ({ styleSection, handleClose, title, emailDialog, setEmailDi
                 maxWidth="xl"
                 className="container_email"
             >
+                <div className={"background_dialog " + (darkMode && "background_dialog_dark")}>
                 <DialogActions>
                     <Button onClick={() => setEmailDialog(false)}>
                         <CloseIcon />
@@ -69,13 +70,13 @@ const EmailDialog = ({ styleSection, handleClose, title, emailDialog, setEmailDi
                     >
                         <form onSubmit={sendEmail} className="email_form">
                             <span className="form_fields">
-                                <TextField label="Name" variant="outlined" name="name" className="email_input"/>
-                                <TextField label="Title" variant="outlined" name="title"  className="email_input"/>
-                                <TextField label="e-mail" variant="outlined" name="email"  className="email_input"/>
+                                <TextField label="Name" variant="outlined" name="name" className={"email_input " + (darkMode && "email_input_dark")}/>
+                                <TextField label="Title" variant="outlined" name="title"  className={"email_input " + (darkMode && "email_input_dark")}/>
+                                <TextField label="e-mail" variant="outlined" name="email"  className={"email_input " + (darkMode && "email_input_dark")}/>
                             </span>
                             <span className="form_fields">
-                                <TextField label="Message" variant="outlined" name="message" multiline rows={5} maxRows={10} className="email_input"/>
-                                <Button variant="outlined" type="submit" disabled={isSubmitting}>
+                                <TextField label="Message" variant="outlined" name="message" multiline rows={5} maxRows={10} className={"email_input " + (darkMode && "email_input_dark")}/>
+                                <Button variant="outlined" type="submit" disabled={isSubmitting} className={"button " + (darkMode && "button_dark") }>
                                     Send
                                 </Button>
                                 {stateMessage && <p>{stateMessage}</p>}
@@ -83,6 +84,7 @@ const EmailDialog = ({ styleSection, handleClose, title, emailDialog, setEmailDi
                         </form>
                     </DialogContentText>
                 </DialogContent>
+                </div>
             </Dialog>
         </div>
     );
