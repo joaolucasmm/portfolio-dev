@@ -38,7 +38,7 @@ function card(language, selectedIndex) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Learn More</Button>
+                <Button size="small" onClick={() => window.open(selectedIndex < 4 ? "https://www.sap.com/about/company.html" : "http://www.ufrgs.br/ufrgs/ensino/apresentacao", "_blank")}>{textSelector(language, 26)}</Button>
             </CardActions>
         </Fragment>
     )
