@@ -1,4 +1,8 @@
-.education_container {
+.education {
+    @media (max-width: $breakpoint-smartphone) {
+        height: 130vh;
+    }
+    .education_container {
     max-width: 1140px;
     margin: auto;
     .education_content {
@@ -69,4 +73,5 @@
     .education_content_dark {
         color: white;
     }
+}
 }
