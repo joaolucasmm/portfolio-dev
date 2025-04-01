@@ -55,7 +55,7 @@ function App() {
             />
             <Services
                 language={language}
-                styleSection="section section_secondaryColor"
+                styleSection="section services"
                 darkMode={darkMode}
             />
             <Experience
