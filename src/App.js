@@ -50,7 +50,7 @@ function App() {
             </div>
             <Projects
                 language={language}
-                styleSection="section"
+                styleSection="section projects"
                 darkMode={darkMode}
             />
             <Services
