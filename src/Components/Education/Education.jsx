@@ -51,7 +51,7 @@ function Education({ styleSection, language, darkMode }) {
             <div className="education_container">
                 <h1>{textSelector(language,0)}</h1>
                 <div className={'education_content ' + (darkMode && "education_content_dark")}>
-                    <Box className='education_list' sx={{ width: '100%', maxWidth: 300 }}>
+                    <Box className='education_list'>
                         <List>
                             {[textSelector(language, 1), textSelector(language, 2)].map((text, index) => (
                                 <Fragment key={index}>
@@ -69,7 +69,7 @@ function Education({ styleSection, language, darkMode }) {
                             ))}
                         </List>
                     </Box>
-                    <Box className='education_display' sx={{ minWidth: 275, width: 1400 }}>
+                    <Box className='education_display'>
                         <Card variant="text" className={'card ' + (darkMode && 'card_dark')}>{card(language, selectedIndex+1, darkMode)}</Card>
                     </Box>
                 </div>
