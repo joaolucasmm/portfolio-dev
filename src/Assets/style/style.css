@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 :export {
+  breakpointHeader: 990px;
   breakpointTablet: 768px;
   color0: #c0aefd;
   color1: rgba(144, 119, 229, 0.6666666667);
@@ -140,6 +141,7 @@
   }
 }
 :export {
+  breakpointHeader: 990px;
   breakpointTablet: 768px;
   color0: #c0aefd;
   color1: rgba(144, 119, 229, 0.6666666667);
@@ -162,14 +164,58 @@
   flex-direction: row;
   background-color: #44369a;
 }
+@media (max-width: 540px) {
+  .header-container .header_appbar {
+    height: 100px;
+  }
+}
+@media (max-width: 540px) {
+  .header-container .header_appbar {
+    padding-top: 100px;
+    height: unset;
+  }
+}
 .header-container .header_appbar .header-toolbar {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-height: unset;
+}
+@media (max-width: 540px) {
+  .header-container .header_appbar .header-toolbar .header_title {
+    position: absolute;
+    right: 15px;
+    top: -90px;
+  }
+}
+.header-container .header_appbar .header-toolbar .header_menu {
+  display: none;
+}
+@media (max-width: 990px) {
+  .header-container .header_appbar .header-toolbar .header_menu {
+    margin: auto;
+    position: unset;
+    right: unset;
+    top: unset;
+  }
+}
+@media (max-width: 540px) {
+  .header-container .header_appbar .header-toolbar .header_menu {
+    position: absolute;
+    right: 0;
+    top: -50px;
+  }
 }
 .header-container .header_appbar .header-toolbar .header-buttons {
+  display: flex;
   gap: 0.3rem;
+}
+@media (max-width: 768px) {
+  .header-container .header_appbar .header-toolbar .header-buttons {
+    display: none;
+    flex-direction: column;
+  }
 }
 .header-container .header_appbar .header-toolbar .header-buttons .button {
   color: white;
@@ -178,12 +224,6 @@
 }
 .header-container .header_appbar .header-toolbar .header-buttons .button:hover {
   transform: scale(0.9);
-}
-@media (min-width: 768px) {
-  .header-container .header_appbar .header-toolbar {
-    flex-direction: column;
-    justify-content: center;
-  }
 }
 .header-container .header_appbar .header_language {
   position: absolute;
@@ -194,51 +234,28 @@
 .header-container .header_appbar .header_language #demo-select-small {
   color: white;
 }
+@media (max-width: 540px) {
+  .header-container .header_appbar .header_language {
+    right: unset;
+    left: 18px;
+    top: 7px;
+  }
+}
 .header-container .header_appbar .header_nightmode {
   position: absolute;
   right: 0;
   top: 12px;
 }
-
-.header-title {
-  flex-grow: 1;
-  display: block;
-  margin-bottom: 10px;
-  text-align: center;
-}
-@media (min-width: 768px) {
-  .header-title {
-    margin-bottom: 10px;
-    text-align: center;
-    width: 100%;
-  }
-}
-
-.header-buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-@media (min-width: 768px) {
-  .header-buttons {
-    display: flex;
-    flex-direction: row;
-  }
-}
-.header-buttons .translate {
-  color: #fff;
-}
-.header-buttons button {
-  margin-bottom: 10px;
-}
-@media (min-width: 768px) {
-  .header-buttons button {
-    margin-bottom: 0;
-    margin-left: 10px;
+@media (max-width: 540px) {
+  .header-container .header_appbar .header_nightmode {
+    right: unset;
+    left: 0px;
+    top: 50px;
   }
 }
 
 :export {
+  breakpointHeader: 990px;
   breakpointTablet: 768px;
   color0: #c0aefd;
   color1: rgba(144, 119, 229, 0.6666666667);
@@ -279,6 +296,7 @@
 }
 
 :export {
+  breakpointHeader: 990px;
   breakpointTablet: 768px;
   color0: #c0aefd;
   color1: rgba(144, 119, 229, 0.6666666667);
@@ -332,6 +350,7 @@
 }
 
 :export {
+  breakpointHeader: 990px;
   breakpointTablet: 768px;
   color0: #c0aefd;
   color1: rgba(144, 119, 229, 0.6666666667);
@@ -363,6 +382,7 @@
 }
 
 :export {
+  breakpointHeader: 990px;
   breakpointTablet: 768px;
   color0: #c0aefd;
   color1: rgba(144, 119, 229, 0.6666666667);
@@ -447,6 +467,7 @@
   }
 }
 :export {
+  breakpointHeader: 990px;
   breakpointTablet: 768px;
   color0: #c0aefd;
   color1: rgba(144, 119, 229, 0.6666666667);
@@ -516,6 +537,7 @@
   }
 }
 :export {
+  breakpointHeader: 990px;
   breakpointTablet: 768px;
   color0: #c0aefd;
   color1: rgba(144, 119, 229, 0.6666666667);
@@ -629,6 +651,7 @@
   }
 }
 :export {
+  breakpointHeader: 990px;
   breakpointTablet: 768px;
   color0: #c0aefd;
   color1: rgba(144, 119, 229, 0.6666666667);
@@ -700,6 +723,7 @@
 }
 
 :export {
+  breakpointHeader: 990px;
   breakpointTablet: 768px;
   color0: #c0aefd;
   color1: rgba(144, 119, 229, 0.6666666667);
@@ -821,6 +845,7 @@
 }
 
 :export {
+  breakpointHeader: 990px;
   breakpointTablet: 768px;
   color0: #c0aefd;
   color1: rgba(144, 119, 229, 0.6666666667);
@@ -835,6 +860,7 @@ footer {
 }
 
 :export {
+  breakpointHeader: 990px;
   breakpointTablet: 768px;
   color0: #c0aefd;
   color1: rgba(144, 119, 229, 0.6666666667);

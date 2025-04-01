@@ -14,6 +14,9 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { IconButton } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
+import variables from '../UI/variables.scss';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
@@ -71,7 +74,43 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     },
 }));
 
-function DrawerAppBar({ props, links, setLanguage, language, darkMode, setDarkMode }) {
+function DrawerAppBar({
+    props,
+    links,
+    setLanguage,
+    language,
+    darkMode,
+    setDarkMode,
+}) {
+    React.useEffect(() => {
+        const handleResize = () => {
+            const buttons = document.getElementsByClassName("header-buttons")[0];
+            const menu = document.getElementsByClassName("header_menu")[0];
+            if (buttons && menu) {
+                if (window.innerWidth > parseInt(variables.breakpointHeader)) {
+                    buttons.style.display = "flex"; // Show buttons
+                    menu.style.display = "none"; // Hide menu
+                } else {
+                    buttons.style.display = "none"; // Hide buttons
+                    menu.style.display = "block"; // Show menu
+                }
+            }
+        };
+
+        window.addEventListener("resize", handleResize);
+        handleResize(); // Initial check
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
+    const toggleMenu = () => {
+        const buttons = document.getElementsByClassName("header-buttons")[0];
+        if (buttons) {
+            buttons.style.display = buttons.style.display === "none" ? "flex" : "none";
+        }
+    };
+
     return (
         <Box className="header-container">
             <CssBaseline />
@@ -81,9 +120,7 @@ function DrawerAppBar({ props, links, setLanguage, language, darkMode, setDarkMo
                     size="small"
                     className="header_language"
                 >
-                    <InputLabel
-                        id="demo-select-small-label"
-                    >
+                    <InputLabel id="demo-select-small-label">
                         {textSelector(language, 6)}
                     </InputLabel>
                     <Select
@@ -91,7 +128,9 @@ function DrawerAppBar({ props, links, setLanguage, language, darkMode, setDarkMo
                         id="demo-select-small"
                         value={language}
                         label="Language"
-                        onChange={(e) => {setLanguage(e.target.value)}}
+                        onChange={(e) => {
+                            setLanguage(e.target.value);
+                        }}
                     >
                         <MenuItem value={"portuguese"}>Português</MenuItem>
                         <MenuItem value={"english"}>English</MenuItem>
@@ -101,12 +140,23 @@ function DrawerAppBar({ props, links, setLanguage, language, darkMode, setDarkMo
                     <Typography
                         variant="h4"
                         component={Link}
-                        className="header-title"
+                        className="header_title"
                         sx={{ textDecoration: "none" }}
                         color="#FFF"
                     >
                         João Lucas
                     </Typography>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        sx={{ mr: 2 }}
+                        className="header_menu"
+                        onClick={toggleMenu}
+                    >
+                        <MenuIcon />
+                    </IconButton>
                     <Box className="header-buttons">
                         {props.map((item, i) => (
                             <Button
@@ -121,8 +171,17 @@ function DrawerAppBar({ props, links, setLanguage, language, darkMode, setDarkMo
                     </Box>
                 </Toolbar>
                 <FormControlLabel
-                    control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked 
-                    onClick={() => darkMode ? setDarkMode(false) : setDarkMode(true) } />}
+                    control={
+                        <MaterialUISwitch
+                            sx={{ m: 1 }}
+                            defaultChecked
+                            onClick={() =>
+                                darkMode
+                                    ? setDarkMode(false)
+                                    : setDarkMode(true)
+                            }
+                        />
+                    }
                     label={textSelector(language, 7)}
                     className="header_nightmode"
                 />
