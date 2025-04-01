@@ -9,13 +9,17 @@ $white: #ffffff52;
 $color0: #c0aefd;   //background
 $color1: #9077e5aa;   //bg box
 $color2: #7d67d2;    //icons/destaques/links
-$color3: #6a57c0aa;   //bg box
-$color4: #5746ad;   //backbround
+$color3: #6a57c0aa;   //bg box - dark mode
+$color4: #5746ad;   //backbround - dark mode
 $color5: #44369a;   // header
 
+$breakpoint-desktop: 1280px;
+$breakpoint-header: 990px;
 $breakpoint-tablet: 768px;
+$breakpoint-smartphone: 540px;
 
 :export {
+    breakpointHeader: $breakpoint-header;
     breakpointTablet: $breakpoint-tablet;
     color0: $color0;   //background
     color1: $color1;   //bg box

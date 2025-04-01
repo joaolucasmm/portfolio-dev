@@ -1,10 +1,20 @@
-.services_container {
-    display: flex;
+.services {
+    @media (max-width: $breakpoint-desktop) {
+        height: 120vh;
+    }
+    .services_container {
+        display: flex;
     flex-direction: column;
     .services_content {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         width: 1120px;
+        @media (max-width: $breakpoint-desktop) {
+            flex-direction: column;
+            width: unset;
+            gap: 2rem;
+        }
     }
+}
 }

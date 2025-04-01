@@ -1,22 +1,36 @@
-@import '../UI/variables.scss';
-
-.container_about {
-    display: flex;
-    width: 800px;
-    background-color: $color1;
-    .about_content {
-        text-align: justify;
-        .about_presentation {
-            text-align: center;
+@import "../UI/variables.scss";
+.about {
+    @media (max-width: $breakpoint-tablet) {
+        height: 200vh;
+    }
+    .container_about {
+        display: flex;
+        width: min(80%, 800px);
+        margin: auto;
+        background-color: $color1;
+        @media (max-width: $breakpoint-desktop) {
+            margin-top: 2rem;
         }
-        .button {
-            color: black;
-            background: $color2;
-            margin-right: .5rem;
-            transition: transform .2s;
+        @media (max-width: $breakpoint-tablet) {
+            margin-top: 6rem;
         }
-        .button:hover {
-            transform: scale(1.1);
+        @media (max-width: $breakpoint-smartphone) {
+            margin-top: 10rem;
+        }
+        .about_content {
+            text-align: justify;
+            .about_presentation {
+                text-align: center;
+            }
+            .button {
+                color: black;
+                background: $color2;
+                margin-right: 0.5rem;
+                transition: transform 0.2s;
+            }
+            .button:hover {
+                transform: scale(1.1);
+            }
         }
     }
 }

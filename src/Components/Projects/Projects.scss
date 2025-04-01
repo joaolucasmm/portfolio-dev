@@ -1,31 +1,47 @@
 @import "../UI/variables.scss";
 
-.container_projects {
-    display: flex;
-    flex-direction: column;
-
-    .project_tags {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        padding-bottom: 10px;
+.projects {
+    height: 150vh;
+    @media (max-width:$breakpoint-desktop) {
+        height: 180vh;
+        margin-top: 30vh;
     }
-    .project_items {
+    @media (max-width:$breakpoint-tablet) {
+        margin-top: 20vh;
+    }
+    .container_projects {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: 1200px;
-        justify-content: space-evenly;
-        row-gap: 25px;
-        [class^="project_settings"] {
-            display: none;
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            z-index: 1;
-            width: max-content;
-            background: $color2;
-            opacity: 0.9;
+        flex-direction: column;
+        align-items: center;
+
+        .project_tags {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            padding-bottom: 10px;
+        }
+        .project_items {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 1200px;
+            justify-content: space-evenly;
+            row-gap: 25px;
+            margin: auto;
+            @media (max-width:$breakpoint-desktop) {
+                flex-direction: column;
+                width: unset;
+            }
+            [class^="project_settings"] {
+                display: none;
+                position: absolute;
+                top: 2rem;
+                right: 2rem;
+                z-index: 1;
+                width: max-content;
+                background: $color2;
+                opacity: 0.9;
+            }
         }
     }
 }
@@ -59,7 +75,7 @@
             .button {
                 font-weight: bold;
                 color: $color5;
-                transition: transform .2s;
+                transition: transform 0.2s;
             }
             .button_dark {
                 color: $color0;

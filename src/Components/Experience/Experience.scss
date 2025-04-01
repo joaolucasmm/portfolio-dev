@@ -8,11 +8,27 @@
         flex-direction: row;
         color: black;
         background-color: transparent;
+        @media (max-width: $breakpoint-desktop) {
+            flex-direction: column;
+        }
         .experience_list {
+            margin: auto;
             background-color: transparent;
+            width: 100%;
+            max-width: 300px;
+            @media (max-width: $breakpoint-desktop) {
+                max-width: 800px;
+                width: min(80%, 800px);
+            }
         }
         background-color: transparent;
         .experience_display {
+            min-width: 275px;
+            width: 1400px;
+            @media (max-width: $breakpoint-desktop) {
+                width: min(80%, 800px);
+                margin: auto;
+            }
             .card {
                 color: black;
                 background-color: transparent;
@@ -20,10 +36,17 @@
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+                    flex-direction: row;
+                    @media (max-width: $breakpoint-tablet) {
+                        flex-direction: column;
+                    }
                 }
                 .company {
                     font-weight: bold;
                     display: flex;
+                    @media (max-width: $breakpoint-tablet) {
+                        justify-content: center;
+                    }
                 }
                 .description {
                     text-align: justify;

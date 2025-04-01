@@ -50,17 +50,17 @@ function App() {
             </div>
             <Projects
                 language={language}
-                styleSection="section"
+                styleSection="section projects"
                 darkMode={darkMode}
             />
             <Services
                 language={language}
-                styleSection="section section_secondaryColor"
+                styleSection="section services"
                 darkMode={darkMode}
             />
             <Experience
                 language={language}
-                styleSection="section"
+                styleSection="section education"
                 darkMode={darkMode}
             />
             <Education
