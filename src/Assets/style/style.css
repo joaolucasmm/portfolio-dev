@@ -609,6 +609,12 @@
   justify-content: center;
   padding-bottom: 10px;
 }
+@media (max-width: 540px) {
+  .projects .container_projects .project_tags {
+    width: 300px;
+    flex-wrap: wrap;
+  }
+}
 .projects .container_projects .project_items {
   display: flex;
   flex-direction: row;

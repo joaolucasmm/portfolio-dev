@@ -19,6 +19,10 @@
             gap: 10px;
             justify-content: center;
             padding-bottom: 10px;
+            @media (max-width: $breakpoint-smartphone) {
+                width: 300px;
+                flex-wrap: wrap;
+            }
         }
         .project_items {
             display: flex;
