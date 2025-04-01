@@ -254,6 +254,12 @@
     height: 150vh;
   }
 }
+@media (max-width: 540px) {
+  .hero {
+    height: 170vh;
+    margin-top: 5rem;
+  }
+}
 .hero .hero_container {
   display: flex;
   flex-direction: row;
@@ -329,19 +335,30 @@
 .container_email .background_dialog {
   background-color: rgba(144, 119, 229, 0.6666666667);
 }
+.container_email .background_dialog .dialog_content {
+  width: 80%;
+  margin: auto;
+}
 .container_email .background_dialog .dialog_content .email_form {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 1rem;
   padding: 1rem;
+}
+@media (max-width: 768px) {
+  .container_email .background_dialog .dialog_content .email_form {
+    flex-direction: column;
+  }
 }
 .container_email .background_dialog .dialog_content .email_form .form_fields {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 1.3rem;
+  width: min(90%, 500px);
+  margin: auto;
 }
 .container_email .background_dialog .dialog_content .email_form .form_fields .email_input {
-  width: 30rem;
   color: #44369a;
   border-color: #44369a;
 }
@@ -379,6 +396,11 @@
 @media (max-width: 768px) {
   .about {
     height: 200vh;
+  }
+}
+@media (max-width: 540px) {
+  .about {
+    margin-bottom: 20rem;
   }
 }
 .about .container_about {
@@ -584,9 +606,6 @@
   color5: #44369a;
 }
 
-.projects {
-  height: 150vh;
-}
 @media (max-width: 1280px) {
   .projects {
     height: 180vh;
@@ -596,6 +615,11 @@
 @media (max-width: 768px) {
   .projects {
     margin-top: 20vh;
+  }
+}
+@media (max-width: 540px) {
+  .projects {
+    height: 230vh;
   }
 }
 .projects .container_projects {
@@ -798,11 +822,16 @@
   color5: #44369a;
 }
 
-.experience_container {
+@media (max-width: 540px) {
+  .experience {
+    height: 130vh;
+  }
+}
+.experience .experience_container {
   max-width: 1140px;
   margin: auto;
 }
-.experience_container .experience_content {
+.experience .experience_container .experience_content {
   display: flex;
   flex-direction: row;
   color: black;
@@ -810,75 +839,75 @@
   background-color: transparent;
 }
 @media (max-width: 1280px) {
-  .experience_container .experience_content {
+  .experience .experience_container .experience_content {
     flex-direction: column;
   }
 }
-.experience_container .experience_content .experience_list {
+.experience .experience_container .experience_content .experience_list {
   margin: auto;
   background-color: transparent;
   width: 100%;
   max-width: 300px;
 }
 @media (max-width: 1280px) {
-  .experience_container .experience_content .experience_list {
+  .experience .experience_container .experience_content .experience_list {
     max-width: 800px;
     width: min(80%, 800px);
   }
 }
-.experience_container .experience_content .experience_display {
+.experience .experience_container .experience_content .experience_display {
   min-width: 275px;
   width: 1400px;
 }
 @media (max-width: 1280px) {
-  .experience_container .experience_content .experience_display {
+  .experience .experience_container .experience_content .experience_display {
     width: min(80%, 800px);
     margin: auto;
   }
 }
-.experience_container .experience_content .experience_display .card {
+.experience .experience_container .experience_content .experience_display .card {
   color: black;
   background-color: transparent;
 }
-.experience_container .experience_content .experience_display .card .header {
+.experience .experience_container .experience_content .experience_display .card .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
 }
 @media (max-width: 768px) {
-  .experience_container .experience_content .experience_display .card .header {
+  .experience .experience_container .experience_content .experience_display .card .header {
     flex-direction: column;
   }
 }
-.experience_container .experience_content .experience_display .card .company {
+.experience .experience_container .experience_content .experience_display .card .company {
   font-weight: bold;
   display: flex;
 }
 @media (max-width: 768px) {
-  .experience_container .experience_content .experience_display .card .company {
+  .experience .experience_container .experience_content .experience_display .card .company {
     justify-content: center;
   }
 }
-.experience_container .experience_content .experience_display .card .description {
+.experience .experience_container .experience_content .experience_display .card .description {
   text-align: justify;
 }
-.experience_container .experience_content .experience_display .card .learn_more {
+.experience .experience_container .experience_content .experience_display .card .learn_more {
   color: #44369a;
   font-style: oblique;
   background: rgba(106, 87, 192, 0.6666666667);
   transition: transform 0.2s;
 }
-.experience_container .experience_content .experience_display .card .learn_more_dark {
+.experience .experience_container .experience_content .experience_display .card .learn_more_dark {
   color: #c0aefd;
 }
-.experience_container .experience_content .experience_display .card .learn_more:hover {
+.experience .experience_container .experience_content .experience_display .card .learn_more:hover {
   transform: scale(1.1);
 }
-.experience_container .experience_content .experience_display .card_dark {
+.experience .experience_container .experience_content .experience_display .card_dark {
   color: white;
 }
-.experience_container .experience_content_dark {
+.experience .experience_container .experience_content_dark {
   color: white;
 }
 
@@ -905,86 +934,91 @@
   }
 }
 
-.education_container {
+@media (max-width: 540px) {
+  .education {
+    height: 130vh;
+  }
+}
+.education .education_container {
   max-width: 1140px;
   margin: auto;
 }
-.education_container .education_content {
+.education .education_container .education_content {
   display: flex;
   flex-direction: row;
   background-color: transparent;
   color: black;
 }
 @media (max-width: 1280px) {
-  .education_container .education_content {
+  .education .education_container .education_content {
     flex-direction: column;
   }
 }
-.education_container .education_content .education_list {
+.education .education_container .education_content .education_list {
   margin: auto;
   background-color: transparent;
   width: 100%;
   max-width: 300px;
 }
 @media (max-width: 1280px) {
-  .education_container .education_content .education_list {
+  .education .education_container .education_content .education_list {
     max-width: 800px;
     width: min(80%, 800px);
   }
 }
-.education_container .education_content .education_display {
+.education .education_container .education_content .education_display {
   background-color: transparent;
   min-width: 275px;
   width: 1400px;
 }
 @media (max-width: 1280px) {
-  .education_container .education_content .education_display {
+  .education .education_container .education_content .education_display {
     width: min(80%, 800px);
     margin: auto;
   }
 }
-.education_container .education_content .education_display .card {
+.education .education_container .education_content .education_display .card {
   color: black;
   background-color: transparent;
 }
-.education_container .education_content .education_display .card .header {
+.education .education_container .education_content .education_display .card .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 @media (max-width: 768px) {
-  .education_container .education_content .education_display .card .header {
+  .education .education_container .education_content .education_display .card .header {
     flex-direction: column;
   }
 }
-.education_container .education_content .education_display .card .company {
+.education .education_container .education_content .education_display .card .company {
   font-weight: bold;
   display: flex;
 }
 @media (max-width: 768px) {
-  .education_container .education_content .education_display .card .company {
+  .education .education_container .education_content .education_display .card .company {
     justify-content: center;
   }
 }
-.education_container .education_content .education_display .card .description {
+.education .education_container .education_content .education_display .card .description {
   text-align: justify;
 }
-.education_container .education_content .education_display .card .learn_more {
+.education .education_container .education_content .education_display .card .learn_more {
   color: #44369a;
   font-style: oblique;
   background: rgba(106, 87, 192, 0.6666666667);
   transition: transform 0.2s;
 }
-.education_container .education_content .education_display .card .learn_more_dark {
+.education .education_container .education_content .education_display .card .learn_more_dark {
   color: #c0aefd;
 }
-.education_container .education_content .education_display .card .learn_more:hover {
+.education .education_container .education_content .education_display .card .learn_more:hover {
   transform: scale(1.1);
 }
-.education_container .education_content .education_display .card_dark {
+.education .education_container .education_content .education_display .card_dark {
   color: white;
 }
-.education_container .education_content_dark {
+.education .education_container .education_content_dark {
   color: white;
 }
 

@@ -60,12 +60,12 @@ function App() {
             />
             <Experience
                 language={language}
-                styleSection="section education"
+                styleSection="section experience"
                 darkMode={darkMode}
             />
             <Education
                 language={language}
-                styleSection="section section_secondaryColor"
+                styleSection="section education"
                 darkMode={darkMode}
             />
             <Info

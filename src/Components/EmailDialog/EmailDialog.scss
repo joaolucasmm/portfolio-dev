@@ -7,19 +7,28 @@
         background-color: $color1;
 
         .dialog_content {
+            width: 80%;
+            margin: auto;
             .email_form {
                 display: flex;
                 flex-direction: row;
+                flex-wrap: wrap;
                 gap: 1rem;
                 padding: 1rem;
+                @media (max-width: $breakpoint-tablet) {
+                    flex-direction: column;
+                }
                 .form_fields {
                     display: flex;
                     flex-direction: column;
-                    gap: 1.1rem;
+                    gap: 1.3rem;
+                    width: min(90%, 500px);
+                    margin: auto;
                     .email_input {
-                        width: 30rem;
                         color: $color5;
                         border-color: $color5;
+                        @media (max-width: $breakpoint-tablet) {
+                        }
                     }
                     .email_input_dark {
                         color: $color0;
