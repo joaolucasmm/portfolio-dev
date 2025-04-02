@@ -1,13 +1,15 @@
 @import "../UI/variables.scss";
 
 .projects {
-    height: 150vh;
     @media (max-width:$breakpoint-desktop) {
         height: 180vh;
         margin-top: 30vh;
     }
     @media (max-width:$breakpoint-tablet) {
         margin-top: 20vh;
+    }
+    @media (max-width:$breakpoint-smartphone) {
+        height: 230vh;
     }
     .container_projects {
         display: flex;
@@ -19,6 +21,10 @@
             gap: 10px;
             justify-content: center;
             padding-bottom: 10px;
+            @media (max-width: $breakpoint-smartphone) {
+                width: 300px;
+                flex-wrap: wrap;
+            }
         }
         .project_items {
             display: flex;
@@ -57,11 +63,29 @@
         justify-content: space-around;
         color: $color5;
         font-weight: bold;
+        @media (max-width: $breakpoint-tablet) {
+            flex-direction: column;
+            margin: auto;
+            align-items: center;
+        }
         .dialog_media {
             width: 800px;
+            @media (max-width: $breakpoint-desktop) {
+                width: min(100%, 500px);
+            }
+            @media (max-width: $breakpoint-header) {
+                width: min(100%, 400px);
+            }
+            @media (max-width: $breakpoint-tablet) {
+                width: min(100%, 550px);
+            }
         }
         .dialog_description {
-            width: 550px;
+            width: min(100%, 550px);
+            margin-left: 1rem;
+            @media (max-width: $breakpoint-tablet) {
+                margin-left: 0;
+            }
         }
         .dialog_rows {
             display: flex;

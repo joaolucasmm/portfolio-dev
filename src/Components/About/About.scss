@@ -3,6 +3,9 @@
     @media (max-width: $breakpoint-tablet) {
         height: 200vh;
     }
+    @media (max-width: $breakpoint-smartphone) {
+        margin-bottom: 20rem;
+    }
     .container_about {
         display: flex;
         width: min(80%, 800px);

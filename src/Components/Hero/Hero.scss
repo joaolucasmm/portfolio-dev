@@ -4,6 +4,10 @@
     @media (max-width: $breakpoint-tablet) {
         height: 150vh;
     }
+    @media (max-width: $breakpoint-smartphone) {
+        height: 170vh;
+        margin-top: 5rem;
+    }
     .hero_container {
         display: flex;
         flex-direction: row;
