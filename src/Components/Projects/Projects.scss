@@ -63,11 +63,29 @@
         justify-content: space-around;
         color: $color5;
         font-weight: bold;
+        @media (max-width: $breakpoint-tablet) {
+            flex-direction: column;
+            margin: auto;
+            align-items: center;
+        }
         .dialog_media {
             width: 800px;
+            @media (max-width: $breakpoint-desktop) {
+                width: min(100%, 500px);
+            }
+            @media (max-width: $breakpoint-header) {
+                width: min(100%, 400px);
+            }
+            @media (max-width: $breakpoint-tablet) {
+                width: min(100%, 550px);
+            }
         }
         .dialog_description {
-            width: 550px;
+            width: min(100%, 550px);
+            margin-left: 1rem;
+            @media (max-width: $breakpoint-tablet) {
+                margin-left: 0;
+            }
         }
         .dialog_rows {
             display: flex;

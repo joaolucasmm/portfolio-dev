@@ -679,11 +679,39 @@
   color: #44369a;
   font-weight: bold;
 }
+@media (max-width: 768px) {
+  .project_dialog .dialog_content {
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+  }
+}
 .project_dialog .dialog_content .dialog_media {
   width: 800px;
 }
+@media (max-width: 1280px) {
+  .project_dialog .dialog_content .dialog_media {
+    width: min(100%, 500px);
+  }
+}
+@media (max-width: 990px) {
+  .project_dialog .dialog_content .dialog_media {
+    width: min(100%, 400px);
+  }
+}
+@media (max-width: 768px) {
+  .project_dialog .dialog_content .dialog_media {
+    width: min(100%, 550px);
+  }
+}
 .project_dialog .dialog_content .dialog_description {
-  width: 550px;
+  width: min(100%, 550px);
+  margin-left: 1rem;
+}
+@media (max-width: 768px) {
+  .project_dialog .dialog_content .dialog_description {
+    margin-left: 0;
+  }
 }
 .project_dialog .dialog_content .dialog_rows {
   display: flex;
