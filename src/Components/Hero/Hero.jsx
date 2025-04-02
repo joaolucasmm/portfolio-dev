@@ -51,7 +51,7 @@ function Hero({ styleSection, language, setEmailDialog, darkMode }) {
                                 href={resumeLink}
                                 target="_blank"
                             >
-                                Download Resume
+                                {textSelector(language, 5)}
                             </Button>
                         </Grid>
                         <Grid size={2} className="sub_grid">
@@ -62,7 +62,7 @@ function Hero({ styleSection, language, setEmailDialog, darkMode }) {
                                 variant="outlined"
                                 onClick={() => setEmailDialog(true)}
                             >
-                                Contato
+                                {textSelector(language, 6)}
                             </Button>
                         </Grid>
                     </Grid>
