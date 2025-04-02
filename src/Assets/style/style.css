@@ -620,6 +620,7 @@
 @media (max-width: 540px) {
   .projects {
     height: 230vh;
+    margin-top: 30vh;
   }
 }
 .projects .container_projects {

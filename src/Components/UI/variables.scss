@@ -17,6 +17,7 @@ $breakpoint-desktop: 1280px;
 $breakpoint-header: 990px;
 $breakpoint-tablet: 768px;
 $breakpoint-smartphone: 540px;
+$breakpoint-phone: 400px;
 
 :export {
     breakpointHeader: $breakpoint-header;
