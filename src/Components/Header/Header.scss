@@ -62,6 +62,7 @@
                     color: white;
                     border-color: white;
                     transition: transform 0.2s;
+                    width: max-content;
                 }
                 .button:hover {
                     transform: scale(0.9);

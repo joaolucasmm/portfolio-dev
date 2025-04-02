@@ -205,6 +205,8 @@
   color: white;
   border-color: white;
   transition: transform 0.2s;
+  width: -moz-max-content;
+  width: max-content;
 }
 .header-container .header_appbar .header-toolbar .header-buttons .button:hover {
   transform: scale(0.9);
