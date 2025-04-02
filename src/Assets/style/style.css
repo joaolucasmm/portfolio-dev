@@ -405,7 +405,7 @@
 }
 @media (max-width: 400px) {
   .about {
-    margin-bottom: 40rem;
+    margin-bottom: 30rem;
   }
 }
 .about .container_about {
@@ -630,7 +630,7 @@
 }
 @media (max-width: 400px) {
   .projects {
-    height: 340vh;
+    height: 330vh;
   }
 }
 .projects .container_projects {
