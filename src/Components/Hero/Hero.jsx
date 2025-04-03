@@ -12,7 +12,7 @@ function Hero({ styleSection, language, setEmailDialog, darkMode }) {
 
     return (
         <div className={styleSection + " hero"}>
-            <div className="hero_container">
+            <div className={"hero_container " + (darkMode && "hero_container_dark")}>
                 <Grid container spacing={4} className="hero_grid">
                     <Grid size={8} className="sub_grid">
                         <div className="text">

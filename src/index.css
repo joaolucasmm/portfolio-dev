@@ -5,9 +5,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+  background-image: url("C:/Users/joaol/Dev/portfolio-dev/src/Assets/Images/bg-wallpaper.jpeg");
+  background-position: 0 0;
+  background-repeat: no-repeat;
 }
 html {
   scroll-snap-type: none;
+  
 }
 
 code {

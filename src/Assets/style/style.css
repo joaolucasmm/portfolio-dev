@@ -15,11 +15,20 @@
 }
 
 .bg_lightMode {
-  background-color: #c0aefd;
+  background-image: url("C:/Users/joaol/Dev/portfolio-dev/src/Assets/Images/bg-1.jpeg");
+  background-position: 0 0;
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .bg_darkMode {
   background-color: #5746ad;
+  background-image: url("C:/Users/joaol/Dev/portfolio-dev/src/Assets/Images/bg-2.jpeg");
+  background-position: 0 0;
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .App-logo {
@@ -317,6 +326,9 @@
 }
 .hero .hero_container .hero_grid .button_container .sub_grid .button:hover {
   transform: scale(0.9);
+}
+.hero .hero_container_dark {
+  color: white;
 }
 
 :export {

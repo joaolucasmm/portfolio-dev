@@ -5,12 +5,24 @@
 }
 
 .bg_lightMode {
-  background-color: $color0;
+  // background-color: $color0;
+  
+  background-image: url("C:/Users/joaol/Dev/portfolio-dev/src/Assets/Images/bg-1.jpeg");
+  background-position: 0 0;
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 
 .bg_darkMode {
   background-color: $color4;
+  
+  background-image: url("C:/Users/joaol/Dev/portfolio-dev/src/Assets/Images/bg-2.jpeg");
+  background-position: 0 0;
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .App-logo {
