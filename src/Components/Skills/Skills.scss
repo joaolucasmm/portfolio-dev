@@ -34,6 +34,10 @@
                 list-style-type: none;
                 transition: transform 0.2s;
                 background-color: $color1;
+                font-weight: bold;
+            }
+            .skill-list__text_dark {
+                color: white;
             }
             .skill-list__text:hover {
                 transform: scale(1.2);
