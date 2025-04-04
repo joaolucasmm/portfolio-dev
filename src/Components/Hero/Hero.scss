@@ -21,12 +21,12 @@
             padding-left: 2rem;
         }
         /* From https://css.glass */
-        background: rgba(125, 103, 210, 0.23921568627450981);
+        background: $color-glassContainer;
         border-radius: 16px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 30px $color-glassShadow;
         backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
-        border: 1px solid rgba(125, 103, 210, 0.3);
+        border: 1px solid $color-glassBorder;
         @media (max-width: $breakpoint-desktop) {
             margin-top: 6rem;
         }
