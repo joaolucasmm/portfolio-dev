@@ -282,13 +282,6 @@
   flex-direction: row;
   justify-content: space-around;
   width: 80%;
-  /* From https://css.glass */
-  background: rgba(125, 103, 210, 0.2392156863);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(125, 103, 210, 0.3);
 }
 @media (min-width: 1280px) {
   .hero .hero_container {

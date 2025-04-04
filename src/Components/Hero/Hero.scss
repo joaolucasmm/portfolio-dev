@@ -20,13 +20,6 @@
         @media (min-width: $breakpoint-desktop) {
             padding-left: 2rem;
         }
-        /* From https://css.glass */
-        background: $color-glassContainer;
-        border-radius: 16px;
-        box-shadow: 0 4px 30px $color-glassShadow;
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        border: 1px solid $color-glassBorder;
         @media (max-width: $breakpoint-desktop) {
             margin-top: 6rem;
         }
