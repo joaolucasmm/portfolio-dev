@@ -12,10 +12,15 @@ function About({ styleSection, language, darkMode }) {
     return (
         <div className={styleSection}>
             <Card className="container_about" sx={{bgcolor:variables.color1}}>
-                <CardContent className="about_content">
-                    <CardHeader title={textSelector(language, 0)} subheader={textSelector(language, 1)} className="about_presentation"/>
-                    <section>
+                <CardContent className={"about_content " + (darkMode && "about_content_dark")}>
+                    <section className="about_header">
+                        <h3 className="about_title">{textSelector(language, 0)}</h3>
+                        <h4 className="about_subtitle">{textSelector(language, 1)}</h4>
+                    </section>
+                    <section className="about_text">
+                        <p>
                         {textSelector(language, 2)}
+                        </p>
                     </section>
                     <section>
                         <Button className={"button " + (darkMode && "button_dark")} variant="contained" onClick={() => window.open("https://www.linkedin.com/in/jo%C3%A3o-lucas-miranda-menegasso/", "_blank")}>
