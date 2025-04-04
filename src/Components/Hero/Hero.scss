@@ -1,25 +1,42 @@
 @import "../UI/variables.scss";
 
 .hero {
-    @media (max-width: $breakpoint-tablet) {
+    @media (max-width: $breakpoint-desktop) {
         height: 150vh;
     }
     @media (max-width: $breakpoint-smartphone) {
         height: 170vh;
         margin-top: 5rem;
     }
+    @media (max-width: $breakpoint-phone) {
+        height: 200vh;
+        margin-top: 6rem;
+    }
     .hero_container {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         width: 80%;
+        @media (min-width: $breakpoint-desktop) {
+            padding-left: 2rem;
+        }
+        /* From https://css.glass */
+        background: rgba(125, 103, 210, 0.23921568627450981);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border: 1px solid rgba(125, 103, 210, 0.3);
         @media (max-width: $breakpoint-desktop) {
-            padding-top: 10rem;
+            margin-top: 6rem;
+        }
+        @media (max-width: $breakpoint-tablet) {
+            margin-top: 10rem;
         }
         .hero_grid {
             display: flex;
             flex-direction: row;
-            @media (max-width: $breakpoint-tablet) {
+            @media (max-width: $breakpoint-desktop) {
                 flex-direction: column;
                 align-items: center;
             }
@@ -29,11 +46,17 @@
                 }
                 .image {
                     display: block;
-                    margin-left: auto;
-                    margin-right: auto;
+                    margin: auto;
                     height: 260px;
                     border-radius: 130px;
                     border: 3px solid black;
+                    @media (min-width: $breakpoint-desktop) {
+                        margin-top: 4rem;
+                    }
+                    @media (max-width: $breakpoint-phone) {
+                        height: 200px;
+                        border-radius: 100px;
+                    }
                 }
                 .text {
                     text-align: justify;
@@ -41,14 +64,25 @@
             }
             .button_container {
                 margin: auto;
+                @media (max-width: $breakpoint-smartphone) {
+                    gap: 1rem;
+                    margin-bottom: 1rem;
+                }
                 .sub_grid {
                     margin: auto;
+                    width: max-content;
                     .button {
+                        font-family: Garet;
                         text-align: center;
                         color: $color5;
                         border-color: $color5;
                         transition: transform 0.2s;
                         margin-bottom: 2rem;
+                        width: max-content;
+                        @media (max-width: $breakpoint-smartphone) {
+                            margin-bottom: unset;
+                            
+                        }
                     }
                     .button_dark {
                         color: white;

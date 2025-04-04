@@ -15,7 +15,7 @@
 }
 
 .bg_lightMode {
-  background-image: url("../Images/bg-1.jpeg");
+  background-image: url("../Images/bg-3.webp");
   background-position: 0 0;
   background-size: 100vw 100vh;
   background-repeat: no-repeat;
@@ -24,7 +24,7 @@
 
 .bg_darkMode {
   background-color: #5746ad;
-  background-image: url("../Images/bg-2.jpeg");
+  background-image: url("../Images/bg-5.webp");
   background-position: 0 0;
   background-size: 100vw 100vh;
   background-repeat: no-repeat;
@@ -260,7 +260,7 @@
   color5: #44369a;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1280px) {
   .hero {
     height: 150vh;
   }
@@ -271,22 +271,45 @@
     margin-top: 5rem;
   }
 }
+@media (max-width: 400px) {
+  .hero {
+    height: 200vh;
+    margin-top: 6rem;
+  }
+}
 .hero .hero_container {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   width: 80%;
+  /* From https://css.glass */
+  background: rgba(125, 103, 210, 0.2392156863);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(125, 103, 210, 0.3);
+}
+@media (min-width: 1280px) {
+  .hero .hero_container {
+    padding-left: 2rem;
+  }
 }
 @media (max-width: 1280px) {
   .hero .hero_container {
-    padding-top: 10rem;
+    margin-top: 6rem;
+  }
+}
+@media (max-width: 768px) {
+  .hero .hero_container {
+    margin-top: 10rem;
   }
 }
 .hero .hero_container .hero_grid {
   display: flex;
   flex-direction: row;
 }
-@media (max-width: 768px) {
+@media (max-width: 1280px) {
   .hero .hero_container .hero_grid {
     flex-direction: column;
     align-items: center;
@@ -299,11 +322,21 @@
 }
 .hero .hero_container .hero_grid .sub_grid .image {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
   height: 260px;
   border-radius: 130px;
   border: 3px solid black;
+}
+@media (min-width: 1280px) {
+  .hero .hero_container .hero_grid .sub_grid .image {
+    margin-top: 4rem;
+  }
+}
+@media (max-width: 400px) {
+  .hero .hero_container .hero_grid .sub_grid .image {
+    height: 200px;
+    border-radius: 100px;
+  }
 }
 .hero .hero_container .hero_grid .sub_grid .text {
   text-align: justify;
@@ -311,15 +344,31 @@
 .hero .hero_container .hero_grid .button_container {
   margin: auto;
 }
+@media (max-width: 540px) {
+  .hero .hero_container .hero_grid .button_container {
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+}
 .hero .hero_container .hero_grid .button_container .sub_grid {
   margin: auto;
+  width: -moz-max-content;
+  width: max-content;
 }
 .hero .hero_container .hero_grid .button_container .sub_grid .button {
+  font-family: Garet;
   text-align: center;
   color: #44369a;
   border-color: #44369a;
   transition: transform 0.2s;
   margin-bottom: 2rem;
+  width: -moz-max-content;
+  width: max-content;
+}
+@media (max-width: 540px) {
+  .hero .hero_container .hero_grid .button_container .sub_grid .button {
+    margin-bottom: unset;
+  }
 }
 .hero .hero_container .hero_grid .button_container .sub_grid .button_dark {
   color: white;
@@ -1101,6 +1150,11 @@ footer {
   color5: #44369a;
 }
 
+@font-face {
+  font-family: Garet;
+  src: url("./Garet-Book.ttf") format("truetype");
+  font-weight: normal;
+}
 html {
   box-sizing: border-box;
   margin: 0;
@@ -1109,10 +1163,26 @@ html {
   scroll-behavior: smooth;
   width: 100vw;
   max-width: 100%;
+  font-family: Garet;
+}
+
+a, h1, h2, h3, p, span, li, button, section {
+  font-family: Garet;
+}
+
+h1 {
+  font-size: 2.3rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-size: 1.2rem;
 }
 
 body {
-  font-family: monospace;
   background: #808080;
   background-repeat: no-repeat;
   background-size: cover;
