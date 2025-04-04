@@ -40,3 +40,13 @@ body {
     background-size: cover;
     background-attachment: fixed;
 }
+
+.glass-background {
+    /* From https://css.glass */
+    background-color: $color-glassContainer;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px $color-glassShadow;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid $color-glassBorder;
+}

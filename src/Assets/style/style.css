@@ -475,12 +475,6 @@
   display: flex;
   width: min(80%, 800px);
   margin: auto;
-  background: rgba(125, 103, 210, 0.2392156863);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(125, 103, 210, 0.3);
 }
 @media (max-width: 1280px) {
   .about .container_about {
@@ -661,6 +655,10 @@
   list-style-type: none;
   transition: transform 0.2s;
   background-color: rgba(144, 119, 229, 0.6666666667);
+  font-weight: bold;
+}
+.container_skill .skill-list .skill-list__span .skill-list__text_dark {
+  color: white;
 }
 .container_skill .skill-list .skill-list__span .skill-list__text:hover {
   transform: scale(1.2);
@@ -1209,4 +1207,14 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+}
+
+.glass-background {
+  /* From https://css.glass */
+  background-color: rgba(125, 103, 210, 0.2392156863);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(125, 103, 210, 0.3);
 }/*# sourceMappingURL=style.css.map */

@@ -11,7 +11,7 @@ import variables from '../UI/variables.scss';
 function About({ styleSection, language, darkMode }) {
     return (
         <div className={styleSection}>
-            <Card className="container_about" sx={{bgcolor:variables.color1}}>
+            <Card className="container_about glass-background">
                 <CardContent className={"about_content " + (darkMode && "about_content_dark")}>
                     <section className="about_header">
                         <h3 className="about_title">{textSelector(language, 0)}</h3>

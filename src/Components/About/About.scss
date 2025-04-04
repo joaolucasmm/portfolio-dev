@@ -13,12 +13,7 @@
         display: flex;
         width: min(80%, 800px);
         margin: auto;
-        background: $color-glassContainer;
-        border-radius: 16px;
-        box-shadow: 0 4px 30px $color-glassShadow;
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        border: 1px solid $color-glassBorder;
+        
         @media (max-width: $breakpoint-desktop) {
             margin-top: 2rem;
         }
