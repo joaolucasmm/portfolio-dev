@@ -5,12 +5,10 @@
         height: 150vh;
     }
     @media (max-width: $breakpoint-smartphone) {
-        height: 170vh;
-        margin-top: 5rem;
+        height: 160vh;
     }
     @media (max-width: $breakpoint-phone) {
-        height: 200vh;
-        margin-top: 6rem;
+        height: 180vh;
     }
     .hero_container {
         display: flex;
@@ -19,12 +17,6 @@
         width: 80%;
         @media (min-width: $breakpoint-desktop) {
             padding-left: 2rem;
-        }
-        @media (max-width: $breakpoint-desktop) {
-            margin-top: 6rem;
-        }
-        @media (max-width: $breakpoint-tablet) {
-            margin-top: 10rem;
         }
         .hero_grid {
             display: flex;
@@ -54,6 +46,14 @@
                 }
                 .text {
                     text-align: justify;
+                    .title {
+                        @media (max-width: $breakpoint-smartphone) {
+                            height: 7rem;
+                        }
+                        @media (max-width: $breakpoint-phone) {
+                            height: 10.5rem;
+                        }
+                    }
                 }
             }
             .button_container {

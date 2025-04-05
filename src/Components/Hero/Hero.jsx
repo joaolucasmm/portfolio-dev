@@ -16,7 +16,7 @@ function Hero({ styleSection, language, setEmailDialog, darkMode }) {
                 <Grid container spacing={4} className="hero_grid">
                     <Grid size={8} className="sub_grid">
                         <div className="text">
-                            <h1>
+                            <h1 className="title">
                                 <Typewriter
                                     options={{
                                         strings: [textSelector(language, 0)],

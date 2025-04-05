@@ -267,14 +267,12 @@
 }
 @media (max-width: 540px) {
   .hero {
-    height: 170vh;
-    margin-top: 5rem;
+    height: 160vh;
   }
 }
 @media (max-width: 400px) {
   .hero {
-    height: 200vh;
-    margin-top: 6rem;
+    height: 180vh;
   }
 }
 .hero .hero_container {
@@ -286,16 +284,6 @@
 @media (min-width: 1280px) {
   .hero .hero_container {
     padding-left: 2rem;
-  }
-}
-@media (max-width: 1280px) {
-  .hero .hero_container {
-    margin-top: 6rem;
-  }
-}
-@media (max-width: 768px) {
-  .hero .hero_container {
-    margin-top: 10rem;
   }
 }
 .hero .hero_container .hero_grid {
@@ -334,6 +322,16 @@
 }
 .hero .hero_container .hero_grid .sub_grid .text {
   text-align: justify;
+}
+@media (max-width: 540px) {
+  .hero .hero_container .hero_grid .sub_grid .text .title {
+    height: 7rem;
+  }
+}
+@media (max-width: 400px) {
+  .hero .hero_container .hero_grid .sub_grid .text .title {
+    height: 10.5rem;
+  }
 }
 .hero .hero_container .hero_grid .button_container {
   margin: auto;
