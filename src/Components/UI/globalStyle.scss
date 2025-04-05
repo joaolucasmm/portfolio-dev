@@ -20,6 +20,7 @@ html {
 
 * {
     font-family: Garet;
+    margin-block: 0;
 }
 
 h1 {
@@ -34,11 +35,23 @@ h3 {
     font-size: 1.2rem;
 }
 
+h4 {
+    font-size: 1rem;
+}
+
+p {
+    font-size: 0.9rem;
+}
+
 body {
     background: $grey;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+}
+
+.dark {
+    color: white;
 }
 
 .glass-background {

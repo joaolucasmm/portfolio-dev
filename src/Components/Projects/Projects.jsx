@@ -92,7 +92,7 @@ function Projects({ styleSection, language, darkMode }) {
     return (
         <div id='projects' className={styleSection}>
             <div className="container_projects">
-                <h1 className="projects__title">{textSelector(language, 0)}</h1>
+                <h1 className={"projects_title " + (darkMode && "dark")}>{textSelector(language, 0)}</h1>
                 <Dialog
                     open={open}
                     handleClose={handleClose}
@@ -110,21 +110,21 @@ function Projects({ styleSection, language, darkMode }) {
                     <Chip
                         label={textSelector(language, 16)}
                         variant={tags.includes("All") ? undefined : "outlined"}
-                        className="tag"
+                        className={"tag glass-background " + (darkMode && "dark")}
                         onClick={() => setTags("All")}
                     />
                     <Chip
                         label="ReactJS"
                         icon={<FaReact />}
                         variant={tags.includes("ReactJS") ? undefined : "outlined"}
-                        className="tag"
+                        className={"tag glass-background " + (darkMode && "dark")}
                         onClick={() => handleTagSelection("ReactJS")}
                         onDelete={Object.values(tags).includes("ReactJS") ? () => handleTagDelete("ReactJS") : undefined}
                     />
                     <Chip
                         label="API RESTful"
                         variant={tags.includes("API RESTful") ? undefined : "outlined"}
-                        className="tag"
+                        className={"tag glass-background " + (darkMode && "dark")}
                         onClick={() => handleTagSelection("API RESTful")}
                         onDelete={Object.values(tags).includes("API RESTful") ? () => handleTagDelete("API RESTful") : undefined}
                         />
@@ -132,7 +132,7 @@ function Projects({ styleSection, language, darkMode }) {
                         label="HTML"
                         icon={<FaHtml5 />}
                         variant={tags.includes("HTML") ? undefined : "outlined"}
-                        className="tag"
+                        className={"tag glass-background " + (darkMode && "dark")}
                         onClick={() => handleTagSelection("HTML")}
                         onDelete={Object.values(tags).includes("HTML") ? () => handleTagDelete("HTML") : undefined}
                         />
@@ -140,7 +140,7 @@ function Projects({ styleSection, language, darkMode }) {
                         label="CSS"
                         icon={<FaCss3 />}
                         variant={tags.includes("CSS") ? undefined : "outlined"}
-                        className="tag"
+                        className={"tag glass-background " + (darkMode && "dark")}
                         onClick={() => handleTagSelection("CSS")}
                         onDelete={Object.values(tags).includes("CSS") ? () => handleTagDelete("CSS") : undefined}
                         />
@@ -148,7 +148,7 @@ function Projects({ styleSection, language, darkMode }) {
                         label="JavaScript"
                         icon={<FaJs />}
                         variant={tags.includes("JavaScript") ? undefined : "outlined"}
-                        className="tag"
+                        className={"tag glass-background " + (darkMode && "dark")}
                         onClick={() => handleTagSelection("JavaScript")}
                         onDelete={Object.values(tags).includes("JavaScript") ? () => handleTagDelete("JavaScript") : undefined}
                     />
@@ -166,6 +166,7 @@ function Projects({ styleSection, language, darkMode }) {
                             projectLinkedin={project.projectLinkedin}
                             handleClickOpen={() => handleClickOpen(index)}
                             description={project.description}
+                            darkMode={darkMode}
                         />
                     ))}
                 </span>
