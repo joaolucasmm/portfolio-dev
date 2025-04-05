@@ -1,19 +1,65 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import './variables.scss';
 $background-img: url('../../Assets/Images/5172658.jpg');
 
+@font-face {
+    font-family: Garet;
+    src: url('./Garet-Book.ttf') format('truetype');
+    font-weight: normal;
+}
+
 html {
-    font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
     margin: 0;
     padding: 0;
     text-decoration: none;
     scroll-behavior: smooth;
+    width: 100vw;
+    max-width: 100%;
+}
+
+* {
+    font-family: Garet;
+    margin-block: 0;
+}
+
+h1 {
+    font-size: 2.3rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
+h4 {
+    font-size: 1rem;
+}
+
+p {
+    font-size: 0.9rem;
 }
 
 body {
-    background: $background-img;
+    background: $grey;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+}
+
+.dark {
+    color: white !important;
+}
+
+.glass-background {
+    /* From https://css.glass */
+    background-color: $color-glassContainer !important;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px $color-glassShadow;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid $color-glassBorder;
 }

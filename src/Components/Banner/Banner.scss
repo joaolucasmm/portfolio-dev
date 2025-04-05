@@ -1,56 +1,85 @@
 @import '../UI/variables.scss';
 
+.banner__card {
+    font-family: monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65vh;
+    margin-top: 10%;
+}
+
+
 .container-banner {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 400px;
+
     .banner {
-        background: $blue;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        width: 75%;
-        height: 50%;
-        margin-top: 30px;
-        opacity: 1;
-        justify-content: space-evenly;
-        border-bottom-left-radius: 250px;
-        border-top-right-radius: 250px;
-        border-bottom-right-radius: 80px;
-        border-top-left-radius: 80px;
+
         .banner__text {
+            display: inline-block;
+            flex-direction: column;
             align-items: center;
-            margin-top: auto;
-            margin-bottom: auto;
+            text-align: justify;
+            margin-top: 5%;
             height: max-content;
-            width: 40%;
-            .banner__bio {
-                justify-content: center;
-                text-align: justify;
+
+            .banner__title {
+                letter-spacing: 5px;
+                font-family: monospace;
+                width: 100%;
+                height: 100px; // Adicionar esta linha para definir uma altura fixa
             }
+
+            .banner__subtitle {
+                margin-top: 0; // Garantir que não haja margem superior
+            }
+
         }
-        .banner__imagem {
-            height: 260px;
-            border-radius: 130px;
-            border: 3px solid black;
-        }
+    }
+
+    .banner__imagem {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        height: 260px;
+        border-radius: 130px;
+        border: 3px solid black;
     }
 }
 
 @media (max-width: $breakpoint-tablet) {
+    .banner__card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 130vh;
+        padding-top: 20rem;
+        margin-top: 5%;
+    }
+
     .container-banner {
-        height: 145vh;
-        .banner {
+        display: flex;
+        flex-direction: column;
+        height: 850px;
+
+        .banner__text {
+            margin-top: 0;
+            margin-bottom: auto;
+        }
+
+        .banner__container-image {
             flex-direction: column-reverse;
-            height: 90%;
+            min-width: 260px;
+
             .banner__imagem {
                 height: 240px;
-                margin-top: 50px;
-            }
-            .banner__text {
-                margin-top: 0;
-                margin-bottom: auto;
-                width: 80%;
             }
         }
     }

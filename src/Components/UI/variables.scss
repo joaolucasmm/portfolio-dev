@@ -1,9 +1,36 @@
-$dark-blue: #0B1D51e3; //#16213ee3;
+$dark-blue: #0b1d51e3; //#16213ee3;
 $marine: #0f3460e3;
 $blue: #3f6888e3;
 $purple: #797596c4;
-$pink: #E94560;
+$pink: #e94560;
 $grey: #808080;
 $white: #ffffff52;
 
+$color-glassContainer: rgba(125, 103, 210, 0.23921568627450981);
+$color-glassBorder: rgba(125, 103, 210, 0.3);
+$color-glassShadow: rgba(0, 0, 0, 0.1);
+
+$color0: #c0aefd;   //background
+$color1: #9077e5aa;   //bg box
+$color2: #7d67d2;    //icons/destaques/links
+$color3: #6a57c0aa;   //bg box - dark mode
+$color4: #5746ad;   //backbround - dark mode
+$color5: #44369a;   // header
+
+$breakpoint-desktop: 1280px;
+$breakpoint-header: 990px;
 $breakpoint-tablet: 768px;
+$breakpoint-smartphone: 540px;
+$breakpoint-phone: 400px;
+
+:export {
+    breakpointHeader: $breakpoint-header;
+    breakpointTablet: $breakpoint-tablet;
+    color0: $color0;   //background
+    color1: $color1;   //bg box
+    color2: $color2;
+    color3: $color3;
+    color4: $color4;
+    color5: $color5;
+    
+}

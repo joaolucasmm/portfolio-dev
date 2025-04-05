@@ -14,8 +14,11 @@ jobs:
         with:
           node-version: '20.x'
       - run: npm install
-      - run: npm run build
-
+        env:
+          REACT_APP_SERVICE_ID: ${{ secrets.REACT_APP_SERVICE_ID }}
+          REACT_APP_TEMPLATE_ID: ${{ secrets.REACT_APP_TEMPLATE_ID }}
+          REACT_APP_PUBLIC_KEY: ${{ secrets.REACT_APP_PUBLIC_KEY }}
+      
   test:
     needs: build
     runs-on: ubuntu-latest
@@ -60,6 +63,10 @@ jobs:
           static_site_generator: next
       - run: npm install
       - run: npm run build
+        env:
+          REACT_APP_SERVICE_ID: ${{ secrets.REACT_APP_SERVICE_ID }}
+          REACT_APP_TEMPLATE_ID: ${{ secrets.REACT_APP_TEMPLATE_ID }}
+          REACT_APP_PUBLIC_KEY: ${{ secrets.REACT_APP_PUBLIC_KEY }}
       - name: upload artifacts
         uses: actions/upload-pages-artifact@v3
         with:
