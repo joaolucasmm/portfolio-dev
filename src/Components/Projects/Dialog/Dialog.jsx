@@ -44,7 +44,7 @@ function projectDialog({
                             <CloseIcon />
                         </Button>
                     </DialogActions>
-                    <DialogTitle className="dialog_title">{title}</DialogTitle>
+                    <h2 className="dialog_title">{title}</h2>
                     <DialogContent>
                         <DialogContentText
                             id="alert-dialog-slide-description"
