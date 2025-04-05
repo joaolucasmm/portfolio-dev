@@ -622,6 +622,9 @@
   align-items: center;
   width: 80vw;
 }
+.container_skill .skill__title_dark {
+  color: white;
+}
 .container_skill .skill-list {
   display: flex;
   margin: auto;
@@ -1204,7 +1207,7 @@ body {
 
 .glass-background {
   /* From https://css.glass */
-  background-color: rgba(125, 103, 210, 0.2392156863);
+  background-color: rgba(125, 103, 210, 0.2392156863) !important;
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(4px);
