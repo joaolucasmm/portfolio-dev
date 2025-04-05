@@ -2,10 +2,8 @@ import Button from "@mui/material/Button";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import textSelector from "./texts";
-import variables from '../UI/variables.scss';
 
 
 function About({ styleSection, language, darkMode }) {

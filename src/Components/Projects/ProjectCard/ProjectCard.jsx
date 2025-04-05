@@ -1,10 +1,8 @@
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import ShareIcon from "@mui/icons-material/Share";
 import InfoIcon from "@mui/icons-material/Info";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -18,7 +16,7 @@ import LinkIcon from "@mui/icons-material/Link";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import textSelector from "../texts";
 import variables from "../../UI/variables.scss";
-import { Button, Fab } from "@mui/material";
+import { Fab } from "@mui/material";
 
 function projectDialog({
     projectKey,
