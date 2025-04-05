@@ -43,7 +43,7 @@ body {
 
 .glass-background {
     /* From https://css.glass */
-    background-color: $color-glassContainer;
+    background-color: $color-glassContainer !important;
     border-radius: 16px;
     box-shadow: 0 4px 30px $color-glassShadow;
     backdrop-filter: blur(4px);
