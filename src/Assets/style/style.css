@@ -937,6 +937,10 @@
   color: #c0aefd;
 }
 
+.project_dialog_dark {
+  background-color: #5746ad;
+}
+
 @media (max-width: 768px) {
   .container-projects {
     height: 230vh;
@@ -1302,7 +1306,7 @@ body {
 }
 
 .dark {
-  color: white;
+  color: white !important;
 }
 
 .glass-background {
@@ -1313,8 +1317,4 @@ body {
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border: 1px solid rgba(125, 103, 210, 0.3);
-}
-
-.glass-background:visited {
-  background-color: black !important;
 }/*# sourceMappingURL=style.css.map */
