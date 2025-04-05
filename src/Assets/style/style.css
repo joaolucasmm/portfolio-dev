@@ -1143,6 +1143,15 @@
     gap: 2rem;
   }
 }
+.services .services_container .services_content .services_icon {
+  margin-top: 1rem;
+}
+.services .services_container .services_content .services_text {
+  padding-top: 0;
+}
+.services .services_container .services_content .services_text .description {
+  text-align: justify;
+}
 
 @media (max-width: 540px) {
   .education {

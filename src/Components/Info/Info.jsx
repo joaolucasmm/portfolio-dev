@@ -25,7 +25,7 @@ function card(index) {
     }
 }
 
-function Info({ styleSection, language }) {
+function Info({ styleSection, language, darkMode }) {
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     const handleListItemHover = (event, index) => {
@@ -63,7 +63,7 @@ function Info({ styleSection, language }) {
                         className="info_list"
                         sx={{ width: "100%", maxWidth: 300 }}
                     >
-                        <h1>{textSelector(language, 0)}</h1>
+                        <h1 className={darkMode && "dark"}>{textSelector(language, 0)}</h1>
                         <List>
                             {[
                                 textSelector(language, 1),
@@ -74,7 +74,7 @@ function Info({ styleSection, language }) {
                                 <Fragment key={index}>
                                     <ListItem
                                         disablePadding
-                                        className="info_button"
+                                        className={"info_button " + (darkMode && "dark")}
                                     >
                                         {card(index)}
                                         <ListItemButton

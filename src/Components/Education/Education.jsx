@@ -49,7 +49,7 @@ function Education({ styleSection, language, darkMode }) {
     return (
         <div id='education' className={styleSection}>
             <div className="education_container">
-                <h1>{textSelector(language,0)}</h1>
+                <h1 className={darkMode && "dark"}>{textSelector(language,0)}</h1>
                 <div className={'education_content ' + (darkMode && "education_content_dark")}>
                     <Box className='education_list'>
                         <List>
