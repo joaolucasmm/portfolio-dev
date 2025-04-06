@@ -1,9 +1,9 @@
 @import '../UI/variables.scss';
 
 .experience {
-    @media (max-width: $breakpoint-smartphone) {
-        height: 130vh;
-    }
+    height: max-content;
+    min-height: 100vh;
+    margin-top: 7rem;
     .experience_container {
         max-width: 1140px;
         margin: auto;

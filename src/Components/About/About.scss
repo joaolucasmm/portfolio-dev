@@ -1,28 +1,13 @@
 @import "../UI/variables.scss";
 .about {
-    @media (max-width: $breakpoint-tablet) {
-        height: 200vh;
-    }
-    @media (max-width: $breakpoint-smartphone) {
-        margin-bottom: 20rem;
-    }
-    @media (max-width: $breakpoint-phone) {
-        margin-bottom: 30rem;
-    }
+    height: max-content;
+    min-height: 100vh;
     .container_about {
         display: flex;
         width: min(80%, 800px);
         margin: auto;
+        margin-bottom: 5rem;
         
-        @media (max-width: $breakpoint-desktop) {
-            margin-top: 2rem;
-        }
-        @media (max-width: $breakpoint-tablet) {
-            margin-top: 6rem;
-        }
-        @media (max-width: $breakpoint-smartphone) {
-            margin-top: 10rem;
-        }
         .about_content {
             text-align: justify;
             .about_header {

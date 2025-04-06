@@ -13,7 +13,7 @@
     .skill-list {
         display: flex;
         margin: auto;
-        height: 16rem;
+        height: max-content;
         justify-content: space-evenly;
         text-align: center;
         .skill-list__span {

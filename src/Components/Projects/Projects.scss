@@ -1,20 +1,9 @@
 @import "../UI/variables.scss";
 
 .projects {
-    @media (max-width:$breakpoint-desktop) {
-        height: 180vh;
-        margin-top: 30vh;
-    }
-    @media (max-width:$breakpoint-tablet) {
-        margin-top: 20vh;
-    }
-    @media (max-width:$breakpoint-smartphone) {
-        height: 230vh;
-        margin-top: 30vh;
-    }
-    @media (max-width:$breakpoint-phone) {
-        height: 330vh;
-    }
+    height: max-content;
+    min-height: 100vh;
+    margin-top: 7rem;
     .container_projects {
         display: flex;
         flex-direction: column;

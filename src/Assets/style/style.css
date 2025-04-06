@@ -95,10 +95,6 @@
   background: rgba(11, 29, 81, 0.8901960784);
 }
 
-.about {
-  padding-top: 8rem;
-}
-
 @keyframes appear {
   from {
     opacity: 0;
@@ -448,40 +444,16 @@
   color5: #44369a;
 }
 
-@media (max-width: 768px) {
-  .about {
-    height: 200vh;
-  }
-}
-@media (max-width: 540px) {
-  .about {
-    margin-bottom: 20rem;
-  }
-}
-@media (max-width: 400px) {
-  .about {
-    margin-bottom: 30rem;
-  }
+.about {
+  height: -moz-max-content;
+  height: max-content;
+  min-height: 100vh;
 }
 .about .container_about {
   display: flex;
   width: min(80%, 800px);
   margin: auto;
-}
-@media (max-width: 1280px) {
-  .about .container_about {
-    margin-top: 2rem;
-  }
-}
-@media (max-width: 768px) {
-  .about .container_about {
-    margin-top: 6rem;
-  }
-}
-@media (max-width: 540px) {
-  .about .container_about {
-    margin-top: 10rem;
-  }
+  margin-bottom: 5rem;
 }
 .about .container_about .about_content {
   text-align: justify;
@@ -627,7 +599,8 @@
 .container_skill .skill-list {
   display: flex;
   margin: auto;
-  height: 16rem;
+  height: -moz-max-content;
+  height: max-content;
   justify-content: space-evenly;
   text-align: center;
 }
@@ -690,27 +663,11 @@
   color5: #44369a;
 }
 
-@media (max-width: 1280px) {
-  .projects {
-    height: 180vh;
-    margin-top: 30vh;
-  }
-}
-@media (max-width: 768px) {
-  .projects {
-    margin-top: 20vh;
-  }
-}
-@media (max-width: 540px) {
-  .projects {
-    height: 230vh;
-    margin-top: 30vh;
-  }
-}
-@media (max-width: 400px) {
-  .projects {
-    height: 330vh;
-  }
+.projects {
+  height: -moz-max-content;
+  height: max-content;
+  min-height: 100vh;
+  margin-top: 7rem;
 }
 .projects .container_projects {
   display: flex;
@@ -1031,10 +988,11 @@
   color5: #44369a;
 }
 
-@media (max-width: 540px) {
-  .experience {
-    height: 130vh;
-  }
+.experience {
+  height: -moz-max-content;
+  height: max-content;
+  min-height: 100vh;
+  margin-top: 7rem;
 }
 .experience .experience_container {
   max-width: 1140px;
@@ -1120,10 +1078,11 @@
   color: white;
 }
 
-@media (max-width: 1280px) {
-  .services {
-    height: 120vh;
-  }
+.services {
+  height: -moz-max-content;
+  height: max-content;
+  margin-top: 7rem;
+  min-height: 100vh;
 }
 .services .services_container {
   display: flex;
@@ -1152,10 +1111,11 @@
   text-align: justify;
 }
 
-@media (max-width: 540px) {
-  .education {
-    height: 130vh;
-  }
+.education {
+  height: -moz-max-content;
+  height: max-content;
+  min-height: 100vh;
+  margin-top: 7rem;
 }
 .education .education_container {
   max-width: 1140px;
