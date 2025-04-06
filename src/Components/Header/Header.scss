@@ -50,8 +50,8 @@
             .header-buttons {
                 display: flex;
                 gap: 0.3rem;
-
-                @media (max-width: $breakpoint-tablet) {
+                align-items: center;
+                @media (max-width: $breakpoint-header) {
                     display: none;
                     flex-direction: column;
                 }
@@ -62,7 +62,10 @@
                     color: white;
                     border-color: white;
                     transition: transform 0.2s;
-                    width: max-content;
+                    min-width: max-content;
+                    @media (max-width: $breakpoint-header) {
+                        width: 8rem;
+                    }
                 }
                 .button:hover {
                     transform: scale(0.9);

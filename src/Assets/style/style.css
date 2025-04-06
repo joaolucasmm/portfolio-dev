@@ -199,8 +199,9 @@
 .header-container .header_appbar .header-toolbar .header-buttons {
   display: flex;
   gap: 0.3rem;
+  align-items: center;
 }
-@media (max-width: 768px) {
+@media (max-width: 990px) {
   .header-container .header_appbar .header-toolbar .header-buttons {
     display: none;
     flex-direction: column;
@@ -210,8 +211,13 @@
   color: white;
   border-color: white;
   transition: transform 0.2s;
-  width: -moz-max-content;
-  width: max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+@media (max-width: 990px) {
+  .header-container .header_appbar .header-toolbar .header-buttons .button {
+    width: 8rem;
+  }
 }
 .header-container .header_appbar .header-toolbar .header-buttons .button:hover {
   transform: scale(0.9);
