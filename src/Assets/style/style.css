@@ -482,13 +482,18 @@
 .about .container_about .about_content .about_text {
   margin: 1rem;
 }
-.about .container_about .about_content .button {
+.about .container_about .about_content .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.about .container_about .about_content .buttons .button {
   color: black;
   background: #7d67d2;
   margin-right: 0.5rem;
   transition: transform 0.2s;
 }
-.about .container_about .about_content .button:hover {
+.about .container_about .about_content .buttons .button:hover {
   transform: scale(1.1);
 }
 .about .container_about .about_content_dark {

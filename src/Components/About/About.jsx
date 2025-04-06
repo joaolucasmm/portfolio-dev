@@ -20,12 +20,12 @@ function About({ styleSection, language, darkMode }) {
                         {textSelector(language, 2)}
                         </p>
                     </section>
-                    <section>
-                        <Button className={"button " + (darkMode && "button_dark")} variant="contained" onClick={() => window.open("https://www.linkedin.com/in/jo%C3%A3o-lucas-miranda-menegasso/", "_blank")}>
+                    <section className="buttons">
+                        <Button className={"button " + (darkMode && "button_dark")} variant="contained" onClick={() => window.open("https://github.com/joaolucasmm", "_blank")}>
                             <GitHubIcon />
                             GitHub
                         </Button>
-                        <Button className={"button " + (darkMode && "button_dark")} variant="contained" onClick={() => window.open("https://github.com/joaolucasmm", "_blank")}>
+                        <Button className={"button " + (darkMode && "button_dark")} variant="contained" onClick={() => window.open("https://www.linkedin.com/in/jo%C3%A3o-lucas-miranda-menegasso/", "_blank")}>
                             <LinkedInIcon />
                             LinkedIn
                         </Button>
