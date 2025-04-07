@@ -335,6 +335,15 @@
     height: 10.5rem;
   }
 }
+.hero .hero_container .hero_grid .sub_grid .text .text_1 {
+  margin-bottom: 1rem;
+}
+.hero .hero_container .hero_grid .sub_grid .text .text_2 {
+  margin-bottom: 1rem;
+}
+.hero .hero_container .hero_grid .sub_grid .text .text_3 {
+  margin-bottom: 1rem;
+}
 .hero .hero_container .hero_grid .button_container {
   margin: auto;
 }
@@ -1069,6 +1078,9 @@
 }
 .experience .experience_container .experience_content .experience_display .card .description {
   text-align: justify;
+}
+.experience .experience_container .experience_content .experience_display .card .tools {
+  margin-top: 1rem;
 }
 .experience .experience_container .experience_content .experience_display .card .learn_more {
   color: #44369a;

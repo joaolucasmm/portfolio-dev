@@ -27,12 +27,12 @@ function Hero({ styleSection, language, setEmailDialog, darkMode }) {
                                 />
                             </h1>
                             <span>
-                                <h2>{textSelector(language, 1)}</h2>
-                                <h3>{textSelector(language, 2)}</h3>
-                                <p>
+                                <h2 className="text_1">{textSelector(language, 1)}</h2>
+                                <h3 className="text_2">{textSelector(language, 2)}</h3>
+                                <p className="text_3">
                                     <b>{textSelector(language, 3)}</b>
                                 </p>
-                                <p>
+                                <p className="text_4">
                                     <i>{textSelector(language, 4)}</i>
                                 </p>
                             </span>
