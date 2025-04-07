@@ -31,7 +31,7 @@ function card(language, selectedIndex, darkMode) {
                 <Typography className="description" variant="body2">
                     {textSelector(language, 14 + selectedIndex * 2)}
                 </Typography>
-                <Typography className="description" variant="body2">
+                <Typography className="description tools" variant="body2">
                     <p>{textSelector(language, 14 + selectedIndex * 2 + 1)}</p>
                 </Typography>
             </CardContent>
