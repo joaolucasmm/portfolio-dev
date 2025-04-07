@@ -30,9 +30,6 @@ function Services({ styleSection, language, darkMode }) {
                             </h2>
                             <p className="description">
                                 {textSelector(language, 4)}
-                                Desenvolvo APIs profissionais, blogs, SaaS,
-                                landing pages, ecommerce e entre outros
-                                websites.
                             </p>
                         </CardContent>
                     </Card>
@@ -44,9 +41,6 @@ function Services({ styleSection, language, darkMode }) {
                             </h2>
                             <p className="description">
                                 {textSelector(language, 6)}
-                                Desenvolvo sites profissionais, blogs, SaaS,
-                                landing pages, ecommerce e entre outros
-                                websites.
                             </p>
                         </CardContent>
                     </Card>
