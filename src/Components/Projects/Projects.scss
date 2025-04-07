@@ -1,38 +1,225 @@
-@import '../UI/variables.scss';
+@import "../UI/variables.scss";
 
-.container-projects {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding-bottom: 20rem;
-    .projects {
-        width: 80%;
-        margin: auto;
-        margin-bottom: 2rem;
-        background: $blue;
-        border-radius: 30px;
-        .projects__container {
+.projects {
+    height: max-content;
+    min-height: 100vh;
+    margin-top: 7rem;
+    .container_projects {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .project_tags {
             display: flex;
-            .project {
-                padding: 1rem;
-                background: white;
-                margin: 1rem;
-                opacity: 0.88;
-                .project__link {
-                    color: black;
-                    text-decoration: none;
-                    transition: font-size .2s;
-                }
-                .project__link:hover {
-                    font-size: 1.08em;
-                }
-                .project__image {
-                    max-width:100%;
-                }
+            gap: 10px;
+            justify-content: center;
+            padding-bottom: 10px;
+            @media (max-width: $breakpoint-smartphone) {
+                width: 300px;
+                flex-wrap: wrap;
+            }
+            .tag {
+                color: black;
+            }
+        }
+        .project_items {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 1200px;
+            justify-content: space-evenly;
+            row-gap: 25px;
+            margin: auto;
+            @media (max-width:$breakpoint-desktop) {
+                flex-direction: column;
+                width: unset;
+            }
+            [class^="project_settings"] {
+                display: none;
+                position: absolute;
+                top: 2rem;
+                right: 2rem;
+                z-index: 1;
+                width: max-content;
+                background: $color2;
+                opacity: 0.9;
             }
         }
     }
+}
+
+.project_card {
+    color: black;
+    transition: all 0.4s !important;
+    .project_header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        bottom: 1.5rem;
+        .project_settings {
+            align-self: flex-end;
+            right: 0.5rem;
+            top: 2rem;
+        }
+        .card_title {
+            margin-block: 0;
+        }
+        .card_title::after {
+            content: "";
+            display: block;
+            width: 0%;
+            height: 2px;
+            background-color: $color2;
+            transition: all 0.4s;
+        }
+        .card_title:hover::after {
+            width: 100%;
+        }
+        .card_subtitle {
+            margin-block: 0;
+        }
+    }
+    .project_image:hover {
+        animation: image_hover 1s ease-in-out;
+    }
+    @keyframes image_hover {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+        
+    }
+}
+.project_card:hover {
+    transform: scale(1.05);
+    background-color: $color-glassContainer;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px $color-glassShadow;
+    border: 1px solid $color-glassBorder;
+}
+
+.project_card:hover ~ .card_icon, .project_card:hover .card_icon {
+    animation: boink 2s ease-in-out infinite;
+}
+@keyframes boink {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.4);
+        color: $color2;
+    }
+    100% {
+        transform: scale(1);
+    }
+    
+}
+
+.project_card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    border-radius: 30%, 10%, 40%, 0;
+    background: linear-gradient(
+      120deg,
+      transparent,rgb(255, 255, 255, 0.05),
+      transparent
+    );
+    transition: all 0.3s ease-in;
+  }
+  
+  .project_card:hover:before {
+    left: 100%;
+  }
+
+.project_dialog {
+    background-color: $color2;
+    .dialog_title {
+        text-align: center;
+    }
+    .dialog_content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        color: $color5;
+        font-weight: bold;
+        @media (max-width: $breakpoint-tablet) {
+            flex-direction: column;
+            margin: auto;
+            align-items: center;
+        }
+        .dialog_media {
+            width: 800px;
+            @media (max-width: $breakpoint-desktop) {
+                width: min(100%, 500px);
+            }
+            @media (max-width: $breakpoint-header) {
+                width: min(100%, 400px);
+            }
+            @media (max-width: $breakpoint-tablet) {
+                width: min(100%, 550px);
+            }
+        }
+        .dialog_description {
+            width: min(100%, 550px);
+            margin-left: 1rem;
+            @media (max-width: $breakpoint-tablet) {
+                margin-left: 0;
+            }
+        }
+        .dialog_rows {
+            display: flex;
+            flex-direction: column;
+        }
+        .dialog_buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 0.6rem;
+            .button {
+                font-weight: bold;
+                color: $color5;
+                transition: transform 0.2s;
+            }
+            .button_dark {
+                color: $color0;
+            }
+            .button:hover {
+                transform: scale(1.2);
+            }
+        }
+        .dialog_tags {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 10px;
+            .tag {
+                transition: transform 0.2s;
+                color: $color5;
+            }
+            .tag_dark {
+                color: $color0;
+            }
+            .tag:hover {
+                cursor: pointer;
+                transform: scale(1.1);
+            }
+        }
+    }
+    .dialog_content_dark {
+        color: $color0;
+    }
+}
+.project_dialog_dark {
+    background-color: $color4;
 }
 
 @media (max-width: $breakpoint-tablet) {

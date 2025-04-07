@@ -1,9 +1,16 @@
-@import '../../Components/Cabecalho/Cabecalho';
+@import '../../App';
+@import '../../Components/Header/Header';
+@import '../../Components/Hero/Hero';
+@import '../../Components/EmailDialog/EmailDialog';
+@import '../../Components/About/About';
 @import '../../Components/Banner/Banner';
-@import '../../Components/Habilidades/Habilidades';
-@import '../../Components/Projetos/Projetos';
-@import '../../Components/Contato/Contato';
-@import '../../Components/Retorno/Retorno';
+@import '../../Components/Skills/Skills';
+@import '../../Components/Projects/Projects';
+@import '../../Components/Info/Info';
+@import '../../Components/Return/Return';
+@import '../../Components/Experience/Experience';
+@import '../../Components/Services/Services';
+@import '../../Components/Education/Education';
 @import '../../Components/Footer/Footer';
 
 @import '../../Components/UI/globalStyle';

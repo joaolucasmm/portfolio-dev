@@ -1,0 +1,56 @@
+@import '../UI/variables.scss';
+
+.container_email {
+    width: 80vw;
+    margin: auto;
+    .background_dialog {
+        background-color: $color1;
+
+        .dialog_content {
+            width: 80%;
+            margin: auto;
+            .email_form {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1rem;
+                padding: 1rem;
+                @media (max-width: $breakpoint-tablet) {
+                    flex-direction: column;
+                }
+                .form_fields {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1.3rem;
+                    width: min(90%, 500px);
+                    margin: auto;
+                    .email_input {
+                        color: $color5;
+                        border-color: $color5;
+                        @media (max-width: $breakpoint-tablet) {
+                        }
+                    }
+                    .email_input_dark {
+                        color: $color0;
+                        border-color: $color0;
+                    }
+                    .button {
+                        color: $color5;
+                        border-color: $color5;
+                        transition: transform .2s;
+                    }
+                    .button:hover {
+                        transform: scale(0.9);
+                    }
+                    .button_dark {
+                        background-color: $color1;
+                    }
+                }
+            }
+        }
+    }
+    .background_dialog_dark {
+        background-color: $color4;
+        color: white;
+    }
+}

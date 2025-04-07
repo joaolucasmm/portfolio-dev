@@ -1,0 +1,125 @@
+@import './Components/UI/variables.scss';
+
+.App {
+  text-align: center;
+}
+
+.bg_lightMode {
+  // background-color: $color0;
+  
+  background-image: url("../Images/bg-3.webp");
+  background-position: 0 0;
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+
+.bg_darkMode {
+  background-color: $color4;
+  
+  background-image: url("../Images/bg-5.webp");
+  background-position: 0 0;
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.translate {
+  width: 130px;
+  height: max-content;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  border-radius: 2rem;
+  background-color: rgba(63, 104, 136, 0.8901960784);
+  border: 1px solid black;
+}
+
+.container__translate {
+  display: flex;
+  height: 30px;
+  width: 150px;
+  list-style-type: none;
+  margin: 0 1rem 1.8rem 1rem;
+  text-align: center;
+  transition: transform .2s;
+}
+
+.container__translate:hover {
+  transform: scale(0.9);
+}
+
+.container__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(11, 29, 81, 0.8901960784);
+  ;
+}
+
+@keyframes appear {
+  from{
+    opacity: 0;
+    scale: 0.5;
+  } to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  scroll-snap-align: start;
+  animation: appear 0.2s;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+.email_dialog {
+  display: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50vw;
+}
+
+.projects {
+  height: 150vh;
+}
