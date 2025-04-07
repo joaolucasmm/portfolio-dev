@@ -33,6 +33,7 @@ function App() {
             </Router>
             <EmailDialog
                 styleSection="email_dialog"
+                language={language}
                 emailDialog={emailDialog}
                 setEmailDialog={setEmailDialog}
                 darkMode={darkMode}
