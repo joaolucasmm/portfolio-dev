@@ -8,8 +8,9 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import CloseIcon from "@mui/icons-material/Close";
 import { TextField } from "@mui/material";
+import textSelector from "./texts";
 
-const EmailDialog = ({ styleSection, handleClose, title, emailDialog, setEmailDialog, darkMode }) => {
+const EmailDialog = ({ styleSection, language, emailDialog, setEmailDialog, darkMode }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [stateMessage, setStateMessage] = useState(null);
     const sendEmail = (e) => {
@@ -62,7 +63,7 @@ const EmailDialog = ({ styleSection, handleClose, title, emailDialog, setEmailDi
                         <CloseIcon />
                     </Button>
                 </DialogActions>
-                <DialogTitle className="dialog_title">Me envie uma menssagem abaixo! (Não se preocupe, eu respondo meus e-mails mais rápido que o Whatsapp)</DialogTitle>
+                <DialogTitle className="dialog_title">{textSelector(language, 0)}</DialogTitle>
                 <DialogContent>
                     <DialogContentText
                         id="alert-dialog-slide-description"
@@ -70,14 +71,14 @@ const EmailDialog = ({ styleSection, handleClose, title, emailDialog, setEmailDi
                     >
                         <form onSubmit={sendEmail} className="email_form">
                             <span className="form_fields">
-                                <TextField label="Name" variant="outlined" name="name" className={"email_input " + (darkMode && "email_input_dark")}/>
-                                <TextField label="Title" variant="outlined" name="title"  className={"email_input " + (darkMode && "email_input_dark")}/>
-                                <TextField label="e-mail" variant="outlined" name="email"  className={"email_input " + (darkMode && "email_input_dark")}/>
+                                <TextField label={textSelector(language, 1)} variant="outlined" name="name" className={"email_input " + (darkMode && "email_input_dark")}/>
+                                <TextField label={textSelector(language, 2)} variant="outlined" name="title"  className={"email_input " + (darkMode && "email_input_dark")}/>
+                                <TextField label={textSelector(language, 3)} variant="outlined" name="email"  className={"email_input " + (darkMode && "email_input_dark")}/>
                             </span>
                             <span className="form_fields">
-                                <TextField label="Message" variant="outlined" name="message" multiline rows={5} maxRows={10} className={"email_input " + (darkMode && "email_input_dark")}/>
+                                <TextField label={textSelector(language, 4)} variant="outlined" name="message" multiline rows={5} maxRows={10} className={"email_input " + (darkMode && "email_input_dark")}/>
                                 <Button variant="outlined" type="submit" disabled={isSubmitting} className={"button " + (darkMode && "button_dark") }>
-                                    Send
+                                    {textSelector(language, 5)}
                                 </Button>
                                 {stateMessage && <p>{stateMessage}</p>}
                             </span>
