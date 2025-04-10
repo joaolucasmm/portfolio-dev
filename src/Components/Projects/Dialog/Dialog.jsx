@@ -65,7 +65,7 @@ function projectDialog({
                                         }
                                     >
                                         <LinkIcon />
-                                        {textSelector(language, 17)}
+                                        {textSelector(language, -3)}
                                     </Button>
                                     <Button
                                         className={"button " + (darkMode && "button_dark")}
@@ -77,7 +77,7 @@ function projectDialog({
                                         }
                                     >
                                         <GitHubIcon />
-                                        {textSelector(language, 18)}
+                                        {textSelector(language, -2)}
                                     </Button>
                                     <Button
                                         className={"button " + (darkMode && "button_dark")}
@@ -89,7 +89,7 @@ function projectDialog({
                                         }
                                     >
                                         <LinkedInIcon />
-                                        {textSelector(language, 19)}
+                                        {textSelector(language, -1)}
                                     </Button>
                                 </section>
                                 <section className="dialog_tags">
