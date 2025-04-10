@@ -76,7 +76,7 @@ function projectDialog({
                                 <LinkIcon />
                             </ListItemIcon>
                             <ListItemText
-                                primary={textSelector(language, 13)}
+                                primary={textSelector(language, -7)}
                                 onClick={() => {
                                     window.open(projectURL, "_blank");
                                 }}
@@ -89,7 +89,7 @@ function projectDialog({
                                 <GitHubIcon />
                             </ListItemIcon>
                             <ListItemText
-                                primary={textSelector(language, 14)}
+                                primary={textSelector(language, -6)}
                                 onClick={() => {
                                     window.open(projectRepository, "_blank");
                                 }}
@@ -102,7 +102,7 @@ function projectDialog({
                                 <LinkedInIcon />
                             </ListItemIcon>
                             <ListItemText
-                                primary={textSelector(language, 15)}
+                                primary={textSelector(language, -5)}
                                 onClick={() => {
                                     window.open(projectLinkedin, "_blank");
                                 }}

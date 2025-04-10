@@ -14,6 +14,10 @@ const textPortuguese = [
     "24 de Julho de 2024",
     "Jogo da velha feito em ReactJS.",
     "Projeto front end, feito com ReactJS and Javascript, para demonstrar a construção de um jogo simples usando lógica de programação básica e variáveis de estado ReactJS. O projeto é resposivo e foi publicado no Github Pages.",
+    "Gerador de QR Code",
+    "8 de Março de 2025",
+    "Gerador de QR Code feito em ReactJS.",
+    "Projeto front end, para demonstrar o consumo de API Restful em Javascript e a construção de layouts em ReactJS. O projeto é resposivo e foi publicado no Github Pages.",
     "Link",
     "Repositório",
     "Post",
@@ -37,6 +41,10 @@ const textEnglish = [
     "July 24, 2024",
     "TicTacToe game made in React.",
     "Front end project, built with ReactJS and Javascript, to demonstrate the construction of a simple game using basic native code logics and ReactJS state variables. The project is responsive and was deployed on Github Pages.",
+    "QR Code Generator",
+    "March 8, 2025",
+    "QR Code generator made in React.",
+    "Front end project, to demonstrate the consumption of RESTful API in Javascript and the construction of layouts in ReactJS. The project is responsive and was deployed on Github Pages.",
     "Link",
     "Repository",
     "Post",
@@ -47,7 +55,11 @@ const textEnglish = [
 ];
 
 function textSelector(language, textPosition) {
-    return sendMessage(language, textPosition, { textEnglish, textPortuguese });
+    if (textPosition < 0 ) {
+        return sendMessage(language, (textEnglish.length + textPosition), { textEnglish, textPortuguese });
+    } else {
+        return sendMessage(language, textPosition, { textEnglish, textPortuguese });
+    }
 }
 
 export default textSelector;

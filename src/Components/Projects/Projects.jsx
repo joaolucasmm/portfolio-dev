@@ -3,6 +3,7 @@ import { FaReact, FaJs, FaHtml5, FaCss3 } from "react-icons/fa";
 import myLinks from "../../Assets/Images/my-links.png";
 import pokedex from "../../Assets/Images/pokedex.png";
 import tictactoe from "../../Assets/Images/screenshotTictactoe.png";
+import QRcodeGen from "../../Assets/Images/qrcodegen.png";
 import textSelector from "./texts";
 import Dialog from "./Dialog/Dialog";
 import ProjectCard from "./ProjectCard/ProjectCard";
@@ -60,8 +61,24 @@ function Projects({ styleSection, language, darkMode }) {
             image: tictactoe,
             description: textSelector(language, 2 * 4 + 3),
             projectURL: "https://joaolucasmm.github.io/TicTacToe/",
-            projectRepository: "https://github.com/joaolucasmm/TicTacToe",
+            projectRepository: "https://github.com/joaolucasmm/QRcodeGen/",
             fullDescription: textSelector(language, 2 * 4 + 4),
+            tags: {
+                0: "ReactJS",
+                1: "HTML",
+                2: "CSS",
+                3: "JavaScript",
+                4: "API RESTful",
+            },
+        },
+        {
+            title: textSelector(language, 3 * 4 + 1),
+            date: textSelector(language, 3 * 4 + 2),
+            image: QRcodeGen,
+            description: textSelector(language, 3 * 4 + 3),
+            projectURL: "https://joaolucasmm.github.io/QRcodeGen/",
+            projectRepository: "https://github.com/joaolucasmm/TicTacToe",
+            fullDescription: textSelector(language, 3 * 4 + 4),
             tags: {
                 0: "ReactJS",
                 1: "HTML",
@@ -108,7 +125,7 @@ function Projects({ styleSection, language, darkMode }) {
                 />
                 <span className="project_tags">
                     <Chip
-                        label={textSelector(language, 16)}
+                        label={textSelector(language, -4)}
                         variant={tags.includes("All") ? undefined : "outlined"}
                         className={"tag glass-background " + (darkMode && "dark")}
                         onClick={() => setTags("All")}
