@@ -61,7 +61,7 @@ function Projects({ styleSection, language, darkMode }) {
             image: tictactoe,
             description: textSelector(language, 2 * 4 + 3),
             projectURL: "https://joaolucasmm.github.io/TicTacToe/",
-            projectRepository: "https://github.com/joaolucasmm/QRcodeGen/",
+            projectRepository: "https://github.com/joaolucasmm/TicTacToe",
             fullDescription: textSelector(language, 2 * 4 + 4),
             tags: {
                 0: "ReactJS",
@@ -77,7 +77,7 @@ function Projects({ styleSection, language, darkMode }) {
             image: QRcodeGen,
             description: textSelector(language, 3 * 4 + 3),
             projectURL: "https://joaolucasmm.github.io/QRcodeGen/",
-            projectRepository: "https://github.com/joaolucasmm/TicTacToe",
+            projectRepository: "https://github.com/joaolucasmm/QRcodeGen/",
             fullDescription: textSelector(language, 3 * 4 + 4),
             tags: {
                 0: "ReactJS",
