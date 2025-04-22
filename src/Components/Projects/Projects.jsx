@@ -78,6 +78,7 @@ function Projects({ styleSection, language, darkMode }) {
             description: textSelector(language, 3 * 4 + 3),
             projectURL: "https://joaolucasmm.github.io/QRcodeGen/",
             projectRepository: "https://github.com/joaolucasmm/QRcodeGen/",
+            projectLinkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7316523182281187329/",
             fullDescription: textSelector(language, 3 * 4 + 4),
             tags: {
                 0: "ReactJS",
