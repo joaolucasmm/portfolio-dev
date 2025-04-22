@@ -103,6 +103,8 @@ jobs:
           git config --global user.name "joaolucasmm"
           git add .
           git restore --staged ./.github/workflows/build-test-deploy.yml
+          git restore --staged ./package.json
+          git restore --staged ./package-lock.json
       - name: commit changes if any
         run: |
           cd /tmp/portfolio
