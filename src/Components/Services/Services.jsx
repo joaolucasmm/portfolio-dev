@@ -50,12 +50,12 @@ const demos = [
 
 function Services({ t }) {
     return (
-        <section id="services" className="section services">
+        <section id="services" className="section services" tabIndex={-1}>
             <h2 className="services__heading" data-reveal>
                 {t.heading}
             </h2>
             {t.items.map((item, i) => (
-                <article className="service" key={i}>
+                <article className="service" key={i} id={"service-" + i} tabIndex={-1}>
                     <div className="service__demo" data-reveal>
                         {demos[i]}
                     </div>

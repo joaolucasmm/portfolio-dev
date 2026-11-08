@@ -50,6 +50,7 @@ const english = {
         theme: ["Light", "Dark"],
         menu: "Menu",
         close: "Close",
+        search: "Search",
     },
     hero: {
         role: "fullstack developer",
@@ -220,12 +221,28 @@ const english = {
         place: "Southern Brazil",
         copied: "Address copied",
     },
+    search: {
+        label: "Search the page",
+        placeholder: "Search projects, roles, services…",
+        enter: "Enter",
+        empty: "Nothing on this page matches that.",
+        hint: "Up and down to choose, Enter to go, Esc to close.",
+    },
     footer: {
         sections: "On this page",
         elsewhere: "Elsewhere",
         credits: "Photo credits",
         rights: "João Lucas Miranda Menegasso, 2026",
         top: "Back to top",
+        morph: "Swap between the name and the initials",
+        keys: {
+            label: "Keyboard shortcuts",
+            focus: "hold to focus the navigation",
+            jump: "jumps to each section",
+            search: "search",
+            theme: "switches the theme",
+            debug: "shows the grid",
+        },
     },
     dialog: {
         title: "Send me a message",
@@ -254,6 +271,7 @@ const portuguese = {
         theme: ["Claro", "Escuro"],
         menu: "Menu",
         close: "Fechar",
+        search: "Buscar",
     },
     hero: {
         role: "desenvolvedor fullstack",
@@ -424,12 +442,28 @@ const portuguese = {
         place: "Sul do Brasil",
         copied: "Endereço copiado",
     },
+    search: {
+        label: "Buscar na página",
+        placeholder: "Busque projetos, cargos, serviços…",
+        enter: "Enter",
+        empty: "Nada nesta página corresponde a isso.",
+        hint: "Setas para escolher, Enter para ir, Esc para fechar.",
+    },
     footer: {
         sections: "Nesta página",
         elsewhere: "Em outros lugares",
         credits: "Créditos das fotos",
         rights: "João Lucas Miranda Menegasso, 2026",
         top: "Voltar ao topo",
+        morph: "Trocar entre o nome e as iniciais",
+        keys: {
+            label: "Atalhos de teclado",
+            focus: "segure para focar a navegação",
+            jump: "vai para cada seção",
+            search: "busca",
+            theme: "troca o tema",
+            debug: "mostra a grade",
+        },
     },
     dialog: {
         title: "Me envie uma mensagem",

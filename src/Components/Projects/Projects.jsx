@@ -51,7 +51,7 @@ function Projects({ t }) {
     };
 
     return (
-        <section id="work" className="section work">
+        <section id="work" className="section work" tabIndex={-1}>
             <div className={"work__stage" + (running === current ? " work__stage--running" : "")}>
                 <Frame t={t} index={current} running={running}>
                     {images.map((src, i) => (
@@ -73,7 +73,13 @@ function Projects({ t }) {
                     {t.items.map((item, i) => {
                         const link = projectLinks[i];
                         return (
-                            <li key={link.url} ref={(el) => (names.current[i] = el)} data-index={i}>
+                            <li
+                                key={link.url}
+                                id={"project-" + i}
+                                tabIndex={-1}
+                                ref={(el) => (names.current[i] = el)}
+                                data-index={i}
+                            >
                                 <a
                                     href={link.url}
                                     target="_blank"

@@ -2,7 +2,7 @@ import { links } from "../../content";
 
 function Contact({ t, openDialog }) {
     return (
-        <section id="contact" className="contact inverse">
+        <section id="contact" className="contact inverse" tabIndex={-1}>
             <h2 className="contact__heading" data-reveal>
                 {t.heading}
             </h2>

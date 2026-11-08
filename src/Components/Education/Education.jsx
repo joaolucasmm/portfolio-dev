@@ -2,12 +2,12 @@ import campus from "../../Assets/Images/found/campus-do-vale-ufrgs.jpg";
 
 function Education({ t }) {
     return (
-        <section id="education" className="section education">
+        <section id="education" className="section education" tabIndex={-1}>
             <h2 className="education__heading" data-reveal>
                 {t.heading}
             </h2>
-            {t.items.map((item) => (
-                <div className="education__row" key={item.place}>
+            {t.items.map((item, i) => (
+                <div className="education__row" key={item.place} id={"education-" + i} tabIndex={-1}>
                     <dl className="education__facts" data-reveal>
                         <div>
                             <dt className="visually-hidden">School</dt>

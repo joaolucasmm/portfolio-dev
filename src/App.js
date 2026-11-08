@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./Assets/style/style.scss";
 
 import content from "./content";
@@ -12,13 +12,20 @@ import Education from "./Components/Education/Education";
 import Contact from "./Components/Contact/Contact";
 import Footer from "./Components/Footer/Footer";
 import EmailDialog from "./Components/EmailDialog/EmailDialog";
+import Search from "./Components/Search/Search";
 import useReveal from "./Functions/useReveal";
+import useShortcuts from "./Functions/useShortcuts";
 
 function App() {
     const [language, setLanguage] = useState("english");
     const [emailDialog, setEmailDialog] = useState(false);
     const [darkMode, setDarkMode] = useState(true);
+    const [searchOpen, setSearchOpen] = useState(false);
     const t = content[language];
+
+    const toggleTheme = useCallback(() => setDarkMode((d) => !d), []);
+    const toggleSearch = useCallback(() => setSearchOpen((s) => !s), []);
+    const { lastUsed } = useShortcuts({ toggleTheme, toggleSearch, searchOpen });
 
     useReveal();
 
@@ -39,8 +46,8 @@ function App() {
                 language={language}
                 setLanguage={setLanguage}
                 darkMode={darkMode}
-                setDarkMode={setDarkMode}
-                openDialog={openDialog}
+                toggleTheme={toggleTheme}
+                openSearch={() => setSearchOpen(true)}
             />
             <main>
                 <Hero t={t.hero} language={language} openDialog={openDialog} />
@@ -51,12 +58,13 @@ function App() {
                 <Education t={t.education} />
                 <Contact t={t.contact} openDialog={openDialog} />
             </main>
-            <Footer t={t.footer} nav={t.nav} />
+            <Footer t={t.footer} nav={t.nav} lastUsed={lastUsed} />
             <EmailDialog
                 t={t.dialog}
                 emailDialog={emailDialog}
                 setEmailDialog={setEmailDialog}
             />
+            <Search t={t} open={searchOpen} setOpen={setSearchOpen} />
         </div>
     );
 }

@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Experience({ t }) {
     const [open, setOpen] = useState(0);
 
+    // The search palette opens the role it found.
+    useEffect(() => {
+        const onOpen = (e) => setOpen(e.detail);
+        window.addEventListener("portfolio:open-experience", onOpen);
+        return () => window.removeEventListener("portfolio:open-experience", onOpen);
+    }, []);
+
     return (
-        <section id="experience" className="section experience">
+        <section id="experience" className="section experience" tabIndex={-1}>
             <h2 className="experience__heading" data-reveal>
                 {t.heading}
             </h2>
@@ -13,7 +20,13 @@ function Experience({ t }) {
                     const isOpen = open === i;
                     const panel = "experience-panel-" + i;
                     return (
-                        <li key={item.dates} className={isOpen ? "is-open" : ""} data-reveal>
+                        <li
+                            key={item.dates}
+                            id={"experience-" + i}
+                            tabIndex={-1}
+                            className={isOpen ? "is-open" : ""}
+                            data-reveal
+                        >
                             <button
                                 type="button"
                                 className="experience__line"

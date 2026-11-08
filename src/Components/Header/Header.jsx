@@ -1,8 +1,16 @@
 import React, { useState } from "react";
+import { sections } from "../../Functions/useShortcuts";
 
-const sections = ["work", "experience", "services", "education", "contact"];
+// The arrow says "further down this page" (ui-library: nav-ancora-seta-pulando).
+function ArrowDown() {
+    return (
+        <svg className="header__arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+            <path d="M10 3v13M4.5 10.5 10 16l5.5-5.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        </svg>
+    );
+}
 
-function Header({ t, language, setLanguage, darkMode, setDarkMode, openDialog }) {
+function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch }) {
     const [menuOpen, setMenuOpen] = useState(false);
     const close = () => setMenuOpen(false);
 
@@ -22,15 +30,35 @@ function Header({ t, language, setLanguage, darkMode, setDarkMode, openDialog })
             </button>
             <nav id="site-nav" className="header__nav">
                 <ul className="header__links">
-                    {sections.map((id) => (
+                    {sections.map((id, i) => (
                         <li key={id}>
-                            <a href={"#" + id} onClick={close}>
+                            <a
+                                href={"#" + id}
+                                onClick={close}
+                                aria-keyshortcuts={"Alt+" + (i + 1)}
+                                style={{ "--k": i }}
+                            >
                                 {t[id]}
+                                <ArrowDown />
+                                <span className="header__key" aria-hidden="true">
+                                    {i + 1}
+                                </span>
                             </a>
                         </li>
                     ))}
                 </ul>
                 <div className="header__switches">
+                    <button
+                        type="button"
+                        className="header__switch"
+                        aria-keyshortcuts="Control+K"
+                        onClick={() => {
+                            close();
+                            openSearch();
+                        }}
+                    >
+                        {t.search}
+                    </button>
                     <button
                         type="button"
                         className="header__switch"
@@ -44,7 +72,8 @@ function Header({ t, language, setLanguage, darkMode, setDarkMode, openDialog })
                         type="button"
                         className="header__switch"
                         aria-pressed={!darkMode}
-                        onClick={() => setDarkMode(!darkMode)}
+                        aria-keyshortcuts="Shift+T"
+                        onClick={toggleTheme}
                     >
                         {darkMode ? t.theme[0] : t.theme[1]}
                     </button>

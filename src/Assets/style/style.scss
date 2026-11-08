@@ -38,6 +38,60 @@ $header-menu: 1180px;
     --gap: clamp(16px, 1.7vw, 24px);
     --section: clamp(120px, 12vw, 200px);
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+    // Motion taken from the ui-library patterns; each group names its source.
+    // Shared spring (overshoot about 3%), exported as linear().
+    --spring: linear(0, 0.0019, 0.0073 1.19%, 0.0273, 0.0577 3.58%, 0.1033 4.97%, 0.2073 7.56%, 0.5701 15.72%,
+        0.6765 18.5%, 0.7614, 0.8322 23.67%, 0.8933, 0.9401 29.25%, 0.9587 30.64%, 0.9764 32.23%, 0.9983 34.82%,
+        1.0148 37.8%, 1.0243 40.98%, 1.0282 44.56%, 1.0262 49.74%, 1.0096 63.66%, 1.0028 72.42%, 0.9996 83.16%,
+        0.9994 99.87%);
+    --ease-ui: cubic-bezier(0, 0.55, 0.45, 1);
+
+    // manchete-letras-desfoque: blur capped at 8px (the house limit) instead of the original 24px.
+    --letter-spring: linear(0, 0.0162, 0.0588, 0.1198 5.44%, 0.5869 16.33%, 0.7704, 0.895 27.22%, 0.9247 29.03%,
+        0.969 32.66%, 0.9848 34.48%, 1.0063, 1.0177, 1.0221 45.36%, 1.0213 50.81%, 1.0078 65.32%, 1.0024 74.39%,
+        0.9999 85.28%, 0.9996 99.8%);
+    --letter-duration: 400ms;
+    --letter-stagger: 36ms;
+    --letter-line-start: 250ms;
+    --letter-line-gap: 90ms;
+    --letter-rise: 1.35em;
+    --letter-blur: 8px;
+    --hero-after-letters: 1000ms;
+
+    // logo-morph-mola
+    --morph-out: 300ms;
+    --morph-in: 500ms;
+    --morph-stagger: 50ms;
+    --morph-in-delay: 450ms; // set per swap by the footer, from the length of the word leaving
+    --morph-overlap: 150ms;
+    --morph-blur: 24px;
+
+    // tema-shift-t: only controls transition when the theme changes.
+    --theme-swap: 200ms;
+
+    // card-contorno-hover
+    --press-scale: 0.975;
+    --press-duration: 200ms;
+
+    // nav-ancora-seta-pulando
+    --arrow-bounce: 1s;
+
+    // alt-foco-navegacao
+    --alt-blur: 16px;
+    --alt-fade: 0.2;
+    --alt-stagger: 100ms;
+
+    // busca-ctrl-k
+    --search-open: 100ms;
+    --search-blur: 8px;
+    --search-item: 150ms;
+    --highlight: #ffef3a;
+}
+
+// A section or item focused by a shortcut or the search should not draw a box.
+[tabindex="-1"]:focus {
+    outline: none;
 }
 
 :root[data-theme="light"] {
@@ -75,7 +129,6 @@ body {
     font-size: var(--step-body);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    transition: background-color 300ms ease, color 300ms ease;
 }
 
 h1,
@@ -148,7 +201,8 @@ button {
     font-weight: 500;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 180ms ease, color 180ms ease, transform 120ms ease;
+    transition: background-color var(--theme-swap) ease, color var(--theme-swap) ease,
+        border-color var(--theme-swap) ease, transform 120ms ease;
 
     &:hover {
         background: transparent;
@@ -234,31 +288,66 @@ button {
     &__nav {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        width: 50%;
-        gap: var(--gap);
+        gap: clamp(32px, 3vw, 56px);
     }
 
     &__links {
         display: flex;
-        flex: 1;
-        justify-content: space-between;
-        gap: var(--gap);
+        gap: clamp(20px, 2.2vw, 36px);
 
         a {
-            display: inline-block;
-            padding: 10px 0;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 10px 6px;
+            margin: 0 -6px;
             font-size: var(--step-body);
             text-decoration: underline;
             text-decoration-color: transparent;
             text-decoration-thickness: 2px;
             text-underline-offset: 0.3em;
-            transition: text-decoration-color 200ms ease, text-underline-offset 200ms ease;
+            transition: text-decoration-color 150ms ease, text-underline-offset 150ms ease;
 
-            &:hover {
+            &:hover,
+            &:focus-visible {
                 text-decoration-color: currentColor;
                 text-underline-offset: 0.2em;
             }
+
+            // Pulse ring for the Alt focus mode.
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+    }
+
+    &__arrow {
+        flex: none;
+        width: 0.8em;
+        height: 0.8em;
+    }
+
+    &__key {
+        display: none;
+        min-width: 1.4em;
+        padding: 0 0.3em;
+        background: var(--ink);
+        color: var(--bg);
+        font-size: var(--step-small);
+        font-variant-numeric: tabular-nums;
+        line-height: 1.5;
+        text-align: center;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        &__links a:hover &__arrow,
+        &__links a:focus-visible &__arrow {
+            animation: bounce var(--arrow-bounce) infinite;
         }
     }
 
@@ -278,6 +367,7 @@ button {
         text-decoration-thickness: 1px;
         text-underline-offset: 0.25em;
         cursor: pointer;
+        transition: text-decoration-thickness var(--theme-swap) ease;
 
         &:hover {
             text-decoration-thickness: 3px;
@@ -414,55 +504,129 @@ button {
     }
 }
 
-// Masked headline: each line rises from behind its own baseline.
+// Hero letters rise from the blur, line by line (ui-library: manchete-letras-desfoque).
 
-.mask {
+.hero__word {
     display: inline-block;
-    overflow: clip;
-    padding: 0.08em 0.02em 0.12em;
-    margin: -0.08em -0.02em -0.12em;
 }
 
-.mask__line {
+.hero__letter {
     display: inline-block;
+    transition: filter 200ms var(--ease-ui), opacity 200ms var(--ease-ui);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .mask__line {
-        animation: rise 900ms var(--ease-out) both;
+    // The clip hides letters still below the line and is released when they land.
+    .hero__word {
+        clip-path: polygon(-100% -5%, 300% -5%, 300% 120%, -100% 120%);
+        animation: release-clip 1ms linear 1500ms forwards;
+    }
 
-        &--2 {
-            animation-delay: 110ms;
-        }
+    .hero__letter {
+        animation: letter-in var(--letter-duration) var(--letter-spring)
+            calc(var(--letter-line-start) + var(--line) * var(--letter-line-gap) + var(--i) * var(--letter-stagger))
+            backwards;
+    }
+
+    // The portrait, then the sentence and the header, arrive after the letters.
+    .hero__frame {
+        animation: frame-in 800ms var(--spring) var(--hero-after-letters) backwards;
     }
 
     .hero__frame img {
-        animation: settle 1400ms var(--ease-out) 200ms both, drift 14s ease-in-out 1600ms infinite alternate;
+        animation: drift 14s ease-in-out calc(var(--hero-after-letters) + 800ms) infinite alternate;
     }
 
     .hero__foot,
     .header {
-        animation: fade-up 700ms var(--ease-out) 450ms both;
+        animation: fade-up 700ms var(--ease-out) calc(var(--hero-after-letters) + 100ms) both;
     }
 }
 
-@keyframes rise {
+@keyframes letter-in {
     from {
-        transform: translateY(105%);
-    }
-    to {
-        transform: none;
-    }
-}
-
-@keyframes settle {
-    from {
+        filter: blur(var(--letter-blur));
         opacity: 0;
-        transform: scale(1.25);
+        translate: 0 var(--letter-rise);
     }
     to {
+        filter: blur(0);
         opacity: 1;
-        transform: scale(1);
+        translate: 0;
+    }
+}
+
+@keyframes release-clip {
+    to {
+        clip-path: none;
+    }
+}
+
+@keyframes frame-in {
+    from {
+        filter: blur(var(--letter-blur));
+        opacity: 0;
+        rotate: 10deg;
+        scale: 0;
+    }
+}
+
+// Holding Alt blurs the name and every link nods in turn (ui-library: alt-foco-navegacao).
+
+.alt-held .hero__letter {
+    filter: blur(var(--alt-blur));
+    opacity: var(--alt-fade);
+}
+
+.alt-held .header__key {
+    display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .alt-held .header__links a {
+        animation: nudge 350ms var(--ease-ui) calc(var(--k) * var(--alt-stagger));
+    }
+
+    .alt-held .header__links a::before {
+        animation: pulse 1s ease-out calc(var(--k) * var(--alt-stagger));
+    }
+}
+
+@keyframes nudge {
+    33% {
+        rotate: -2deg;
+    }
+    50% {
+        background-color: var(--ink);
+        color: var(--bg);
+        scale: 0.92;
+    }
+    66% {
+        rotate: 2deg;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink), transparent 50%); // taste-skill-ignore: search overlay or Alt pulse, both transient
+        opacity: 1;
+    }
+    40% {
+        box-shadow: 0 0 0 15px color-mix(in srgb, var(--ink), transparent 100%); // taste-skill-ignore: search overlay or Alt pulse, both transient
+        opacity: 1;
+    }
+}
+
+// The arrow jumps: up while accelerating, down while slowing (ui-library: nav-ancora-seta-pulando).
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translateY(-25%);
+        animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+        transform: none;
+        animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
     }
 }
 
@@ -1181,16 +1345,111 @@ button {
     column-gap: var(--gap);
     padding: 0 var(--margin) 32px;
 
+    // The name swaps with the initials on click (ui-library: logo-morph-mola).
     &__name {
         grid-column: 1 / span 7;
+        justify-self: start;
+        margin-top: clamp(144px, 12vw, 176px);
+        padding: 0;
+        border: 0;
+        background: none;
+        color: inherit;
         font-family: var(--display);
         font-size: var(--step-display);
         line-height: 0.9;
         letter-spacing: -0.035em;
-        margin-top: clamp(144px, 12vw, 176px);
+        text-align: left;
+        cursor: pointer;
+        transition: scale 500ms var(--spring);
 
-        span {
-            display: block;
+        &:hover {
+            scale: 1.015;
+        }
+
+        &:active {
+            scale: 0.98;
+        }
+    }
+
+    &__forms {
+        display: grid;
+    }
+
+    &__form {
+        grid-area: 1 / 1;
+
+        &.is-hidden {
+            visibility: hidden;
+        }
+
+        i {
+            display: inline-block;
+            font-style: normal;
+            transform-origin: center bottom;
+        }
+    }
+
+    // Letters are inline blocks, so the line must not break between them.
+    &__line {
+        display: block;
+        white-space: nowrap;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        &__form.is-out i {
+            animation: letters-out var(--morph-out) var(--spring) calc(var(--out) * var(--morph-stagger)) forwards;
+        }
+
+        &__form.is-in i {
+            animation: letters-in var(--morph-in) var(--spring)
+                calc(var(--morph-in-delay) + var(--in) * var(--morph-stagger)) backwards;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &__form.is-out {
+            visibility: hidden;
+        }
+    }
+
+    // Shortcut list: the one in use lights up (from alt-foco-navegacao).
+    &__keys {
+        grid-column: 1 / -1;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 32px;
+        margin-top: 72px;
+        font-size: var(--step-small);
+        color: var(--muted);
+
+        kbd {
+            display: inline-block;
+            padding: 0 0.45em;
+            margin-right: 0.35em;
+            background: var(--surface);
+            color: var(--ink);
+            font-family: inherit;
+            font-size: inherit;
+            font-variant-numeric: tabular-nums;
+            transition: background-color var(--theme-swap) ease, color var(--theme-swap) ease;
+        }
+
+        @media (hover: none) {
+            display: none;
+        }
+    }
+
+    &__key {
+        transition: color var(--theme-swap) ease;
+
+        &.is-active,
+        .alt-held &--focus {
+            color: var(--ink);
+
+            kbd {
+                background: var(--ink);
+                color: var(--bg);
+            }
         }
     }
 
@@ -1244,7 +1503,7 @@ button {
         display: flex;
         justify-content: space-between;
         gap: var(--gap);
-        margin-top: 96px;
+        margin-top: 40px;
         font-size: var(--step-small);
     }
 
@@ -1360,6 +1619,161 @@ button {
     @media (max-width: $phone) {
         &__form {
             grid-template-columns: 1fr;
+        }
+    }
+}
+
+@keyframes letters-out {
+    to {
+        filter: blur(var(--morph-blur));
+        opacity: 0;
+        scale: 0.9;
+    }
+}
+
+@keyframes letters-in {
+    from {
+        filter: blur(var(--morph-blur));
+        opacity: 0;
+        scale: 0.9;
+    }
+}
+
+// The held frame presses in when its project name is pointed at (ui-library: card-contorno-hover).
+
+.work__frame {
+    outline: 2px solid transparent;
+    outline-offset: 1px;
+    transition: outline-color var(--press-duration) ease, scale var(--press-duration) ease;
+}
+
+.work:has(.work__name.is-current:hover, .work__name.is-current:focus-visible) .work__stage .work__frame,
+.work__phone-frame:focus-within {
+    outline-color: var(--accent);
+    scale: var(--press-scale);
+}
+
+// Shift+D outlines every box to show the grid (ui-library: debug-css-shift-d).
+
+.debug-grid body * {
+    outline: 1px solid var(--accent) !important;
+}
+
+// Ctrl+K search over the blurred page (ui-library: busca-ctrl-k).
+
+.search {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20vh var(--margin) 0;
+    background: color-mix(in srgb, var(--bg), transparent 40%);
+    backdrop-filter: blur(var(--search-blur)); // taste-skill-ignore: search overlay or Alt pulse, both transient
+    -webkit-backdrop-filter: blur(var(--search-blur)); // taste-skill-ignore: search overlay or Alt pulse, both transient
+    transition: opacity var(--search-open), backdrop-filter var(--search-open), visibility 0s;
+
+    &[hidden] {
+        display: flex;
+        opacity: 0;
+        visibility: hidden;
+        backdrop-filter: blur(0); // taste-skill-ignore: search overlay or Alt pulse, both transient
+        -webkit-backdrop-filter: blur(0); // taste-skill-ignore: search overlay or Alt pulse, both transient
+        pointer-events: none;
+        transition: opacity var(--search-open), backdrop-filter var(--search-open), visibility 0s var(--search-open);
+    }
+
+    &__panel {
+        display: grid;
+        gap: 12px;
+        width: min(640px, 100%);
+    }
+
+    &__input {
+        width: 100%;
+        height: 64px;
+        padding: 0 16px;
+        border: 0;
+        border-radius: 0;
+        background: var(--surface);
+        color: var(--ink);
+        caret-color: var(--accent);
+        font: inherit;
+        font-size: var(--step-lead);
+        box-shadow: 0 8px 32px -8px rgb(0 0 0 / 0.6); // taste-skill-ignore: search overlay or Alt pulse, both transient
+
+        &::placeholder {
+            color: var(--muted);
+            opacity: 0.8;
+        }
+
+        &:focus-visible {
+            outline-offset: 0;
+        }
+    }
+
+    &__results {
+        display: grid;
+        gap: 4px;
+        filter: drop-shadow(0 8px 24px rgb(0 0 0 / 0.5)); // taste-skill-ignore: search overlay or Alt pulse, both transient
+    }
+
+    &__result {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: 16px;
+        padding: 12px 16px;
+        background: var(--surface);
+        cursor: pointer;
+        transition: background-color var(--search-item), color var(--search-item);
+
+        &.is-active {
+            background: var(--accent);
+            color: var(--accent-ink);
+        }
+    }
+
+    &__title {
+        font-weight: 500;
+    }
+
+    &__text {
+        grid-column: 1;
+        overflow: hidden;
+        font-size: var(--step-small);
+        opacity: 0.85;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__enter {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        align-self: center;
+        font-size: var(--step-small);
+        opacity: 0;
+        transition: opacity var(--search-item);
+    }
+
+    &__result.is-active &__enter {
+        opacity: 1;
+    }
+
+    &__hint {
+        font-size: var(--step-small);
+        color: var(--ink);
+    }
+
+    mark {
+        background: var(--highlight);
+        color: #1a2039;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &,
+        &[hidden] {
+            transition: none;
         }
     }
 }
