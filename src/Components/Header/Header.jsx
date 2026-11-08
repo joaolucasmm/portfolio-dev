@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { sections } from "../../Functions/useShortcuts";
+import useDialogFocus from "../../Functions/useDialogFocus";
 
 // The arrow says "further down this page" (ui-library: nav-ancora-seta-pulando).
 function ArrowDown() {
@@ -12,10 +13,13 @@ function ArrowDown() {
 
 function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch }) {
     const [menuOpen, setMenuOpen] = useState(false);
-    const close = () => setMenuOpen(false);
+    const close = useCallback(() => setMenuOpen(false), []);
+    const header = useRef(null);
+    // The full-screen menu (narrow screens) behaves as a dialog while open.
+    useDialogFocus(menuOpen, header, close);
 
     return (
-        <header className={"header" + (menuOpen ? " header--open" : "")}>
+        <header ref={header} className={"header" + (menuOpen ? " header--open" : "")}>
             <a className="header__mark" href="#top" aria-label="João Lucas, top of page" onClick={close}>
                 JL
             </a>
@@ -63,7 +67,7 @@ function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch })
                         type="button"
                         className="header__switch"
                         lang={language === "english" ? "pt-BR" : "en"}
-                        aria-label={t.language}
+                        aria-label={t.languageShort + ", " + t.language}
                         onClick={() => setLanguage(language === "english" ? "portuguese" : "english")}
                     >
                         {t.languageShort}
@@ -71,7 +75,6 @@ function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch })
                     <button
                         type="button"
                         className="header__switch"
-                        aria-pressed={!darkMode}
                         aria-keyshortcuts="Shift+T"
                         onClick={toggleTheme}
                     >

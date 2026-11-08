@@ -10,6 +10,8 @@ const MORPH_OVERLAP = 150;
 // When the last of n letters has left.
 const exitEnd = (n) => MORPH_OUT + (n - 1) * MORPH_STAGGER;
 
+const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+
 const forms = {
     long: ["João Lucas", "Menegasso"],
     short: ["JL"],
@@ -68,17 +70,19 @@ function Footer({ t, nav, lastUsed }) {
         return leaving === null && name === "long" && !swapped.current ? "shown" : "in";
     };
 
+    // Keys joined by no-break spaces so a shortcut never splits across lines.
+    const mod = isMac ? "⌘" : "Ctrl";
     const shortcuts = [
         ["focus", "Alt", t.keys.focus],
-        ["jump", "Alt 1–5", t.keys.jump],
-        ["search", "Ctrl K", t.keys.search],
-        ["theme", "Shift T", t.keys.theme],
-        ["debug", "Shift D", t.keys.debug],
+        ["jump", "Alt 1–5", t.keys.jump],
+        ["search", mod + " K", t.keys.search],
+        ["theme", "Shift T", t.keys.theme],
+        ["debug", "Shift D", t.keys.debug],
     ];
 
     return (
         <footer className="footer inverse">
-            <button type="button" className="footer__name" onClick={swap} aria-label={t.morph}>
+            <button type="button" className="footer__name" onClick={swap} aria-label={t.morph} translate="no">
                 <span className="footer__forms" aria-hidden="true" style={{ "--morph-in-delay": inStart + "ms" }}>
                     <NameForm lines={forms.long} state={stateOf("long")} />
                     <NameForm lines={forms.short} state={stateOf("short")} />

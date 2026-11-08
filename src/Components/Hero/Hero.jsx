@@ -5,7 +5,7 @@ import { links } from "../../content";
 // (ui-library: manchete-letras-desfoque). The values live in style.scss.
 function Word({ text, line }) {
     return (
-        <span className="hero__word" style={{ "--line": line }} aria-hidden="true">
+        <span className="hero__word" style={{ "--line": line }} aria-hidden="true" translate="no">
             {[...text].map((letter, i) => (
                 <span className="hero__letter" style={{ "--i": i }} key={i}>
                     {letter}
@@ -21,15 +21,17 @@ function Hero({ t, language, openDialog }) {
             <h1 className="hero__name">
                 <Word text="João" line={0} />{" "}
                 <span className="hero__frame">
-                    <img src={portrait} alt="" width="640" height="640" />
+                    <img src={portrait} alt="" width="640" height="640" fetchpriority="high" />
                 </span>{" "}
                 <Word text="Lucas" line={1} />
                 {/* Read once, as words; the split letters above are only for the eye. */}
-                <span className="visually-hidden">João Lucas, {t.role}</span>
+                <span className="visually-hidden">
+                    <span translate="no">João Lucas</span>, {t.role}
+                </span>
             </h1>
             {/* On a phone the portrait leaves the line and fills the screen under the name. */}
             <div className="hero__portrait">
-                <img src={portrait} alt="" width="640" height="640" />
+                <img src={portrait} alt="" width="640" height="640" fetchpriority="high" />
             </div>
             <div className="hero__foot">
                 <p className="hero__sentence">{t.sentence}</p>

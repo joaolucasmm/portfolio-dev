@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
 
+// "2024-07", "2025-03" → "Jul 2024 – Mar 2025" / "jul. de 2024 – mar. de 2025".
+function formatDates([from, to], locale) {
+    const month = (iso) => new Date(iso + "-01T00:00:00Z");
+    const format = new Intl.DateTimeFormat(locale, { month: "short", year: "numeric", timeZone: "UTC" });
+    return format.formatRange(month(from), month(to));
+}
+
 function Experience({ t }) {
     const [open, setOpen] = useState(0);
 
@@ -21,7 +28,7 @@ function Experience({ t }) {
                     const panel = "experience-panel-" + i;
                     return (
                         <li
-                            key={item.dates}
+                            key={item.dates.join()}
                             id={"experience-" + i}
                             tabIndex={-1}
                             className={isOpen ? "is-open" : ""}
@@ -36,7 +43,7 @@ function Experience({ t }) {
                             >
                                 <span className="experience__role">{item.short}</span>
                                 <span className="experience__when">
-                                    {item.place}, {item.dates}
+                                    {item.place}, {formatDates(item.dates, t.locale)}
                                 </span>
                             </button>
                             <div id={panel} className="experience__panel" hidden={!isOpen}>

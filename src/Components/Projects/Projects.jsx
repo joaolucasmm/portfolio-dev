@@ -32,11 +32,7 @@ function Details({ t, index, running, run, className }) {
             </p>
             <p className="work__description">{item.description}</p>
             <div className="work__controls">
-                <button
-                    type="button"
-                    className="button button--small"
-                    aria-pressed={running === index}
-                    onClick={() => run(index)}
+                <button type="button" className="button button--small" onClick={() => run(index)}
                 >
                     {running === index ? t.stop : t.run}
                 </button>
@@ -93,7 +89,8 @@ function Projects({ t }) {
                         <img
                             key={src}
                             src={src}
-                            alt={t.items[i].name}
+                            alt={i === current ? t.items[i].name : ""}
+                            aria-hidden={i === current ? undefined : true}
                             width="1364"
                             height="636"
                             loading="lazy"
@@ -104,7 +101,6 @@ function Projects({ t }) {
                         <button
                             type="button"
                             className="button button--small work__stop"
-                            aria-pressed="true"
                             onClick={() => run(current)}
                         >
                             {t.stop}

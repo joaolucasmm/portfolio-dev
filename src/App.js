@@ -35,12 +35,18 @@ function App() {
 
     useEffect(() => {
         document.documentElement.dataset.theme = darkMode ? "dark" : "light";
+        // Browser chrome follows the page ground (--bg of each theme).
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", darkMode ? "#1a2039" : "#f9a3c0");
     }, [darkMode]);
 
     const openDialog = () => setEmailDialog(true);
 
     return (
         <div className="App">
+            <a className="skip-link" href="#main">
+                {t.nav.skip}
+            </a>
             <Header
                 t={t.nav}
                 language={language}
@@ -49,7 +55,7 @@ function App() {
                 toggleTheme={toggleTheme}
                 openSearch={() => setSearchOpen(true)}
             />
-            <main>
+            <main id="main" tabIndex={-1}>
                 <Hero t={t.hero} language={language} openDialog={openDialog} />
                 <About t={t.about} />
                 <Projects t={t.work} />

@@ -60,11 +60,11 @@ const EmailDialog = ({ t, emailDialog, setEmailDialog }) => {
                     </label>
                     <label>
                         {t.email}
-                        <input name="email" type="email" autoComplete="email" required />
+                        <input name="email" type="email" autoComplete="email" spellCheck={false} required />
                     </label>
                     <label className="email-dialog__wide">
                         {t.subject}
-                        <input name="title" />
+                        <input name="title" autoComplete="off" />
                     </label>
                     <label className="email-dialog__wide">
                         {t.message}

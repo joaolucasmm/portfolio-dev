@@ -1,5 +1,6 @@
-import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { sections } from "../../Functions/useShortcuts";
+import useDialogFocus from "../../Functions/useDialogFocus";
 
 const MAX_RESULTS = 8;
 
@@ -53,6 +54,9 @@ function Search({ t, open, setOpen }) {
     const [query, setQuery] = useState("");
     const [active, setActive] = useState(0);
     const input = useRef(null);
+    const panel = useRef(null);
+    const close = useCallback(() => setOpen(false), [setOpen]);
+    useDialogFocus(open, panel, close);
     const index = useMemo(() => buildIndex(t), [t]);
     const term = query.trim().toLowerCase();
     const results = useMemo(() => search(index, term), [index, term]);
@@ -72,10 +76,7 @@ function Search({ t, open, setOpen }) {
     };
 
     const onKeyDown = (e) => {
-        if (e.key === "Escape") {
-            e.preventDefault();
-            setOpen(false);
-        } else if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
             e.preventDefault();
             const n = Math.max(1, results.length);
             setActive((a) => (a + (e.key === "ArrowDown" ? 1 : -1) + n) % n);
@@ -94,11 +95,17 @@ function Search({ t, open, setOpen }) {
             aria-label={t.search.label}
             onClick={(e) => e.target === e.currentTarget && setOpen(false)}
         >
-            <div className="search__panel">
+            <div className="search__panel" ref={panel}>
                 <input
                     ref={input}
                     className="search__input"
                     type="search"
+                    name="q"
+                    role="combobox"
+                    aria-expanded={results.length > 0}
+                    aria-autocomplete="list"
+                    autoComplete="off"
+                    spellCheck={false}
                     value={query}
                     placeholder={t.search.placeholder}
                     aria-label={t.search.label}
