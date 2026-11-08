@@ -18,11 +18,6 @@ const projectLinks = [
         year: "2026",
     },
     {
-        url: "https://joaolucasmm.github.io/portfolio-dev/",
-        repo: "https://github.com/joaolucasmm/portfolio-dev",
-        year: "2026",
-    },
-    {
         url: "https://joaolucasmm.github.io/QRcodeGen/",
         repo: "https://github.com/joaolucasmm/QRcodeGen/",
         post: "https://www.linkedin.com/feed/update/urn:li:activity:7316523182281187329/",
@@ -90,12 +85,6 @@ const english = {
                 kind: "Windows app, Rust + Tauri + Vue",
                 description:
                     "Shows where your disk space goes without touching a file: a parallel Rust scanner, a virtualized folder tree and the 100 largest files. Tested core, releases built by GitHub Actions.",
-            },
-            {
-                name: "This site",
-                kind: "React, bilingual",
-                description:
-                    "Keyboard-first: Ctrl K search, Alt to jump between sections. Accessibility checked against the Web Interface Guidelines; tested and deployed by GitHub Actions.",
             },
             {
                 name: "QR Code Gen",
@@ -339,12 +328,6 @@ const portuguese = {
                 kind: "App Windows, Rust + Tauri + Vue",
                 description:
                     "Mostra para onde vai o espaço do disco sem tocar em nenhum arquivo: varredura paralela em Rust, árvore de pastas virtualizada e os 100 maiores arquivos. Núcleo testado, versões geradas pelo GitHub Actions.",
-            },
-            {
-                name: "Este site",
-                kind: "React, bilíngue",
-                description:
-                    "Feito para o teclado: busca com Ctrl K, Alt para pular entre seções. Acessibilidade conferida com as Web Interface Guidelines; testado e publicado pelo GitHub Actions.",
             },
             {
                 name: "Gerador QR",

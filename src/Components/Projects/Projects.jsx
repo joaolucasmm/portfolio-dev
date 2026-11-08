@@ -1,6 +1,5 @@
 import { useState } from "react";
 import sizewise from "../../Assets/Images/sizewise.png";
-import portfolio from "../../Assets/Images/portfolio.jpg";
 import qrCodeGen from "../../Assets/Images/qrcodegen.png";
 import pokedex from "../../Assets/Images/pokedex.png";
 import { projectLinks } from "../../content";
@@ -8,7 +7,6 @@ import { projectLinks } from "../../content";
 // Same order as projectLinks and work.items, with each picture's own size.
 const images = [
     { src: sizewise, width: 1477, height: 815 },
-    { src: portfolio, width: 1440, height: 900 },
     { src: qrCodeGen, width: 1899, height: 911 },
     { src: pokedex, width: 1364, height: 636 },
 ];
