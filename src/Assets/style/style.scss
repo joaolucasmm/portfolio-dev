@@ -39,6 +39,7 @@ $header-menu: 1180px;
     --margin: clamp(16px, 2.2vw, 32px);
     --gap: clamp(16px, 1.7vw, 24px);
     --section: clamp(120px, 12vw, 200px);
+    --header-height: 68px;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
     // Motion taken from the ui-library patterns; each group names its source.
@@ -71,14 +72,6 @@ $header-menu: 1180px;
 
     // tema-shift-t: only controls transition when the theme changes.
     --theme-swap: 200ms;
-
-    // card-projeto-legenda: the original goes from no veil to 50% black; here the
-    // veil rests at 50% so the passing names stay readable, and deepens on hover.
-    --veil-color: #0b0f1f;
-    --veil-rest: 0.5;
-    --veil-hover: 0.78;
-    --veil-duration: 250ms;
-    --names-behind-caption: 0.12;
 
     // card-contorno-hover
     --press-scale: 0.975;
@@ -289,8 +282,20 @@ button {
 
 // Layout
 
+// Each section carries its own field, so the sections alternate ground and
+// tone and a new one is visible where it starts.
 .section {
-    padding: var(--section) var(--margin) 0;
+    padding: calc(var(--section) * 0.7) var(--margin);
+    scroll-margin-top: var(--header-height);
+}
+
+.section--alt {
+    background: var(--surface);
+}
+
+#top,
+#contact {
+    scroll-margin-top: var(--header-height);
 }
 
 .grid {
@@ -301,15 +306,19 @@ button {
 
 // Header
 
+// The bar stays at the top while scrolling and marks the current section.
 .header {
-    position: absolute;
+    position: fixed;
     inset: 0 0 auto;
     z-index: 20;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px var(--margin);
+    height: var(--header-height);
+    padding: 0 var(--margin);
+    background: var(--bg);
     font-size: var(--step-small);
+    transition: background-color var(--theme-swap) ease;
 
     &__mark {
         font-family: var(--display);
@@ -358,6 +367,14 @@ button {
             &:focus-visible {
                 text-decoration-color: currentColor;
                 text-underline-offset: 0.2em;
+            }
+
+            // The section on screen: a solid underline that stays.
+            &[aria-current="true"] {
+                text-decoration-color: currentColor;
+                text-decoration-thickness: 3px;
+                text-underline-offset: 0.2em;
+                font-weight: 500;
             }
 
             // Pulse ring for the Alt focus mode.
@@ -853,184 +870,95 @@ button {
     }
 }
 
-// Work: names passing a held square
+// Work: one block per project, picture beside its text.
 
 .work {
-    // A landscape frame, closer to the screenshots' own shape than the old square.
-    --frame-w: min(60vw, 960px);
-    --frame-h: min(calc(var(--frame-w) * 0.625), 68svh);
-    position: relative;
-    overflow: clip;
-    padding-left: 0;
-    padding-right: 0;
-
-    &__stage {
-        position: sticky;
-        top: calc(50svh - var(--frame-h) / 2);
-        z-index: 0;
-        display: flex;
-        justify-content: center;
-        height: var(--frame-h);
-        margin-bottom: calc(-1 * var(--frame-h));
-
-        // While a project runs, the frame comes forward so it can be used.
-        &--running {
-            z-index: 3;
-        }
-
-        .work__frame {
-            width: var(--frame-w);
-            height: var(--frame-h);
-            aspect-ratio: auto;
-        }
+    &__heading {
+        font-family: var(--display);
+        font-size: var(--step-head);
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: -0.02em;
     }
 
+    &__list {
+        display: grid;
+        gap: clamp(72px, 8vw, 128px);
+        margin-top: clamp(48px, 5vw, 80px);
+    }
+}
+
+.project {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+    align-items: center;
+
     &__frame {
+        grid-column: 1 / span 7;
         position: relative;
-        aspect-ratio: 1;
+        aspect-ratio: 16 / 10;
         overflow: clip;
         background: var(--surface);
 
+        a,
         img {
-            position: absolute;
-            inset: 0;
+            display: block;
             width: 100%;
             height: 100%;
+        }
+
+        img {
             object-fit: cover;
             object-position: 50% 0;
-            opacity: 0;
-            transition: opacity 200ms ease;
-
-            &.is-current {
-                opacity: 1;
-            }
-        }
-
-        // A flat scrim keeps the crossing names readable over bright screenshots.
-        &::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: var(--veil-color);
-            opacity: var(--veil-rest);
-            pointer-events: none;
-            transition: opacity var(--veil-duration) var(--ease-ui);
-        }
-
-        &.is-running::after {
-            opacity: 0;
         }
 
         iframe {
-            position: absolute;
-            inset: 0;
-            z-index: 1;
             width: 100%;
             height: 100%;
             border: 0;
             background: #fff;
         }
+
+        &.is-running {
+            aspect-ratio: 4 / 3;
+        }
     }
 
-    &__phone-frame {
-        display: none;
-    }
-
-    // The caption of the held frame: kind and year, the description, the controls.
-    // It appears at once while the veil deepens (ui-library: card-projeto-legenda).
-    &__legend {
-        position: absolute;
-        inset: auto 0 0;
-        z-index: 2;
+    &__text {
+        grid-column: 9 / -1;
         display: grid;
-        gap: 8px;
-        padding: clamp(16px, 2vw, 28px);
-        color: var(--ink);
-        opacity: 0;
-
-        .work__kind {
-            display: flex;
-            justify-content: space-between;
-            gap: var(--gap);
-        }
-
-        .work__description {
-            max-width: 52ch;
-            color: var(--ink);
-        }
+        gap: 12px;
+        justify-items: start;
     }
 
-    &__stage .work__frame:hover,
-    &__stage .work__frame:focus-within {
-        &::after {
-            opacity: var(--veil-hover);
-        }
-
-        .work__legend {
-            opacity: 1;
-        }
+    // Projects alternate sides, so each reads as its own block.
+    &:nth-child(even) &__frame {
+        grid-column: 6 / -1;
+        grid-row: 1;
     }
 
-    // While the frame is in use, the passing names fade and let the pointer
-    // through, so they never sit on the caption or block its buttons.
-    &__names {
-        transition: opacity var(--veil-duration) var(--ease-ui);
-    }
-
-    &:has(&__stage .work__frame:hover, &__stage .work__frame:focus-within) {
-        .work__names {
-            opacity: var(--names-behind-caption);
-        }
-
-        .work__names a {
-            pointer-events: none;
-        }
-    }
-
-    &__stop {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        z-index: 2;
-    }
-
-    &__detail {
-        display: none;
-    }
-
-    &__names {
-        position: relative;
-        z-index: 1;
-        padding: calc(50svh - var(--frame-h) / 2) var(--margin) calc(50svh - 1em);
-        font-family: var(--display);
-        font-size: var(--step-display);
-        line-height: 0.85;
-        letter-spacing: -0.03em;
-        text-align: center;
-        pointer-events: none;
-
-        li {
-            padding-block: 14svh;
-        }
-    }
-
-    &__heading {
-        font-size: inherit;
-        font-weight: 400;
-        color: var(--muted);
+    &:nth-child(even) &__text {
+        grid-column: 1 / span 4;
+        grid-row: 1;
     }
 
     &__name {
-        text-decoration: none;
-        pointer-events: auto;
-        transition: color 200ms ease;
+        font-family: var(--display);
+        font-size: var(--step-head);
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: -0.02em;
 
-        &:not(.is-current) {
-            color: var(--muted);
+        a {
+            text-decoration: none;
         }
 
-        &:hover {
-            color: var(--ink);
+        a:hover,
+        a:focus-visible {
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 0.12em;
         }
     }
 
@@ -1038,13 +966,14 @@ button {
         font-weight: 500;
     }
 
-    &__description {
-        color: var(--muted);
-    }
-
     &__year {
         margin-left: 0.6em;
+        color: var(--muted);
         font-variant-numeric: tabular-nums;
+    }
+
+    &__description {
+        max-width: 46ch;
     }
 
     &__controls {
@@ -1052,58 +981,18 @@ button {
         flex-wrap: wrap;
         align-items: center;
         gap: 12px 20px;
-        margin-top: 6px;
+        margin-top: 8px;
     }
 
     @media (max-width: $phone) {
-        &__stage {
-            display: none;
-        }
+        display: block;
 
-        &__names {
-            padding: 0 var(--margin);
-            text-align: left;
-            pointer-events: auto;
-
-            li {
-                padding-block: 96px 0;
-            }
-
-            li:first-child {
-                padding-top: 40px;
-            }
-        }
-
-        &__name:not(.is-current) {
-            color: var(--ink);
-        }
-
-        &__phone-frame {
-            display: block;
-            aspect-ratio: 4 / 3;
-            margin-top: 20px;
-
-            &::after {
-                display: none;
-            }
-
-            &.is-running {
-                aspect-ratio: 3 / 4;
-            }
-        }
-
-        &__detail {
-            display: grid;
-            gap: 10px;
-            padding-top: 16px;
-            font-family: var(--text);
-            font-size: var(--step-body);
-            line-height: 1.5;
-            letter-spacing: 0;
+        &__frame,
+        &:nth-child(even) &__frame {
+            margin-bottom: 20px;
         }
     }
 }
-
 
 // Experience: one role per poster line
 
@@ -1114,7 +1003,6 @@ button {
         font-weight: 400;
         line-height: 1;
         letter-spacing: -0.02em;
-        color: var(--muted);
         margin-bottom: 48px;
     }
 
@@ -1445,7 +1333,6 @@ button {
 .contact {
     display: grid;
     grid-template-rows: auto auto auto auto;
-    margin-top: var(--section);
     padding: clamp(48px, 6vw, 96px) var(--margin) 40px;
 
     &__heading {
@@ -1804,18 +1691,22 @@ button {
     }
 }
 
-// The held frame presses in when its project name is pointed at (ui-library: card-contorno-hover).
+// A project's picture presses in when it or its name is pointed at (ui-library: card-contorno-hover).
 
-.work__frame {
+.project__frame {
     outline: 2px solid transparent;
     outline-offset: 1px;
     transition: outline-color var(--press-duration) ease, scale var(--press-duration) ease;
 }
 
-.work:has(.work__name.is-current:hover, .work__name.is-current:focus-visible) .work__stage .work__frame,
-.work__phone-frame:focus-within {
+.project__frame:hover,
+.project:has(.project__name a:hover, .project__name a:focus-visible) .project__frame {
     outline-color: var(--accent);
     scale: var(--press-scale);
+}
+
+.project__frame.is-running {
+    scale: 1;
 }
 
 // Shift+D outlines every box to show the grid (ui-library: debug-css-shift-d).

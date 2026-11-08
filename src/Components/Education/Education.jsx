@@ -2,7 +2,7 @@ import campus from "../../Assets/Images/found/campus-do-vale-ufrgs.jpg";
 
 function Education({ t }) {
     return (
-        <section id="education" className="section education" tabIndex={-1}>
+        <section id="education" className="section section--alt education" tabIndex={-1}>
             <h2 className="education__heading" data-reveal>
                 {t.heading}
             </h2>

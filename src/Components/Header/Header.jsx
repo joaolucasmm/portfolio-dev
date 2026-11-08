@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { sections } from "../../Functions/useShortcuts";
 import useDialogFocus from "../../Functions/useDialogFocus";
 
@@ -17,6 +17,25 @@ function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch })
     const header = useRef(null);
     // The full-screen menu (narrow screens) behaves as a dialog while open.
     useDialogFocus(menuOpen, header, close);
+
+    // The section under the middle band of the viewport is marked in the bar.
+    const [currentSection, setCurrentSection] = useState(null);
+    useEffect(() => {
+        if (!("IntersectionObserver" in window)) return undefined;
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) setCurrentSection(entry.target.id);
+                });
+            },
+            { rootMargin: "-45% 0px -50% 0px" }
+        );
+        ["top", "about", ...sections].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) observer.observe(el);
+        });
+        return () => observer.disconnect();
+    }, []);
 
     return (
         <header ref={header} className={"header" + (menuOpen ? " header--open" : "")}>
@@ -39,6 +58,7 @@ function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch })
                             <a
                                 href={"#" + id}
                                 onClick={close}
+                                aria-current={currentSection === id ? "true" : undefined}
                                 aria-keyshortcuts={"Alt+" + (i + 1)}
                                 style={{ "--k": i }}
                             >

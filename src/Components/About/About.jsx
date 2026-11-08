@@ -2,7 +2,7 @@ import portrait from "../../Assets/Images/avatar.jpg";
 
 function About({ t }) {
     return (
-        <section id="about" className="section about">
+        <section id="about" className="section section--alt about">
             <div className="about__side" data-reveal>
                 <h2 className="about__heading">{t.heading}</h2>
                 <dl className="about__facts">

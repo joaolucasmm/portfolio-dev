@@ -1,165 +1,97 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import sizewise from "../../Assets/Images/sizewise.png";
 import portfolio from "../../Assets/Images/portfolio.jpg";
 import qrCodeGen from "../../Assets/Images/qrcodegen.png";
 import pokedex from "../../Assets/Images/pokedex.png";
 import { projectLinks } from "../../content";
 
-// Same order as projectLinks and work.items.
-const images = [sizewise, portfolio, qrCodeGen, pokedex];
+// Same order as projectLinks and work.items, with each picture's own size.
+const images = [
+    { src: sizewise, width: 1477, height: 815 },
+    { src: portfolio, width: 1440, height: 900 },
+    { src: qrCodeGen, width: 1899, height: 911 },
+    { src: pokedex, width: 1364, height: 636 },
+];
 
-function Frame({ t, index, running, children, className = "" }) {
-    return (
-        <div className={"work__frame " + className + (running === index ? " is-running" : "")}>
-            {children}
-            {running === index && (
-                <iframe title={t.frameTitle + ": " + t.items[index].name} src={projectLinks[index].url} />
-            )}
-        </div>
-    );
-}
-
-// Kind, year, description and the controls of one project. Under each name on
-// a phone; on a wide screen, the caption of the held frame, revealed on hover
-// or focus (ui-library: card-projeto-legenda).
-function Details({ t, index, running, run, className }) {
-    const item = t.items[index];
+// One project per block: its picture (or the live app, when run here) beside
+// its name, facts and links, so no two projects ever share the same space.
+function Project({ t, item, index, running, setRunning }) {
     const link = projectLinks[index];
+    const image = images[index];
+    const isRunning = running === index;
+    const href = link.url || link.repo;
+
     return (
-        <div className={className}>
-            <p className="work__kind">
-                {item.kind}
-                <span className="work__year">{link.year}</span>
-            </p>
-            <p className="work__description">{item.description}</p>
-            <div className="work__controls">
-                {link.run && (
-                    <button type="button" className="button button--small" onClick={() => run(index)}>
-                        {running === index ? t.stop : t.run}
-                    </button>
-                )}
-                {link.download && (
-                    <a className="button button--small" href={link.download} target="_blank" rel="noreferrer">
-                        {t.download}
-                    </a>
-                )}
-                <a className="text-link" href={link.repo} target="_blank" rel="noreferrer">
-                    {t.code}
-                </a>
-                {link.post && (
-                    <a className="text-link" href={link.post} target="_blank" rel="noreferrer">
-                        {t.post}
+        <li className="project" id={"project-" + index} tabIndex={-1}>
+            <div className={"project__frame" + (isRunning ? " is-running" : "")}>
+                {isRunning ? (
+                    <iframe title={t.frameTitle + ": " + item.name} src={link.url} />
+                ) : (
+                    <a href={href} target="_blank" rel="noreferrer" tabIndex={-1} aria-hidden="true">
+                        <img src={image.src} alt="" width={image.width} height={image.height} loading="lazy" />
                     </a>
                 )}
             </div>
-        </div>
+            <div className="project__text" data-reveal>
+                <h3 className="project__name">
+                    <a href={href} target="_blank" rel="noreferrer">
+                        {item.name}
+                    </a>
+                </h3>
+                <p className="project__kind">
+                    {item.kind}
+                    <span className="project__year">{link.year}</span>
+                </p>
+                <p className="project__description">{item.description}</p>
+                <div className="project__controls">
+                    {link.run && (
+                        <button
+                            type="button"
+                            className="button button--small"
+                            onClick={() => setRunning(isRunning ? -1 : index)}
+                        >
+                            {isRunning ? t.stop : t.run}
+                        </button>
+                    )}
+                    {link.download && (
+                        <a className="button button--small" href={link.download} target="_blank" rel="noreferrer">
+                            {t.download}
+                        </a>
+                    )}
+                    <a className="text-link" href={link.repo} target="_blank" rel="noreferrer">
+                        {t.code}
+                    </a>
+                    {link.post && (
+                        <a className="text-link" href={link.post} target="_blank" rel="noreferrer">
+                            {t.post}
+                        </a>
+                    )}
+                </div>
+            </div>
+        </li>
     );
 }
 
 function Projects({ t }) {
-    const [current, setCurrent] = useState(0);
     const [running, setRunning] = useState(-1);
-    const names = useRef([]);
-
-    // The name crossing the middle of the viewport picks the picture.
-    useEffect(() => {
-        if (!("IntersectionObserver" in window)) return undefined;
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setCurrent(Number(entry.target.dataset.index));
-                    }
-                });
-            },
-            { rootMargin: "-50% 0px -50% 0px" }
-        );
-        names.current.forEach((el) => el && observer.observe(el));
-        return () => observer.disconnect();
-    }, []);
-
-    // A running project stops when another one takes the frame.
-    useEffect(() => {
-        setRunning((r) => (r === -1 || r === current ? r : -1));
-    }, [current]);
-
-    const run = (i) => {
-        setCurrent(i);
-        setRunning(running === i ? -1 : i);
-    };
 
     return (
         <section id="work" className="section work" tabIndex={-1}>
-            <div className={"work__stage" + (running === current ? " work__stage--running" : "")}>
-                <Frame t={t} index={current} running={running}>
-                    {images.map((src, i) => (
-                        <img
-                            key={src}
-                            src={src}
-                            alt={i === current ? t.items[i].name : ""}
-                            aria-hidden={i === current ? undefined : true}
-                            width="1364"
-                            height="636"
-                            loading="lazy"
-                            className={i === current ? "is-current" : ""}
-                        />
-                    ))}
-                    {running === current ? (
-                        <button
-                            type="button"
-                            className="button button--small work__stop"
-                            onClick={() => run(current)}
-                        >
-                            {t.stop}
-                        </button>
-                    ) : (
-                        <Details t={t} index={current} running={running} run={run} className="work__legend" />
-                    )}
-                </Frame>
-            </div>
-            <div className="work__names">
-                <h2 className="work__heading">{t.heading}</h2>
-                <ul>
-                    {t.items.map((item, i) => {
-                        const link = projectLinks[i];
-                        return (
-                            <li
-                                key={link.url}
-                                id={"project-" + i}
-                                tabIndex={-1}
-                                ref={(el) => (names.current[i] = el)}
-                                data-index={i}
-                            >
-                                <a
-                                    href={link.url || link.repo}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className={"work__name" + (i === current ? " is-current" : "")}
-                                >
-                                    {item.name}
-                                </a>
-                                <Frame t={t} index={i} running={running} className="work__phone-frame">
-                                    <img
-                                        src={images[i]}
-                                        alt=""
-                                        width="1364"
-                                        height="636"
-                                        loading="lazy"
-                                        className="is-current"
-                                    />
-                                </Frame>
-                                <Details
-                                    t={t}
-                                    index={i}
-                                    running={running}
-                                    run={run}
-                                    className="work__detail"
-                                />
-                            </li>
-                        );
-                    })}
-                </ul>
-            </div>
+            <h2 className="work__heading" data-reveal>
+                {t.heading}
+            </h2>
+            <ul className="work__list">
+                {t.items.map((item, i) => (
+                    <Project
+                        key={projectLinks[i].repo}
+                        t={t}
+                        item={item}
+                        index={i}
+                        running={running}
+                        setRunning={setRunning}
+                    />
+                ))}
+            </ul>
         </section>
     );
 }

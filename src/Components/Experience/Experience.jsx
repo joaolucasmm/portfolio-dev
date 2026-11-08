@@ -31,7 +31,7 @@ function Experience({ t }) {
     }, []);
 
     return (
-        <section id="experience" className="section experience" tabIndex={-1}>
+        <section id="experience" className="section section--alt experience" tabIndex={-1}>
             <h2 className="experience__heading" data-reveal>
                 {t.heading}
             </h2>
