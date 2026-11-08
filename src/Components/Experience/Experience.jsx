@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 const month = (iso) => new Date(iso + "-01T00:00:00Z");
 
 // ["2024-08", "2025-03"] → "Aug 2024 – Mar 2025"; a null end reads "now".
@@ -20,62 +18,33 @@ function formatLength([from, to], units) {
     return [years && part(years, units.year), months && part(months, units.month)].filter(Boolean).join(units.and);
 }
 
+// Every role is open: dates and place on the left, what was done on the right.
 function Experience({ t }) {
-    const [open, setOpen] = useState(0);
-
-    // The search palette opens the role it found.
-    useEffect(() => {
-        const onOpen = (e) => setOpen(e.detail);
-        window.addEventListener("portfolio:open-experience", onOpen);
-        return () => window.removeEventListener("portfolio:open-experience", onOpen);
-    }, []);
-
     return (
         <section id="experience" className="section section--alt experience" tabIndex={-1}>
             <h2 className="experience__heading" data-reveal>
                 {t.heading}
             </h2>
-            <ul className="experience__list">
-                {t.items.map((item, i) => {
-                    const isOpen = open === i;
-                    const panel = "experience-panel-" + i;
-                    return (
-                        <li
-                            key={item.dates.join()}
-                            id={"experience-" + i}
-                            tabIndex={-1}
-                            className={isOpen ? "is-open" : ""}
-                            data-reveal
-                        >
-                            <button
-                                type="button"
-                                className="experience__line"
-                                aria-expanded={isOpen}
-                                aria-controls={panel}
-                                onClick={() => setOpen(isOpen ? -1 : i)}
-                            >
-                                <span className="experience__role">{item.short}</span>
-                                <span className="experience__when">
-                                    {item.place}, {formatDates(item.dates, t.locale, t.units)}
-                                </span>
-                            </button>
-                            <div id={panel} className="experience__panel" hidden={!isOpen}>
-                                <div className="experience__meta">
-                                    <h3>{item.title}</h3>
-                                    <p className="experience__where">
-                                        {item.place}, {formatLength(item.dates, t.units)}
-                                    </p>
-                                    <a className="text-link" href={item.link} target="_blank" rel="noreferrer">
-                                        {t.company}
-                                    </a>
-                                </div>
-                                <p>{item.text}</p>
-                                <p className="experience__tools">{item.tools}</p>
-                            </div>
-                        </li>
-                    );
-                })}
-            </ul>
+            <ol className="experience__list">
+                {t.items.map((item, i) => (
+                    <li key={item.dates.join()} id={"experience-" + i} tabIndex={-1} className="experience__item" data-reveal>
+                        <div className="experience__meta">
+                            <p className="experience__when">{formatDates(item.dates, t.locale, t.units)}</p>
+                            <p className="experience__where">
+                                <a href={item.link} target="_blank" rel="noreferrer">
+                                    {item.place}
+                                </a>
+                                <span>{formatLength(item.dates, t.units)}</span>
+                            </p>
+                        </div>
+                        <div className="experience__body">
+                            <h3 className="experience__title">{item.title}</h3>
+                            <p>{item.text}</p>
+                            <p className="experience__tools">{item.tools}</p>
+                        </div>
+                    </li>
+                ))}
+            </ol>
         </section>
     );
 }
