@@ -1,4 +1,3 @@
-import portrait from "../../Assets/Images/avatar.jpg";
 import { links } from "../../content";
 
 // Each line starts at its own time and its letters follow one stagger apart
@@ -19,20 +18,12 @@ function Hero({ t, language, openDialog }) {
     return (
         <section id="top" className="hero">
             <h1 className="hero__name">
-                <Word text="João" line={0} />{" "}
-                <span className="hero__frame">
-                    <img src={portrait} alt="" width="640" height="640" fetchpriority="high" />
-                </span>{" "}
-                <Word text="Lucas" line={1} />
+                <Word text="João" line={0} /> <Word text="Lucas" line={1} />
                 {/* Read once, as words; the split letters above are only for the eye. */}
                 <span className="visually-hidden">
                     <span translate="no">João Lucas</span>, {t.role}
                 </span>
             </h1>
-            {/* On a phone the portrait leaves the line and fills the screen under the name. */}
-            <div className="hero__portrait">
-                <img src={portrait} alt="" width="640" height="640" fetchpriority="high" />
-            </div>
             <div className="hero__foot">
                 <p className="hero__sentence">{t.sentence}</p>
                 <div className="hero__actions">

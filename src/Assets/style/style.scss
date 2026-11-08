@@ -1,4 +1,4 @@
-// João Lucas — "the name as a monument". One navy field, pink ink.
+// João Lucas — "the name as a monument". Night blue with pink kept for what you act on.
 // Every colour and size below is a token; sections reference tokens only.
 
 $phone: 720px;
@@ -7,22 +7,43 @@ $header-menu: 1180px;
 
 @mixin dark-tokens {
     color-scheme: dark;
-    --bg: #1a2039;
-    --surface: #222a4a;
-    --ink: #f9a3c0;
-    --muted: #c296a8;
+    --bg: #151a30;
+    --surface: #1d2340;
+    --ink: #eef0f8;
+    --muted: #a5abc6;
     --accent: #f9a3c0;
-    --accent-ink: #1a2039;
+    --accent-ink: #151a30;
 }
 
 @mixin light-tokens {
     color-scheme: light;
+    --bg: #f7f6fa;
+    --surface: #ecebf3;
+    --ink: #151a30;
+    --muted: #575c78;
+    --accent: #b9375f;
+    --accent-ink: #ffffff;
+}
+
+// The contact band and footer: pink ground on the dark theme, night blue on the light one.
+@mixin band-pink {
+    color-scheme: light;
     --bg: #f9a3c0;
     --surface: #f3b6cb;
-    --ink: #1a2039;
-    --muted: #3d2f4c;
-    --accent: #1a2039;
+    --ink: #151a30;
+    --muted: #4a3550;
+    --accent: #151a30;
     --accent-ink: #f9a3c0;
+}
+
+@mixin band-night {
+    color-scheme: dark;
+    --bg: #151a30;
+    --surface: #1d2340;
+    --ink: #eef0f8;
+    --muted: #a5abc6;
+    --accent: #f9a3c0;
+    --accent-ink: #151a30;
 }
 
 :root {
@@ -40,6 +61,8 @@ $header-menu: 1180px;
     --gap: clamp(16px, 1.7vw, 24px);
     --section: clamp(120px, 12vw, 200px);
     --header-height: 68px;
+    --radius-control: 8px; // buttons, fields, results
+    --radius-card: 12px; // pictures, panels, the dialog
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
     // Motion taken from the ui-library patterns; each group names its source.
@@ -102,11 +125,11 @@ $header-menu: 1180px;
 }
 
 :root[data-theme="light"] .inverse {
-    @include dark-tokens;
+    @include band-night;
 }
 
 .inverse {
-    @include light-tokens;
+    @include band-pink;
     background: var(--bg);
     color: var(--ink);
 }
@@ -232,7 +255,7 @@ button {
     min-height: 48px;
     padding: 0 24px;
     border: 2px solid var(--accent);
-    border-radius: 0;
+    border-radius: var(--radius-control);
     background: var(--accent);
     color: var(--accent-ink);
     font-size: var(--step-body);
@@ -502,22 +525,6 @@ button {
         font-kerning: normal;
     }
 
-    &__frame {
-        display: inline-block;
-        flex: none;
-        width: 1.05em;
-        height: 0.72em;
-        overflow: clip;
-        background: var(--surface);
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: 50% 30%;
-        }
-    }
-
     &__foot {
         display: grid;
         grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -539,16 +546,13 @@ button {
         gap: 24px;
     }
 
-    &__portrait {
-        display: none;
-    }
-
-    // Phone: the name on two lines at full width, the portrait as a large picture
-    // under it, so the first screen is not a small name in empty ground.
+    // Phone: the name on two lines at full width, the sentence and actions under it.
     @media (max-width: $phone) {
-        grid-template-rows: auto minmax(180px, 1fr) auto;
-        gap: 24px;
-        padding-top: 88px;
+        grid-template-rows: auto auto;
+        align-content: space-between;
+        gap: 48px;
+        min-height: 88svh;
+        padding-top: 120px;
 
         &__name {
             flex-direction: column;
@@ -557,23 +561,6 @@ button {
             gap: 0;
             font-size: 27vw;
             line-height: 0.86;
-        }
-
-        &__frame {
-            display: none;
-        }
-
-        &__portrait {
-            display: block;
-            overflow: clip;
-            background: var(--surface);
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: 50% 30%;
-            }
         }
 
         &__foot {
@@ -621,20 +608,7 @@ button {
             backwards;
     }
 
-    // The portrait, then the sentence and the header, arrive after the letters.
-    .hero__frame {
-        animation: frame-in 800ms var(--spring) var(--hero-after-letters) backwards;
-    }
-
-    .hero__portrait {
-        animation: fade-up 800ms var(--ease-out) var(--hero-after-letters) backwards;
-    }
-
-    .hero__frame img,
-    .hero__portrait img {
-        animation: drift 14s ease-in-out calc(var(--hero-after-letters) + 800ms) infinite alternate;
-    }
-
+    // The sentence and the header arrive after the letters.
     .hero__foot,
     .header {
         animation: fade-up 700ms var(--ease-out) calc(var(--hero-after-letters) + 100ms) both;
@@ -657,15 +631,6 @@ button {
 @keyframes release-clip {
     to {
         clip-path: none;
-    }
-}
-
-@keyframes frame-in {
-    from {
-        filter: blur(var(--letter-blur));
-        opacity: 0;
-        rotate: 10deg;
-        scale: 0;
     }
 }
 
@@ -725,15 +690,6 @@ button {
     50% {
         transform: none;
         animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    }
-}
-
-@keyframes drift {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(1.08) translateY(-2%);
     }
 }
 
@@ -834,6 +790,7 @@ button {
         width: 3.6em;
         height: 3.6em;
         margin: 0.12em 0.5em 0 0;
+        border-radius: var(--radius-control);
         object-fit: cover;
     }
 
@@ -899,6 +856,7 @@ button {
         position: relative;
         aspect-ratio: 16 / 10;
         overflow: clip;
+        border-radius: var(--radius-card);
         background: var(--surface);
 
         a,
@@ -1101,6 +1059,7 @@ button {
     &__demo {
         grid-column: 1 / span 6;
         background: var(--surface);
+        border-radius: var(--radius-card);
         padding: clamp(20px, 2.4vw, 36px);
         overflow-x: auto;
 
@@ -1256,6 +1215,7 @@ button {
     &__crop {
         aspect-ratio: 21 / 9;
         overflow: clip;
+        border-radius: var(--radius-card);
 
         img {
             width: 100%;
@@ -1567,6 +1527,7 @@ button {
     max-height: calc(100svh - 2 * var(--margin));
     padding: 0;
     border: 0;
+    border-radius: var(--radius-card);
     background: var(--surface);
     color: var(--ink);
 
@@ -1611,9 +1572,8 @@ button {
         textarea {
             width: 100%;
             padding: 12px 14px;
-            border: 0;
-            border-bottom: 2px solid var(--muted);
-            border-radius: 0;
+            border: 1.5px solid color-mix(in srgb, var(--ink) 30%, transparent);
+            border-radius: var(--radius-control);
             background: var(--bg);
             color: var(--ink);
             font: inherit;
@@ -1731,7 +1691,7 @@ button {
         height: 64px;
         padding: 0 16px;
         border: 0;
-        border-radius: 0;
+        border-radius: var(--radius-card);
         background: var(--surface);
         color: var(--ink);
         caret-color: var(--accent);
@@ -1760,6 +1720,7 @@ button {
         grid-template-columns: 1fr auto;
         column-gap: 16px;
         padding: 12px 16px;
+        border-radius: var(--radius-control);
         background: var(--surface);
         cursor: pointer;
         transition: background-color var(--search-item), color var(--search-item);
@@ -1803,7 +1764,7 @@ button {
 
     mark {
         background: var(--highlight);
-        color: #1a2039;
+        color: #151a30;
     }
 
     @media (prefers-reduced-motion: reduce) {

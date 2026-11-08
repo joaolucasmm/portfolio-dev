@@ -37,7 +37,7 @@ function App() {
         document.documentElement.dataset.theme = darkMode ? "dark" : "light";
         // Browser chrome follows the page ground (--bg of each theme).
         const meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute("content", darkMode ? "#1a2039" : "#f9a3c0");
+        if (meta) meta.setAttribute("content", darkMode ? "#151a30" : "#f7f6fa");
     }, [darkMode]);
 
     const openDialog = () => setEmailDialog(true);
