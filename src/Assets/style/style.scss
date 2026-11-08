@@ -70,6 +70,14 @@ $header-menu: 1180px;
     // tema-shift-t: only controls transition when the theme changes.
     --theme-swap: 200ms;
 
+    // card-projeto-legenda: the original goes from no veil to 50% black; here the
+    // veil rests at 50% so the passing names stay readable, and deepens on hover.
+    --veil-color: #0b0f1f;
+    --veil-rest: 0.5;
+    --veil-hover: 0.78;
+    --veil-duration: 250ms;
+    --names-behind-caption: 0.12;
+
     // card-contorno-hover
     --press-scale: 0.975;
     --press-duration: 200ms;
@@ -475,16 +483,45 @@ button {
         gap: 24px;
     }
 
+    &__portrait {
+        display: none;
+    }
+
+    // Phone: the name on two lines at full width, the portrait as a large picture
+    // under it, so the first screen is not a small name in empty ground.
     @media (max-width: $phone) {
+        grid-template-rows: auto minmax(180px, 1fr) auto;
+        gap: 24px;
         padding-top: 88px;
 
         &__name {
-            font-size: 16vw;
+            flex-direction: column;
+            align-items: flex-start;
+            align-self: start;
+            gap: 0;
+            font-size: 27vw;
+            line-height: 0.86;
+        }
+
+        &__frame {
+            display: none;
+        }
+
+        &__portrait {
+            display: block;
+            overflow: clip;
+            background: var(--surface);
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: 50% 30%;
+            }
         }
 
         &__foot {
             display: block;
-            padding-top: 32px;
         }
 
         &__actions {
@@ -533,7 +570,12 @@ button {
         animation: frame-in 800ms var(--spring) var(--hero-after-letters) backwards;
     }
 
-    .hero__frame img {
+    .hero__portrait {
+        animation: fade-up 800ms var(--ease-out) var(--hero-after-letters) backwards;
+    }
+
+    .hero__frame img,
+    .hero__portrait img {
         animation: drift 14s ease-in-out calc(var(--hero-after-letters) + 800ms) infinite alternate;
     }
 
@@ -775,7 +817,9 @@ button {
 // Work: names passing a held square
 
 .work {
-    --frame: min(31vw, 62svh);
+    // A landscape frame, closer to the screenshots' own shape than the old square.
+    --frame-w: min(60vw, 960px);
+    --frame-h: min(calc(var(--frame-w) * 0.625), 68svh);
     position: relative;
     overflow: clip;
     padding-left: 0;
@@ -783,12 +827,12 @@ button {
 
     &__stage {
         position: sticky;
-        top: calc(50svh - var(--frame) / 2);
+        top: calc(50svh - var(--frame-h) / 2);
         z-index: 0;
         display: flex;
         justify-content: center;
-        height: var(--frame);
-        margin-bottom: calc(-1 * var(--frame));
+        height: var(--frame-h);
+        margin-bottom: calc(-1 * var(--frame-h));
 
         // While a project runs, the frame comes forward so it can be used.
         &--running {
@@ -796,7 +840,9 @@ button {
         }
 
         .work__frame {
-            width: var(--frame);
+            width: var(--frame-w);
+            height: var(--frame-h);
+            aspect-ratio: auto;
         }
     }
 
@@ -812,6 +858,7 @@ button {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: 50% 0;
             opacity: 0;
             transition: opacity 200ms ease;
 
@@ -825,10 +872,10 @@ button {
             content: "";
             position: absolute;
             inset: 0;
-            background: var(--bg);
-            opacity: 0.5;
+            background: var(--veil-color);
+            opacity: var(--veil-rest);
             pointer-events: none;
-            transition: opacity 200ms ease;
+            transition: opacity var(--veil-duration) var(--ease-ui);
         }
 
         &.is-running::after {
@@ -850,10 +897,72 @@ button {
         display: none;
     }
 
+    // The caption of the held frame: kind and year, the description, the controls.
+    // It appears at once while the veil deepens (ui-library: card-projeto-legenda).
+    &__legend {
+        position: absolute;
+        inset: auto 0 0;
+        z-index: 2;
+        display: grid;
+        gap: 8px;
+        padding: clamp(16px, 2vw, 28px);
+        color: var(--ink);
+        opacity: 0;
+
+        .work__kind {
+            display: flex;
+            justify-content: space-between;
+            gap: var(--gap);
+        }
+
+        .work__description {
+            max-width: 52ch;
+            color: var(--ink);
+        }
+    }
+
+    &__stage .work__frame:hover,
+    &__stage .work__frame:focus-within {
+        &::after {
+            opacity: var(--veil-hover);
+        }
+
+        .work__legend {
+            opacity: 1;
+        }
+    }
+
+    // While the frame is in use, the passing names fade and let the pointer
+    // through, so they never sit on the caption or block its buttons.
+    &__names {
+        transition: opacity var(--veil-duration) var(--ease-ui);
+    }
+
+    &:has(&__stage .work__frame:hover, &__stage .work__frame:focus-within) {
+        .work__names {
+            opacity: var(--names-behind-caption);
+        }
+
+        .work__names a {
+            pointer-events: none;
+        }
+    }
+
+    &__stop {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        z-index: 2;
+    }
+
+    &__detail {
+        display: none;
+    }
+
     &__names {
         position: relative;
         z-index: 1;
-        padding: calc(50svh - var(--frame) / 2) var(--margin) calc(50svh - 1em);
+        padding: calc(50svh - var(--frame-h) / 2) var(--margin) calc(50svh - 1em);
         font-family: var(--display);
         font-size: var(--step-display);
         line-height: 0.85;
@@ -886,24 +995,6 @@ button {
         }
     }
 
-    // Each name carries its own facts on a ground of their own, so they stay
-    // legible as they cross the picture.
-    &__detail {
-        display: grid;
-        justify-items: center;
-        gap: 10px;
-        width: fit-content;
-        max-width: 34rem;
-        margin: 24px auto 0;
-        padding: 16px 20px;
-        background: var(--bg);
-        font-family: var(--text);
-        font-size: var(--step-body);
-        line-height: 1.5;
-        letter-spacing: 0;
-        pointer-events: auto;
-    }
-
     &__kind {
         font-weight: 500;
     }
@@ -912,11 +1003,15 @@ button {
         color: var(--muted);
     }
 
+    &__year {
+        margin-left: 0.6em;
+        font-variant-numeric: tabular-nums;
+    }
+
     &__controls {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        justify-content: center;
         gap: 12px 20px;
         margin-top: 6px;
     }
@@ -960,13 +1055,12 @@ button {
 
         &__detail {
             display: grid;
-            justify-items: start;
-            margin-top: 0;
-            padding: 16px 0 0;
-        }
-
-        &__controls {
-            justify-content: flex-start;
+            gap: 10px;
+            padding-top: 16px;
+            font-family: var(--text);
+            font-size: var(--step-body);
+            line-height: 1.5;
+            letter-spacing: 0;
         }
     }
 }

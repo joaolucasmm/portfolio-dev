@@ -27,6 +27,10 @@ function Hero({ t, language, openDialog }) {
                 {/* Read once, as words; the split letters above are only for the eye. */}
                 <span className="visually-hidden">João Lucas, {t.role}</span>
             </h1>
+            {/* On a phone the portrait leaves the line and fills the screen under the name. */}
+            <div className="hero__portrait">
+                <img src={portrait} alt="" width="640" height="640" />
+            </div>
             <div className="hero__foot">
                 <p className="hero__sentence">{t.sentence}</p>
                 <div className="hero__actions">

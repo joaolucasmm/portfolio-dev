@@ -18,6 +18,41 @@ function Frame({ t, index, running, children, className = "" }) {
     );
 }
 
+// Kind, year, description and the controls of one project. Under each name on
+// a phone; on a wide screen, the caption of the held frame, revealed on hover
+// or focus (ui-library: card-projeto-legenda).
+function Details({ t, index, running, run, className }) {
+    const item = t.items[index];
+    const link = projectLinks[index];
+    return (
+        <div className={className}>
+            <p className="work__kind">
+                {item.kind}
+                <span className="work__year">{link.year}</span>
+            </p>
+            <p className="work__description">{item.description}</p>
+            <div className="work__controls">
+                <button
+                    type="button"
+                    className="button button--small"
+                    aria-pressed={running === index}
+                    onClick={() => run(index)}
+                >
+                    {running === index ? t.stop : t.run}
+                </button>
+                <a className="text-link" href={link.repo} target="_blank" rel="noreferrer">
+                    {t.code}
+                </a>
+                {link.post && (
+                    <a className="text-link" href={link.post} target="_blank" rel="noreferrer">
+                        {t.post}
+                    </a>
+                )}
+            </div>
+        </div>
+    );
+}
+
 function Projects({ t }) {
     const [current, setCurrent] = useState(0);
     const [running, setRunning] = useState(-1);
@@ -65,6 +100,18 @@ function Projects({ t }) {
                             className={i === current ? "is-current" : ""}
                         />
                     ))}
+                    {running === current ? (
+                        <button
+                            type="button"
+                            className="button button--small work__stop"
+                            aria-pressed="true"
+                            onClick={() => run(current)}
+                        >
+                            {t.stop}
+                        </button>
+                    ) : (
+                        <Details t={t} index={current} running={running} run={run} className="work__legend" />
+                    )}
                 </Frame>
             </div>
             <div className="work__names">
@@ -98,30 +145,13 @@ function Projects({ t }) {
                                         className="is-current"
                                     />
                                 </Frame>
-                                <div className="work__detail">
-                                    <p className="work__kind">
-                                        {item.kind}, {link.year}
-                                    </p>
-                                    <p className="work__description">{item.description}</p>
-                                    <div className="work__controls">
-                                        <button
-                                            type="button"
-                                            className="button button--small"
-                                            aria-pressed={running === i}
-                                            onClick={() => run(i)}
-                                        >
-                                            {running === i ? t.stop : t.run}
-                                        </button>
-                                        <a className="text-link" href={link.repo} target="_blank" rel="noreferrer">
-                                            {t.code}
-                                        </a>
-                                        {link.post && (
-                                            <a className="text-link" href={link.post} target="_blank" rel="noreferrer">
-                                                {t.post}
-                                            </a>
-                                        )}
-                                    </div>
-                                </div>
+                                <Details
+                                    t={t}
+                                    index={i}
+                                    running={running}
+                                    run={run}
+                                    className="work__detail"
+                                />
                             </li>
                         );
                     })}
