@@ -1,10 +1,23 @@
 import { useEffect, useState } from "react";
 
-// "2024-07", "2025-03" → "Jul 2024 – Mar 2025" / "jul. de 2024 – mar. de 2025".
-function formatDates([from, to], locale) {
-    const month = (iso) => new Date(iso + "-01T00:00:00Z");
+const month = (iso) => new Date(iso + "-01T00:00:00Z");
+
+// ["2024-08", "2025-03"] → "Aug 2024 – Mar 2025"; a null end reads "now".
+function formatDates([from, to], locale, units) {
     const format = new Intl.DateTimeFormat(locale, { month: "short", year: "numeric", timeZone: "UTC" });
+    if (!to) return format.format(month(from)) + " – " + units.now;
     return format.formatRange(month(from), month(to));
+}
+
+// Counted like LinkedIn, both months included: Aug 2024 – Mar 2025 is 8 months.
+function formatLength([from, to], units) {
+    const start = month(from);
+    const end = to ? month(to) : new Date();
+    const total = (end.getUTCFullYear() - start.getUTCFullYear()) * 12 + end.getUTCMonth() - start.getUTCMonth() + 1;
+    const years = Math.floor(total / 12);
+    const months = total % 12;
+    const part = (n, [one, many]) => n + " " + (n === 1 ? one : many);
+    return [years && part(years, units.year), months && part(months, units.month)].filter(Boolean).join(units.and);
 }
 
 function Experience({ t }) {
@@ -43,15 +56,15 @@ function Experience({ t }) {
                             >
                                 <span className="experience__role">{item.short}</span>
                                 <span className="experience__when">
-                                    {item.place}, {formatDates(item.dates, t.locale)}
+                                    {item.place}, {formatDates(item.dates, t.locale, t.units)}
                                 </span>
                             </button>
                             <div id={panel} className="experience__panel" hidden={!isOpen}>
                                 <div className="experience__meta">
-                                    <h3>
-                                        {item.title}, {item.place}
-                                        <span>{item.length}</span>
-                                    </h3>
+                                    <h3>{item.title}</h3>
+                                    <p className="experience__where">
+                                        {item.place}, {formatLength(item.dates, t.units)}
+                                    </p>
                                     <a className="text-link" href={item.link} target="_blank" rel="noreferrer">
                                         {t.company}
                                     </a>

@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import myLinks from "../../Assets/Images/my-links.png";
-import pokedex from "../../Assets/Images/pokedex.png";
-import tictactoe from "../../Assets/Images/screenshotTictactoe.png";
+import sizewise from "../../Assets/Images/sizewise.png";
+import portfolio from "../../Assets/Images/portfolio.jpg";
 import qrCodeGen from "../../Assets/Images/qrcodegen.png";
+import pokedex from "../../Assets/Images/pokedex.png";
 import { projectLinks } from "../../content";
 
-const images = [myLinks, pokedex, tictactoe, qrCodeGen];
+// Same order as projectLinks and work.items.
+const images = [sizewise, portfolio, qrCodeGen, pokedex];
 
 function Frame({ t, index, running, children, className = "" }) {
     return (
@@ -32,10 +33,16 @@ function Details({ t, index, running, run, className }) {
             </p>
             <p className="work__description">{item.description}</p>
             <div className="work__controls">
-                <button type="button" className="button button--small" onClick={() => run(index)}
-                >
-                    {running === index ? t.stop : t.run}
-                </button>
+                {link.run && (
+                    <button type="button" className="button button--small" onClick={() => run(index)}>
+                        {running === index ? t.stop : t.run}
+                    </button>
+                )}
+                {link.download && (
+                    <a className="button button--small" href={link.download} target="_blank" rel="noreferrer">
+                        {t.download}
+                    </a>
+                )}
                 <a className="text-link" href={link.repo} target="_blank" rel="noreferrer">
                     {t.code}
                 </a>
@@ -124,7 +131,7 @@ function Projects({ t }) {
                                 data-index={i}
                             >
                                 <a
-                                    href={link.url}
+                                    href={link.url || link.repo}
                                     target="_blank"
                                     rel="noreferrer"
                                     className={"work__name" + (i === current ? " is-current" : "")}

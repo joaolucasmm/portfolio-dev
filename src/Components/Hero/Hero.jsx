@@ -36,8 +36,8 @@ function Hero({ t, language, openDialog }) {
             <div className="hero__foot">
                 <p className="hero__sentence">{t.sentence}</p>
                 <div className="hero__actions">
-                    <a className="text-link" href={links.resume[language]} target="_blank" rel="noreferrer">
-                        {t.resume}
+                    <a className="text-link" href={links.linkedin} target="_blank" rel="noreferrer">
+                        {t.history}
                     </a>
                     <button type="button" className="button" onClick={openDialog}>
                         {t.action}
