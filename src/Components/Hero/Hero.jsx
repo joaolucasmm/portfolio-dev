@@ -1,74 +1,33 @@
-import image from "../../Assets/Images/avatar.jpg";
-import Typewriter from "typewriter-effect";
-import Grid from "@mui/material/Grid2";
-import textSelector from "./texts";
-import { Button } from "@mui/material";
+import portrait from "../../Assets/Images/avatar.jpg";
+import { links } from "../../content";
 
-function Hero({ styleSection, language, setEmailDialog, darkMode }) {
-    const resumeLink =
-        language === "english"
-            ? "https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegassoResume.pdf"
-            : "https://raw.githubusercontent.com/joaolucasmm/portfolio/main/src/Assets/Documents/JoaoLucasMirandaMenegassoCurriculo.pdf";
-
+function Hero({ t, language, openDialog }) {
     return (
-        <div className={styleSection + " hero"}>
-            <div className={"hero_container glass-background " + (darkMode && "hero_container_dark")}>
-                <Grid container spacing={4} className="hero_grid">
-                    <Grid size={8} className="sub_grid">
-                        <div className="text">
-                            <h1 className="title">
-                                <Typewriter
-                                    options={{
-                                        strings: [textSelector(language, 0)],
-                                        autoStart: true,
-                                        loop: true,
-                                        pauseFor: 5000,
-                                    }}
-                                />
-                            </h1>
-                            <span>
-                                <h2 className="text_1">{textSelector(language, 1)}</h2>
-                                <h3 className="text_2">{textSelector(language, 2)}</h3>
-                                <p className="text_3">
-                                    <b>{textSelector(language, 3)}</b>
-                                </p>
-                                <p className="text_4">
-                                    <i>{textSelector(language, 4)}</i>
-                                </p>
-                            </span>
-                        </div>
-                    </Grid>
-                    <Grid size={4} className="sub_grid">
-                            <img src={image} alt="Logo" className="image" />
-                    </Grid>
-                    <Grid container spacing={4} className="button_container">
-                        <Grid size={2} className="sub_grid">
-                            <Button
-                                className={
-                                    "button " + (darkMode && "button_dark")
-                                }
-                                variant="outlined"
-                                href={resumeLink}
-                                target="_blank"
-                            >
-                                {textSelector(language, 5)}
-                            </Button>
-                        </Grid>
-                        <Grid size={2} className="sub_grid">
-                            <Button
-                                className={
-                                    "button " + (darkMode && "button_dark")
-                                }
-                                variant="outlined"
-                                onClick={() => setEmailDialog(true)}
-                            >
-                                {textSelector(language, 6)}
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Grid>
+        <section id="top" className="hero">
+            <h1 className="hero__name">
+                <span className="mask">
+                    <span className="mask__line">João</span>
+                </span>
+                <span className="hero__frame">
+                    <img src={portrait} alt={t.portrait} width="640" height="640" />
+                </span>
+                <span className="mask">
+                    <span className="mask__line mask__line--2">Lucas</span>
+                </span>
+                <span className="visually-hidden">, {t.role}</span>
+            </h1>
+            <div className="hero__foot">
+                <p className="hero__sentence">{t.sentence}</p>
+                <div className="hero__actions">
+                    <a className="text-link" href={links.resume[language]} target="_blank" rel="noreferrer">
+                        {t.resume}
+                    </a>
+                    <button type="button" className="button" onClick={openDialog}>
+                        {t.action}
+                    </button>
+                </div>
             </div>
-        </div>
+        </section>
     );
 }
 

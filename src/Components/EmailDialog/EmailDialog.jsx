@@ -1,93 +1,85 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import CloseIcon from "@mui/icons-material/Close";
-import { TextField } from "@mui/material";
-import textSelector from "./texts";
 
-const EmailDialog = ({ styleSection, language, emailDialog, setEmailDialog, darkMode }) => {
+const EmailDialog = ({ t, emailDialog, setEmailDialog }) => {
+    const dialog = useRef(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [stateMessage, setStateMessage] = useState(null);
+
+    useEffect(() => {
+        const el = dialog.current;
+        if (!el || typeof el.showModal !== "function") return;
+        if (emailDialog && !el.open) el.showModal();
+        if (!emailDialog && el.open) el.close();
+    }, [emailDialog]);
+
     const sendEmail = (e) => {
-        e.persist();
         e.preventDefault();
+        const form = e.target;
         setIsSubmitting(true);
         emailjs
             .sendForm(
                 process.env.REACT_APP_SERVICE_ID,
                 process.env.REACT_APP_TEMPLATE_ID,
-                e.target,
+                form,
                 process.env.REACT_APP_PUBLIC_KEY
             )
             .then(
-                (result) => {
-                    setStateMessage("Message sent!");
-                    setIsSubmitting(false);
-                    setTimeout(() => {
-                        setStateMessage(null);
-                    }, 5000); // hide message after 5 seconds
+                () => {
+                    setStateMessage(t.sent);
+                    form.reset();
                 },
-                (error) => {
-                    setStateMessage(
-                        "Something went wrong, please try again later"
-                    );
-                    setIsSubmitting(false);
-                    setTimeout(() => {
-                        setStateMessage(null);
-                    }, 5000); // hide message after 5 seconds
-                }
-            );
-
-        // Clears the form after sending the email
-        e.target.reset();
+                () => setStateMessage(t.error)
+            )
+            .finally(() => {
+                setIsSubmitting(false);
+                setTimeout(() => setStateMessage(null), 6000);
+            });
     };
+
     return (
-        <div className={styleSection}>
-            <Dialog
-                open={emailDialog}
-                keepMounted
-                onClose={() => setEmailDialog(false)}
-                aria-describedby="alert-dialog-slide-description"
-                fullWidth={true}
-                maxWidth="xl"
-                className="container_email"
-            >
-                <div className={"background_dialog " + (darkMode && "background_dialog_dark")}>
-                <DialogActions>
-                    <Button onClick={() => setEmailDialog(false)}>
-                        <CloseIcon />
-                    </Button>
-                </DialogActions>
-                <DialogTitle className="dialog_title">{textSelector(language, 0)}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText
-                        id="alert-dialog-slide-description"
-                        className="dialog_content"
-                    >
-                        <form onSubmit={sendEmail} className="email_form">
-                            <span className="form_fields">
-                                <TextField label={textSelector(language, 1)} variant="outlined" name="name" className={"email_input " + (darkMode && "email_input_dark")}/>
-                                <TextField label={textSelector(language, 2)} variant="outlined" name="title"  className={"email_input " + (darkMode && "email_input_dark")}/>
-                                <TextField label={textSelector(language, 3)} variant="outlined" name="email"  className={"email_input " + (darkMode && "email_input_dark")}/>
-                            </span>
-                            <span className="form_fields">
-                                <TextField label={textSelector(language, 4)} variant="outlined" name="message" multiline rows={5} maxRows={10} className={"email_input " + (darkMode && "email_input_dark")}/>
-                                <Button variant="outlined" type="submit" disabled={isSubmitting} className={"button " + (darkMode && "button_dark") }>
-                                    {textSelector(language, 5)}
-                                </Button>
-                                {stateMessage && <p>{stateMessage}</p>}
-                            </span>
-                        </form>
-                    </DialogContentText>
-                </DialogContent>
+        <dialog
+            ref={dialog}
+            className="email-dialog"
+            aria-labelledby="email-dialog-title"
+            onClose={() => setEmailDialog(false)}
+            onClick={(e) => e.target === dialog.current && setEmailDialog(false)}
+        >
+            <div className="email-dialog__inner">
+                <div className="email-dialog__head">
+                    <h2 id="email-dialog-title">{t.title}</h2>
+                    <button type="button" className="text-link" onClick={() => setEmailDialog(false)}>
+                        {t.close}
+                    </button>
                 </div>
-            </Dialog>
-        </div>
+                <p className="soft">{t.sub}</p>
+                <form onSubmit={sendEmail} className="email-dialog__form">
+                    <label>
+                        {t.name}
+                        <input name="name" autoComplete="name" required />
+                    </label>
+                    <label>
+                        {t.email}
+                        <input name="email" type="email" autoComplete="email" required />
+                    </label>
+                    <label className="email-dialog__wide">
+                        {t.subject}
+                        <input name="title" />
+                    </label>
+                    <label className="email-dialog__wide">
+                        {t.message}
+                        <textarea name="message" rows={6} required />
+                    </label>
+                    <div className="email-dialog__wide email-dialog__send">
+                        <button type="submit" className="button" disabled={isSubmitting}>
+                            {isSubmitting ? t.sending : t.send}
+                        </button>
+                        <p role="status">{stateMessage}</p>
+                    </div>
+                </form>
+            </div>
+        </dialog>
     );
 };
+
 export default EmailDialog;

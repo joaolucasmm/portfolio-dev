@@ -1,38 +1,39 @@
-import Button from "@mui/material/Button";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import textSelector from "./texts";
+import portrait from "../../Assets/Images/avatar.jpg";
 
-
-function About({ styleSection, language, darkMode }) {
+function About({ t }) {
     return (
-        <div className={styleSection}>
-            <Card className="container_about glass-background">
-                <CardContent className={"about_content " + (darkMode && "about_content_dark")}>
-                    <section className="about_header">
-                        <h3 className="about_title">{textSelector(language, 0)}</h3>
-                        <h4 className="about_subtitle">{textSelector(language, 1)}</h4>
-                    </section>
-                    <section className="about_text">
-                        <p>
-                        {textSelector(language, 2)}
-                        </p>
-                    </section>
-                    <section className="buttons">
-                        <Button className={"button " + (darkMode && "button_dark")} variant="contained" onClick={() => window.open("https://github.com/joaolucasmm", "_blank")}>
-                            <GitHubIcon />
-                            GitHub
-                        </Button>
-                        <Button className={"button " + (darkMode && "button_dark")} variant="contained" onClick={() => window.open("https://www.linkedin.com/in/jo%C3%A3o-lucas-miranda-menegasso/", "_blank")}>
-                            <LinkedInIcon />
-                            LinkedIn
-                        </Button>
-                    </section>
-                </CardContent>
-            </Card>
-        </div>
+        <section id="about" className="section about">
+            <div className="about__side" data-reveal>
+                <h2 className="about__heading">{t.heading}</h2>
+                <dl className="about__facts">
+                    {t.facts.map(([label, value]) => (
+                        <div key={label}>
+                            <dt>{label}</dt>
+                            <dd>{value}</dd>
+                        </div>
+                    ))}
+                </dl>
+            </div>
+            <div className="about__text">
+                <p className="about__statement" data-reveal>
+                    <img
+                        className="about__portrait"
+                        src={portrait}
+                        alt=""
+                        width="640"
+                        height="640"
+                        loading="lazy"
+                    />
+                    <strong>{t.lead}</strong>
+                    {t.first}
+                </p>
+                <div className="about__body" data-reveal>
+                    {t.body.map((paragraph) => (
+                        <p key={paragraph}>{paragraph}</p>
+                    ))}
+                </div>
+            </div>
+        </section>
     );
 }
 

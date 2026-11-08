@@ -1,195 +1,127 @@
-import { useState } from "react";
-import { FaReact, FaJs, FaHtml5, FaCss3 } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
 import myLinks from "../../Assets/Images/my-links.png";
 import pokedex from "../../Assets/Images/pokedex.png";
 import tictactoe from "../../Assets/Images/screenshotTictactoe.png";
-import QRcodeGen from "../../Assets/Images/qrcodegen.png";
-import textSelector from "./texts";
-import Dialog from "./Dialog/Dialog";
-import ProjectCard from "./ProjectCard/ProjectCard";
-import Chip from "@mui/material/Chip";
+import qrCodeGen from "../../Assets/Images/qrcodegen.png";
+import { projectLinks } from "../../content";
 
-function Projects({ styleSection, language, darkMode }) {
-    const [open, setOpen] = useState(false);
-    const [projectIndex, setProjectIndex] = useState(0);
-    const [tags, setTags] = useState(["All"]);
+const images = [myLinks, pokedex, tictactoe, qrCodeGen];
 
-    const handleClickOpen = (item) => {
-        setOpen(true);
-        setProjectIndex(item);
-    };
+function Frame({ t, index, running, children, className = "" }) {
+    return (
+        <div className={"work__frame " + className + (running === index ? " is-running" : "")}>
+            {children}
+            {running === index && (
+                <iframe title={t.frameTitle + ": " + t.items[index].name} src={projectLinks[index].url} />
+            )}
+        </div>
+    );
+}
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+function Projects({ t }) {
+    const [current, setCurrent] = useState(0);
+    const [running, setRunning] = useState(-1);
+    const names = useRef([]);
 
-    const projects = [
-        {
-            title: textSelector(language, 1),
-            date: textSelector(language, 2),
-            image: myLinks,
-            description: textSelector(language, 3),
-            projectURL: "https://joaolucasmm.github.io/my-links/",
-            projectRepository: "https://github.com/joaolucasmm/my-links",
-            fullDescription: textSelector(language, 4),
-            tags: {
-                0: "ReactJS",
-                1: "HTML",
-                2: "CSS",
-                3: "JavaScript",
+    // The name crossing the middle of the viewport picks the picture.
+    useEffect(() => {
+        if (!("IntersectionObserver" in window)) return undefined;
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setCurrent(Number(entry.target.dataset.index));
+                    }
+                });
             },
-        },
-        {
-            title: textSelector(language, 1 * 4 + 1),
-            date: textSelector(language, 1 * 4 + 2),
-            image: pokedex,
-            description: textSelector(language, 1 * 4 + 3),
-            projectURL: "https://joaolucasmm.github.io/Pokedex/",
-            projectRepository: "https://github.com/joaolucasmm/Pokedex",
-            fullDescription: textSelector(language, 1 * 4 + 4),
-            tags: {
-                0: "ReactJS",
-                1: "API RESTful",
-                2: "HTML",
-                3: "CSS",
-                4: "JavaScript",
-            },
-        },
-        {
-            title: textSelector(language, 2 * 4 + 1),
-            date: textSelector(language, 2 * 4 + 2),
-            image: tictactoe,
-            description: textSelector(language, 2 * 4 + 3),
-            projectURL: "https://joaolucasmm.github.io/TicTacToe/",
-            projectRepository: "https://github.com/joaolucasmm/TicTacToe",
-            fullDescription: textSelector(language, 2 * 4 + 4),
-            tags: {
-                0: "ReactJS",
-                1: "HTML",
-                2: "CSS",
-                3: "JavaScript",
-                4: "API RESTful",
-            },
-        },
-        {
-            title: textSelector(language, 3 * 4 + 1),
-            date: textSelector(language, 3 * 4 + 2),
-            image: QRcodeGen,
-            description: textSelector(language, 3 * 4 + 3),
-            projectURL: "https://joaolucasmm.github.io/QRcodeGen/",
-            projectRepository: "https://github.com/joaolucasmm/QRcodeGen/",
-            projectLinkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7316523182281187329/",
-            fullDescription: textSelector(language, 3 * 4 + 4),
-            tags: {
-                0: "ReactJS",
-                1: "HTML",
-                2: "CSS",
-                3: "JavaScript",
-            },
-        },
-    ];
-
-    const handleTagSelection = (tag) => {
-        setTags((prevTags) =>
-            prevTags === "All" ? [tag] : prevTags.includes(tag) ? prevTags : prevTags.filter(t => t !== "All").concat(tag)
+            { rootMargin: "-50% 0px -50% 0px" }
         );
-        handleClose();
-    };
-    const handleTagDelete = (tag) => {
-        setTags((prevTags) => prevTags.filter((item) => item !== tag));
-        tags.length === 1 && setTags("All");
-    };
+        names.current.forEach((el) => el && observer.observe(el));
+        return () => observer.disconnect();
+    }, []);
 
-    const filteredProjects =
-        tags.includes("All")
-            ? projects
-            : projects.filter((project) =>
-                  tags.some((tag) => Object.values(project.tags).includes(tag))
-              );
+    // A running project stops when another one takes the frame.
+    useEffect(() => {
+        setRunning((r) => (r === -1 || r === current ? r : -1));
+    }, [current]);
+
+    const run = (i) => {
+        setCurrent(i);
+        setRunning(running === i ? -1 : i);
+    };
 
     return (
-        <div id='projects' className={styleSection}>
-            <div className="container_projects">
-                <h1 className={"projects_title " + (darkMode && "dark")}>{textSelector(language, 0)}</h1>
-                <Dialog
-                    open={open}
-                    handleClose={handleClose}
-                    title={projects[projectIndex].title}
-                    image={projects[projectIndex].image}
-                    projectURL={projects[projectIndex].projectURL}
-                    projectRepository={projects[projectIndex].projectRepository}
-                    projectLinkedin={projects[projectIndex].projectLinkedin}
-                    fullDescription={projects[projectIndex].fullDescription}
-                    tags={projects[projectIndex].tags}
-                    handleTagSelection={handleTagSelection}
-                    darkMode={darkMode}
-                />
-                <span className="project_tags">
-                    <Chip
-                        label={textSelector(language, -4)}
-                        variant={tags.includes("All") ? undefined : "outlined"}
-                        className={"tag glass-background " + (darkMode && "dark")}
-                        onClick={() => setTags("All")}
-                    />
-                    <Chip
-                        label="ReactJS"
-                        icon={<FaReact />}
-                        variant={tags.includes("ReactJS") ? undefined : "outlined"}
-                        className={"tag glass-background " + (darkMode && "dark")}
-                        onClick={() => handleTagSelection("ReactJS")}
-                        onDelete={Object.values(tags).includes("ReactJS") ? () => handleTagDelete("ReactJS") : undefined}
-                    />
-                    <Chip
-                        label="API RESTful"
-                        variant={tags.includes("API RESTful") ? undefined : "outlined"}
-                        className={"tag glass-background " + (darkMode && "dark")}
-                        onClick={() => handleTagSelection("API RESTful")}
-                        onDelete={Object.values(tags).includes("API RESTful") ? () => handleTagDelete("API RESTful") : undefined}
-                        />
-                    <Chip
-                        label="HTML"
-                        icon={<FaHtml5 />}
-                        variant={tags.includes("HTML") ? undefined : "outlined"}
-                        className={"tag glass-background " + (darkMode && "dark")}
-                        onClick={() => handleTagSelection("HTML")}
-                        onDelete={Object.values(tags).includes("HTML") ? () => handleTagDelete("HTML") : undefined}
-                        />
-                    <Chip
-                        label="CSS"
-                        icon={<FaCss3 />}
-                        variant={tags.includes("CSS") ? undefined : "outlined"}
-                        className={"tag glass-background " + (darkMode && "dark")}
-                        onClick={() => handleTagSelection("CSS")}
-                        onDelete={Object.values(tags).includes("CSS") ? () => handleTagDelete("CSS") : undefined}
-                        />
-                    <Chip
-                        label="JavaScript"
-                        icon={<FaJs />}
-                        variant={tags.includes("JavaScript") ? undefined : "outlined"}
-                        className={"tag glass-background " + (darkMode && "dark")}
-                        onClick={() => handleTagSelection("JavaScript")}
-                        onDelete={Object.values(tags).includes("JavaScript") ? () => handleTagDelete("JavaScript") : undefined}
-                    />
-                </span>
-                <span className="project_items">
-                    {filteredProjects.map((project, index) => (
-                        <ProjectCard
-                            projectKey={index}
-                            title={project.title}
-                            date={project.date}
-                            image={project.image}
-                            language={language}
-                            projectURL={project.projectURL}
-                            projectRepository={project.projectRepository}
-                            projectLinkedin={project.projectLinkedin}
-                            handleClickOpen={() => handleClickOpen(index)}
-                            description={project.description}
-                            darkMode={darkMode}
+        <section id="work" className="section work">
+            <div className={"work__stage" + (running === current ? " work__stage--running" : "")}>
+                <Frame t={t} index={current} running={running}>
+                    {images.map((src, i) => (
+                        <img
+                            key={src}
+                            src={src}
+                            alt={t.items[i].name}
+                            width="1364"
+                            height="636"
+                            loading="lazy"
+                            className={i === current ? "is-current" : ""}
                         />
                     ))}
-                </span>
+                </Frame>
             </div>
-        </div>
+            <div className="work__names">
+                <h2 className="work__heading">{t.heading}</h2>
+                <ul>
+                    {t.items.map((item, i) => {
+                        const link = projectLinks[i];
+                        return (
+                            <li key={link.url} ref={(el) => (names.current[i] = el)} data-index={i}>
+                                <a
+                                    href={link.url}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className={"work__name" + (i === current ? " is-current" : "")}
+                                >
+                                    {item.name}
+                                </a>
+                                <Frame t={t} index={i} running={running} className="work__phone-frame">
+                                    <img
+                                        src={images[i]}
+                                        alt=""
+                                        width="1364"
+                                        height="636"
+                                        loading="lazy"
+                                        className="is-current"
+                                    />
+                                </Frame>
+                                <div className="work__detail">
+                                    <p className="work__kind">
+                                        {item.kind}, {link.year}
+                                    </p>
+                                    <p className="work__description">{item.description}</p>
+                                    <div className="work__controls">
+                                        <button
+                                            type="button"
+                                            className="button button--small"
+                                            aria-pressed={running === i}
+                                            onClick={() => run(i)}
+                                        >
+                                            {running === i ? t.stop : t.run}
+                                        </button>
+                                        <a className="text-link" href={link.repo} target="_blank" rel="noreferrer">
+                                            {t.code}
+                                        </a>
+                                        {link.post && (
+                                            <a className="text-link" href={link.post} target="_blank" rel="noreferrer">
+                                                {t.post}
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
+        </section>
     );
 }
 
