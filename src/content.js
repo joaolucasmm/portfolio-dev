@@ -49,10 +49,10 @@ const english = {
     },
     hero: {
         role: "frontend and mobile developer",
-        sentence:
-            "Frontend and mobile developer at Nelogica, building the Profit and Tryd apps traders use every day. Before that, support, QA and development at SAP.",
+        company: "at Nelogica",
+        before: "On the Profit and Tryd apps traders use every day. Before that, support, QA and development at SAP.",
         action: "Email me",
-        history: "Full history on LinkedIn",
+        history: "History on LinkedIn",
         portrait: "Portrait of João Lucas",
     },
     about: {
@@ -292,10 +292,10 @@ const portuguese = {
     },
     hero: {
         role: "desenvolvedor frontend e mobile",
-        sentence:
-            "Desenvolvedor frontend e mobile na Nelogica, nos apps do Profit e do Tryd que traders usam todos os dias. Antes, suporte, QA e desenvolvimento na SAP.",
+        company: "na Nelogica",
+        before: "Nos apps do Profit e do Tryd que traders usam todos os dias. Antes, suporte, QA e desenvolvimento na SAP.",
         action: "Me envie um e-mail",
-        history: "Histórico completo no LinkedIn",
+        history: "Histórico no LinkedIn",
         portrait: "Retrato de João Lucas",
     },
     about: {

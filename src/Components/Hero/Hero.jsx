@@ -69,15 +69,19 @@ function Hero({ t, language, openDialog }) {
                     <span translate="no">João Lucas</span>, {t.role}
                 </span>
             </h1>
+            {/* The role is the title's second line; the company carries the accent. */}
             <div className="hero__foot">
-                <p className="hero__sentence">{t.sentence}</p>
+                <p className="hero__role">
+                    {t.role} <em>{t.company}</em>
+                </p>
+                <p className="hero__before">{t.before}</p>
                 <div className="hero__actions">
-                    <a className="text-link" href={links.linkedin} target="_blank" rel="noreferrer">
-                        {t.history}
-                    </a>
                     <button type="button" className="button" onClick={openDialog}>
                         {t.action}
                     </button>
+                    <a className="text-link" href={links.linkedin} target="_blank" rel="noreferrer">
+                        {t.history}
+                    </a>
                 </div>
             </div>
         </section>

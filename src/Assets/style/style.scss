@@ -697,14 +697,18 @@ main,
 }
 
 .hero {
+    // The name, then the role as its second line, then one quiet line and the
+    // actions: a title block, centred, with no card under it.
     position: relative;
     display: grid;
-    grid-template-rows: 1fr auto;
+    align-content: center;
+    justify-items: center;
+    gap: clamp(20px, 2.4vw, 32px);
     min-height: 100svh;
-    padding: 96px var(--margin) 32px;
+    padding: 96px var(--margin) 48px;
+    text-align: center;
 
     &__name {
-        align-self: center;
         display: flex;
         align-items: baseline;
         justify-content: center;
@@ -718,62 +722,59 @@ main,
     }
 
     &__foot {
-        @include glass;
-        padding: clamp(20px, 2.4vw, 32px);
         display: grid;
-        grid-template-columns: repeat(12, minmax(0, 1fr));
-        column-gap: var(--gap);
-        align-items: end;
+        justify-items: center;
+        gap: 20px;
     }
 
-    &__sentence {
-        grid-column: 1 / span 7;
-        max-width: 52ch;
+    &__role {
+        max-width: 22ch;
+        font-family: var(--display);
+        font-size: clamp(1.625rem, 1rem + 2.6vw, 3.25rem);
+        // Gambarino has no italic (Fontshare serves only 400), so the role stays upright.
+        line-height: 1.1;
+        text-wrap: balance;
+
+        em {
+            color: var(--accent);
+        }
+    }
+
+    &__before {
+        max-width: 46ch;
+        color: var(--muted);
     }
 
     &__actions {
-        grid-column: 9 / -1;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: center;
         flex-wrap: wrap;
-        gap: 24px;
+        gap: 16px 24px;
+        margin-top: 8px;
     }
 
-    // Phone: the name on two lines at full width, the sentence and actions under it.
+    // Phone: everything starts at the left edge, the name on two lines.
     @media (max-width: $phone) {
-        grid-template-rows: auto auto;
-        align-content: space-between;
-        gap: 48px;
+        justify-items: start;
         min-height: 88svh;
         padding-top: 120px;
+        text-align: left;
 
         &__name {
             flex-direction: column;
             align-items: flex-start;
-            align-self: start;
             gap: 0;
             font-size: 27vw;
             line-height: 0.86;
         }
 
         &__foot {
-            display: block;
+            justify-items: start;
         }
 
         &__actions {
             justify-content: flex-start;
-            margin-top: 24px;
-        }
-    }
-
-    @media (min-width: $phone + 1) and (max-width: $tablet) {
-        &__sentence {
-            grid-column: 1 / span 7;
-        }
-
-        &__actions {
-            grid-column: 8 / -1;
         }
     }
 }
