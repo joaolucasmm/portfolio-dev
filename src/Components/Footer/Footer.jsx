@@ -89,14 +89,6 @@ function Footer({ t, nav, lastUsed }) {
                 </span>
             </button>
             <div className="footer__row">
-                <ul className="footer__places">
-                    <li>
-                        <a href={"mailto:" + links.email}>{links.email}</a>
-                    </li>
-                    <li>
-                        <a href={links.phoneHref}>{links.phone}</a>
-                    </li>
-                </ul>
                 <div className="footer__columns">
                     <div>
                         <h2>{t.sections}</h2>

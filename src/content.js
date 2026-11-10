@@ -47,7 +47,7 @@ const english = {
         sections: "Sections",
         menu: "Sections menu",
         close: "Close",
-        toTop: "Top",
+        toTop: "Home",
         search: "Search",
         skip: "Skip to content",
     },
