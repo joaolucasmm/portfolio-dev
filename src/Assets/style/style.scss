@@ -359,6 +359,16 @@ button {
 
 }
 
+// Wider than a phone, every section title sits in the middle of the page.
+@media (min-width: $phone + 1) {
+    .work__heading,
+    .experience__heading,
+    .services__heading {
+        margin-inline: auto;
+        text-align: center;
+    }
+}
+
 // Layout
 
 // Each section carries its own field, so the sections alternate ground and
@@ -1332,6 +1342,31 @@ main,
         }
     }
 
+    // Wider than a phone: the title across the top in the middle, the facts and
+    // the card side by side under it.
+    @media (min-width: $phone + 1) {
+        &__side {
+            display: contents;
+        }
+
+        &__heading {
+            grid-column: 1 / -1;
+            margin-bottom: clamp(28px, 3.5vw, 48px);
+            text-align: center;
+        }
+
+        &__facts {
+            grid-column: 1 / span 3;
+            grid-row: 2;
+            align-self: start;
+            margin-top: 0;
+        }
+
+        &__text {
+            grid-row: 2;
+        }
+    }
+
     &__portrait {
         float: left;
         width: 3.6em;
@@ -1841,9 +1876,10 @@ main,
     }
 
     // As on the first portfolio: list on the left, the chosen role on the right, no
-    // cards, in a 1140px column that starts at the margin like the other sections.
+    // cards, in a 1140px column in the middle of the page.
     &__board {
         max-width: 1140px;
+        margin-inline: auto;
         display: grid;
         grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
         gap: clamp(24px, 4vw, 56px);

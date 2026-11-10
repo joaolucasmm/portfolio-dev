@@ -88,7 +88,7 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
                 src={image.src}
                 srcSet={srcSetOf(image)}
                 sizes="(max-width: 720px) 100vw, 1100px"
-                alt=""
+                alt={item.shot}
                 width={image.width}
                 height={image.height}
                 decoding="async"

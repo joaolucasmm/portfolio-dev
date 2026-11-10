@@ -90,18 +90,21 @@ const english = {
         items: [
             {
                 name: "Sizewise",
+                shot: "Sizewise window after scanning drive C: totals for size, files and folders, and the largest folders with their share of the disk",
                 kind: "Windows app, Rust + Tauri + Vue",
                 description:
                     "Shows where your disk space goes without touching a file: a parallel Rust scanner, a virtualized folder tree and the 100 largest files. Tested core, releases built by GitHub Actions.",
             },
             {
                 name: "QR Code Gen",
+                shot: "QR Code Gen page: a content field, the Generate button and the QR code it made",
                 kind: "QR generator, REST API",
                 description:
                     "Type a link or a line of text and get its QR code back from a RESTful API, ready to save.",
             },
             {
                 name: "Pokedex",
+                shot: "Pokedex page drawn as a red Pokédex, showing 6 - Charizard, a name or number search field and Prev and Next buttons",
                 kind: "REST API client",
                 description:
                     "Search any Pokémon by name or number; the data comes live from a public RESTful API.",
@@ -263,7 +266,7 @@ const english = {
     },
     search: {
         label: "Search the page",
-        placeholder: "Search projects, roles, skills or actions…",
+        placeholder: "Projects, roles, skills or actions…",
         enter: "Enter",
         empty: "Nothing on this page matches that. Try a technology, like Vue or Kotlin.",
         goTo: "Go to the section",
@@ -373,18 +376,21 @@ const portuguese = {
         items: [
             {
                 name: "Sizewise",
+                shot: "Janela do Sizewise depois de analisar o disco C: totais de tamanho, arquivos e pastas, e as maiores pastas com a fatia de cada uma no disco",
                 kind: "App Windows, Rust + Tauri + Vue",
                 description:
                     "Mostra para onde vai o espaço do disco sem tocar em nenhum arquivo: varredura paralela em Rust, árvore de pastas virtualizada e os 100 maiores arquivos. Núcleo testado, versões geradas pelo GitHub Actions.",
             },
             {
                 name: "Gerador QR",
+                shot: "Página do Gerador QR: o campo de conteúdo, o botão Generate e o QR code gerado",
                 kind: "Gerador de QR, API REST",
                 description:
                     "Digite um link ou uma frase e receba o QR code de uma API RESTful, pronto para salvar.",
             },
             {
                 name: "Pokedex",
+                shot: "Página do Pokedex desenhada como uma Pokédex vermelha, mostrando 6 - Charizard, a busca por nome ou número e os botões Prev e Next",
                 kind: "Cliente de API REST",
                 description:
                     "Pesquise qualquer Pokémon por nome ou número; os dados chegam ao vivo de uma API RESTful pública.",
@@ -464,7 +470,7 @@ const portuguese = {
         ],
     },
     services: {
-        heading: "Como eu trabalho",
+        heading: "Como trabalho",
         tools: "Ferramentas",
         items: [
             {
@@ -546,7 +552,7 @@ const portuguese = {
     },
     search: {
         label: "Buscar na página",
-        placeholder: "Busque projetos, cargos, tecnologias ou ações…",
+        placeholder: "Projetos, cargos, tecnologias…",
         enter: "Enter",
         empty: "Nada nesta página corresponde a isso. Tente uma tecnologia, como Vue ou Kotlin.",
         goTo: "Ir para a seção",
