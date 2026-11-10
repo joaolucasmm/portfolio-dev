@@ -353,6 +353,12 @@ button {
 .section {
     padding: calc(var(--section) * 0.7) var(--margin);
     scroll-margin-top: var(--header-height);
+
+    // Phones: about 100px between one section's content and the next title,
+    // instead of 170 to 190px.
+    @media (max-width: $phone) {
+        padding-block: 48px;
+    }
 }
 
 .section--alt {
@@ -995,7 +1001,8 @@ main,
     // Phone: everything starts at the left edge, the name on two lines.
     @media (max-width: $phone) {
         justify-items: start;
-        min-height: 88svh;
+        // Sized to its content, so the About title peeks in at the bottom.
+        min-height: 0;
         padding-top: 120px;
         text-align: left;
 
@@ -2185,6 +2192,10 @@ main,
     // The bottom leaves room for the toast under the form button.
     padding: clamp(64px, 8vw, 128px) var(--margin) clamp(104px, 9vw, 136px);
 
+    @media (max-width: $phone) {
+        padding-block: 56px 88px;
+    }
+
     &__title {
         font-family: var(--display);
         font-size: var(--step-head);
@@ -2284,7 +2295,7 @@ main,
     &__name {
         grid-column: 1 / span 7;
         justify-self: start;
-        margin-top: clamp(96px, 8vw, 128px);
+        margin-top: clamp(48px, 8vw, 128px);
         padding: 0;
         border: 0;
         background: none;
