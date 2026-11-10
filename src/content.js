@@ -104,6 +104,7 @@ const english = {
         locale: "en",
         heading: "Experience",
         company: "About the company",
+        tools: "Tools",
         units: { year: ["year", "years"], month: ["month", "months"], and: " ", now: "now" },
         items: [
             {
@@ -347,6 +348,7 @@ const portuguese = {
         locale: "pt-BR",
         heading: "Experiência",
         company: "Sobre a empresa",
+        tools: "Ferramentas",
         units: { year: ["ano", "anos"], month: ["mês", "meses"], and: " e ", now: "hoje" },
         items: [
             {

@@ -43,6 +43,10 @@ function Highlight({ text, term, around }) {
 function go(id) {
     const target = document.getElementById(id);
     if (!target) return;
+    // A role in Experience is a tab: select it before moving there.
+    if (id.startsWith("experience-")) {
+        window.dispatchEvent(new CustomEvent("portfolio:open-experience", { detail: Number(id.split("-")[1]) }));
+    }
     target.scrollIntoView({ block: "center" });
     target.focus({ preventScroll: true });
 }
