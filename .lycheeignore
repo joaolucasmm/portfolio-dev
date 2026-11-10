@@ -1,0 +1,7 @@
+# LinkedIn answers automated requests with 999, even for pages that exist.
+https://www\.linkedin\.com/.*
+# Contact links are not web pages.
+^mailto:
+^tel:
+# Local and placeholder addresses in the docs.
+http://localhost.*
