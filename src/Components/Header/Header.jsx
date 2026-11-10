@@ -11,6 +11,49 @@ function ArrowDown() {
     );
 }
 
+// The theme toggle is a switch again, as on the first portfolio. Pressing it grows
+// the knob into a glass lens over the track; letting go slides it across with a
+// spring (ui-library: toggle-lente-vidro).
+function ThemeSwitch({ label, on, toggle }) {
+    const [pressed, setPressed] = useState(false);
+    const press = () => setPressed(true);
+    const release = () => setPressed(false);
+
+    return (
+        <button
+            type="button"
+            role="switch"
+            aria-checked={on}
+            aria-keyshortcuts="Shift+T"
+            className={"theme-switch" + (pressed ? " is-pressed" : "")}
+            onClick={toggle}
+            onPointerDown={press}
+            onPointerUp={release}
+            onPointerLeave={release}
+            onPointerCancel={release}
+            onKeyDown={(e) => (e.key === " " || e.key === "Enter") && press()}
+            onKeyUp={release}
+            onBlur={release}
+        >
+            <span className="theme-switch__track" aria-hidden="true">
+                <span className="theme-switch__knob">
+                    <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                        {on ? (
+                            <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="currentColor" />
+                        ) : (
+                            <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                                <circle cx="12" cy="12" r="4" fill="currentColor" stroke="none" />
+                                <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+                            </g>
+                        )}
+                    </svg>
+                </span>
+            </span>
+            <span className="theme-switch__label">{label}</span>
+        </button>
+    );
+}
+
 function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch }) {
     const [menuOpen, setMenuOpen] = useState(false);
     const close = useCallback(() => setMenuOpen(false), []);
@@ -92,14 +135,7 @@ function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch })
                     >
                         {t.languageShort}
                     </button>
-                    <button
-                        type="button"
-                        className="header__switch"
-                        aria-keyshortcuts="Shift+T"
-                        onClick={toggleTheme}
-                    >
-                        {darkMode ? t.theme[0] : t.theme[1]}
-                    </button>
+                    <ThemeSwitch label={t.theme} on={darkMode} toggle={toggleTheme} />
                 </div>
             </nav>
         </header>
