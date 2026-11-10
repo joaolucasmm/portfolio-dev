@@ -557,16 +557,44 @@ main,
         }
     }
 
-    // Phone and tablet: the sections move to the dock.
+    // Phone and tablet: the sections move to the dock, and the top keeps two small
+    // liquid glass islands in the corners, the initials and the three buttons,
+    // with the middle left free.
     @media (max-width: $header-menu) {
-        @include liquid;
-        top: max(10px, env(safe-area-inset-top, 0px));
-        padding: 0 6px 0 18px;
-        border-radius: 999px;
-
+        &,
         &--small {
+            top: max(10px, env(safe-area-inset-top, 0px));
             left: var(--margin);
             right: var(--margin);
+            height: 48px;
+            padding: 0;
+            border: 0;
+            background: none;
+            box-shadow: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            pointer-events: none;
+        }
+
+        &__mark,
+        &__switches {
+            @include liquid;
+            pointer-events: auto;
+        }
+
+        &__mark {
+            display: grid;
+            place-items: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+        }
+
+        &__switches {
+            height: 48px;
+            padding: 0 2px;
+            gap: 0;
+            border-radius: 999px;
         }
 
         &__nav {
