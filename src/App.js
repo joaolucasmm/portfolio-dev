@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import "./Assets/style/style.scss";
 
 import content from "./content";
-import Aurora from "./Components/Aurora/Aurora";
+import Backdrop from "./Components/Backdrop/Backdrop";
 import Header from "./Components/Header/Header";
 import Hero from "./Components/Hero/Hero";
 import About from "./Components/About/About";
@@ -45,7 +45,7 @@ function App() {
 
     return (
         <div className="App">
-            <Aurora />
+            <Backdrop />
             <a className="skip-link" href="#main">
                 {t.nav.skip}
             </a>
