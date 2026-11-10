@@ -1165,10 +1165,14 @@ main,
         line-height: 1;
         letter-spacing: -0.02em;
         margin-bottom: clamp(28px, 3.5vw, 48px);
+        text-align: center;
     }
 
-    // As on the first portfolio: list on the left, the chosen role on the right, no cards.
+    // As on the first portfolio: list on the left, the chosen role on the right, no cards,
+    // centred in a 1140px column like the original.
     &__board {
+        max-width: 1140px;
+        margin-inline: auto;
         display: grid;
         grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
         gap: clamp(24px, 4vw, 56px);
