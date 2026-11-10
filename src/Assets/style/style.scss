@@ -1018,6 +1018,11 @@ main,
             background: var(--accent);
             color: var(--accent-ink);
             transform: translateY(-4px) scale(1.06);
+
+            // Less motion asked for: the colour changes, the circle stays put.
+            @media (prefers-reduced-motion: reduce) {
+                transform: none;
+            }
         }
     }
 
@@ -1736,6 +1741,8 @@ main,
         img {
             display: block;
             width: 100%;
+            // auto, so the width and height attributes only reserve the space.
+            height: auto;
             aspect-ratio: 4 / 3;
             object-fit: cover;
             object-position: 50% 0;
@@ -2907,6 +2914,12 @@ main,
         height: 56px;
         padding: 0 20px;
         border-radius: 999px;
+
+        // The field itself draws no outline; the pill shows where typing goes.
+        &:focus-within {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
 
         svg {
             flex: none;

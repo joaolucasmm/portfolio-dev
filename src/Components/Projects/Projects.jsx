@@ -104,7 +104,7 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
                 </p>
                 <div className="project__text">
                     <h3 className="project__name">
-                        <a href={href} target="_blank" rel="noreferrer" tabIndex={tab}>
+                        <a href={href} target="_blank" rel="noreferrer" tabIndex={tab} translate="no">
                             {item.name}
                         </a>
                     </h3>
@@ -175,8 +175,15 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
                                             aria-label={t.goTo + " " + t.items[q].name}
                                             onClick={() => goProject(q)}
                                         >
-                                            <img src={images[q].small} alt="" loading="lazy" decoding="async" />
-                                            <span>{t.items[q].name}</span>
+                                            <img
+                                                src={images[q].small}
+                                                alt=""
+                                                width={images[q].width}
+                                                height={images[q].height}
+                                                loading="lazy"
+                                                decoding="async"
+                                            />
+                                            <span translate="no">{t.items[q].name}</span>
                                         </button>
                                     );
                                 })}

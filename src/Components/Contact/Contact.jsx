@@ -16,7 +16,7 @@ function Contact({ t, openDialog }) {
                         {channel.href ? (
                             <a className="contact__row" href={channel.href} target="_blank" rel="noreferrer">
                                 {icons[channel.id]}
-                                <span>{channel.text}</span>
+                                <span translate="no">{channel.text}</span>
                             </a>
                         ) : (
                             <button
@@ -26,7 +26,7 @@ function Contact({ t, openDialog }) {
                                 aria-label={t.copy[channel.id] + " " + channel.text}
                             >
                                 {icons[channel.id]}
-                                <span>{channel.text}</span>
+                                <span translate="no">{channel.text}</span>
                             </button>
                         )}
                     </li>

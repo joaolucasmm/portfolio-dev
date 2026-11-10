@@ -13,7 +13,7 @@ function Education({ t }) {
                         <details className="education__item" open={i === 0} data-reveal>
                             <summary>
                                 <span className="education__name">
-                                    <b>{item.place}</b> {item.title}
+                                    <b translate="no">{item.place}</b> {item.title}
                                 </span>
                                 <span className="education__when">
                                     {item.dates} · {item.city}

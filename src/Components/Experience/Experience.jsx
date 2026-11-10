@@ -130,7 +130,7 @@ function Experience({ t }) {
                                 <summary>
                                     <span className="experience__row-title">{role.title}</span>
                                     <span className="experience__row-when">
-                                        <b>{role.place}</b> · {when(role)}
+                                        <b translate="no">{role.place}</b> · {when(role)}
                                     </span>
                                 </summary>
                                 <div className="experience__row-body">
@@ -191,7 +191,9 @@ function Experience({ t }) {
                             {formatDates(item.dates, t.locale, t.units)} ({formatLength(item.dates, t.units)})
                         </p>
                     </div>
-                    <p className="experience__place">{item.place}</p>
+                    <p className="experience__place" translate="no">
+                        {item.place}
+                    </p>
                     <p className="experience__text">{item.text}</p>
                     <p className="experience__tools">
                         {t.tools}: {item.tools}.
