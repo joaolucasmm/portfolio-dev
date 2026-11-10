@@ -13,6 +13,10 @@ $header-menu: 1180px;
     --muted: #a5abc6;
     --accent: #f9a3c0;
     --accent-ink: #151a30;
+    --glass-rgb: 21 26 48;
+    --glass-edge: 0.14;
+    --glass-shine: 0.18;
+    --blob-opacity: 0.9;
 }
 
 @mixin light-tokens {
@@ -23,6 +27,20 @@ $header-menu: 1180px;
     --muted: #575c78;
     --accent: #b9375f;
     --accent-ink: #ffffff;
+    --glass-rgb: 255 255 255;
+    --glass-edge: 0.7;
+    --glass-shine: 0.9;
+    --blob-opacity: 0.55;
+}
+
+// Content floats on glass over the aurora (the old portfolio's cards, made denser).
+@mixin glass {
+    background: rgb(var(--glass-rgb) / var(--glass-tint));
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.4); // taste-skill-ignore: glass cards asked for by João
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.4); // taste-skill-ignore: glass cards asked for by João
+    border: 1px solid rgb(255 255 255 / var(--glass-edge));
+    border-radius: var(--radius-glass);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / var(--glass-shine)), 0 12px 32px -12px rgb(0 0 0 / 0.45);
 }
 
 // The contact band and footer: pink ground on the dark theme, night blue on the light one.
@@ -63,6 +81,12 @@ $header-menu: 1180px;
     --header-height: 68px;
     --radius-control: 8px; // buttons, fields, results
     --radius-card: 12px; // pictures, panels, the dialog
+    --radius-glass: 18px; // glass cards
+
+    // Glass and aurora, as chosen in the "Vidro de volta" artifact (concept 1).
+    --glass-blur: 18px;
+    --glass-tint: 0.4;
+    --glow: 0.8;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
     // Motion taken from the ui-library patterns; each group names its source.
@@ -313,7 +337,94 @@ button {
 }
 
 .section--alt {
-    background: var(--surface);
+    background: transparent;
+}
+
+// The aurora sits fixed behind everything; the page above it is see-through.
+.aurora {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: var(--glow);
+
+    i {
+        position: absolute;
+        width: 55vmax;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: var(--blob-opacity);
+    }
+
+    i:nth-child(1) {
+        left: -14vmax;
+        top: -12vmax;
+        background: #f9a3c0;
+    }
+
+    i:nth-child(2) {
+        right: -16vmax;
+        top: 20vh;
+        background: #5b5fe0;
+    }
+
+    i:nth-child(3) {
+        left: 20vw;
+        bottom: -30vmax;
+        background: #8a3fc4;
+    }
+
+    i:nth-child(4) {
+        right: 16vw;
+        bottom: -10vmax;
+        width: 30vmax;
+        background: #ff9d76;
+        opacity: calc(var(--blob-opacity) * 0.6);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        i:nth-child(1) {
+            animation: drift-a 22s ease-in-out infinite alternate;
+        }
+
+        i:nth-child(2) {
+            animation: drift-b 26s ease-in-out infinite alternate;
+        }
+
+        i:nth-child(3) {
+            animation: drift-c 30s ease-in-out infinite alternate;
+        }
+
+        i:nth-child(4) {
+            animation: drift-a 34s ease-in-out infinite alternate-reverse;
+        }
+    }
+}
+
+@keyframes drift-a {
+    to {
+        translate: 18% 14%;
+    }
+}
+
+@keyframes drift-b {
+    to {
+        translate: -16% 10%;
+    }
+}
+
+@keyframes drift-c {
+    to {
+        translate: 10% -18%;
+    }
+}
+
+main,
+.footer {
+    position: relative;
+    z-index: 1;
 }
 
 #top,
@@ -331,15 +442,17 @@ button {
 
 // The bar stays at the top while scrolling and marks the current section.
 .header {
+    @include glass;
+    // Denser than the cards: the bar also passes over the pink contact band.
+    background: rgb(var(--glass-rgb) / calc(var(--glass-tint) + 0.3));
     position: fixed;
-    inset: 0 0 auto;
+    inset: 8px var(--margin) auto;
     z-index: 20;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: var(--header-height);
-    padding: 0 var(--margin);
-    background: var(--bg);
+    height: calc(var(--header-height) - 16px);
+    padding: 0 20px;
     font-size: var(--step-small);
     transition: background-color var(--theme-swap) ease;
 
@@ -526,6 +639,8 @@ button {
     }
 
     &__foot {
+        @include glass;
+        padding: clamp(20px, 2.4vw, 32px);
         display: grid;
         grid-template-columns: repeat(12, minmax(0, 1fr));
         column-gap: var(--gap);
@@ -533,8 +648,8 @@ button {
     }
 
     &__sentence {
-        grid-column: 5 / span 4;
-        max-width: 44ch;
+        grid-column: 1 / span 7;
+        max-width: 52ch;
     }
 
     &__actions {
@@ -760,7 +875,9 @@ button {
     }
 
     &__text {
+        @include glass;
         grid-column: 4 / -1;
+        padding: clamp(20px, 2.4vw, 36px);
     }
 
     &__statement {
@@ -846,6 +963,8 @@ button {
 }
 
 .project {
+    @include glass;
+    padding: clamp(12px, 1.4vw, 20px);
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: var(--gap);
@@ -966,12 +1085,15 @@ button {
 
     &__list {
         display: grid;
+        gap: 12px;
         padding: 0;
         list-style: none;
     }
 
     // One role per row, all open: when and where on the left, the work on the right.
     &__item {
+        @include glass;
+        padding-inline: clamp(20px, 2.4vw, 36px);
         display: grid;
         grid-template-columns: repeat(12, minmax(0, 1fr));
         column-gap: var(--gap);
@@ -1050,6 +1172,8 @@ button {
 }
 
 .service {
+    @include glass;
+    padding: clamp(12px, 1.4vw, 20px);
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: var(--gap);
@@ -1058,7 +1182,7 @@ button {
 
     &__demo {
         grid-column: 1 / span 6;
-        background: var(--surface);
+        background: color-mix(in srgb, var(--bg) 55%, transparent);
         border-radius: var(--radius-card);
         padding: clamp(20px, 2.4vw, 36px);
         overflow-x: auto;
@@ -1165,10 +1289,12 @@ button {
     }
 
     &__row {
+        @include glass;
+        padding: clamp(20px, 2.4vw, 36px);
         display: grid;
         grid-template-columns: repeat(12, minmax(0, 1fr));
         column-gap: var(--gap);
-        margin-top: clamp(48px, 5vw, 80px);
+        margin-top: clamp(16px, 2vw, 24px);
     }
 
     &__facts {
