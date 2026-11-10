@@ -72,7 +72,14 @@ function App() {
                 emailDialog={emailDialog}
                 setEmailDialog={setEmailDialog}
             />
-            <Search t={t} open={searchOpen} setOpen={setSearchOpen} />
+            <Search
+                t={t}
+                open={searchOpen}
+                setOpen={setSearchOpen}
+                toggleTheme={toggleTheme}
+                language={language}
+                setLanguage={setLanguage}
+            />
         </div>
     );
 }

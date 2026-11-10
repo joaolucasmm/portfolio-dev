@@ -241,10 +241,27 @@ const english = {
     },
     search: {
         label: "Search the page",
-        placeholder: "Search projects, roles, skills…",
+        placeholder: "Search projects, roles, skills or actions…",
         enter: "Enter",
-        empty: "Nothing on this page matches that.",
-        hint: "Up and down to choose, Enter to go, Esc to close.",
+        empty: "Nothing on this page matches that. Try a technology, like Vue or Kotlin.",
+        goTo: "Go to the section",
+        copied: "Email copied.",
+        keys: { choose: "choose", open: "open", close: "close" },
+        groups: {
+            action: "Actions",
+            section: "Go to",
+            project: "Projects",
+            role: "Roles",
+            way: "How I work",
+            edu: "Education",
+        },
+        // [title, line under it, extra words that find it]
+        actions: {
+            theme: ["Switch theme", "Light or dark", "theme dark light mode"],
+            language: ["Switch to Português", "Language", "language portuguese português idioma"],
+            email: ["Copy email", "", "email e-mail contact copy"],
+            download: ["Download Sizewise", "Windows, latest release", "download sizewise app windows"],
+        },
     },
     footer: {
         sections: "On this page",
@@ -486,10 +503,27 @@ const portuguese = {
     },
     search: {
         label: "Buscar na página",
-        placeholder: "Busque projetos, cargos, competências…",
+        placeholder: "Busque projetos, cargos, tecnologias ou ações…",
         enter: "Enter",
-        empty: "Nada nesta página corresponde a isso.",
-        hint: "Setas para escolher, Enter para ir, Esc para fechar.",
+        empty: "Nada nesta página corresponde a isso. Tente uma tecnologia, como Vue ou Kotlin.",
+        goTo: "Ir para a seção",
+        copied: "E-mail copiado.",
+        keys: { choose: "escolher", open: "abrir", close: "fechar" },
+        groups: {
+            action: "Ações",
+            section: "Ir para",
+            project: "Projetos",
+            role: "Cargos",
+            way: "Como trabalho",
+            edu: "Educação",
+        },
+        // [título, linha embaixo, outras palavras que o encontram]
+        actions: {
+            theme: ["Trocar tema", "Claro ou escuro", "tema escuro claro modo theme"],
+            language: ["Mudar para English", "Idioma", "idioma inglês ingles english language"],
+            email: ["Copiar e-mail", "", "email e-mail contato copiar"],
+            download: ["Baixar o Sizewise", "Windows, versão mais recente", "baixar download sizewise app windows"],
+        },
     },
     footer: {
         sections: "Nesta página",
