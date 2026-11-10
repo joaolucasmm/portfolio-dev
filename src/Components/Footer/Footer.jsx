@@ -123,19 +123,6 @@ function Footer({ t, nav, lastUsed }) {
                             </li>
                         </ul>
                     </div>
-                    <div>
-                        <h2>{t.credits}</h2>
-                        <p>
-                            <a
-                                href="https://commons.wikimedia.org/w/index.php?curid=186582792"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                Campus do Vale UFRGS
-                            </a>
-                            , Junoyun, CC0, via Wikimedia Commons
-                        </p>
-                    </div>
                 </div>
             </div>
             <ul className="footer__keys" aria-label={t.keys.label}>

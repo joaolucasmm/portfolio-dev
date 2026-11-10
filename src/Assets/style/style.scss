@@ -2039,7 +2039,7 @@ main,
     }
 }
 
-// Education: side facts, wide paragraph
+// Education: one row per course that opens, like the contact list
 
 .education {
     &__heading {
@@ -2050,100 +2050,111 @@ main,
         letter-spacing: -0.02em;
     }
 
-    &__row {
-        @include glass;
-        padding: clamp(20px, 2.4vw, 36px);
+    &__list {
         display: grid;
-        grid-template-columns: repeat(12, minmax(0, 1fr));
-        column-gap: var(--gap);
-        margin-top: clamp(16px, 2vw, 24px);
+        gap: 6px;
+        max-width: 760px;
+        margin: clamp(20px, 2.4vw, 32px) 0 0;
+        padding: 0;
+        list-style: none;
     }
 
-    &__facts {
-        grid-column: 1 / span 4;
-
-        div:first-child dd {
-            font-family: var(--display);
-            font-size: var(--step-head);
-            line-height: 1;
-        }
-
-        div + div dd {
-            color: var(--muted);
-        }
-    }
-
-    &__body {
-        grid-column: 5 / span 7;
-        display: grid;
-        gap: 16px;
-        justify-items: start;
-
-        h3 {
-            font-size: var(--step-lead);
-            font-weight: 400;
-            line-height: 1.2;
-        }
-
-        p {
-            max-width: 64ch;
-        }
-    }
-
-    &__photo {
-        margin-top: clamp(64px, 7vw, 112px);
-
-        figcaption {
-            margin-top: 12px;
-            font-size: var(--step-small);
-            color: var(--muted);
-        }
-    }
-
-    &__crop {
-        aspect-ratio: 21 / 9;
-        overflow: clip;
+    &__item {
         border-radius: var(--radius-card);
+        transition: background-color 250ms;
 
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: 50% 60%;
+        &[open] {
+            @include glass;
         }
-    }
 
-    @supports (animation-timeline: view()) {
-        @media (prefers-reduced-motion: no-preference) {
-            &__crop img {
-                animation: zoom-out linear both;
-                animation-timeline: view();
-                animation-range: entry 0% exit 60%;
+        summary {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 4px 16px;
+            align-items: baseline;
+            padding: clamp(16px, 2vw, 22px);
+            border-radius: var(--radius-card);
+            cursor: pointer;
+            list-style: none;
+            transition: background-color 200ms;
+
+            &::-webkit-details-marker {
+                display: none;
+            }
+
+            &::after {
+                content: "+";
+                grid-column: 2;
+                grid-row: 1 / span 3;
+                align-self: center;
+                color: var(--accent);
+                font-size: 1.4rem;
             }
         }
-    }
 
-    @media (max-width: $phone) {
-        &__row {
-            display: block;
+        &:not([open]) summary:hover {
+            background: rgb(var(--glass-rgb) / var(--glass-tint));
         }
 
-        &__body {
-            margin-top: 16px;
-        }
-
-        &__crop {
-            aspect-ratio: 4 / 3;
+        &[open] summary::after {
+            content: "−";
         }
     }
-}
 
-@keyframes zoom-out {
-    from {
-        transform: scale(1.18);
+    &__name {
+        font-weight: 600;
+
+        b {
+            margin-right: 8px;
+            font-family: var(--display);
+            font-size: 1.75rem;
+            font-weight: 400;
+        }
     }
-    to {
-        transform: scale(1);
+
+    &__when {
+        grid-column: 1;
+        color: var(--muted);
+        font-size: var(--step-small);
+        font-variant-numeric: tabular-nums;
+    }
+
+    &__quote {
+        grid-column: 1;
+        margin-top: 6px;
+        font-family: var(--display);
+        font-size: clamp(1.2rem, 1rem + 0.6vw, 1.45rem);
+        line-height: 1.2;
+    }
+
+    &__open {
+        display: grid;
+        gap: 14px;
+        justify-items: start;
+        padding: 0 clamp(16px, 2vw, 22px) clamp(18px, 2.2vw, 24px);
+
+        p {
+            max-width: 62ch;
+            color: var(--muted);
+        }
+    }
+
+    &__subjects {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            padding: 3px 10px;
+            border: 1px solid rgb(255 255 255 / var(--glass-edge));
+            border-radius: 999px;
+            background: rgb(var(--glass-rgb) / var(--glass-tint));
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
     }
 }
 
@@ -2386,7 +2397,7 @@ main,
 
     &__columns {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: var(--gap);
 
         h2 {
@@ -2422,16 +2433,6 @@ main,
 
         &__row {
             margin-top: 64px;
-        }
-    }
-
-    @media (max-width: $phone) {
-        &__columns {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-
-            > div:last-child {
-                grid-column: 1 / -1;
-            }
         }
     }
 }

@@ -1,4 +1,5 @@
-import campus from "../../Assets/Images/found/campus-do-vale-ufrgs.jpg";
+// One row per course, like the contact list. Closed, a row shows the school, the
+// course, the years and the line that sums it up; open, the subjects and the text.
 
 function Education({ t }) {
     return (
@@ -6,37 +7,34 @@ function Education({ t }) {
             <h2 className="education__heading" data-reveal>
                 {t.heading}
             </h2>
-            {t.items.map((item, i) => (
-                <div className="education__row" key={item.place} id={"education-" + i} tabIndex={-1}>
-                    <dl className="education__facts" data-reveal>
-                        <div>
-                            <dt className="visually-hidden">School</dt>
-                            <dd>{item.place}</dd>
-                        </div>
-                        <div>
-                            <dt className="visually-hidden">Years</dt>
-                            <dd>{item.dates}</dd>
-                        </div>
-                        <div>
-                            <dt className="visually-hidden">City</dt>
-                            <dd>{item.city}</dd>
-                        </div>
-                    </dl>
-                    <div className="education__body" data-reveal>
-                        <h3>{item.title}</h3>
-                        <p>{item.text}</p>
-                        <a className="text-link" href={item.link} target="_blank" rel="noreferrer">
-                            {t.more}
-                        </a>
-                    </div>
-                </div>
-            ))}
-            <figure className="education__photo" data-reveal>
-                <div className="education__crop">
-                    <img src={campus} alt={t.photo} width="1920" height="1440" loading="lazy" />
-                </div>
-                <figcaption>{t.photo}</figcaption>
-            </figure>
+            <ul className="education__list" data-reveal>
+                {t.items.map((item, i) => (
+                    <li key={item.place} id={"education-" + i} tabIndex={-1}>
+                        <details className="education__item" open={i === 0}>
+                            <summary>
+                                <span className="education__name">
+                                    <b>{item.place}</b> {item.title}
+                                </span>
+                                <span className="education__when">
+                                    {item.dates} · {item.city}
+                                </span>
+                                <span className="education__quote">“{item.quote}”</span>
+                            </summary>
+                            <div className="education__open">
+                                <ul className="education__subjects" aria-label={t.subjects}>
+                                    {item.subjects.map((subject) => (
+                                        <li key={subject}>{subject}</li>
+                                    ))}
+                                </ul>
+                                <p>{item.text}</p>
+                                <a className="text-link" href={item.link} target="_blank" rel="noreferrer">
+                                    {t.more}
+                                </a>
+                            </div>
+                        </details>
+                    </li>
+                ))}
+            </ul>
         </section>
     );
 }

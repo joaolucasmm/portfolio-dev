@@ -232,13 +232,15 @@ const english = {
     education: {
         heading: "Education",
         more: "Course page",
-        photo: "Campus do Vale, UFRGS, Porto Alegre",
+        subjects: "Subjects",
         items: [
             {
                 title: "Physics engineering",
                 place: "UFRGS",
                 dates: "2017 – 2026",
                 city: "Porto Alegre",
+                quote: "Where I learned to measure before I change anything.",
+                subjects: ["Quantum mechanics", "Electromagnetism", "Thermodynamics", "Electronics", "Programming", "Robotics", "Research"],
                 text: "An interdisciplinary degree that joins physics to engineering practice: quantum mechanics, electromagnetism and thermodynamics on one side, electronics, programming and robotics on the other, with a strong emphasis on research. It is where I learned to measure before I change anything. Expected to finish in 2026.",
                 link: "https://engfis.if.ufrgs.br/index.php/P%C3%A1gina_principal",
             },
@@ -247,6 +249,8 @@ const english = {
                 place: "IFSC",
                 dates: "2014 – 2016",
                 city: "Criciúma",
+                quote: "My first code ran on a board, not in a browser.",
+                subjects: ["Mechanics", "Electronics", "Automation", "Pneumatics", "PLCs", "Sensors", "CNC", "Arduino"],
                 text: "A technical course integrated with high school: mechanics, electronics, automation and programming, from pneumatics and PLCs to sensors, robotics, CNC and microcontrollers such as Arduino. My first code ran on a board, not in a browser.",
                 link: "https://www.ifsc.edu.br/tecnicos-integrados/-/visualizar/mecatronica/Campus-Criciuma/172/228/nO9EQhPgKNer",
             },
@@ -285,7 +289,6 @@ const english = {
     footer: {
         sections: "On this page",
         elsewhere: "Elsewhere",
-        credits: "Photo credits",
         rights: "João Lucas Miranda Menegasso, 2026",
         top: "Back to top",
         morph: "Swap between the name and the initials",
@@ -513,13 +516,15 @@ const portuguese = {
     education: {
         heading: "Educação",
         more: "Página do curso",
-        photo: "Campus do Vale, UFRGS, Porto Alegre",
+        subjects: "Disciplinas",
         items: [
             {
                 title: "Engenharia física",
                 place: "UFRGS",
                 dates: "2017 – 2026",
                 city: "Porto Alegre",
+                quote: "Onde aprendi a medir antes de mudar qualquer coisa.",
+                subjects: ["Mecânica quântica", "Eletromagnetismo", "Termodinâmica", "Eletrônica", "Programação", "Robótica", "Pesquisa"],
                 text: "Uma graduação interdisciplinar que une a física à prática da engenharia: mecânica quântica, eletromagnetismo e termodinâmica de um lado, eletrônica, programação e robótica do outro, com forte ênfase em pesquisa. Foi onde aprendi a medir antes de mudar qualquer coisa. Previsão de conclusão: 2026.",
                 link: "https://engfis.if.ufrgs.br/index.php/P%C3%A1gina_principal",
             },
@@ -528,6 +533,8 @@ const portuguese = {
                 place: "IFSC",
                 dates: "2014 – 2016",
                 city: "Criciúma",
+                quote: "Meu primeiro código rodou numa placa, não num navegador.",
+                subjects: ["Mecânica", "Eletrônica", "Automação", "Pneumática", "CLPs", "Sensores", "CNC", "Arduino"],
                 text: "Um curso técnico integrado ao ensino médio: mecânica, eletrônica, automação e programação, de pneumática e CLPs a sensores, robótica, CNC e microcontroladores como o Arduino. Meu primeiro código rodou numa placa, não num navegador.",
                 link: "https://www.ifsc.edu.br/tecnicos-integrados/-/visualizar/mecatronica/Campus-Criciuma/172/228/nO9EQhPgKNer",
             },
@@ -566,7 +573,6 @@ const portuguese = {
     footer: {
         sections: "Nesta página",
         elsewhere: "Em outros lugares",
-        credits: "Créditos das fotos",
         rights: "João Lucas Miranda Menegasso, 2026",
         top: "Voltar ao topo",
         morph: "Trocar entre o nome e as iniciais",
