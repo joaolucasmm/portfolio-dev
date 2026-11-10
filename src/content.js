@@ -55,8 +55,6 @@ const english = {
         role: "frontend and mobile developer",
         company: "at Nelogica",
         before: "On the Profit and Tryd apps traders use every day. Before that, support, QA and development at SAP.",
-        action: "Email me",
-        history: "History on LinkedIn",
         portrait: "Portrait of João Lucas",
     },
     about: {
@@ -338,8 +336,6 @@ const portuguese = {
         role: "desenvolvedor frontend e mobile",
         company: "na Nelogica",
         before: "Nos apps do Profit e do Tryd que traders usam todos os dias. Antes, suporte, QA e desenvolvimento na SAP.",
-        action: "Me envie um e-mail",
-        history: "Histórico no LinkedIn",
         portrait: "Retrato de João Lucas",
     },
     about: {

@@ -58,7 +58,7 @@ function App() {
                 openSearch={() => setSearchOpen(true)}
             />
             <main id="main" tabIndex={-1}>
-                <Hero t={t.hero} language={language} openDialog={openDialog} />
+                <Hero t={t.hero} language={language} contact={t.contact} />
                 <About t={t.about} />
                 <Projects t={t.work} />
                 <Experience t={t.experience} />

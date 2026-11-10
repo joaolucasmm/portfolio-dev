@@ -938,13 +938,41 @@ main,
         color: var(--muted);
     }
 
-    &__actions {
+    // Glass circles that turn accent under the pointer (ui demo: icones-grandes, option 1).
+    &__channels {
         display: flex;
-        align-items: center;
-        justify-content: center;
         flex-wrap: wrap;
-        gap: 16px 24px;
-        margin-top: 8px;
+        justify-content: center;
+        gap: 14px;
+        margin: 8px 0 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__channel {
+        @include liquid;
+        width: 52px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        color: var(--ink);
+        cursor: pointer;
+        transition: transform 350ms var(--spring), background-color 250ms, color 250ms;
+
+        svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        &:hover,
+        &:focus-visible {
+            background: var(--accent);
+            color: var(--accent-ink);
+            transform: translateY(-4px) scale(1.06);
+        }
     }
 
     // Phone: everything starts at the left edge, the name on two lines.
@@ -966,7 +994,7 @@ main,
             justify-items: start;
         }
 
-        &__actions {
+        &__channels {
             justify-content: flex-start;
         }
     }
@@ -2190,28 +2218,29 @@ main,
             }
         }
     }
+}
 
-    &__toast {
-        position: absolute;
-        left: 50%;
-        bottom: 24px;
-        margin: 0;
-        padding: 10px 16px;
-        border-radius: 999px;
-        background: var(--ink);
-        color: var(--bg);
-        font-size: 0.875rem;
-        font-weight: 500;
-        white-space: nowrap;
-        pointer-events: none;
-        opacity: 0;
-        translate: -50% 16px;
-        transition: opacity 250ms, translate 400ms var(--spring);
+// A short confirmation at the bottom of its section (hero circles, contact list).
+.toast {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    margin: 0;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    translate: -50% 16px;
+    transition: opacity 250ms, translate 400ms var(--spring);
 
-        &.is-on {
-            opacity: 1;
-            translate: -50% 0;
-        }
+    &.is-on {
+        opacity: 1;
+        translate: -50% 0;
     }
 }
 

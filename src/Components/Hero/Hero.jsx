@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { links } from "../../content";
+import { channels, icons, useCopy, Toast } from "../Channels/Channels";
 
 // The name types itself, holds, erases and types again, like the first portfolio
 // (typewriter-effect with pauseFor 5000). Letters keep their space while untyped,
@@ -57,8 +57,9 @@ function Word({ text, offset, count }) {
     );
 }
 
-function Hero({ t, language, openDialog }) {
+function Hero({ t, language, contact }) {
     const { count, typing } = useTyping();
+    const [status, copy] = useCopy(contact);
     return (
         <section id="top" className="hero">
             <h1 className={"hero__name" + (typing ? " is-typing" : "")}>
@@ -75,15 +76,35 @@ function Hero({ t, language, openDialog }) {
                     {t.role} <em>{t.company}</em>
                 </p>
                 <p className="hero__before">{t.before}</p>
-                <div className="hero__actions">
-                    <button type="button" className="button" onClick={openDialog}>
-                        {t.action}
-                    </button>
-                    <a className="text-link" href={links.linkedin} target="_blank" rel="noreferrer">
-                        {t.history}
-                    </a>
-                </div>
+                {/* The ways to reach João, as circles; the contact section lists them with addresses. */}
+                <ul className="hero__channels">
+                    {channels.map((channel) => (
+                        <li key={channel.id}>
+                            {channel.href ? (
+                                <a
+                                    className="hero__channel"
+                                    href={channel.href}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    aria-label={channel.name}
+                                >
+                                    {icons[channel.id]}
+                                </a>
+                            ) : (
+                                <button
+                                    type="button"
+                                    className="hero__channel"
+                                    onClick={() => copy(channel)}
+                                    aria-label={contact.copy[channel.id] + " " + channel.text}
+                                >
+                                    {icons[channel.id]}
+                                </button>
+                            )}
+                        </li>
+                    ))}
+                </ul>
             </div>
+            <Toast status={status} />
         </section>
     );
 }
