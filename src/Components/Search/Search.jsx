@@ -144,6 +144,15 @@ function Search({ t, open, setOpen, toggleTheme, language, setLanguage }) {
     const index = useMemo(() => buildIndex(t), [t]);
     const term = query.trim().toLowerCase();
 
+    const copyEmail = useCallback(
+        () =>
+            navigator.clipboard
+                ?.writeText(links.email)
+                .then(() => setStatus(s.copied))
+                .catch(() => setStatus(links.email)),
+        [s.copied]
+    );
+
     const actions = useMemo(
         () => [
             {
@@ -177,13 +186,13 @@ function Search({ t, open, setOpen, toggleTheme, language, setLanguage }) {
                 run: () => window.open(projectLinks[0].download, "_blank", "noopener"),
             },
         ],
-        [s, toggleTheme, setLanguage, language],
+        [s, toggleTheme, setLanguage, language, copyEmail]
     );
 
     // Flat list in display order, so the arrows and Enter follow what is drawn.
     const groups = useMemo(() => {
         const matching = actions.filter(
-            (a) => !term || (a.title + " " + s.actions[a.key][2]).toLowerCase().includes(term),
+            (a) => !term || (a.title + " " + s.actions[a.key][2]).toLowerCase().includes(term)
         );
         const found = term ? search(index, term) : index.filter((it) => it.type === "section");
         const byType = {};
@@ -191,7 +200,7 @@ function Search({ t, open, setOpen, toggleTheme, language, setLanguage }) {
         const out = [];
         if (matching.length) out.push([s.groups.action, matching]);
         ["section", "project", "role", "way", "edu"].forEach(
-            (type) => byType[type] && out.push([s.groups[type], byType[type]]),
+            (type) => byType[type] && out.push([s.groups[type], byType[type]])
         );
         return out;
     }, [actions, index, term, s]);
@@ -212,12 +221,6 @@ function Search({ t, open, setOpen, toggleTheme, language, setLanguage }) {
         const row = list.current?.querySelector(".is-active");
         if (row && typeof row.scrollIntoView === "function") row.scrollIntoView({ block: "nearest" });
     }, [open, active, flat]);
-
-    const copyEmail = () =>
-        navigator.clipboard
-            ?.writeText(links.email)
-            .then(() => setStatus(s.copied))
-            .catch(() => setStatus(links.email));
 
     const shortcuts = [
         { key: "experience", run: () => go("experience") },
