@@ -112,14 +112,8 @@ $header-menu: 1180px;
     --morph-overlap: 150ms;
     --morph-blur: 24px;
 
-    // toggle-lente-vidro: the knob's spring overshoots to ~1.4 and settles in 600ms.
-    --switch-spring: linear(0 0%, 0.6091 3.69%, 1.0259 7.24%, 1.1733 9.05%, 1.283 10.92%, 1.3562 12.87%,
-        1.3948 14.95%, 1.4014 16.03%, 1.3999 17.16%, 1.3731 19.64%, 1.3202 22.27%, 1.1394 29.39%, 1.0582 33.17%,
-        0.9943 37.45%, 0.9734 39.64%, 0.9593 41.92%, 0.9505 45.08%, 0.9517 48.7%, 0.9924 63.02%, 1.0046 71.2%,
-        1.0061 78.24%, 1 100%);
-    --switch-press: 600ms;
-    --switch-slide: 280ms;
-    --switch-grow: 1.65;
+    // The eclipse switch: the shadow and the rays move on the shared spring.
+    --eclipse: 500ms;
 
     // tema-shift-t: only controls transition when the theme changes.
     --theme-swap: 200ms;
@@ -642,100 +636,61 @@ main,
 
 // Hero
 
-// Dark mode switch: a pill track that fills with the accent, a knob carrying a moon
-// or a sun. Pressed, the knob grows into a glass lens (ui-library: toggle-lente-vidro).
-.theme-switch {
-    --w: 44px;
-    --h: 24px;
-    --pad: 3px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    min-height: 44px;
-    padding: 0 4px;
+// Theme switch: the sun becomes a moon. Moved with transforms, not cx or r,
+// so Safari animates it too.
+.eclipse {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
     border: 0;
+    border-radius: 50%;
     background: none;
     color: inherit;
-    font-size: var(--step-body);
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+    transition: background-color var(--theme-swap) ease;
 
-    &__track {
-        position: relative;
-        flex: none;
-        width: var(--w);
-        height: var(--h);
-        border-radius: 999px;
-        background: color-mix(in srgb, var(--ink) 22%, transparent);
-        transition: filter var(--switch-press) var(--switch-spring);
-
-        // The accent fill runs in behind the knob.
-        &::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: var(--accent);
-            clip-path: inset(0 calc((1 - var(--on, 0)) * 100%) 0 0 round 999px);
-            transition: clip-path var(--switch-slide) ease-out;
-        }
-    }
-
-    &__knob {
-        position: absolute;
-        top: var(--pad);
-        left: var(--pad);
-        display: grid;
-        place-items: center;
-        width: calc(var(--h) - var(--pad) * 2);
-        height: calc(var(--h) - var(--pad) * 2);
-        border-radius: 50%;
-        background: var(--ink);
-        color: var(--bg);
-        box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
-        translate: calc(var(--on, 0) * (var(--w) - var(--h))) 0;
-        transition: translate var(--switch-slide) ease-out, scale var(--switch-press) var(--switch-spring),
-            background-color var(--switch-press) var(--switch-spring), box-shadow var(--switch-press) var(--switch-spring);
-    }
-
-    &[aria-checked="true"] {
-        --on: 1;
-
-        .theme-switch__knob {
-            background: var(--accent-ink);
-            color: var(--accent);
-        }
-    }
-
-    &.is-pressed {
-        .theme-switch__track {
-            filter: blur(1.5px);
-        }
-
-        .theme-switch__knob {
-            scale: var(--switch-grow);
-            background: rgb(255 255 255 / 0.12);
-            color: var(--ink);
-            backdrop-filter: blur(1.5px) saturate(1.6); // taste-skill-ignore: glass lens while pressed
-            box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.8), 0 6px 14px rgb(0 0 0 / 0.25);
-        }
-    }
-
-    &:hover &__label {
-        text-decoration: underline;
-        text-underline-offset: 0.25em;
+    &:hover {
+        background: color-mix(in srgb, var(--ink) 10%, transparent);
     }
 
     &:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 2px;
-        border-radius: 8px;
+    }
+
+    svg {
+        overflow: visible;
+    }
+
+    &__bite,
+    &__core,
+    &__rays {
+        transform-box: view-box;
+        transform-origin: 12px 12px;
+        transition: transform var(--eclipse) var(--spring), opacity calc(var(--eclipse) * 0.6) ease;
+    }
+
+    &[aria-checked="true"] {
+        .eclipse__bite {
+            transform: translate(-13px, 13px);
+        }
+
+        .eclipse__core {
+            transform: scale(1.8);
+        }
+
+        .eclipse__rays {
+            transform: rotate(90deg) scale(0.4);
+            opacity: 0;
+        }
     }
 
     @media (prefers-reduced-motion: reduce) {
-        &__track,
-        &__track::before,
-        &__knob {
+        &__bite,
+        &__core,
+        &__rays {
             transition-duration: 1ms;
         }
     }
