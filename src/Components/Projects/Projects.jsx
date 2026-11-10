@@ -72,7 +72,7 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
     };
 
     return (
-        <li
+        <div
             className={"project" + (active ? " is-active" : "")}
             id={k < count ? "project-" + index : undefined}
             tabIndex={-1}
@@ -199,7 +199,7 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
                     </button>
                 </div>
             )}
-        </li>
+        </div>
     );
 }
 
@@ -276,7 +276,7 @@ function Projects({ t }) {
                 {t.heading}
             </h2>
             <div className="work__show">
-                <ul
+                <div
                     className="work__stage"
                     tabIndex={0}
                     role="region"
@@ -302,7 +302,7 @@ function Projects({ t }) {
                             goSlide={goSlide}
                         />
                     ))}
-                </ul>
+                </div>
                 <div className="work__controls">
                     <button type="button" className="work__arrow" aria-label={t.previous} onClick={() => step(-1)}>
                         <svg viewBox="0 0 24 24" aria-hidden="true">

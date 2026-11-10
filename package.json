@@ -29,12 +29,27 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "size": "node scripts/check-size.js",
+    "serve:build": "node scripts/serve-build.js",
+    "e2e": "playwright test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.test.js",
+          "**/*.test.jsx"
+        ],
+        "rules": {
+          "testing-library/no-node-access": "off",
+          "testing-library/no-container": "off"
+        }
+      }
     ]
   },
   "browserslist": {
@@ -48,5 +63,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "jest-axe": "^8.0.0"
   }
 }
