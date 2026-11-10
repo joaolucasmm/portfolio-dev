@@ -5,3 +5,5 @@ https://www\.linkedin\.com/.*
 ^tel:
 # Local and placeholder addresses in the docs.
 http://localhost.*
+# UFRGS does not answer GitHub's servers (times out there, opens from Brazil).
+https?://www\.ufrgs\.br/.*

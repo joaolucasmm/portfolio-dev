@@ -110,10 +110,11 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v4
-      - name: check the links in the content and the readme
+      - name: check the links on the page
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --max-retries 3 --accept 200,206,429 src/content.js README.md public/index.html
+          # What visitors see. Sites that turn bots away (403, 429) count as up.
+          args: --no-progress --max-retries 3 --accept 200..=299,403,429 src/content.js public/index.html
           fail: true
 
   audit:
@@ -125,9 +126,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      # Only what reaches the visitor's browser; react-scripts' build tooling has known
-      # advisories that do not ship and are tracked by Dependabot instead.
-      - name: npm audit (critical, runtime)
+      # Fails on critical advisories only. react-scripts sits in dependencies, so its
+      # dev-server tooling is audited too; lower ones are left to Dependabot.
+      - name: npm audit (critical)
         run: npm audit --omit=dev --audit-level=critical
 
   deploy-dev:
