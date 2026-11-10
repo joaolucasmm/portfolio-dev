@@ -36,7 +36,7 @@ function Experience({ t }) {
     const count = t.items.length;
 
     // One bar slides to the chosen role on the site's spring. It is measured from the
-    // tab: down the list on desktop, along the row of tabs on tablet and phone.
+    // tab, down the list; if the list is ever laid out as a row, it measures along it.
     const placeBar = (animate) => {
         const tab = tabs.current[chosenRef.current];
         const el = bar.current;

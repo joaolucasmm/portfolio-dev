@@ -1626,47 +1626,11 @@ main,
         }
     }
 
-    // Tablet and phone: the list becomes a row of tabs above the role.
+    // Tablet and phone: the list stays a vertical stack, above the role.
     @media (max-width: $tablet) {
         &__board {
             grid-template-columns: minmax(0, 1fr);
-        }
-
-        &__list {
-            grid-auto-flow: column;
-            grid-auto-columns: max-content;
-            overflow-x: auto;
-            overscroll-behavior-x: contain;
-            scrollbar-width: none;
-        }
-
-        &__tab {
-            & + &::before {
-                top: 12px;
-                bottom: 12px;
-                left: 0;
-                right: auto;
-                width: 1px;
-                height: auto;
-            }
-
-            &[aria-selected="true"] {
-                padding-left: 16px;
-            }
-        }
-
-        &__indicator {
-            top: auto;
-            bottom: 0;
-            width: var(--size, 0);
-            height: 3px;
-            border-radius: 2px 2px 0 0;
-            transform: translateX(var(--offset, 0));
-            transition: transform 930ms var(--spring), width 930ms var(--spring);
-
-            @media (prefers-reduced-motion: reduce) {
-                transition: none;
-            }
+            gap: 24px;
         }
     }
 }
