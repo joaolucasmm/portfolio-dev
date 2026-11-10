@@ -1001,8 +1001,8 @@ main,
     // Phone: everything starts at the left edge, the name on two lines.
     @media (max-width: $phone) {
         justify-items: start;
-        // Sized to its content, so the About title peeks in at the bottom.
-        min-height: 0;
+        // A full screen, so the next section never shows under the circles.
+        min-height: 100svh;
         padding-top: 120px;
         text-align: left;
 
@@ -1071,6 +1071,28 @@ main,
     .hero__foot,
     .header {
         animation: fade-up 700ms var(--ease-out) calc(var(--hero-after-letters) + 100ms) backwards;
+    }
+}
+
+// Leaving the hero: the name and the lines under it fade and rise as the page
+// scrolls, so the next section takes over gently. Not the circles: an ancestor
+// with opacity would stop their glass from blurring the page.
+@supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        .hero__name,
+        .hero__role,
+        .hero__before {
+            animation: hero-leave linear both;
+            animation-timeline: view();
+            animation-range: exit 0% exit 90%;
+        }
+    }
+}
+
+@keyframes hero-leave {
+    to {
+        opacity: 0;
+        transform: translateY(-48px);
     }
 }
 
