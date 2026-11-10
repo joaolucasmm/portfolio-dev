@@ -268,6 +268,7 @@ const english = {
         enter: "Enter",
         empty: "Nothing on this page matches that. Try a technology, like Vue or Kotlin.",
         goTo: "Go to the section",
+        shortcuts: { label: "Shortcuts", experience: "Experience", work: "Projects", linkedin: "LinkedIn", email: "Email" },
         copied: "Email copied.",
         keys: { choose: "choose", open: "open", close: "close" },
         groups: {
@@ -551,6 +552,7 @@ const portuguese = {
         enter: "Enter",
         empty: "Nada nesta página corresponde a isso. Tente uma tecnologia, como Vue ou Kotlin.",
         goTo: "Ir para a seção",
+        shortcuts: { label: "Atalhos", experience: "Experiência", work: "Projetos", linkedin: "LinkedIn", email: "E-mail" },
         copied: "E-mail copiado.",
         keys: { choose: "escolher", open: "abrir", close: "fechar" },
         groups: {
