@@ -62,9 +62,15 @@ function Experience({ t }) {
     useEffect(() => {
         const list = bar.current?.parentElement;
         if (!list) return;
-        const observer = new ResizeObserver(() => placeBar(false));
+        const replace = () => placeBar(false);
+        document.fonts?.ready.then(replace);
+        // Without ResizeObserver (older browsers, the test environment), window resizes still move it.
+        if (typeof ResizeObserver === "undefined") {
+            window.addEventListener("resize", replace);
+            return () => window.removeEventListener("resize", replace);
+        }
+        const observer = new ResizeObserver(replace);
         observer.observe(list);
-        document.fonts?.ready.then(() => placeBar(false));
         return () => observer.disconnect();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
