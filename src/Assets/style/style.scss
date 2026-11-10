@@ -2119,70 +2119,98 @@ main,
     }
 }
 
-// Contact: the address as display type
+// Contact: the list from the original portfolio, one row per channel
 
 .contact {
-    // Heading and address on the left, the other ways in on the right: one screen.
+    position: relative;
     display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--gap);
-    align-items: end;
-    padding: clamp(64px, 8vw, 128px) var(--margin) clamp(48px, 6vw, 96px);
+    justify-items: center;
+    gap: clamp(24px, 3vw, 36px);
+    // The bottom leaves room for the toast under the form button.
+    padding: clamp(64px, 8vw, 128px) var(--margin) clamp(104px, 9vw, 136px);
 
-    &__heading {
-        grid-column: 1 / span 6;
-        max-width: 26ch;
-        font-size: var(--step-lead);
-        font-weight: 400;
-        line-height: 1.2;
-    }
-
-    &__email {
-        grid-column: 1 / span 7;
-        grid-row: 2;
-        justify-self: start;
+    &__title {
         font-family: var(--display);
         font-size: var(--step-head);
-        line-height: 1;
+        font-weight: 400;
+        line-height: 0.95;
         letter-spacing: -0.02em;
-        text-decoration: none;
-        overflow-wrap: anywhere;
-        margin-top: clamp(24px, 3vw, 40px);
-        transition: transform 400ms var(--ease-out);
+        text-align: center;
+    }
 
-        &:hover {
-            transform: translateX(0.04em);
+    &__list {
+        width: 100%;
+        max-width: 420px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li + li {
+            border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
         }
     }
 
-    &__corners {
-        grid-column: 9 / -1;
-        grid-row: 1 / span 2;
-        display: grid;
-        justify-items: start;
-        align-content: end;
-        gap: 24px;
-    }
-
-    &__social {
+    // The row lights up and the icon grows, as on the original.
+    &__row {
+        width: 100%;
         display: flex;
-        gap: 24px;
+        align-items: center;
+        gap: 18px;
+        padding: 16px 14px;
+        border: 0;
+        border-radius: 12px;
+        background: none;
+        color: inherit;
+        font: inherit;
+        font-size: 1.05rem;
+        font-weight: 500;
+        text-align: left;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 200ms;
+
+        svg {
+            width: 26px;
+            height: 26px;
+            flex: none;
+            transition: transform 300ms var(--spring);
+        }
+
+        span {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        &:hover,
+        &:focus-visible {
+            background: color-mix(in srgb, var(--ink) 8%, transparent);
+
+            svg {
+                transform: scale(1.25);
+            }
+        }
     }
 
-    @media (max-width: $phone) {
-        &__email {
-            font-size: 11vw;
-        }
+    &__toast {
+        position: absolute;
+        left: 50%;
+        bottom: 24px;
+        margin: 0;
+        padding: 10px 16px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: var(--bg);
+        font-size: 0.875rem;
+        font-weight: 500;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        translate: -50% 16px;
+        transition: opacity 250ms, translate 400ms var(--spring);
 
-        &__heading,
-        &__email,
-        &__corners {
-            grid-column: 1 / -1;
-            grid-row: auto;
-        }
-
-        &__corners {
-            margin-top: 40px;
+        &.is-on {
+            opacity: 1;
+            translate: -50% 0;
         }
     }
 }

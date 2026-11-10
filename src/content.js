@@ -255,10 +255,10 @@ const english = {
         ],
     },
     contact: {
-        heading: "Write about a project, a role, or a stubborn bug.",
         form: "Or use the form",
-        place: "Porto Alegre, Brazil",
-        copied: "Address copied",
+        title: "Contact",
+        copy: { email: "Copy email", phone: "Copy phone number" },
+        copied: { email: "Email copied", phone: "Phone number copied" },
     },
     search: {
         label: "Search the page",
@@ -538,10 +538,10 @@ const portuguese = {
         ],
     },
     contact: {
-        heading: "Escreva sobre um projeto, uma vaga ou um bug teimoso.",
         form: "Ou use o formulário",
-        place: "Porto Alegre, Brasil",
-        copied: "Endereço copiado",
+        title: "Contato",
+        copy: { email: "Copiar e-mail", phone: "Copiar telefone" },
+        copied: { email: "E-mail copiado", phone: "Telefone copiado" },
     },
     search: {
         label: "Buscar na página",
