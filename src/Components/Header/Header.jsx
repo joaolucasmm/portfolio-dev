@@ -43,6 +43,30 @@ function ThemeSwitch({ label, on, toggle }) {
     );
 }
 
+// The language button shows the language being read; on a click its letters roll
+// like a counter, E→P and N→T, the second a beat after the first.
+function LanguageRoll({ label, portuguese, toggle }) {
+    return (
+        <button
+            type="button"
+            className={"lang-roll" + (portuguese ? " is-pt" : "")}
+            aria-label={label}
+            onClick={toggle}
+        >
+            <span className="lang-roll__wheel" aria-hidden="true">
+                <span className="lang-roll__letter" style={{ "--k": 0 }}>
+                    <span>E</span>
+                    <span>P</span>
+                </span>
+                <span className="lang-roll__letter" style={{ "--k": 1 }}>
+                    <span>N</span>
+                    <span>T</span>
+                </span>
+            </span>
+        </button>
+    );
+}
+
 function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch }) {
     const [menuOpen, setMenuOpen] = useState(false);
     const close = useCallback(() => setMenuOpen(false), []);
@@ -115,15 +139,11 @@ function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch })
                     >
                         {t.search}
                     </button>
-                    <button
-                        type="button"
-                        className="header__switch"
-                        lang={language === "english" ? "pt-BR" : "en"}
-                        aria-label={t.languageShort + ", " + t.language}
-                        onClick={() => setLanguage(language === "english" ? "portuguese" : "english")}
-                    >
-                        {t.languageShort}
-                    </button>
+                    <LanguageRoll
+                        label={t.languageNow}
+                        portuguese={language === "portuguese"}
+                        toggle={() => setLanguage(language === "english" ? "portuguese" : "english")}
+                    />
                     <ThemeSwitch label={t.theme} on={darkMode} toggle={toggleTheme} />
                 </div>
             </nav>

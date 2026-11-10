@@ -111,6 +111,9 @@ $header-menu: 1180px;
 
     // The eclipse switch: the shadow and the rays move on the shared spring.
     --eclipse: 500ms;
+    // The language letters roll on the same spring, the second 60ms after the first.
+    --lang-roll: 520ms;
+    --lang-roll-stagger: 60ms;
 
     // tema-shift-t: only controls transition when the theme changes.
     --theme-swap: 200ms;
@@ -566,6 +569,62 @@ main,
 }
 
 // Hero
+
+// Language: the code of the language being read; the letters roll on a click.
+.lang-roll {
+    display: grid;
+    place-items: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 8px;
+    border: 0;
+    border-radius: 999px;
+    background: none;
+    color: inherit;
+    font-size: var(--step-body);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background-color var(--theme-swap) ease;
+
+    &:hover {
+        background: color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
+
+    &__wheel {
+        display: flex;
+        gap: 0.02em;
+    }
+
+    &__letter {
+        display: grid;
+        height: 1.3em;
+        overflow: hidden;
+
+        span {
+            display: block;
+            height: 1.3em;
+            line-height: 1.3em;
+            transition: translate var(--lang-roll) var(--spring) calc(var(--k) * var(--lang-roll-stagger));
+        }
+    }
+
+    &.is-pt &__letter span {
+        translate: 0 -100%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &__letter span {
+            transition-duration: 1ms;
+            transition-delay: 0ms;
+        }
+    }
+}
 
 // Theme switch: the sun becomes a moon. Moved with transforms, not cx or r,
 // so Safari animates it too.
