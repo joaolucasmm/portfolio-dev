@@ -80,6 +80,12 @@ const english = {
         download: "Download for Windows",
         post: "LinkedIn post",
         frameTitle: "Live project",
+        hint: "Projects. Use the arrow keys to switch.",
+        next: "Up next",
+        previous: "Previous project",
+        following: "Next project",
+        goTo: "Show",
+        of: "of",
         items: [
             {
                 name: "Sizewise",
@@ -342,6 +348,12 @@ const portuguese = {
         download: "Baixar para Windows",
         post: "Post no LinkedIn",
         frameTitle: "Projeto ao vivo",
+        hint: "Projetos. Use as setas para trocar.",
+        next: "A seguir",
+        previous: "Projeto anterior",
+        following: "Próximo projeto",
+        goTo: "Ver",
+        of: "de",
         items: [
             {
                 name: "Sizewise",

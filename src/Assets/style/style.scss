@@ -1090,9 +1090,13 @@ main,
     }
 }
 
-// Work: one block per project, picture beside its text.
+// Work: a 3D showcase. The chosen project fills the centre over its own picture;
+// the others turn away on both sides (Projects.jsx places them).
 
 .work {
+    // The side slides run to the screen's edges, never past them.
+    overflow-x: clip;
+
     &__heading {
         font-family: var(--display);
         font-size: var(--step-head);
@@ -1101,76 +1105,200 @@ main,
         letter-spacing: -0.02em;
     }
 
-    &__list {
+    &__show {
         display: grid;
-        gap: clamp(72px, 8vw, 128px);
-        margin-top: clamp(48px, 5vw, 80px);
+        gap: clamp(20px, 2.4vw, 32px);
+        margin-top: clamp(40px, 5vw, 72px);
+    }
+
+    &__stage {
+        display: grid;
+        place-items: center;
+        margin: 0;
+        padding: 12px 0;
+        list-style: none;
+        perspective: 1800px;
+        touch-action: pan-y;
+
+        &:focus-visible {
+            outline: none;
+        }
+
+        &:focus-visible .project.is-active {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+        }
+    }
+
+    &__controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+    }
+
+    &__arrow {
+        @include glass;
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        border-radius: 50%;
+        color: var(--ink);
+        cursor: pointer;
+        transition: scale var(--press-duration) var(--spring);
+
+        &:hover {
+            scale: 1.08;
+        }
+
+        &:active {
+            scale: var(--press-scale);
+        }
+
+        svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+    }
+
+    &__dots {
+        display: flex;
+        gap: 8px;
+    }
+
+    // 10px dots inside a 24px target.
+    &__dot {
+        position: relative;
+        width: 10px;
+        height: 10px;
+        padding: 0;
+        border: 0;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--ink) 30%, transparent);
+        cursor: pointer;
+        transition: width 400ms var(--ease-out), background-color 200ms ease;
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: -7px;
+        }
+
+        &[aria-current="true"] {
+            width: 30px;
+            background: var(--accent);
+        }
     }
 }
 
+// One slide. It always wears the dark theme, since its text sits on a darkened picture.
 .project {
-    @include glass;
-    padding: clamp(12px, 1.4vw, 20px);
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--gap);
-    align-items: center;
+    @include dark-tokens;
+    grid-area: 1 / 1;
+    position: relative;
+    width: min(1000px, 74%);
+    // About 16:9 on wide screens; taller when the text needs it. Every slide takes
+    // the tallest one's height, so the ring keeps one size.
+    min-height: min(560px, 40vw);
+    align-self: stretch;
+    overflow: clip;
+    border-radius: var(--radius-glass);
+    background: var(--bg);
+    color: var(--ink);
+    box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.55);
+    transition: transform 850ms var(--ease-out), opacity 600ms ease;
+    will-change: transform;
 
-    &__frame {
-        grid-column: 1 / span 7;
+    &:not(.is-active) {
+        cursor: pointer;
+    }
+
+    // The side slides darken as they go back.
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: var(--bg);
+        opacity: var(--dim, 0);
+        pointer-events: none;
+        transition: opacity 600ms ease;
+    }
+
+    &__picture {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 0;
+        scale: 1.04;
+        transition: scale 1200ms var(--ease-out);
+    }
+
+    &.is-active &__picture {
+        scale: 1;
+    }
+
+    &__shade {
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(90deg, rgb(var(--glass-rgb) / 0.94) 0%, rgb(var(--glass-rgb) / 0.72) 42%, rgb(var(--glass-rgb) / 0.2) 100%),
+            linear-gradient(0deg, rgb(var(--glass-rgb) / 0.75) 0%, transparent 45%);
+    }
+
+    &__body {
         position: relative;
-        aspect-ratio: 16 / 10;
-        overflow: clip;
-        border-radius: var(--radius-card);
-        background: var(--surface);
+        height: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-rows: auto 1fr;
+        gap: 16px 32px;
+        padding: clamp(18px, 3vw, 40px);
+    }
 
-        a,
-        img {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
+    &__top {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        color: var(--muted);
+        font-size: var(--step-small);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
 
-        img {
-            object-fit: cover;
-            object-position: 50% 0;
-        }
+    &__count {
+        font-variant-numeric: tabular-nums;
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            background: #fff;
-        }
-
-        &.is-running {
-            aspect-ratio: 4 / 3;
+        b {
+            color: var(--ink);
+            font-weight: 500;
         }
     }
 
     &__text {
-        grid-column: 9 / -1;
+        align-self: end;
         display: grid;
         gap: 12px;
         justify-items: start;
-    }
-
-    // Projects alternate sides, so each reads as its own block.
-    &:nth-child(even) &__frame {
-        grid-column: 6 / -1;
-        grid-row: 1;
-    }
-
-    &:nth-child(even) &__text {
-        grid-column: 1 / span 4;
-        grid-row: 1;
+        max-width: 46ch;
+        min-width: 0;
     }
 
     &__name {
         font-family: var(--display);
-        font-size: var(--step-head);
+        font-size: clamp(2.6rem, 1.2rem + 4.4vw, 5.5rem);
         font-weight: 400;
-        line-height: 1;
+        line-height: 0.95;
         letter-spacing: -0.02em;
 
         a {
@@ -1196,7 +1324,7 @@ main,
     }
 
     &__description {
-        max-width: 46ch;
+        line-height: 1.55;
     }
 
     &__controls {
@@ -1204,15 +1332,148 @@ main,
         flex-wrap: wrap;
         align-items: center;
         gap: 12px 20px;
-        margin-top: 8px;
+        margin-top: 6px;
     }
 
-    @media (max-width: $phone) {
-        display: block;
+    // The next projects, small, in the corner of the chosen one.
+    &__next {
+        align-self: end;
+        display: grid;
+        gap: 8px;
+        justify-items: end;
+    }
 
-        &__frame,
-        &:nth-child(even) &__frame {
-            margin-bottom: 20px;
+    &__next-label {
+        color: var(--muted);
+        font-size: var(--step-small);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    &__minis {
+        display: flex;
+    }
+
+    &__mini {
+        position: relative;
+        width: clamp(110px, 12vw, 168px);
+        padding: 0;
+        overflow: clip;
+        border: 1px solid rgb(255 255 255 / 0.22);
+        border-radius: var(--radius-card);
+        background: var(--bg);
+        color: var(--ink);
+        text-align: left;
+        cursor: pointer;
+        box-shadow: 0 12px 24px -10px rgb(0 0 0 / 0.6);
+        transition: translate 300ms var(--ease-out), border-color 200ms ease;
+
+        & + & {
+            margin-left: -28px;
+            translate: 0 14px;
+        }
+
+        &:hover,
+        &:focus-visible {
+            z-index: 1;
+            translate: 0 -6px;
+            border-color: var(--accent);
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            object-position: 50% 0;
+        }
+
+        span {
+            display: block;
+            padding: 6px 10px 8px;
+            font-size: var(--step-small);
+            font-weight: 500;
+        }
+    }
+
+    // The text rises in when its slide reaches the centre.
+    &__text > *,
+    &__next {
+        transition: opacity 500ms ease, translate 700ms var(--ease-out);
+    }
+
+    &:not(.is-active) &__text > *,
+    &:not(.is-active) &__next {
+        opacity: 0.35;
+        translate: 0 10px;
+    }
+
+    &.is-active &__text > :nth-child(2) {
+        transition-delay: 60ms;
+    }
+
+    &.is-active &__text > :nth-child(3) {
+        transition-delay: 120ms;
+    }
+
+    &.is-active &__text > :nth-child(4) {
+        transition-delay: 180ms;
+    }
+
+    &.is-active &__next {
+        transition-delay: 220ms;
+    }
+
+    // "Run it here": the live site covers the slide, with a way back to the picture.
+    &__live {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        background: #fff;
+
+        iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    }
+
+    &__stop {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+    }
+
+    // Tablet: the slide is too narrow for the small cards beside the text.
+    @media (max-width: $tablet) {
+        &__body {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        &__next {
+            display: none;
+        }
+    }
+
+    // Phone: the slide stands up and the text goes to the bottom.
+    @media (max-width: $phone) {
+        width: 86%;
+        min-height: min(560px, 130vw);
+
+        &__shade {
+            background: linear-gradient(0deg, rgb(var(--glass-rgb) / 0.96) 0%, rgb(var(--glass-rgb) / 0.82) 55%, rgb(var(--glass-rgb) / 0.35) 100%);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &,
+        &::after,
+        &__picture,
+        &__text > *,
+        &__next {
+            transition-duration: 1ms !important;
+            transition-delay: 0ms !important;
         }
     }
 }
@@ -2006,24 +2267,6 @@ main,
         opacity: 0;
         scale: 0.9;
     }
-}
-
-// A project's picture presses in when it or its name is pointed at (ui-library: card-contorno-hover).
-
-.project__frame {
-    outline: 2px solid transparent;
-    outline-offset: 1px;
-    transition: outline-color var(--press-duration) ease, scale var(--press-duration) ease;
-}
-
-.project__frame:hover,
-.project:has(.project__name a:hover, .project__name a:focus-visible) .project__frame {
-    outline-color: var(--accent);
-    scale: var(--press-scale);
-}
-
-.project__frame.is-running {
-    scale: 1;
 }
 
 // Shift+D outlines every box to show the grid (ui-library: debug-css-shift-d).

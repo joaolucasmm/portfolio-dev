@@ -70,6 +70,10 @@ function go(id) {
     if (id.startsWith("experience-")) {
         window.dispatchEvent(new CustomEvent("portfolio:open-experience", { detail: Number(id.split("-")[1]) }));
     }
+    // A project is a slide in the showcase: bring it to the centre.
+    if (id.startsWith("project-")) {
+        window.dispatchEvent(new CustomEvent("portfolio:open-project", { detail: Number(id.split("-")[1]) }));
+    }
     target.scrollIntoView({ block: "center" });
     target.focus({ preventScroll: true });
 }
