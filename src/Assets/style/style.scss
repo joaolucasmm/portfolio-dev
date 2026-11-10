@@ -1013,10 +1013,12 @@ main,
         animation: caret-blink var(--caret-blink) steps(1) infinite;
     }
 
-    // The sentence and the header arrive once the name is typed.
+    // The sentence and the header arrive once the name is typed. "backwards", not
+    // "both": an animation that holds its end state keeps the header a backdrop root,
+    // and then the phone islands blur only the empty header instead of the page.
     .hero__foot,
     .header {
-        animation: fade-up 700ms var(--ease-out) calc(var(--hero-after-letters) + 100ms) both;
+        animation: fade-up 700ms var(--ease-out) calc(var(--hero-after-letters) + 100ms) backwards;
     }
 }
 
