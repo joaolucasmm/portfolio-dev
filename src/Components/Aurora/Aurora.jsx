@@ -10,6 +10,7 @@ function Aurora() {
     const box = useRef(null);
 
     useEffect(() => {
+        if (typeof window.matchMedia !== "function") return undefined;
         const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
         const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
         if (!finePointer.matches || reduced.matches) return undefined;
