@@ -1,0 +1,72 @@
+[
+ {
+  "file": "assets/campus-do-vale-ufrgs.jpg",
+  "media": "image",
+  "ref": "openverse:ab93aa04-09cc-4f4e-9eeb-6b9ec8305dd8",
+  "title": "Campus do Vale UFRGS",
+  "creator": "Junoyun",
+  "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Junoyun&action=edit&redlink=1",
+  "date": null,
+  "license": "CC0",
+  "licenseCode": "cc0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+  "creditRequired": false,
+  "page": "https://commons.wikimedia.org/w/index.php?curid=186582792",
+  "via": "Wikimedia Commons",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Campus_do_Vale_UFRGS.jpg/1920px-Campus_do_Vale_UFRGS.jpg",
+  "width": 1920,
+  "height": 1440,
+  "bytes": 1174640,
+  "credit": "\"Campus do Vale UFRGS\" by Junoyun, CC0, via Wikimedia Commons",
+  "notes": [],
+  "saved": "2026-10-21T03:18:47.984Z"
+ },
+ {
+  "file": "assets/campus-do-vale-universidade-federal-do-rio.jpg",
+  "media": "image",
+  "ref": "openverse:08108a12-e42e-4792-aab8-406991aeb661",
+  "title": "Campus do Vale, Universidade Federal do Rio Grande do Sul, Porto Alegre, agosto de 2018 (1)",
+  "creator": "Fronteira",
+  "creatorUrl": "https://commons.wikimedia.org/wiki/User:Fronteira",
+  "date": null,
+  "license": "CC BY-SA 4.0",
+  "licenseCode": "by-sa",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "creditRequired": true,
+  "page": "https://commons.wikimedia.org/w/index.php?curid=148207571",
+  "via": "Wikimedia Commons",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4a/Campus_do_Vale%2C_Universidade_Federal_do_Rio_Grande_do_Sul%2C_Porto_Alegre%2C_agosto_de_2018_%281%29.jpg/1920px-Campus_do_Vale%2C_Universidade_Federal_do_Rio_Grande_do_Sul%2C_Porto_Alegre%2C_agosto_de_2018_%281%29.jpg",
+  "width": 1920,
+  "height": 1080,
+  "bytes": 828864,
+  "credit": "\"Campus do Vale, Universidade Federal do Rio Grande do Sul, Porto Alegre, agosto de 2018 (…\" by Fronteira, CC BY-SA 4.0, via Wikimedia Commons",
+  "notes": [
+   "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
+  ],
+  "saved": "2026-10-21T03:18:53.712Z"
+ },
+ {
+  "file": "assets/vista-de-porto-alegre-a-partir-do.jpg",
+  "media": "image",
+  "ref": "openverse:b2e2ec1d-c986-4843-8062-bc6ec703759e",
+  "title": "Vista de Porto Alegre a partir do Rio Guaíba 09",
+  "creator": "Paulo rsmenezes",
+  "creatorUrl": "https://commons.wikimedia.org/wiki/User:Paulo_rsmenezes",
+  "date": null,
+  "license": "CC BY-SA 2.5",
+  "licenseCode": "by-sa",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/br/deed.en/",
+  "creditRequired": true,
+  "page": "https://commons.wikimedia.org/w/index.php?curid=17578304",
+  "via": "Wikimedia Commons",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Vista_de_Porto_Alegre_a_partir_do_Rio_Gua%C3%ADba_09.jpg/1920px-Vista_de_Porto_Alegre_a_partir_do_Rio_Gua%C3%ADba_09.jpg",
+  "width": 1920,
+  "height": 1440,
+  "bytes": 513980,
+  "credit": "\"Vista de Porto Alegre a partir do Rio Guaíba 09\" by Paulo rsmenezes, CC BY-SA 2.5, via Wikimedia Commons",
+  "notes": [
+   "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
+  ],
+  "saved": "2026-10-21T03:18:58.211Z"
+ }
+]

@@ -1,52 +1,83 @@
-import React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CodeIcon from "@mui/icons-material/Code";
-import textSelector from "./texts";
-import variables from "../UI/variables.scss";
+// Each way of working leads with one figure, then a title and one sentence. The
+// evidence behind it (the published Sizewise baseline, a test from the Sizewise
+// repository, how I work with other teams) opens under "see more".
 
-function Services({ styleSection, language, darkMode }) {
+// The run of a test from crates/scanner/tests/scan.rs in joaolucasmm/sizewise.
+const sizewiseRun = [
+    ["prompt", "$ cargo test -p scanner"],
+    ["line", "test aggregates_sizes_and_counts_per_folder_and_total ... ", "ok"],
+    ["prompt", "// 5 files, 4 folders, 1155 bytes"],
+];
+
+function Baseline({ data }) {
     return (
-        <div id="services" className={styleSection}>
-            <div className="services_container">
-                <h1 className={darkMode && "dark"}>{textSelector(language, 0)}</h1>
-                <div className="services_content">
-                    <Card sx={{ maxWidth: 345, bgcolor: variables.color1 }}>
-                        <CodeIcon className="services_icon"/>
-                        <CardContent className={"services_text " + (darkMode && "dark")}>
-                            <h2>
-                                {textSelector(language, 1)}
-                            </h2>
-                            <p className="description">
-                                {textSelector(language, 2)}
-                            </p>
-                        </CardContent>
-                    </Card>
-                    <Card sx={{ maxWidth: 345, bgcolor: variables.color1 }}>
-                        <CodeIcon className="services_icon" />
-                        <CardContent className={"services_text " + (darkMode && "dark")}>
-                            <h2>
-                                {textSelector(language, 3)}
-                            </h2>
-                            <p className="description">
-                                {textSelector(language, 4)}
-                            </p>
-                        </CardContent>
-                    </Card>
-                    <Card sx={{ maxWidth: 345, bgcolor: variables.color1 }}>
-                        <CodeIcon className="services_icon" />
-                        <CardContent className={"services_text " + (darkMode && "dark")}>
-                            <h2>
-                                {textSelector(language, 5)}
-                            </h2>
-                            <p className="description">
-                                {textSelector(language, 6)}
-                            </p>
-                        </CardContent>
-                    </Card>
-                </div>
+        <figure className="baseline">
+            <figcaption className="baseline__title">{data.title}</figcaption>
+            <dl>
+                {data.rows.map(([label, value]) => (
+                    <div key={label}>
+                        <dt>{label}</dt>
+                        <dd>{value}</dd>
+                    </div>
+                ))}
+            </dl>
+            <p className="baseline__note">{data.note}</p>
+        </figure>
+    );
+}
+
+function TestRun() {
+    return (
+        <pre className="test-run">
+            <code>
+                {sizewiseRun.map(([kind, text, ok]) => (
+                    <span key={text} className={"test-run__" + kind}>
+                        {text}
+                        {ok && <b>{ok}</b>}
+                        {"\n"}
+                    </span>
+                ))}
+            </code>
+        </pre>
+    );
+}
+
+function Services({ t }) {
+    const evidence = [<Baseline key="baseline" data={t.demos.baseline} />, <TestRun key="test" />, null];
+
+    return (
+        <section id="services" className="section services" tabIndex={-1}>
+            <h2 className="services__heading" data-reveal>
+                {t.heading}
+            </h2>
+            <div className="services__grid">
+                {t.items.map((item, i) => (
+                    <article className="service" key={i} id={"service-" + i} tabIndex={-1} data-reveal>
+                        <p className="service__figure">
+                            <span className="service__number">
+                                {item.figure[0]}
+                                {item.figure[1] && <small>{item.figure[1]}</small>}
+                            </span>
+                            <span className="service__caption">{item.caption}</span>
+                        </p>
+                        <h3 className="service__title">{item.title}</h3>
+                        <p>{item.short}</p>
+                        <ul className="service__tools" aria-label={t.tools}>
+                            {item.tools.split(", ").map((tool) => (
+                                <li key={tool}>{tool}</li>
+                            ))}
+                        </ul>
+                        <details className="service__more">
+                            <summary>{item.more}</summary>
+                            <div className="service__evidence">
+                                {evidence[i]}
+                                <p className="soft">{item.second}</p>
+                            </div>
+                        </details>
+                    </article>
+                ))}
             </div>
-        </div>
+        </section>
     );
 }
 

@@ -1,80 +1,41 @@
-import { useState, Fragment } from 'react';
+// One row per course, like the contact list. Closed, a row shows the school, the
+// course, the years and the line that sums it up; open, the subjects and the text.
 
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import textSelector from './texts';
-
-function card(language, selectedIndex, darkMode) {
-    return(
-        <Fragment>
-            <CardContent>
-                <div className='header'>
-                    <Typography variant="h5" className='title'>
-                        {textSelector(language, selectedIndex)}
-                    </Typography>
-                    <Typography variant="h7" className='date'>
-                        {textSelector(language, selectedIndex+2)}
-                    </Typography>
-                </div>
-                <Typography className='company' sx={{ mb: 1.5 }}>
-                    {textSelector(language, selectedIndex+4)}
-                </Typography>
-                <Typography className='description' variant="body2">
-                    {textSelector(language, selectedIndex+6)}
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button size="small" className={"learn_more " + (darkMode && "learn_more_dark")} onClick={() => window.open((selectedIndex === 2) ? "https://www.ifsc.edu.br/tecnicos-integrados/-/visualizar/mecatronica/Campus-Criciuma/172/228/nO9EQhPgKNer" : "https://engfis.if.ufrgs.br/index.php/P%C3%A1gina_principal", "_blank")}>{textSelector(language, 9)}</Button>
-            </CardActions>
-        </Fragment>
-    )
-}
-
-function Education({ styleSection, language, darkMode }) {
-    const [selectedIndex, setSelectedIndex] = useState(0);
-
-    const handleListItemClick = (event, index) => {
-        setSelectedIndex(index);
-    };
-
+function Education({ t }) {
     return (
-        <div id='education' className={styleSection}>
-            <div className="education_container">
-                <h1 className={darkMode && "dark"}>{textSelector(language,0)}</h1>
-                <div className={'education_content ' + (darkMode && "education_content_dark")}>
-                    <Box className='education_list'>
-                        <List>
-                            {[textSelector(language, 1), textSelector(language, 2)].map((text, index) => (
-                                <Fragment key={index}>
-                                    <ListItem disablePadding>
-                                        <ListItemButton
-                                            selected={selectedIndex === index}
-                                            onClick={(event) => handleListItemClick(event, index)}
-                                            sx={{ borderLeft: selectedIndex === index ? '4px solid black' : 'none' }}
-                                        >
-                                            <ListItemText primary={text} />
-                                        </ListItemButton>
-                                    </ListItem>
-                                    {index < 4 && <Divider variant="middle" />}
-                                </Fragment>
-                            ))}
-                        </List>
-                    </Box>
-                    <Box className='education_display'>
-                        <Card variant="text" className={'card ' + (darkMode && 'card_dark')}>{card(language, selectedIndex+1, darkMode)}</Card>
-                    </Box>
-                </div>
-            </div>
-        </div>
+        <section id="education" className="section section--alt education" tabIndex={-1}>
+            <h2 className="education__heading" data-reveal>
+                {t.heading}
+            </h2>
+            <ul className="education__list">
+                {t.items.map((item, i) => (
+                    <li key={item.place} id={"education-" + i} tabIndex={-1}>
+                        <details className="education__item" open={i === 0} data-reveal>
+                            <summary>
+                                <span className="education__name">
+                                    <b translate="no">{item.place}</b> {item.title}
+                                </span>
+                                <span className="education__when">
+                                    {item.dates} · {item.city}
+                                </span>
+                                <span className="education__quote">“{item.quote}”</span>
+                            </summary>
+                            <div className="education__open">
+                                <ul className="education__subjects" aria-label={t.subjects}>
+                                    {item.subjects.map((subject) => (
+                                        <li key={subject}>{subject}</li>
+                                    ))}
+                                </ul>
+                                <p>{item.text}</p>
+                                <a className="text-link" href={item.link} target="_blank" rel="noreferrer">
+                                    {t.more}
+                                </a>
+                            </div>
+                        </details>
+                    </li>
+                ))}
+            </ul>
+        </section>
     );
 }
 

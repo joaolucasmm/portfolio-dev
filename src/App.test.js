@@ -3,6 +3,6 @@ import App from './App';
 
 test('Renders Title', () => {
   render(<App />);
-  const linkElement = screen.getByText("João Lucas");
-  expect(linkElement).toBeInTheDocument();
+  const title = screen.getByRole("heading", { level: 1, name: /João Lucas/ });
+  expect(title).toBeInTheDocument();
 });
