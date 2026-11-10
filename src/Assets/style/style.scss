@@ -1724,6 +1724,11 @@ main,
         letter-spacing: -0.02em;
         margin-bottom: clamp(28px, 3.5vw, 48px);
         text-align: center;
+
+        // Phones: left, like the other section titles above the rows.
+        @media (max-width: $phone) {
+            text-align: left;
+        }
     }
 
     // As on the first portfolio: list on the left, the chosen role on the right, no cards,
@@ -1859,6 +1864,110 @@ main,
         &__role {
             animation: fade-up 400ms var(--ease-out) both;
         }
+    }
+
+    // Phones: one row per role that opens in place, like Education.
+    &__rows {
+        display: grid;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__row {
+        border-radius: var(--radius-card);
+
+        &[open] {
+            @include glass;
+        }
+
+        summary {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 2px 14px;
+            padding: 16px;
+            border-radius: var(--radius-card);
+            cursor: pointer;
+            list-style: none;
+
+            &::-webkit-details-marker {
+                display: none;
+            }
+
+            &::after {
+                content: "+";
+                grid-column: 2;
+                grid-row: 1 / span 2;
+                align-self: center;
+                color: var(--accent);
+                font-size: 1.4rem;
+            }
+
+            &:focus-visible {
+                outline: 2px solid var(--accent);
+                outline-offset: -2px;
+            }
+        }
+
+        &[open] summary::after {
+            content: "−";
+        }
+    }
+
+    &__row-title {
+        font-weight: 600;
+    }
+
+    &__row-when {
+        grid-column: 1;
+        color: var(--muted);
+        font-size: var(--step-small);
+        font-variant-numeric: tabular-nums;
+
+        b {
+            color: var(--ink);
+            font-weight: 600;
+        }
+    }
+
+    &__row-body {
+        display: grid;
+        gap: 12px;
+        justify-items: start;
+        padding: 0 16px 16px;
+
+        p {
+            color: var(--muted);
+            line-height: 1.6;
+        }
+    }
+
+    &__pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            padding: 3px 10px;
+            border: 1px solid rgb(255 255 255 / var(--glass-edge));
+            border-radius: 999px;
+            background: rgb(var(--glass-rgb) / var(--glass-tint));
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+    }
+
+    &__link {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        color: var(--accent);
+        font-weight: 500;
+        text-decoration: none;
     }
 
     // Tablet and phone: the list stays a vertical stack, above the role.

@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import usePhone from "../../Functions/usePhone";
 
 const month = (iso) => new Date(iso + "-01T00:00:00Z");
 
@@ -28,7 +29,10 @@ function listName(title) {
 
 // As on the first portfolio: the roles as a plain list with dividers, the chosen
 // one beside it with no card, all on one screen. Arrow keys move along the list.
+// On phones each role is a row that opens in place, like Education; -1 means
+// every row is closed there, and the computer shows the first role.
 function Experience({ t }) {
+    const phone = usePhone();
     const [chosen, setChosen] = useState(0);
     const tabs = useRef([]);
     const bar = useRef(null);
@@ -52,8 +56,9 @@ function Experience({ t }) {
     };
 
     useLayoutEffect(() => {
-        const first = chosenRef.current === chosen;
-        chosenRef.current = chosen;
+        const shown = Math.max(chosen, 0);
+        const first = chosenRef.current === shown;
+        chosenRef.current = shown;
         placeBar(!first);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chosen]);
@@ -73,7 +78,7 @@ function Experience({ t }) {
         observer.observe(list);
         return () => observer.disconnect();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [phone]);
 
     // The search palette opens the role it found.
     useEffect(() => {
@@ -82,12 +87,14 @@ function Experience({ t }) {
         return () => window.removeEventListener("portfolio:open-experience", onOpen);
     }, []);
 
+    const shown = Math.max(chosen, 0);
+
     const onKeyDown = (e) => {
         const moves = {
-            ArrowDown: chosen + 1,
-            ArrowRight: chosen + 1,
-            ArrowUp: chosen - 1,
-            ArrowLeft: chosen - 1,
+            ArrowDown: shown + 1,
+            ArrowRight: shown + 1,
+            ArrowUp: shown - 1,
+            ArrowLeft: shown - 1,
             Home: 0,
             End: count - 1,
         };
@@ -98,7 +105,51 @@ function Experience({ t }) {
         tabs.current[next]?.focus();
     };
 
-    const item = t.items[chosen];
+    const item = t.items[shown];
+    const when = (role) => formatDates(role.dates, t.locale, t.units) + " · " + formatLength(role.dates, t.units);
+
+    if (phone) {
+        return (
+            <section id="experience" className="section section--alt experience" tabIndex={-1}>
+                <h2 className="experience__heading" data-reveal>
+                    {t.heading}
+                </h2>
+                <ul className="experience__rows" data-reveal>
+                    {t.items.map((role, i) => (
+                        <li key={role.dates.join()} id={"experience-" + i} tabIndex={-1}>
+                            <details
+                                className="experience__row"
+                                open={i === chosen}
+                                onToggle={(e) => {
+                                    const open = e.currentTarget.open;
+                                    // Opening one closes the others; closing the open one closes all.
+                                    setChosen((c) => (open ? i : c === i ? -1 : c));
+                                }}
+                            >
+                                <summary>
+                                    <span className="experience__row-title">{role.title}</span>
+                                    <span className="experience__row-when">
+                                        <b>{role.place}</b> · {when(role)}
+                                    </span>
+                                </summary>
+                                <div className="experience__row-body">
+                                    <p>{role.text}</p>
+                                    <ul className="experience__pills" aria-label={t.tools}>
+                                        {role.tools.split(", ").map((tool) => (
+                                            <li key={tool}>{tool}</li>
+                                        ))}
+                                    </ul>
+                                    <a className="experience__link" href={role.link} target="_blank" rel="noreferrer">
+                                        {t.company} <span aria-hidden="true">↗</span>
+                                    </a>
+                                </div>
+                            </details>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        );
+    }
 
     return (
         <section id="experience" className="section section--alt experience" tabIndex={-1}>
@@ -116,9 +167,9 @@ function Experience({ t }) {
                             type="button"
                             role="tab"
                             className="experience__tab"
-                            aria-selected={i === chosen}
+                            aria-selected={i === shown}
                             aria-controls="experience-panel"
-                            tabIndex={i === chosen ? 0 : -1}
+                            tabIndex={i === shown ? 0 : -1}
                             onClick={() => setChosen(i)}
                             onKeyDown={onKeyDown}
                         >
@@ -127,11 +178,11 @@ function Experience({ t }) {
                     ))}
                 </div>
                 <div
-                    key={chosen}
+                    key={shown}
                     id="experience-panel"
                     className="experience__role"
                     role="tabpanel"
-                    aria-labelledby={"experience-" + chosen}
+                    aria-labelledby={"experience-" + shown}
                 >
                     <div className="experience__head">
                         <h3 className="experience__title">{item.title}</h3>

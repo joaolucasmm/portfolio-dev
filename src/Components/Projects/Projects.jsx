@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import usePhone from "../../Functions/usePhone";
 import sizewise from "../../Assets/Images/sizewise.png";
 import qrCodeGen from "../../Assets/Images/qrcodegen.png";
 import pokedex from "../../Assets/Images/pokedex.png";
@@ -42,19 +43,6 @@ function placeOf(o, phone) {
         zIndex: 20 - a,
         "--dim": [0, 0.45, 0.65][a],
     };
-}
-
-function usePhone() {
-    const query = "(max-width: 720px)";
-    const [phone, setPhone] = useState(() => typeof window.matchMedia === "function" && window.matchMedia(query).matches);
-    useEffect(() => {
-        if (typeof window.matchMedia !== "function") return undefined;
-        const list = window.matchMedia(query);
-        const onChange = () => setPhone(list.matches);
-        list.addEventListener?.("change", onChange);
-        return () => list.removeEventListener?.("change", onChange);
-    }, []);
-    return phone;
 }
 
 // One slide: the project's picture as the ground, its name, facts and links over it,
