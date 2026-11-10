@@ -1,24 +1,13 @@
-// Each way of working is shown with real evidence: the published Sizewise
-// baseline, a test from the Sizewise repository, and a figure from SAP support.
+// Each way of working leads with one figure, then a title and one sentence. The
+// evidence behind it (the published Sizewise baseline, a test from the Sizewise
+// repository, how I work with other teams) opens under "see more".
 
-// From crates/scanner/tests/scan.rs in joaolucasmm/sizewise.
-const sizewiseTest = `#[test]
-fn aggregates_sizes_and_counts_per_folder_and_total() {
-    let dir = tree(&[
-        ("a.bin", 100),
-        ("docs/b.txt", 30),
-        ("docs/c.txt", 20),
-        ("docs/deep/d.txt", 5),
-        ("media/e.mp4", 1000),
-    ]);
-    fs::create_dir(dir.path().join("empty")).unwrap();
-    let result = run(dir.path());
-
-    assert_eq!(result.state(), ScanState::Completed);
-    assert_eq!(result.total_size(), 1155);
-    assert_eq!(result.total_files(), 5);
-    assert_eq!(result.total_folders(), 4);
-}`;
+// The run of a test from crates/scanner/tests/scan.rs in joaolucasmm/sizewise.
+const sizewiseRun = [
+    ["prompt", "$ cargo test -p scanner"],
+    ["line", "test aggregates_sizes_and_counts_per_folder_and_total ... ", "ok"],
+    ["prompt", "// 5 files, 4 folders, 1155 bytes"],
+];
 
 function Baseline({ data }) {
     return (
@@ -37,45 +26,57 @@ function Baseline({ data }) {
     );
 }
 
-function Figure({ data }) {
+function TestRun() {
     return (
-        <p className="figure">
-            <span className="figure__number">{data.figure}</span>
-            <span className="figure__label">{data.label}</span>
-        </p>
+        <pre className="test-run">
+            <code>
+                {sizewiseRun.map(([kind, text, ok]) => (
+                    <span key={text} className={"test-run__" + kind}>
+                        {text}
+                        {ok && <b>{ok}</b>}
+                        {"\n"}
+                    </span>
+                ))}
+            </code>
+        </pre>
     );
 }
 
 function Services({ t }) {
-    const demos = [
-        <Baseline key="baseline" data={t.demos.baseline} />,
-        <pre key="test">
-            <code>{sizewiseTest}</code>
-        </pre>,
-        <Figure key="figure" data={t.demos.support} />,
-    ];
+    const evidence = [<Baseline key="baseline" data={t.demos.baseline} />, <TestRun key="test" />, null];
 
     return (
         <section id="services" className="section services" tabIndex={-1}>
             <h2 className="services__heading" data-reveal>
                 {t.heading}
             </h2>
-            {t.items.map((item, i) => (
-                <article className="service" key={i} id={"service-" + i} tabIndex={-1}>
-                    <div className="service__demo" data-reveal>
-                        {demos[i]}
-                    </div>
-                    <div className="service__text" data-reveal>
-                        <h3>{item.title}</h3>
-                        <p>{item.text}</p>
-                        <p className="soft">{item.second}</p>
-                        <p className="service__tools">
-                            <span>{t.tools}: </span>
-                            {item.tools}
+            <div className="services__grid">
+                {t.items.map((item, i) => (
+                    <article className="service" key={i} id={"service-" + i} tabIndex={-1} data-reveal>
+                        <p className="service__figure">
+                            <span className="service__number">
+                                {item.figure[0]}
+                                {item.figure[1] && <small>{item.figure[1]}</small>}
+                            </span>
+                            <span className="service__caption">{item.caption}</span>
                         </p>
-                    </div>
-                </article>
-            ))}
+                        <h3 className="service__title">{item.title}</h3>
+                        <p>{item.short}</p>
+                        <ul className="service__tools" aria-label={t.tools}>
+                            {item.tools.split(", ").map((tool) => (
+                                <li key={tool}>{tool}</li>
+                            ))}
+                        </ul>
+                        <details className="service__more">
+                            <summary>{item.more}</summary>
+                            <div className="service__evidence">
+                                {evidence[i]}
+                                <p className="soft">{item.second}</p>
+                            </div>
+                        </details>
+                    </article>
+                ))}
+            </div>
         </section>
     );
 }
