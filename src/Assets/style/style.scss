@@ -1446,6 +1446,36 @@ main,
         line-height: 1.55;
     }
 
+    // The phone shows the kind as tags instead of a line.
+    &__tags {
+        display: none;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: color-mix(in srgb, var(--ink) 8%, transparent);
+            box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 12%, transparent);
+            font-size: var(--step-small);
+            font-weight: 500;
+        }
+    }
+
+    &__tags-year {
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+    }
+
+    &__note {
+        width: 100%;
+        color: var(--muted);
+        font-size: var(--step-small);
+    }
+
     &__controls {
         display: flex;
         flex-wrap: wrap;
@@ -1575,13 +1605,45 @@ main,
         }
     }
 
-    // Phone: the slide stands up and the text goes to the bottom.
+    // Phone: the slide stands up, the picture fills its top half and the text sits on
+    // solid ground below it, so the picture never shows through the words. The side
+    // slides keep only a blurred picture.
     @media (max-width: $phone) {
-        width: 86%;
-        min-height: min(560px, 130vw);
+        width: 100%;
+        min-height: 0;
+        transition: transform 850ms var(--ease-out), opacity 600ms ease, filter 600ms ease;
+
+        &:not(.is-active) {
+            filter: blur(3px) brightness(0.6);
+        }
+
+        &__picture {
+            inset: 0 0 auto;
+            height: 250px;
+        }
 
         &__shade {
-            background: linear-gradient(0deg, rgb(var(--glass-rgb) / 0.96) 0%, rgb(var(--glass-rgb) / 0.82) 55%, rgb(var(--glass-rgb) / 0.35) 100%);
+            background: linear-gradient(180deg, rgb(var(--glass-rgb) / 0) 0, rgb(var(--glass-rgb) / 0) 140px,
+                rgb(var(--glass-rgb) / 0.85) 200px, var(--bg) 240px);
+        }
+
+        &__body {
+            grid-template-rows: none;
+            align-content: start;
+            gap: 14px;
+            padding-top: 206px;
+        }
+
+        &__kind {
+            display: none;
+        }
+
+        &__tags {
+            display: flex;
+        }
+
+        &:not(.is-active) &__body {
+            opacity: 0;
         }
     }
 

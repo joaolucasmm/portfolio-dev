@@ -13,6 +13,9 @@ const images = [
 
 const pad = (n) => String(n).padStart(2, "0");
 
+// "Windows app, Rust + Tauri + Vue" as tags for the phone: Windows app · Rust · Tauri · Vue.
+const tagsOf = (kind) => kind.split(/, | \+ /);
+
 // The ring repeats the projects until there are at least five slides, so two
 // layers show on each side of the chosen one even with three projects.
 const ringSize = (count) => count * Math.ceil(5 / count);
@@ -112,6 +115,12 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
                         {item.kind}
                         <span className="project__year">{link.year}</span>
                     </p>
+                    <ul className="project__tags">
+                        {tagsOf(item.kind).map((tag) => (
+                            <li key={tag}>{tag}</li>
+                        ))}
+                        <li className="project__tags-year">{link.year}</li>
+                    </ul>
                     <p className="project__description">{item.description}</p>
                     <div className="project__controls">
                         {link.run && (
@@ -124,7 +133,7 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
                                 {t.run}
                             </button>
                         )}
-                        {link.download && (
+                        {link.download && !phone && (
                             <a
                                 className="button button--small"
                                 href={link.download}
@@ -135,9 +144,16 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
                                 {t.download}
                             </a>
                         )}
-                        <a className="text-link" href={link.repo} target="_blank" rel="noreferrer" tabIndex={tab}>
+                        <a
+                            className={link.download && phone ? "button button--small" : "text-link"}
+                            href={link.repo}
+                            target="_blank"
+                            rel="noreferrer"
+                            tabIndex={tab}
+                        >
                             {t.code}
                         </a>
+                        {link.download && phone && <p className="project__note">{t.windowsOnly}</p>}
                         {link.post && (
                             <a className="text-link" href={link.post} target="_blank" rel="noreferrer" tabIndex={tab}>
                                 {t.post}
