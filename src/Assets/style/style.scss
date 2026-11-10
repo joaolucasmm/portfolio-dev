@@ -99,17 +99,10 @@ $header-menu: 1180px;
         0.9994 99.87%);
     --ease-ui: cubic-bezier(0, 0.55, 0.45, 1);
 
-    // manchete-letras-desfoque: blur capped at 8px (the house limit) instead of the original 24px.
-    --letter-spring: linear(0, 0.0162, 0.0588, 0.1198 5.44%, 0.5869 16.33%, 0.7704, 0.895 27.22%, 0.9247 29.03%,
-        0.969 32.66%, 0.9848 34.48%, 1.0063, 1.0177, 1.0221 45.36%, 1.0213 50.81%, 1.0078 65.32%, 1.0024 74.39%,
-        0.9999 85.28%, 0.9996 99.8%);
-    --letter-duration: 400ms;
-    --letter-stagger: 36ms;
-    --letter-line-start: 250ms;
-    --letter-line-gap: 90ms;
-    --letter-rise: 1.35em;
-    --letter-blur: 8px;
-    --hero-after-letters: 1000ms;
+    // The typed name: caret width, colour and blink.
+    --caret-width: 0.06em;
+    --caret-blink: 1s;
+    --hero-after-letters: 1300ms;
 
     // logo-morph-mola
     --morph-out: 300ms;
@@ -715,53 +708,57 @@ main,
     }
 }
 
-// Hero letters rise from the blur, line by line (ui-library: manchete-letras-desfoque).
+// The name types itself with a caret, as on the first portfolio (Hero.jsx sets the classes).
 
 .hero__word {
     display: inline-block;
 }
 
 .hero__letter {
+    position: relative;
     display: inline-block;
     transition: filter 200ms var(--ease-ui), opacity 200ms var(--ease-ui);
+
+    &.is-untyped {
+        visibility: hidden;
+    }
+
+    &.is-caret::after,
+    &.is-caret-before::before {
+        content: "";
+        position: absolute;
+        top: 0.12em;
+        bottom: 0.02em;
+        width: var(--caret-width);
+        background: var(--accent);
+        visibility: visible;
+    }
+
+    &.is-caret::after {
+        right: calc(var(--caret-width) * -1.5);
+    }
+
+    &.is-caret-before::before {
+        left: 0;
+    }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    // The clip hides letters still below the line and is released when they land.
-    .hero__word {
-        clip-path: polygon(-100% -5%, 300% -5%, 300% 120%, -100% 120%);
-        animation: release-clip 1ms linear 1500ms forwards;
+    // Solid while typing, blinking while it rests.
+    .hero__name:not(.is-typing) .hero__letter::after {
+        animation: caret-blink var(--caret-blink) steps(1) infinite;
     }
 
-    .hero__letter {
-        animation: letter-in var(--letter-duration) var(--letter-spring)
-            calc(var(--letter-line-start) + var(--line) * var(--letter-line-gap) + var(--i) * var(--letter-stagger))
-            backwards;
-    }
-
-    // The sentence and the header arrive after the letters.
+    // The sentence and the header arrive once the name is typed.
     .hero__foot,
     .header {
         animation: fade-up 700ms var(--ease-out) calc(var(--hero-after-letters) + 100ms) both;
     }
 }
 
-@keyframes letter-in {
-    from {
-        filter: blur(var(--letter-blur));
+@keyframes caret-blink {
+    50% {
         opacity: 0;
-        translate: 0 var(--letter-rise);
-    }
-    to {
-        filter: blur(0);
-        opacity: 1;
-        translate: 0;
-    }
-}
-
-@keyframes release-clip {
-    to {
-        clip-path: none;
     }
 }
 
