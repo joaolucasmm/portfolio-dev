@@ -1213,6 +1213,50 @@ main,
     }
 }
 
+// Cards that open (Education, Experience on phones, "see more" in How I work):
+// the height eases open and shut, the content rises in, and the plus turns into
+// the minus. Browsers without ::details-content still open them, just at once.
+:root {
+    interpolate-size: allow-keywords;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .education__item,
+    .experience__row,
+    .service__more {
+        &::details-content {
+            block-size: 0;
+            overflow-y: clip;
+            transition: block-size 500ms var(--ease-out), content-visibility 500ms allow-discrete;
+        }
+
+        &[open]::details-content {
+            block-size: auto;
+        }
+
+        > summary::after {
+            transition: rotate 450ms var(--spring);
+        }
+
+        &[open] > summary::after {
+            rotate: 180deg;
+        }
+    }
+
+    .education__item[open] .education__open,
+    .experience__row[open] .experience__row-body,
+    .service__more[open] .service__evidence {
+        animation: card-open 450ms var(--ease-out) 80ms backwards;
+    }
+}
+
+@keyframes card-open {
+    from {
+        opacity: 0;
+        translate: 0 12px;
+    }
+}
+
 // About: the portrait as a drop capital
 
 .about {
