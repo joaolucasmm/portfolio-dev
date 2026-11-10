@@ -450,11 +450,21 @@ main,
         border-radius: 999px;
     }
 
-    &__mark {
+    &__mark,
+    &__menu {
         font-family: var(--display);
         font-size: var(--step-lead);
         line-height: 1;
         text-decoration: none;
+    }
+
+    // The initials as a button that opens the menu, only where the links are hidden.
+    &__menu {
+        display: none;
+        padding: 0;
+        border: 0;
+        color: inherit;
+        cursor: pointer;
     }
 
     &__nav {
@@ -577,13 +587,22 @@ main,
             pointer-events: none;
         }
 
-        &__mark,
+        &__mark {
+            display: none;
+        }
+
+        &__menu,
         &__switches {
             @include liquid;
             pointer-events: auto;
         }
 
-        &__mark {
+        // While the menu is open its own close button takes this place.
+        &--menu &__menu {
+            visibility: hidden;
+        }
+
+        &__menu {
             display: grid;
             place-items: center;
             width: 48px;
@@ -600,6 +619,102 @@ main,
 
         &__nav {
             display: none;
+        }
+    }
+}
+
+// Phone menu: the sections in large type over frosted glass, entering one by one.
+// The close button sits where the initials were; the right island stays on top.
+.menu {
+    display: none;
+
+    @media (max-width: $header-menu) {
+        position: fixed;
+        inset: 0;
+        z-index: 19;
+        display: grid;
+        align-content: center;
+        padding: 96px var(--margin) 48px;
+        background: color-mix(in srgb, var(--bg) 60%, transparent);
+        backdrop-filter: blur(22px) saturate(1.6); // taste-skill-ignore: liquid glass asked for by João
+        -webkit-backdrop-filter: blur(22px) saturate(1.6); // taste-skill-ignore: liquid glass asked for by João
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 280ms ease, visibility 0s linear 280ms;
+
+        &.is-open {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 280ms ease;
+        }
+    }
+
+    &__close {
+        @include liquid;
+        position: absolute;
+        top: max(10px, env(safe-area-inset-top, 0px));
+        left: var(--margin);
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        border-radius: 50%;
+        color: var(--ink);
+        cursor: pointer;
+    }
+
+    &__list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            overflow: hidden;
+        }
+    }
+
+    &__link {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        padding: 4px 0;
+        color: var(--ink);
+        font-family: var(--display);
+        font-size: clamp(2.6rem, 12vw, 3.6rem);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        text-decoration: none;
+        translate: 0 110%;
+        transition: translate 600ms var(--spring), color 200ms ease;
+        transition-delay: calc(var(--i) * 45ms);
+
+        small {
+            font-family: var(--text);
+            font-size: 0.8rem;
+            letter-spacing: 0;
+            color: var(--muted);
+        }
+
+        &[aria-current="true"] {
+            color: var(--accent);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+    }
+
+    &.is-open &__link {
+        translate: 0 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &,
+        &__link {
+            transition-duration: 1ms;
+            transition-delay: 0ms;
         }
     }
 }

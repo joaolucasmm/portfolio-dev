@@ -1,5 +1,6 @@
-import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { sections } from "../../Functions/useShortcuts";
+import useDialogFocus from "../../Functions/useDialogFocus";
 
 // The theme switch is the sun itself: in dark mode its rays turn away and a
 // shadow slides across until it is a moon. The label is for screen readers only.
@@ -97,7 +98,8 @@ function placeMarker(list, marker, id, animate) {
 
 // Desktop: a bar that is open over the hero and, once the page scrolls, shrinks into
 // a glass pill in the middle, with a highlight that slides to the current section.
-// Phone and tablet: the top keeps only the initials and the three buttons.
+// Phone and tablet: the top keeps only the initials and the three buttons. The
+// initials open a full-screen menu with the top of the page and the sections.
 function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch }) {
     const [small, setSmall] = useState(false);
     const [currentSection, setCurrentSection] = useState(null);
@@ -105,6 +107,29 @@ function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch })
     const highlight = useRef(null);
     const placed = useRef(false);
     const current = useRef(null);
+    const [menu, setMenu] = useState(false);
+    const menuBox = useRef(null);
+    const closeMenu = useCallback(() => setMenu(false), []);
+    useDialogFocus(menu, menuBox, closeMenu);
+
+    // Focus the first link once the menu is open.
+    useEffect(() => {
+        if (menu) menuBox.current?.querySelector(".menu__link")?.focus({ preventScroll: true });
+    }, [menu]);
+
+    // Close first so the page can scroll again, then go to the section and focus it.
+    const goTo = (e, id) => {
+        e.preventDefault();
+        setMenu(false);
+        requestAnimationFrame(() => {
+            const target = document.getElementById(id);
+            if (!target) return;
+            const smooth = !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+            target.scrollIntoView({ behavior: smooth ? "smooth" : "auto" });
+            if (id !== "top") target.focus({ preventScroll: true });
+            window.history.replaceState(null, "", "#" + id);
+        });
+    };
 
     // Shrinks after the first screen starts to move.
     useEffect(() => {
@@ -160,10 +185,20 @@ function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch })
 
     return (
         <Fragment>
-            <header className={"header" + (small ? " header--small" : "")}>
+            <header className={"header" + (small ? " header--small" : "") + (menu ? " header--menu" : "")}>
                 <a className="header__mark" href="#top" aria-label={t.top}>
                     JL
                 </a>
+                <button
+                    type="button"
+                    className="header__menu"
+                    onClick={() => setMenu(true)}
+                    aria-expanded={menu}
+                    aria-controls="menu"
+                    aria-label={t.menu}
+                >
+                    JL
+                </button>
                 <nav className="header__nav" aria-label={t.sections}>
                     <div className="header__track" ref={track}>
                         <span className="header__highlight" ref={highlight} aria-hidden="true" />
@@ -197,6 +232,41 @@ function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch })
                     <ThemeSwitch label={t.theme} on={darkMode} toggle={toggleTheme} />
                 </div>
             </header>
+
+            {/* Phone and tablet: the sections in large type over frosted glass. */}
+            <div
+                className={"menu" + (menu ? " is-open" : "")}
+                id="menu"
+                ref={menuBox}
+                role="dialog"
+                aria-modal="true"
+                aria-label={t.sections}
+                inert={menu ? undefined : ""}
+            >
+                <button type="button" className="menu__close" onClick={closeMenu} aria-label={t.close}>
+                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                        <path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                </button>
+                <nav aria-label={t.sections}>
+                    <ol className="menu__list">
+                        {["top", ...sections].map((id, i) => (
+                            <li key={id}>
+                                <a
+                                    className="menu__link"
+                                    href={"#" + id}
+                                    onClick={(e) => goTo(e, id)}
+                                    aria-current={currentSection === id ? "true" : undefined}
+                                    style={{ "--i": i }}
+                                >
+                                    {id === "top" ? t.toTop : t[id]}
+                                    <small aria-hidden="true">{id === "top" ? "↑" : i}</small>
+                                </a>
+                            </li>
+                        ))}
+                    </ol>
+                </nav>
+            </div>
         </Fragment>
     );
 }
