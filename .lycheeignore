@@ -7,3 +7,5 @@ https://www\.linkedin\.com/.*
 http://localhost.*
 # UFRGS does not answer GitHub's servers (times out there, opens from Brazil).
 https?://www\.ufrgs\.br/.*
+# index.html paths that the build fills in; the browser tests load the real files.
+%PUBLIC_URL%
