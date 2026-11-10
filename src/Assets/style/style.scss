@@ -46,7 +46,7 @@ $header-menu: 1180px;
 }
 
 // Liquid glass, as on iOS 26: clearer than the cards, very saturated, with light on
-// the rims and a soft shadow. Used by the phone dock and the phone header.
+// the rims and a soft shadow. Used by the phone header and the hero circles.
 @mixin liquid {
     background: rgb(var(--glass-rgb) / var(--liquid-tint));
     backdrop-filter: blur(12px) saturate(1.9) brightness(1.06); // taste-skill-ignore: liquid glass asked for by João
@@ -388,9 +388,10 @@ button {
     }
 }
 
+// Phones: the footer's last line clears the home indicator.
 @media (max-width: $header-menu) {
     .footer {
-        padding-bottom: calc(108px + env(safe-area-inset-bottom, 0px));
+        padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px));
     }
 }
 
@@ -415,8 +416,8 @@ main,
 
 // The bar stays at the top while scrolling and marks the current section.
 // Desktop: open over the hero with no ground; once the page scrolls, a glass pill
-// in the middle. Phone and tablet: a small glass pill with the initials and the
-// buttons, while the sections live in the dock at the bottom.
+// in the middle. Phone and tablet: two small glass islands, the initials and the
+// buttons; the sections are reached through search and the footer.
 .header {
     position: fixed;
     top: 8px;
@@ -557,7 +558,7 @@ main,
         }
     }
 
-    // Phone and tablet: the sections move to the dock, and the top keeps two small
+    // Phone and tablet: no section links; the top keeps two small
     // liquid glass islands in the corners, the initials and the three buttons,
     // with the middle left free.
     @media (max-width: $header-menu) {
@@ -601,105 +602,6 @@ main,
             display: none;
         }
     }
-}
-
-// The phone dock: liquid glass, as on iOS 26. A clear lens marks the current section
-// and swells as it slides; the glass bends what passes under it where the browser can.
-.dock {
-    display: none;
-
-    @media (max-width: $header-menu) {
-        @include liquid;
-        position: fixed;
-        left: 50%;
-        bottom: max(12px, env(safe-area-inset-bottom, 0px));
-        z-index: 20;
-        display: flex;
-        gap: 2px;
-        width: min(calc(100% - 2 * var(--margin)), 440px);
-        padding: 6px;
-        border-radius: 28px;
-        translate: -50% 0;
-    }
-
-    &__glass {
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        border-radius: inherit;
-        pointer-events: none;
-    }
-
-    // Where the browser bends the backdrop through an SVG filter (Chromium), the glass
-    // layer does the blur and the bending; elsewhere the dock's own blur stands.
-    @supports (backdrop-filter: url(#liquid-refract)) {
-        &__glass {
-            backdrop-filter: url(#liquid-refract) blur(3px) saturate(1.8) brightness(1.06);
-        }
-    }
-
-    &__lens {
-        position: absolute;
-        top: 6px;
-        bottom: 6px;
-        left: 0;
-        width: var(--w, 0);
-        border-radius: 22px;
-        background: color-mix(in srgb, var(--ink) 14%, transparent);
-        box-shadow: inset 0 1px 0.5px rgb(255 255 255 / 0.5), inset 0 -1px 1px rgb(255 255 255 / 0.12),
-            0 4px 14px -4px rgb(0 0 0 / 0.3);
-        transform: translateX(var(--x, 0));
-        pointer-events: none;
-        transition: transform var(--bar-slide) var(--spring), width var(--bar-slide) var(--spring), opacity 200ms ease;
-
-        @media (prefers-reduced-motion: reduce) {
-            transition-duration: 1ms;
-        }
-    }
-
-    &__item {
-        position: relative;
-        z-index: 1;
-        flex: 1;
-        display: grid;
-        justify-items: center;
-        gap: 3px;
-        min-width: 0;
-        padding: 8px 2px 6px;
-        border-radius: 22px;
-        color: var(--muted);
-        font-size: 0.6875rem;
-        font-weight: 500;
-        text-decoration: none;
-        -webkit-tap-highlight-color: transparent;
-        transition: color 200ms ease;
-
-        span {
-            max-width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        &[aria-current="true"] {
-            color: var(--ink);
-
-            svg {
-                color: var(--accent);
-            }
-        }
-
-        &:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: -2px;
-        }
-    }
-}
-
-.liquid-defs {
-    position: absolute;
-    width: 0;
-    height: 0;
 }
 
 // Hero
