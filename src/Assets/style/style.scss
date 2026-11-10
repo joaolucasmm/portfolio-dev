@@ -87,6 +87,8 @@ $header-menu: 1180px;
     --glass-blur: 18px;
     --glass-tint: 0.4;
     --glow: 0.8;
+    // How far each blob leans toward the pointer; opposite signs give depth.
+    --aurora-pull: 5vmax;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
     // Motion taken from the ui-library patterns; each group names its source.
@@ -348,35 +350,49 @@ button {
     overflow: hidden;
     pointer-events: none;
     opacity: var(--glow);
+    --mx: 0; // set by Aurora.jsx from the pointer, −1 to 1
+    --my: 0;
 
     i {
+        --depth: 1;
         position: absolute;
         width: 55vmax;
         aspect-ratio: 1;
         border-radius: 50%;
         filter: blur(80px);
         opacity: var(--blob-opacity);
+        // translate is taken by the drift; transform carries the pointer.
+        transform: translate3d(
+            calc(var(--mx) * var(--aurora-pull) * var(--depth)),
+            calc(var(--my) * var(--aurora-pull) * var(--depth)),
+            0
+        );
+        will-change: transform;
     }
 
     i:nth-child(1) {
+        --depth: 1;
         left: -14vmax;
         top: -12vmax;
         background: #f9a3c0;
     }
 
     i:nth-child(2) {
+        --depth: -0.7;
         right: -16vmax;
         top: 20vh;
         background: #5b5fe0;
     }
 
     i:nth-child(3) {
+        --depth: 1.4;
         left: 20vw;
         bottom: -30vmax;
         background: #8a3fc4;
     }
 
     i:nth-child(4) {
+        --depth: -1.8;
         right: 16vw;
         bottom: -10vmax;
         width: 30vmax;
