@@ -43,6 +43,25 @@ function ThemeSwitch({ label, on, toggle }) {
     );
 }
 
+// The search button is a lens; on hover or focus it widens with the spring to show
+// the word and the shortcut (ui-library: nav-pilulas-atalhos, the visible shortcut).
+const MAC = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+
+function SearchButton({ label, open }) {
+    return (
+        <button type="button" className="search-grow" aria-label={label} aria-keyshortcuts="Control+K" onClick={open}>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" strokeWidth="2" />
+                <path d="m20 20-3.5-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <span className="search-grow__more" aria-hidden="true">
+                {label}
+                <kbd className="search-grow__key">{MAC ? "⌘K" : "Ctrl K"}</kbd>
+            </span>
+        </button>
+    );
+}
+
 // The language button shows the language being read; on a click its letters roll
 // like a counter, E→P and N→T, the second a beat after the first.
 function LanguageRoll({ label, portuguese, toggle }) {
@@ -128,17 +147,13 @@ function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch })
                     ))}
                 </ul>
                 <div className="header__switches">
-                    <button
-                        type="button"
-                        className="header__switch"
-                        aria-keyshortcuts="Control+K"
-                        onClick={() => {
+                    <SearchButton
+                        label={t.search}
+                        open={() => {
                             close();
                             openSearch();
                         }}
-                    >
-                        {t.search}
-                    </button>
+                    />
                     <LanguageRoll
                         label={t.languageNow}
                         portuguese={language === "portuguese"}

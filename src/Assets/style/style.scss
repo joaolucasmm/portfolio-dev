@@ -113,6 +113,8 @@ $header-menu: 1180px;
     --eclipse: 500ms;
     // The language letters roll on the same spring, the second 60ms after the first.
     --lang-roll: 520ms;
+    // The search lens widens to its word on the same spring.
+    --search-grow: 420ms;
     --lang-roll-stagger: 60ms;
 
     // tema-shift-t: only controls transition when the theme changes.
@@ -569,6 +571,76 @@ main,
 }
 
 // Hero
+
+// Search: a lens that widens on hover or focus to the word and the shortcut.
+.search-grow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 13px;
+    border: 0;
+    border-radius: 999px;
+    background: none;
+    color: inherit;
+    font-size: var(--step-body);
+    cursor: pointer;
+    overflow: hidden;
+    transition: background-color var(--theme-swap) ease;
+
+    svg {
+        flex: none;
+    }
+
+    &__more {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        max-width: 0;
+        opacity: 0;
+        white-space: nowrap;
+        transition: max-width var(--search-grow) var(--spring), opacity 200ms ease;
+    }
+
+    &__key {
+        padding: 3px 6px;
+        border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
+        border-radius: 5px;
+        color: var(--muted);
+        font-family: inherit;
+        font-size: 0.75rem;
+        line-height: 1;
+
+        // A touch screen has no keyboard to press it on.
+        @media (hover: none) {
+            display: none;
+        }
+    }
+
+    &:hover,
+    &:focus-visible {
+        background: color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+
+    &:hover &__more,
+    &:focus-visible &__more,
+    .header--open & &__more {
+        max-width: 160px;
+        opacity: 1;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &__more {
+            transition-duration: 1ms;
+        }
+    }
+}
 
 // Language: the code of the language being read; the letters roll on a click.
 .lang-roll {
