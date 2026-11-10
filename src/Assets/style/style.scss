@@ -11,7 +11,7 @@ $header-menu: 1180px;
     --surface: #1d2340;
     --ink: #eef0f8;
     --muted: #a5abc6;
-    --accent: #f9a3c0;
+    --accent: #ff7aa2; // framboesa
     --accent-ink: #151a30;
     --glass-rgb: 21 26 48;
     --glass-edge: 0.14;
@@ -24,7 +24,7 @@ $header-menu: 1180px;
     --surface: #ecebf3;
     --ink: #151a30;
     --muted: #575c78;
-    --accent: #b9375f;
+    --accent: #a0106a; // fúcsia: holds 3.5:1 on the lilac ink, 7:1 under white text
     --accent-ink: #ffffff;
     --glass-rgb: 255 255 255;
     --glass-edge: 0.7;
@@ -44,12 +44,12 @@ $header-menu: 1180px;
 // The contact band and footer: pink ground on the dark theme, night blue on the light one.
 @mixin band-pink {
     color-scheme: light;
-    --bg: #f9a3c0;
-    --surface: #f3b6cb;
+    --bg: #ff7aa2;
+    --surface: #ff93b4;
     --ink: #151a30;
-    --muted: #4a3550;
+    --muted: #3a2340;
     --accent: #151a30;
-    --accent-ink: #f9a3c0;
+    --accent-ink: #ff7aa2;
 }
 
 @mixin band-night {
@@ -58,7 +58,7 @@ $header-menu: 1180px;
     --surface: #1d2340;
     --ink: #eef0f8;
     --muted: #a5abc6;
-    --accent: #f9a3c0;
+    --accent: #ff7aa2;
     --accent-ink: #151a30;
 }
 

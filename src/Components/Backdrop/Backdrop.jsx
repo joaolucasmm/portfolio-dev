@@ -33,7 +33,7 @@ void main(){
   float r=fbm(p*1.4+3.*q+vec2(1.7,9.2)+t*.01);
   vec3 base=light>.5?vec3(.80,.74,.97):vec3(.08,.10,.19);
   vec3 blue=light>.5?vec3(.47,.52,.96):vec3(.29,.31,.75);
-  vec3 pink=light>.5?vec3(.97,.56,.76):vec3(.90,.52,.68);
+  vec3 pink=light>.5?vec3(.94,.46,.76):vec3(.95,.46,.62);
   vec3 vio=light>.5?vec3(.64,.50,.93):vec3(.33,.18,.52);
   vec3 c=mix(base,vio,smoothstep(.2,.7,r));
   c=mix(c,blue,smoothstep(.45,.9,length(q)*.9));
