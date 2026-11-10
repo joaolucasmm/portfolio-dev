@@ -3,14 +3,20 @@ import usePhone from "../../Functions/usePhone";
 import sizewise from "../../Assets/Images/sizewise.png";
 import qrCodeGen from "../../Assets/Images/qrcodegen.png";
 import pokedex from "../../Assets/Images/pokedex.png";
+import sizewiseSmall from "../../Assets/Images/sizewise-760.jpg";
+import pokedexSmall from "../../Assets/Images/pokedex-760.jpg";
 import { projectLinks } from "../../content";
 
-// Same order as projectLinks and work.items, with each picture's own size.
+// Same order as projectLinks and work.items, with each picture's own size. Phones
+// and the small "up next" cards take a 760px copy where it is lighter than the
+// original (the QR Code Gen PNG is already smaller than a JPEG would be).
 const images = [
-    { src: sizewise, width: 1477, height: 815 },
-    { src: qrCodeGen, width: 1899, height: 911 },
-    { src: pokedex, width: 1364, height: 636 },
+    { src: sizewise, width: 1477, height: 815, small: sizewiseSmall },
+    { src: qrCodeGen, width: 1899, height: 911, small: qrCodeGen },
+    { src: pokedex, width: 1364, height: 636, small: pokedexSmall },
 ];
+
+const srcSetOf = (image) => (image.small === image.src ? undefined : image.small + " 760w, " + image.src + " " + image.width + "w");
 
 const pad = (n) => String(n).padStart(2, "0");
 
@@ -80,9 +86,12 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
             <img
                 className="project__picture"
                 src={image.src}
+                srcSet={srcSetOf(image)}
+                sizes="(max-width: 720px) 100vw, 1100px"
                 alt=""
                 width={image.width}
                 height={image.height}
+                decoding="async"
                 loading={Math.abs(offset) <= 1 ? "eager" : "lazy"}
             />
             <div className="project__shade" />
@@ -166,7 +175,7 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
                                             aria-label={t.goTo + " " + t.items[q].name}
                                             onClick={() => goProject(q)}
                                         >
-                                            <img src={images[q].src} alt="" loading="lazy" />
+                                            <img src={images[q].small} alt="" loading="lazy" decoding="async" />
                                             <span>{t.items[q].name}</span>
                                         </button>
                                     );

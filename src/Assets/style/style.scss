@@ -346,6 +346,19 @@ button {
     }
 }
 
+// Phones: every text link is at least 44px tall to the finger, without
+// changing how it looks.
+@media (max-width: $phone) {
+    .text-link,
+    .footer__sections a,
+    .footer__legal a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+    }
+
+}
+
 // Layout
 
 // Each section carries its own field, so the sections alternate ground and
@@ -1521,8 +1534,12 @@ main,
     &__shade {
         position: absolute;
         inset: 0;
+        // Dark enough under the text that the screenshot's own words never compete:
+        // nearly solid on the text side, a band along the top for the counter.
         background:
-            linear-gradient(90deg, rgb(var(--glass-rgb) / 0.94) 0%, rgb(var(--glass-rgb) / 0.72) 42%, rgb(var(--glass-rgb) / 0.2) 100%),
+            linear-gradient(90deg, rgb(var(--glass-rgb) / 0.97) 0%, rgb(var(--glass-rgb) / 0.92) 48%,
+                rgb(var(--glass-rgb) / 0.5) 72%, rgb(var(--glass-rgb) / 0.15) 100%),
+            linear-gradient(180deg, rgb(var(--glass-rgb) / 0.96) 0%, rgb(var(--glass-rgb) / 0.88) 14%, transparent 30%),
             linear-gradient(0deg, rgb(var(--glass-rgb) / 0.75) 0%, transparent 45%);
     }
 
@@ -2160,7 +2177,7 @@ main,
         display: inline-flex;
         align-items: center;
         gap: 0.4em;
-        min-height: 32px;
+        min-height: 44px;
         color: var(--accent);
         font-size: var(--step-small);
         font-weight: 500;
@@ -2283,6 +2300,17 @@ main,
         list-style: none;
     }
 
+    // Wider than a phone: the title and the column of courses in the middle.
+    @media (min-width: $phone + 1) {
+        &__heading {
+            text-align: center;
+        }
+
+        &__list {
+            margin-inline: auto;
+        }
+    }
+
     &__item {
         border-radius: var(--radius-card);
         transition: background-color 250ms;
@@ -2387,8 +2415,14 @@ main,
 .contact {
     position: relative;
     display: grid;
-    // Title, list and form start at the margin, like every other section.
+    // Phones: title, list and form start at the margin; wider, all in the middle.
     justify-items: start;
+
+    @media (min-width: $phone + 1) {
+        justify-items: center;
+        text-align: center;
+    }
+
     gap: clamp(24px, 3vw, 36px);
     // The bottom leaves room for the toast under the form button.
     padding: clamp(64px, 8vw, 128px) var(--margin) clamp(104px, 9vw, 136px);

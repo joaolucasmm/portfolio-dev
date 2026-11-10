@@ -34,7 +34,7 @@ const projectLinks = [
 
 const english = {
     nav: {
-        work: "Work",
+        work: "Projects",
         experience: "Experience",
         services: "How I work",
         education: "Education",
@@ -59,12 +59,11 @@ const english = {
     },
     about: {
         heading: "About",
-        lead: "João Lucas Miranda Menegasso",
-        first:
-            " has sat at every desk a bug passes: support, QA and development at SAP, and now mobile at Nelogica.",
+        lead: "I’m João Lucas Miranda Menegasso",
+        first: ", and I have sat at every desk a bug passes: support, QA and development at SAP, and now mobile at Nelogica.",
         body: [
-            "He builds the mobile apps of Nelogica’s trading platforms in Vue.js, TypeScript and Tailwind, and goes below the interface when the problem asks for it: native Kotlin and Swift plugins that measure the app, dashboards built from that data, and a load time cut by more than 30%.",
-            "Before software came a mechatronics diploma and a physics engineering degree at UFRGS, which is where he learned to investigate with data instead of guesses. He works in English and Portuguese, and talks to UX, marketing and backend before deciding what to build.",
+            "I build the mobile apps of Nelogica’s trading platforms in Vue.js, TypeScript and Tailwind, and go below the interface when the problem asks for it: native Kotlin and Swift plugins that measure the app, dashboards built from that data, and a load time cut by more than 30%.",
+            "Before software came a mechatronics diploma and a physics engineering degree at UFRGS, which is where I learned to investigate with data instead of guesses. I work in English and Portuguese, and talk to UX, marketing and backend before deciding what to build.",
         ],
         facts: [
             ["Based in", "Porto Alegre, Brazil"],
@@ -343,12 +342,11 @@ const portuguese = {
     },
     about: {
         heading: "Sobre",
-        lead: "João Lucas Miranda Menegasso",
-        first:
-            " já sentou em todas as mesas por onde um bug passa: suporte, QA e desenvolvimento na SAP, e agora mobile na Nelogica.",
+        lead: "Sou João Lucas Miranda Menegasso",
+        first: " e já sentei em todas as mesas por onde um bug passa: suporte, QA e desenvolvimento na SAP, e agora mobile na Nelogica.",
         body: [
-            "Desenvolve os apps mobile das plataformas de trading da Nelogica com Vue.js, TypeScript e Tailwind, e desce abaixo da interface quando o problema pede: plugins nativos em Kotlin e Swift que medem o app, dashboards montados com esses dados e um tempo de carregamento mais de 30% menor.",
-            "Antes do software vieram o técnico em mecatrônica e a engenharia física na UFRGS, onde aprendeu a investigar com dados, e não com achismo. Trabalha em inglês e português, e conversa com UX, marketing e backend antes de decidir o que construir.",
+            "Desenvolvo os apps mobile das plataformas de trading da Nelogica com Vue.js, TypeScript e Tailwind, e desço abaixo da interface quando o problema pede: plugins nativos em Kotlin e Swift que medem o app, dashboards montados com esses dados e um tempo de carregamento mais de 30% menor.",
+            "Antes do software vieram o técnico em mecatrônica e a engenharia física na UFRGS, onde aprendi a investigar com dados, e não com achismo. Trabalho em inglês e português, e converso com UX, marketing e backend antes de decidir o que construir.",
         ],
         facts: [
             ["Mora em", "Porto Alegre, Brasil"],
