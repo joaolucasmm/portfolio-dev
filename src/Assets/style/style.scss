@@ -1160,24 +1160,56 @@ main,
     }
 }
 
-// Section entrances
+// Section entrances and exits. Where the browser ties animations to scrolling, each
+// block rises in as it enters and fades up and away as it leaves, like the hero.
+// The blocks never wrap a glass element: a running opacity animation on an
+// ancestor would stop that glass from blurring the page. Elsewhere, a one-time
+// entrance on IntersectionObserver (useReveal.js).
 
-@media (prefers-reduced-motion: no-preference) {
-    .can-reveal [data-reveal] {
-        transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+@supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        // Two animations on one timeline: the leave starts from whatever the rise left.
+        [data-reveal] {
+            animation: section-rise linear both, section-leave linear both;
+            animation-timeline: view(), view();
+            animation-range: entry 0% entry 70%, exit 30% exit 100%;
+        }
     }
+}
 
-    .can-reveal [data-reveal]:not(.is-in) {
+// translate, not transform, so a button's pressed scale still works.
+@keyframes section-rise {
+    from {
         opacity: 0;
-        transform: translateY(24px);
+        translate: 0 24px;
     }
+}
 
-    .can-reveal [data-reveal] + [data-reveal] {
-        transition-delay: 80ms;
+@keyframes section-leave {
+    to {
+        opacity: 0;
+        translate: 0 -48px;
     }
+}
 
-    .can-reveal [data-reveal] + [data-reveal] + [data-reveal] {
-        transition-delay: 160ms;
+@supports not (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        .can-reveal [data-reveal] {
+            transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+        }
+
+        .can-reveal [data-reveal]:not(.is-in) {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        .can-reveal [data-reveal] + [data-reveal] {
+            transition-delay: 80ms;
+        }
+
+        .can-reveal [data-reveal] + [data-reveal] + [data-reveal] {
+            transition-delay: 160ms;
+        }
     }
 }
 

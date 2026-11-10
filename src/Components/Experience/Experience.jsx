@@ -114,12 +114,13 @@ function Experience({ t }) {
                 <h2 className="experience__heading" data-reveal>
                     {t.heading}
                 </h2>
-                <ul className="experience__rows" data-reveal>
+                <ul className="experience__rows">
                     {t.items.map((role, i) => (
                         <li key={role.dates.join()} id={"experience-" + i} tabIndex={-1}>
                             <details
                                 className="experience__row"
                                 open={i === chosen}
+                                data-reveal
                                 onToggle={(e) => {
                                     const open = e.currentTarget.open;
                                     // Opening one closes the others; closing the open one closes all.

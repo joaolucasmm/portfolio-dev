@@ -7,10 +7,10 @@ function Education({ t }) {
             <h2 className="education__heading" data-reveal>
                 {t.heading}
             </h2>
-            <ul className="education__list" data-reveal>
+            <ul className="education__list">
                 {t.items.map((item, i) => (
                     <li key={item.place} id={"education-" + i} tabIndex={-1}>
-                        <details className="education__item" open={i === 0}>
+                        <details className="education__item" open={i === 0} data-reveal>
                             <summary>
                                 <span className="education__name">
                                     <b>{item.place}</b> {item.title}
