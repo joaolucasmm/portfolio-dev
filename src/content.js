@@ -288,7 +288,6 @@ const english = {
     },
     footer: {
         sections: "On this page",
-        elsewhere: "Elsewhere",
         rights: "João Lucas Miranda Menegasso, 2026",
         top: "Back to top",
         morph: "Swap between the name and the initials",
@@ -572,7 +571,6 @@ const portuguese = {
     },
     footer: {
         sections: "Nesta página",
-        elsewhere: "Em outros lugares",
         rights: "João Lucas Miranda Menegasso, 2026",
         top: "Voltar ao topo",
         morph: "Trocar entre o nome e as iniciais",

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { links } from "../../content";
 import { sections } from "../../Functions/useShortcuts";
 
 // Same values as --morph-out, --morph-stagger and --morph-overlap in style.scss.
@@ -88,35 +87,16 @@ function Footer({ t, nav, lastUsed }) {
                     <NameForm lines={forms.short} state={stateOf("short")} />
                 </span>
             </button>
-            <div className="footer__row">
-                <div className="footer__columns">
-                    <div>
-                        <h2>{t.sections}</h2>
-                        <ul>
-                            {sections.map((id) => (
-                                <li key={id}>
-                                    <a href={"#" + id}>{nav[id]}</a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div>
-                        <h2>{t.elsewhere}</h2>
-                        <ul>
-                            <li>
-                                <a href={links.github} target="_blank" rel="noreferrer">
-                                    GitHub
-                                </a>
-                            </li>
-                            <li>
-                                <a href={links.linkedin} target="_blank" rel="noreferrer">
-                                    LinkedIn
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <nav className="footer__row" aria-label={t.sections}>
+                <h2>{t.sections}</h2>
+                <ul className="footer__sections">
+                    {sections.map((id) => (
+                        <li key={id}>
+                            <a href={"#" + id}>{nav[id]}</a>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
             <ul className="footer__keys" aria-label={t.keys.label}>
                 {shortcuts.map(([id, key, label]) => (
                     <li key={id} className={"footer__key footer__key--" + id + (lastUsed === id ? " is-active" : "")}>
