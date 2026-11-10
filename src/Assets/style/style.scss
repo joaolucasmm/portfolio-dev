@@ -1170,7 +1170,28 @@ main,
     }
 
     &__list {
+        position: relative;
         display: grid;
+    }
+
+    // The chosen role's bar. Experience.jsx sets --offset and --size from the tab;
+    // the spring runs 1.5× the 620ms tried in the demo.
+    &__indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: 4px;
+        height: var(--size, 0);
+        border-radius: 0 2px 2px 0;
+        background: var(--accent);
+        transform: translateY(var(--offset, 0));
+        pointer-events: none;
+        transition: transform 930ms var(--spring), height 930ms var(--spring);
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
+        }
     }
 
     &__tab {
@@ -1202,7 +1223,6 @@ main,
 
         &[aria-selected="true"] {
             padding-left: 20px;
-            box-shadow: inset 4px 0 0 var(--accent);
         }
 
         &:focus-visible {
@@ -1299,7 +1319,20 @@ main,
 
             &[aria-selected="true"] {
                 padding-left: 16px;
-                box-shadow: inset 0 -3px 0 var(--accent);
+            }
+        }
+
+        &__indicator {
+            top: auto;
+            bottom: 0;
+            width: var(--size, 0);
+            height: 3px;
+            border-radius: 2px 2px 0 0;
+            transform: translateX(var(--offset, 0));
+            transition: transform 930ms var(--spring), width 930ms var(--spring);
+
+            @media (prefers-reduced-motion: reduce) {
+                transition: none;
             }
         }
     }

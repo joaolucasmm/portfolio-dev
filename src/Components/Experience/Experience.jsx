@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const month = (iso) => new Date(iso + "-01T00:00:00Z");
 
@@ -31,7 +31,43 @@ function listName(title) {
 function Experience({ t }) {
     const [chosen, setChosen] = useState(0);
     const tabs = useRef([]);
+    const bar = useRef(null);
+    const chosenRef = useRef(chosen);
     const count = t.items.length;
+
+    // One bar slides to the chosen role on the site's spring. It is measured from the
+    // tab: down the list on desktop, along the row of tabs on tablet and phone.
+    const placeBar = (animate) => {
+        const tab = tabs.current[chosenRef.current];
+        const el = bar.current;
+        if (!tab || !el) return;
+        const across = getComputedStyle(tab.parentElement).gridAutoFlow.startsWith("column");
+        if (!animate) el.style.transition = "none";
+        el.style.setProperty("--offset", (across ? tab.offsetLeft : tab.offsetTop) + "px");
+        el.style.setProperty("--size", (across ? tab.offsetWidth : tab.offsetHeight) + "px");
+        if (!animate) {
+            el.getBoundingClientRect();
+            el.style.transition = "";
+        }
+    };
+
+    useLayoutEffect(() => {
+        const first = chosenRef.current === chosen;
+        chosenRef.current = chosen;
+        placeBar(!first);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [chosen]);
+
+    // Layout changes (fonts loading, the switch to tabs) move the bar without animating.
+    useEffect(() => {
+        const list = bar.current?.parentElement;
+        if (!list) return;
+        const observer = new ResizeObserver(() => placeBar(false));
+        observer.observe(list);
+        document.fonts?.ready.then(() => placeBar(false));
+        return () => observer.disconnect();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     // The search palette opens the role it found.
     useEffect(() => {
@@ -65,6 +101,7 @@ function Experience({ t }) {
             </h2>
             <div className="experience__board" data-reveal>
                 <div className="experience__list" role="tablist" aria-orientation="vertical" aria-label={t.heading}>
+                    <span ref={bar} className="experience__indicator" aria-hidden="true" />
                     {t.items.map((role, i) => (
                         <button
                             key={role.dates.join()}
