@@ -16,6 +16,8 @@ $header-menu: 1180px;
     --glass-rgb: 21 26 48;
     --glass-edge: 0.14;
     --glass-shine: 0.18;
+    --liquid-tint: 0.24;
+    --liquid-rim: 0.55;
 }
 
 @mixin light-tokens {
@@ -29,6 +31,8 @@ $header-menu: 1180px;
     --glass-rgb: 255 255 255;
     --glass-edge: 0.7;
     --glass-shine: 0.9;
+    --liquid-tint: 0.42;
+    --liquid-rim: 0.95;
 }
 
 // Content floats on glass over the flowing ink (the old portfolio's cards, made denser).
@@ -39,6 +43,18 @@ $header-menu: 1180px;
     border: 1px solid rgb(255 255 255 / var(--glass-edge));
     border-radius: var(--radius-glass);
     box-shadow: inset 0 1px 0 rgb(255 255 255 / var(--glass-shine)), 0 12px 32px -12px rgb(0 0 0 / 0.45);
+}
+
+// Liquid glass, as on iOS 26: clearer than the cards, very saturated, with light on
+// the rims and a soft shadow. Used by the phone dock and the phone header.
+@mixin liquid {
+    background: rgb(var(--glass-rgb) / var(--liquid-tint));
+    backdrop-filter: blur(12px) saturate(1.9) brightness(1.06); // taste-skill-ignore: liquid glass asked for by João
+    -webkit-backdrop-filter: blur(12px) saturate(1.9) brightness(1.06); // taste-skill-ignore: liquid glass asked for by João
+    border: 0;
+    box-shadow: inset 0 1px 1px rgb(255 255 255 / var(--liquid-rim)), inset 0 -1px 1px rgb(255 255 255 / 0.14),
+        inset 1px 0 1px rgb(255 255 255 / 0.2), inset -1px 0 1px rgb(255 255 255 / 0.1),
+        inset 0 0 20px rgb(255 255 255 / 0.06), 0 10px 30px -10px rgb(0 0 0 / 0.5);
 }
 
 // The contact band and footer: pink ground on the dark theme, night blue on the light one.
@@ -115,6 +131,11 @@ $header-menu: 1180px;
     --lang-roll: 520ms;
     // The search lens widens to its word on the same spring.
     --search-grow: 420ms;
+    // The desktop bar: how wide the pill gets, how long it takes to shrink, and how
+    // long the highlight takes to reach the next section.
+    --bar-small: 1040px;
+    --bar-shrink: 560ms;
+    --bar-slide: 560ms;
     --lang-roll-stagger: 60ms;
 
     // tema-shift-t: only controls transition when the theme changes.
@@ -124,8 +145,6 @@ $header-menu: 1180px;
     --press-scale: 0.975;
     --press-duration: 200ms;
 
-    // nav-ancora-seta-pulando
-    --arrow-bounce: 1s;
 
     // alt-foco-navegacao
     --alt-blur: 16px;
@@ -369,6 +388,12 @@ button {
     }
 }
 
+@media (max-width: $header-menu) {
+    .footer {
+        padding-bottom: calc(108px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
 main,
 .footer {
     position: relative;
@@ -389,20 +414,40 @@ main,
 // Header
 
 // The bar stays at the top while scrolling and marks the current section.
+// Desktop: open over the hero with no ground; once the page scrolls, a glass pill
+// in the middle. Phone and tablet: a small glass pill with the initials and the
+// buttons, while the sections live in the dock at the bottom.
 .header {
-    @include glass;
-    // Denser than the cards: the bar also passes over the pink contact band.
-    background: rgb(var(--glass-rgb) / calc(var(--glass-tint) + 0.3));
     position: fixed;
-    inset: 8px var(--margin) auto;
+    top: 8px;
+    left: var(--margin);
+    right: var(--margin);
     z-index: 20;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
     height: calc(var(--header-height) - 16px);
     padding: 0 20px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-glass);
+    background: rgb(var(--glass-rgb) / 0);
     font-size: var(--step-small);
-    transition: background-color var(--theme-swap) ease;
+    transition: top var(--bar-shrink) var(--spring), left var(--bar-shrink) var(--spring),
+        right var(--bar-shrink) var(--spring), padding var(--bar-shrink) var(--spring),
+        border-radius var(--bar-shrink) var(--spring), background-color 300ms ease, border-color 300ms ease,
+        box-shadow 300ms ease, backdrop-filter 300ms ease;
+
+    &--small {
+        @include glass;
+        // Denser than the cards: the pill also passes over the pink contact band.
+        background: rgb(var(--glass-rgb) / calc(var(--glass-tint) + 0.3));
+        top: 10px;
+        left: max(var(--margin), calc(50% - var(--bar-small) / 2));
+        right: max(var(--margin), calc(50% - var(--bar-small) / 2));
+        padding: 0 8px 0 22px;
+        border-radius: 999px;
+    }
 
     &__mark {
         font-family: var(--display);
@@ -411,54 +456,67 @@ main,
         text-decoration: none;
     }
 
-    &__menu {
-        display: none;
-        min-height: 44px;
-        padding: 0;
-        border: 0;
-        background: none;
-        font-size: var(--step-body);
-        text-decoration: underline;
-        text-underline-offset: 0.25em;
-        cursor: pointer;
-    }
-
     &__nav {
         display: flex;
         align-items: center;
-        gap: clamp(32px, 3vw, 56px);
+    }
+
+    // The links and the highlight that slides under the current one.
+    &__track {
+        position: relative;
+    }
+
+    &__highlight {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: var(--w, 0);
+        height: 38px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--ink) 12%, transparent);
+        box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 16%, transparent);
+        transform: translate(var(--x, 0), -50%);
+        pointer-events: none;
+        transition: transform var(--bar-slide) var(--spring), width var(--bar-slide) var(--spring), opacity 200ms ease;
+
+        // A pink dot under the pill names the colour of the site.
+        &::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent);
+            translate: -50% 0;
+        }
     }
 
     &__links {
         display: flex;
-        gap: clamp(20px, 2.2vw, 36px);
+        gap: 2px;
 
         a {
             position: relative;
+            z-index: 1;
             display: inline-flex;
             align-items: center;
             gap: 0.3em;
-            padding: 10px 6px;
-            margin: 0 -6px;
+            padding: 9px 14px;
+            border-radius: 999px;
             font-size: var(--step-body);
-            text-decoration: underline;
-            text-decoration-color: transparent;
-            text-decoration-thickness: 2px;
-            text-underline-offset: 0.3em;
-            transition: text-decoration-color 150ms ease, text-underline-offset 150ms ease;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background-color 200ms ease;
 
-            &:hover,
-            &:focus-visible {
-                text-decoration-color: currentColor;
-                text-underline-offset: 0.2em;
+            &:hover {
+                background: color-mix(in srgb, var(--ink) 6%, transparent);
             }
 
-            // The section on screen: a solid underline that stays.
-            &[aria-current="true"] {
-                text-decoration-color: currentColor;
-                text-decoration-thickness: 3px;
-                text-underline-offset: 0.2em;
-                font-weight: 500;
+            &:focus-visible {
+                outline: 2px solid var(--accent);
+                outline-offset: 2px;
             }
 
             // Pulse ring for the Alt focus mode.
@@ -466,22 +524,18 @@ main,
                 content: "";
                 position: absolute;
                 inset: 0;
+                border-radius: inherit;
                 opacity: 0;
                 pointer-events: none;
             }
         }
     }
 
-    &__arrow {
-        flex: none;
-        width: 0.8em;
-        height: 0.8em;
-    }
-
     &__key {
         display: none;
         min-width: 1.4em;
         padding: 0 0.3em;
+        border-radius: 4px;
         background: var(--ink);
         color: var(--bg);
         font-size: var(--step-small);
@@ -490,84 +544,134 @@ main,
         text-align: center;
     }
 
-    @media (prefers-reduced-motion: no-preference) {
-        &__links a:hover &__arrow,
-        &__links a:focus-visible &__arrow {
-            animation: bounce var(--arrow-bounce) infinite;
-        }
-    }
-
     &__switches {
         display: flex;
-        gap: 16px;
+        align-items: center;
+        gap: 4px;
     }
 
-    &__switch {
-        min-width: 44px;
-        min-height: 44px;
-        padding: 0 4px;
-        border: 0;
-        background: none;
-        font-size: var(--step-body);
-        text-decoration: underline;
-        text-decoration-thickness: 1px;
-        text-underline-offset: 0.25em;
-        cursor: pointer;
-        transition: text-decoration-thickness var(--theme-swap) ease;
-
-        &:hover {
-            text-decoration-thickness: 3px;
+    @media (prefers-reduced-motion: reduce) {
+        &,
+        &__highlight {
+            transition-duration: 1ms;
         }
     }
 
+    // Phone and tablet: the sections move to the dock.
     @media (max-width: $header-menu) {
-        &__menu {
-            display: block;
+        @include liquid;
+        top: max(10px, env(safe-area-inset-top, 0px));
+        padding: 0 6px 0 18px;
+        border-radius: 999px;
+
+        &--small {
+            left: var(--margin);
+            right: var(--margin);
         }
 
         &__nav {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
             display: none;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            width: auto;
-            padding: 96px var(--margin) 48px;
-            background: var(--bg);
-        }
-
-        // A backdrop-filter (or a transform) would make the bar the containing block of
-        // the fixed menu and shut it inside the bar, so the open menu drops the glass
-        // and the entrance animation, whose kept transform would do the same.
-        &.header--open {
-            position: fixed;
-            background: var(--bg);
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-            animation: none;
-        }
-
-        &--open &__nav {
-            display: flex;
-            overflow-y: auto;
-            overscroll-behavior: contain;
-        }
-
-        &__links {
-            flex: 0;
-            flex-direction: column;
-            justify-content: flex-start;
-            gap: 4px;
-
-            a {
-                font-family: var(--display);
-                font-size: var(--step-head);
-                line-height: 1.1;
-            }
         }
     }
+}
+
+// The phone dock: liquid glass, as on iOS 26. A clear lens marks the current section
+// and swells as it slides; the glass bends what passes under it where the browser can.
+.dock {
+    display: none;
+
+    @media (max-width: $header-menu) {
+        @include liquid;
+        position: fixed;
+        left: 50%;
+        bottom: max(12px, env(safe-area-inset-bottom, 0px));
+        z-index: 20;
+        display: flex;
+        gap: 2px;
+        width: min(calc(100% - 2 * var(--margin)), 440px);
+        padding: 6px;
+        border-radius: 28px;
+        translate: -50% 0;
+    }
+
+    &__glass {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        pointer-events: none;
+    }
+
+    // Where the browser bends the backdrop through an SVG filter (Chromium), the glass
+    // layer does the blur and the bending; elsewhere the dock's own blur stands.
+    @supports (backdrop-filter: url(#liquid-refract)) {
+        &__glass {
+            backdrop-filter: url(#liquid-refract) blur(3px) saturate(1.8) brightness(1.06);
+        }
+    }
+
+    &__lens {
+        position: absolute;
+        top: 6px;
+        bottom: 6px;
+        left: 0;
+        width: var(--w, 0);
+        border-radius: 22px;
+        background: color-mix(in srgb, var(--ink) 14%, transparent);
+        box-shadow: inset 0 1px 0.5px rgb(255 255 255 / 0.5), inset 0 -1px 1px rgb(255 255 255 / 0.12),
+            0 4px 14px -4px rgb(0 0 0 / 0.3);
+        transform: translateX(var(--x, 0));
+        pointer-events: none;
+        transition: transform var(--bar-slide) var(--spring), width var(--bar-slide) var(--spring), opacity 200ms ease;
+
+        @media (prefers-reduced-motion: reduce) {
+            transition-duration: 1ms;
+        }
+    }
+
+    &__item {
+        position: relative;
+        z-index: 1;
+        flex: 1;
+        display: grid;
+        justify-items: center;
+        gap: 3px;
+        min-width: 0;
+        padding: 8px 2px 6px;
+        border-radius: 22px;
+        color: var(--muted);
+        font-size: 0.6875rem;
+        font-weight: 500;
+        text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: color 200ms ease;
+
+        span {
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        &[aria-current="true"] {
+            color: var(--ink);
+
+            svg {
+                color: var(--accent);
+            }
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: -2px;
+        }
+    }
+}
+
+.liquid-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
 }
 
 // Hero
@@ -624,8 +728,7 @@ main,
     }
 
     &:hover &__more,
-    &:focus-visible &__more,
-    .header--open & &__more {
+    &:focus-visible &__more {
         max-width: 160px;
         opacity: 1;
     }
@@ -942,18 +1045,6 @@ main,
 }
 
 // The arrow jumps: up while accelerating, down while slowing (ui-library: nav-ancora-seta-pulando).
-@keyframes bounce {
-    0%,
-    100% {
-        transform: translateY(-25%);
-        animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-    }
-    50% {
-        transform: none;
-        animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    }
-}
-
 @keyframes fade-up {
     from {
         opacity: 0;
