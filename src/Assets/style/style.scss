@@ -1723,19 +1723,12 @@ main,
         line-height: 1;
         letter-spacing: -0.02em;
         margin-bottom: clamp(28px, 3.5vw, 48px);
-        text-align: center;
-
-        // Phones: left, like the other section titles above the rows.
-        @media (max-width: $phone) {
-            text-align: left;
-        }
     }
 
-    // As on the first portfolio: list on the left, the chosen role on the right, no cards,
-    // centred in a 1140px column like the original.
+    // As on the first portfolio: list on the left, the chosen role on the right, no
+    // cards, in a 1140px column that starts at the margin like the other sections.
     &__board {
         max-width: 1140px;
-        margin-inline: auto;
         display: grid;
         grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
         gap: clamp(24px, 4vw, 56px);
@@ -2296,7 +2289,8 @@ main,
 .contact {
     position: relative;
     display: grid;
-    justify-items: center;
+    // Title, list and form start at the margin, like every other section.
+    justify-items: start;
     gap: clamp(24px, 3vw, 36px);
     // The bottom leaves room for the toast under the form button.
     padding: clamp(64px, 8vw, 128px) var(--margin) clamp(104px, 9vw, 136px);
@@ -2311,7 +2305,6 @@ main,
         font-weight: 400;
         line-height: 0.95;
         letter-spacing: -0.02em;
-        text-align: center;
     }
 
     &__list {
