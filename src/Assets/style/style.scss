@@ -1110,7 +1110,11 @@ main,
         .hero__name,
         .hero__role,
         .hero__before {
-            animation: hero-leave linear both;
+            // Longhands, not the shorthand: the build's minifier moves the shorthand
+            // after animation-timeline, which resets the timeline to auto.
+            animation-name: hero-leave;
+            animation-timing-function: linear;
+            animation-fill-mode: both;
             animation-timeline: view();
             animation-range: exit 0% exit 90%;
         }
@@ -1198,7 +1202,10 @@ main,
     @media (prefers-reduced-motion: no-preference) {
         // Two animations on one timeline: the leave starts from whatever the rise left.
         [data-reveal] {
-            animation: section-rise linear both, section-leave linear both;
+            // Longhands for the same reason as the hero.
+            animation-name: section-rise, section-leave;
+            animation-timing-function: linear;
+            animation-fill-mode: both;
             animation-timeline: view(), view();
             animation-range: entry 0% entry 70%, exit 30% exit 100%;
         }
