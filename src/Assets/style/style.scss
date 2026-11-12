@@ -80,8 +80,11 @@ $header-menu: 1180px;
 
 :root {
     @include dark-tokens;
-    --display: "Gambarino", "Times New Roman", serif;
-    --text: "General Sans", system-ui, sans-serif;
+    // Montserrat for headings, Roboto for text, JetBrains Mono for labels, tags, keys and counts.
+    --display: "Montserrat", system-ui, sans-serif;
+    --display-weight: 700;
+    --text: "Roboto", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
 
     --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
     --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
@@ -482,6 +485,7 @@ main,
     &__mark,
     &__menu {
         font-family: var(--display);
+        font-weight: var(--display-weight);
         font-size: var(--step-lead);
         line-height: 1;
         text-decoration: none;
@@ -572,6 +576,7 @@ main,
     }
 
     &__key {
+        font-family: var(--mono);
         display: none;
         min-width: 1.4em;
         padding: 0 0.3em;
@@ -710,6 +715,7 @@ main,
         padding: 4px 0;
         color: var(--ink);
         font-family: var(--display);
+        font-weight: var(--display-weight);
         font-size: clamp(2.6rem, 12vw, 3.6rem);
         line-height: 1.05;
         letter-spacing: -0.02em;
@@ -786,7 +792,7 @@ main,
         border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
         border-radius: 5px;
         color: var(--muted);
-        font-family: inherit;
+        font-family: var(--mono);
         font-size: 0.75rem;
         line-height: 1;
 
@@ -954,7 +960,7 @@ main,
         gap: 0.12em;
         font-family: var(--display);
         font-size: var(--step-display);
-        font-weight: 400;
+        font-weight: var(--display-weight);
         line-height: 0.92;
         letter-spacing: -0.03em;
         font-kerning: normal;
@@ -969,13 +975,15 @@ main,
     &__role {
         max-width: 22ch;
         font-family: var(--display);
+        font-weight: var(--display-weight);
         font-size: clamp(1.625rem, 1rem + 2.6vw, 3.25rem);
-        // Gambarino has no italic (Fontshare serves only 400), so the role stays upright.
         line-height: 1.1;
         text-wrap: balance;
 
+        // Montserrat's own italic (loaded at 700), so the company reads apart from the role.
         em {
             color: var(--accent);
+            font-style: italic;
         }
     }
 
@@ -1306,7 +1314,7 @@ main,
     &__heading {
         font-family: var(--display);
         font-size: var(--step-head);
-        font-weight: 400;
+        font-weight: var(--display-weight);
         line-height: 1;
         letter-spacing: -0.02em;
     }
@@ -1431,7 +1439,7 @@ main,
     &__heading {
         font-family: var(--display);
         font-size: var(--step-head);
-        font-weight: 400;
+        font-weight: var(--display-weight);
         line-height: 1;
         letter-spacing: -0.02em;
     }
@@ -1601,6 +1609,7 @@ main,
     }
 
     &__top {
+        font-family: var(--mono);
         grid-column: 1 / -1;
         display: flex;
         justify-content: space-between;
@@ -1612,6 +1621,7 @@ main,
     }
 
     &__count {
+        font-family: var(--mono);
         font-variant-numeric: tabular-nums;
 
         b {
@@ -1632,7 +1642,7 @@ main,
     &__name {
         font-family: var(--display);
         font-size: clamp(2.6rem, 1.2rem + 4.4vw, 5.5rem);
-        font-weight: 400;
+        font-weight: var(--display-weight);
         line-height: 0.95;
         letter-spacing: -0.02em;
 
@@ -1649,10 +1659,12 @@ main,
     }
 
     &__kind {
+        font-family: var(--mono);
         font-weight: 500;
     }
 
     &__year {
+        font-family: var(--mono);
         margin-left: 0.6em;
         color: var(--muted);
         font-variant-numeric: tabular-nums;
@@ -1664,6 +1676,7 @@ main,
 
     // The phone shows the kind as tags instead of a line.
     &__tags {
+        font-family: var(--mono);
         display: none;
         flex-wrap: wrap;
         gap: 6px;
@@ -1682,6 +1695,7 @@ main,
     }
 
     &__tags-year {
+        font-family: var(--mono);
         color: var(--muted);
         font-variant-numeric: tabular-nums;
     }
@@ -1709,6 +1723,7 @@ main,
     }
 
     &__next-label {
+        font-family: var(--mono);
         color: var(--muted);
         font-size: var(--step-small);
         letter-spacing: 0.08em;
@@ -1883,7 +1898,7 @@ main,
     &__heading {
         font-family: var(--display);
         font-size: var(--step-head);
-        font-weight: 400;
+        font-weight: var(--display-weight);
         line-height: 1;
         letter-spacing: -0.02em;
         margin-bottom: clamp(28px, 3.5vw, 48px);
@@ -2102,6 +2117,7 @@ main,
     }
 
     &__pills {
+        font-family: var(--mono);
         display: flex;
         flex-wrap: wrap;
         gap: 6px;
@@ -2143,7 +2159,7 @@ main,
     &__heading {
         font-family: var(--display);
         font-size: var(--step-head);
-        font-weight: 400;
+        font-weight: var(--display-weight);
         line-height: 1;
         letter-spacing: -0.02em;
         max-width: 14em;
@@ -2181,6 +2197,7 @@ main,
 
     &__number {
         font-family: var(--display);
+        font-weight: var(--display-weight);
         font-size: clamp(3.4rem, 2.6rem + 2.4vw, 4.75rem);
         line-height: 0.9;
         letter-spacing: -0.03em;
@@ -2336,7 +2353,7 @@ main,
     &__heading {
         font-family: var(--display);
         font-size: var(--step-head);
-        font-weight: 400;
+        font-weight: var(--display-weight);
         line-height: 1;
         letter-spacing: -0.02em;
     }
@@ -2410,7 +2427,7 @@ main,
             margin-right: 8px;
             font-family: var(--display);
             font-size: 1.75rem;
-            font-weight: 400;
+            font-weight: var(--display-weight);
         }
     }
 
@@ -2425,6 +2442,7 @@ main,
         grid-column: 1;
         margin-top: 6px;
         font-family: var(--display);
+        font-weight: var(--display-weight);
         font-size: clamp(1.2rem, 1rem + 0.6vw, 1.45rem);
         line-height: 1.2;
     }
@@ -2484,7 +2502,7 @@ main,
     &__title {
         font-family: var(--display);
         font-size: var(--step-head);
-        font-weight: 400;
+        font-weight: var(--display-weight);
         line-height: 0.95;
         letter-spacing: -0.02em;
     }
@@ -2585,6 +2603,7 @@ main,
         background: none;
         color: inherit;
         font-family: var(--display);
+        font-weight: var(--display-weight);
         font-size: var(--step-display);
         line-height: 0.9;
         letter-spacing: -0.035em;
@@ -2658,7 +2677,7 @@ main,
             margin-right: 0.35em;
             background: var(--surface);
             color: var(--ink);
-            font-family: inherit;
+            font-family: var(--mono);
             font-size: inherit;
             font-variant-numeric: tabular-nums;
             transition: background-color var(--theme-swap) ease, color var(--theme-swap) ease;
@@ -2671,6 +2690,7 @@ main,
     }
 
     &__key {
+        font-family: var(--mono);
         transition: color var(--theme-swap) ease;
 
         &.is-active,
@@ -2678,6 +2698,7 @@ main,
             color: var(--ink);
 
             kbd {
+                font-family: var(--mono);
                 background: var(--ink);
                 color: var(--bg);
             }
@@ -2776,7 +2797,7 @@ main,
         h2 {
             font-family: var(--display);
             font-size: var(--step-head);
-            font-weight: 400;
+            font-weight: var(--display-weight);
             line-height: 1;
         }
     }
@@ -3075,7 +3096,7 @@ main,
         border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
         border-radius: 5px;
         color: var(--muted);
-        font-family: inherit;
+        font-family: var(--mono);
         font-size: 0.75rem;
         line-height: 1;
         white-space: nowrap;
@@ -3093,6 +3114,7 @@ main,
     }
 
     &__group {
+        font-family: var(--mono);
         margin: 10px 10px 4px;
         color: var(--muted);
         font-size: 0.6875rem;
