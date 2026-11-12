@@ -1,11 +1,23 @@
 name: build-test-deploy
 
-on: push
+on:
+  # Deploy branches on push; every other branch is checked through its pull request,
+  # so a PR branch does not run twice.
+  push:
+    branches: [main, Development]
+  pull_request:
+  # Weekly, so dead links and new vulnerabilities show up even without pushes.
+  schedule:
+    - cron: "0 9 * * 1"
+
+# A newer push to the same branch or PR cancels the run still going.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
       - name: checkout repo
         uses: actions/checkout@v4
@@ -13,16 +25,42 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - run: npm install
+          cache: npm
+      - run: npm ci
+      - name: lint
+        run: npx eslint --max-warnings=0 "src/**/*.{js,jsx}"
+      # CI=true makes react-scripts fail on any ESLint warning too.
+      - name: build
+        run: npm run build
         env:
-          REACT_APP_SERVICE_ID: ${{ secrets.REACT_APP_SERVICE_ID }}
-          REACT_APP_TEMPLATE_ID: ${{ secrets.REACT_APP_TEMPLATE_ID }}
-          REACT_APP_PUBLIC_KEY: ${{ secrets.REACT_APP_PUBLIC_KEY }}
-      
+          CI: true
+      - name: bundle size
+        run: npm run size
+      - name: keep the build for the browser checks
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: build/
+          retention-days: 3
+
   test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+      - name: use node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: npm
+      - run: npm ci
+      - run: npm test -- --watchAll=false --coverage
+        env:
+          CI: true
+
+  e2e:
     needs: build
     runs-on: ubuntu-latest
-    
     steps:
       - name: checkout repo
         uses: actions/checkout@v4
@@ -30,12 +68,72 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - run: npm install
-      - run: npm test
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build/
+      - name: install chromium
+        run: npx playwright install --with-deps chromium
+      - name: browser tests, computer and phone
+        run: npm run e2e
+      - name: report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  lighthouse:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+      - name: use node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build/
+      # Accessibility, best practices and SEO fail the job under 90; performance only warns,
+      # since CI machines vary too much for a hard limit.
+      - name: lighthouse
+        run: npx --yes @lhci/cli@0.14.0 autorun
+
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+      - name: check the links on the page
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # What visitors see. Sites that turn bots away (403, 429) count as up.
+          args: --no-progress --max-retries 3 --accept 200..=299,403,429 src/content.js public/index.html
+          fail: true
+
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+      - name: use node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      # Fails on critical advisories only. react-scripts sits in dependencies, so its
+      # dev-server tooling is audited too; lower ones are left to Dependabot.
+      - name: npm audit (critical)
+        run: npm audit --omit=dev --audit-level=critical
 
   deploy-dev:
-    needs: test
-    if: github.ref == 'refs/heads/Development'
+    needs: [build, test, e2e]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/Development'
 
     permissions:
       contents: write
@@ -45,9 +143,9 @@ jobs:
     environment:
       name: Development
       url: ${{ steps.deployment.outputs.page_url }}
-    
+
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: checkout repo
         uses: actions/checkout@v4
@@ -57,11 +155,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
+          cache: npm
       - name: configure github pages
         uses: actions/configure-pages@v4
-        with:
-          static_site_generator: next
-      - run: npm install
+      - run: npm ci
       - run: npm run build
         env:
           REACT_APP_SERVICE_ID: ${{ secrets.REACT_APP_SERVICE_ID }}
@@ -76,8 +173,8 @@ jobs:
         uses: actions/deploy-pages@v4
 
   git-push:
-    needs: test
-    if: github.ref == 'refs/heads/main'
+    needs: [build, test, e2e]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     permissions:
       contents: write
@@ -126,7 +223,11 @@ jobs:
           cat /tmp/commits.txt
           cd /tmp/portfolio
           while IFS= read -r commit_hash; do
-            git cherry-pick $commit_hash || git cherry-pick --skip
+            if ! git cherry-pick "$commit_hash"; then
+              # Usually empty because rsync already copied it; a conflict shows up as a warning on the run.
+              echo "::warning title=Commit skipped::cherry-pick of $commit_hash did not apply and was skipped"
+              git cherry-pick --skip
+            fi
           done < /tmp/commits.txt
       - name: verify destination repository state
         run: |

@@ -25,3 +25,9 @@ yarn-error.log*
 
 # design tooling
 /.taste-skill
+
+# pipeline reports
+/.lighthouseci
+/.lhci-out
+/playwright-report
+/test-results

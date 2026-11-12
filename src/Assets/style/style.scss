@@ -1507,9 +1507,10 @@ main,
         }
     }
 
+    // 14px apart, so each dot's 24px target stays clear of the next (WCAG 2.5.8).
     &__dots {
         display: flex;
-        gap: 8px;
+        gap: 14px;
     }
 
     // 10px dots inside a 24px target.
@@ -3119,9 +3120,11 @@ main,
         }
     }
 
-    &__group {
+    // The group's name, drawn from data-label so the listbox holds only options.
+    &__group::before {
+        content: attr(data-label);
+        margin: 10px 10px 2px;
         font-family: var(--mono);
-        margin: 10px 10px 4px;
         color: var(--muted);
         font-size: 0.6875rem;
         font-weight: 500;

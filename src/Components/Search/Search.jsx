@@ -333,10 +333,8 @@ function Search({ t, open, setOpen, toggleTheme, language, setLanguage }) {
                     <ul id="search-results" className="search__results" role="listbox" ref={list}>
                         {groups.map(([label, items]) => (
                             <li key={label} role="presentation">
-                                <p className="search__group" aria-hidden="true">
-                                    {label}
-                                </p>
-                                <ul role="group" aria-label={label}>
+                                {/* The visible label is drawn by CSS from data-label: a listbox may only hold options. */}
+                                <ul role="group" aria-label={label} className="search__group" data-label={label}>
                                     {items.map((item) => {
                                         at += 1;
                                         const i = at;
