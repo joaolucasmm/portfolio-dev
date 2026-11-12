@@ -9,6 +9,8 @@ on:
   # Weekly, so dead links and new vulnerabilities show up even without pushes.
   schedule:
     - cron: "0 9 * * 1"
+  # Run by hand from the Actions tab, e.g. to deploy Development again without a commit.
+  workflow_dispatch:
 
 # A newer push to the same branch or PR cancels the run still going.
 concurrency:
@@ -133,7 +135,7 @@ jobs:
 
   deploy-dev:
     needs: [build, test, e2e]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/Development'
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/Development'
 
     permissions:
       contents: write
@@ -168,9 +170,14 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: './build/'
+          # One name per attempt: artifacts from earlier attempts stay in the run, and
+          # deploy-pages fails if more than one artifact has the name it looks for.
+          name: github-pages-${{ github.run_attempt }}
       - name: deploy
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
 
   git-push:
     needs: [build, test, e2e]
