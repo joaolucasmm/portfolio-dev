@@ -57,7 +57,7 @@ $header-menu: 1180px;
         inset 0 0 20px rgb(255 255 255 / 0.06), 0 10px 30px -10px rgb(0 0 0 / 0.5);
 }
 
-// The contact band and footer: pink ground on the dark theme, night blue on the light one.
+// The footer band: pink ground on the dark theme, night blue on the light one.
 @mixin band-pink {
     color-scheme: light;
     --bg: #ff7aa2;
@@ -470,7 +470,7 @@ main,
 
     &--small {
         @include glass;
-        // Denser than the cards: the pill also passes over the pink contact band.
+        // Denser than the cards: the pill also passes over the pink footer band.
         background: rgb(var(--glass-rgb) / calc(var(--glass-tint) + 0.3));
         top: 10px;
         left: max(var(--margin), calc(50% - var(--bar-small) / 2));
