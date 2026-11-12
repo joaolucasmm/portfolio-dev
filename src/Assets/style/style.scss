@@ -2604,7 +2604,9 @@ main,
         color: inherit;
         font-family: var(--display);
         font-weight: var(--display-weight);
-        font-size: var(--step-display);
+        // Beside the sections it gets seven of twelve columns; Montserrat is wide, so
+        // "João Lucas" at the full display size would run into them.
+        font-size: calc(var(--step-display) * 0.78);
         line-height: 0.9;
         letter-spacing: -0.035em;
         text-align: left;
@@ -2690,7 +2692,6 @@ main,
     }
 
     &__key {
-        font-family: var(--mono);
         transition: color var(--theme-swap) ease;
 
         &.is-active,
@@ -2758,6 +2759,11 @@ main,
         &__name,
         &__row {
             grid-column: 1 / -1;
+        }
+
+        // Stacked above the sections, the name has the full width again.
+        &__name {
+            font-size: var(--step-display);
         }
 
         &__row {
