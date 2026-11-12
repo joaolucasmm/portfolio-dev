@@ -6,7 +6,7 @@ function Contact({ t, openDialog }) {
     const [status, copy] = useCopy(t);
 
     return (
-        <section id="contact" className="contact inverse" tabIndex={-1}>
+        <section id="contact" className="section contact" tabIndex={-1}>
             <h2 className="contact__title" data-reveal>
                 {t.title}
             </h2>
