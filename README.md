@@ -1,82 +1,65 @@
-# Portfolio
+# João Lucas — portfolio
 
-This is the repository used as my professional website portfolio. The goal of this project is to serve as a web resume that also shows my development skills in its own building.
+My personal site: who I am, what I've built and where I've worked, in English and Portuguese.
 
-As my skills evolve, so will this repository and my end goals is to make this website look as professional as it can be, adding more functionalities, making the UI more appealing and keeping the usuability very straight-forward. 
+**Live:** https://joaolucasmm.github.io/portfolio/ · **Preview of `Development`:** https://joaolucasmm.github.io/portfolio-dev/
 
-There are two stages for this project in two diferents repositories:
+![The site's first screen: the name, the role at Nelogica and the contact links over an animated ink background](public/og-image.jpg)
 
-**Development:** https://github.com/joaolucasmm/portfolio-dev/
+## Stack
 
-**Production:** https://github.com/joaolucasmm/portfolio/
+- **React 18** (Create React App), plain function components and hooks, no UI library.
+- **Sass** for the styles: one stylesheet, design tokens as CSS custom properties, light and dark themes.
+- **WebGL** for the ink backdrop (`src/Components/Backdrop`), a fragment shader whose palette shifts from section to section. It holds still for visitors who ask for reduced motion.
+- **EmailJS** for the contact form, so the site stays static.
 
-Please make sure you are in the correct directory before making any changes.
+## What's in it
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- **Two languages from one source.** Every text on the page lives in [`src/content.js`](src/content.js), once in English and once in Portuguese. A test fails if one language has a key, list item or text the other lacks.
+- **Accessibility as a requirement.** Skip link, real tabs and dialogs with focus handling, keyboard navigation everywhere (arrow keys in lists, `Ctrl K` search, `Alt 1–5` to jump to sections), `prefers-reduced-motion` respected. Checked by `jest-axe` in the unit tests and by Lighthouse in CI.
+- **Search palette** (`Ctrl K`) over projects, roles, skills and actions.
+- **Projects that run in place.** Web projects can be opened live inside the page.
 
-## Available Scripts
+## Running it
 
-In the project directory, you can run:
+```bash
+npm ci
+npm start            # dev server at http://localhost:3000
+npm test             # unit and accessibility tests (Jest + Testing Library + jest-axe)
+npm run build        # production build in build/
+npm run serve:build  # serves build/ at /portfolio-dev/, as GitHub Pages does
+npm run e2e          # Playwright, desktop and phone, against the served build
+npm run size         # fails if the bundle grows past its budget
+```
 
-### `npm start`
+## CI and deploy
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+[`.github/workflows/build-test-deploy.yml`](.github/workflows/build-test-deploy.yml) runs on every pull request and push to `main` and `Development`:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| Job | What it checks |
+|---|---|
+| `build` | ESLint with no warnings, production build, bundle size |
+| `test` | Unit and accessibility tests, with coverage |
+| `e2e` | Playwright on a desktop and a phone viewport |
+| `lighthouse` | Accessibility, best practices and SEO ≥ 90 (performance warns only) |
+| `links` | Every external link on the page still answers |
+| `audit` | `npm audit` on production dependencies, critical advisories |
 
-### `npm test`
+A push to `Development` deploys to the preview site on GitHub Pages; a push to `main` publishes to the production repository, [`joaolucasmm/portfolio`](https://github.com/joaolucasmm/portfolio). The workflow can also be run by hand from the Actions tab.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Layout
 
-### `npm run build`
+```
+src/
+  content.js          all copy, both languages
+  App.js              page composition, theme and language state
+  Components/         one folder per section (Hero, About, Projects, Experience, …)
+  Functions/          hooks: shortcuts, reveal on scroll, dialog focus, phone layout
+  Assets/style/       the stylesheet
+e2e/                  Playwright tests
+scripts/              local server for the build, bundle size check
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Contact
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[LinkedIn](https://www.linkedin.com/in/jo%C3%A3o-lucas-miranda-menegasso/) · joaol_mm@hotmail.com
