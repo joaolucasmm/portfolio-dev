@@ -20,7 +20,7 @@ function buildIndex(t) {
         ...t.experience.items.map((e, i) => ({
             type: "role",
             title: e.title,
-            text: e.place + ". " + e.text + " " + e.tools,
+            text: [e.place + ".", e.text, ...(e.stages || []).map((s) => s.title + ". " + s.text), e.tools].join(" "),
             sub: e.place,
             id: "experience-" + i,
         })),

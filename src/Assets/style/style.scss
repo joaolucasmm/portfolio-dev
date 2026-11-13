@@ -325,6 +325,17 @@ button {
         opacity: 0.7;
     }
 
+    // The second action beside a filled one: outlined, filled under the pointer.
+    &--ghost {
+        background: transparent;
+        color: var(--accent);
+
+        &:hover {
+            background: var(--accent);
+            color: var(--accent-ink);
+        }
+    }
+
     &--small {
         min-height: 44px;
         padding: 0 18px;
@@ -1034,6 +1045,32 @@ main,
         }
     }
 
+    // The résumé, under the circles: a glass pill that turns accent like them.
+    &__resume {
+        @include liquid;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        margin-top: 4px;
+        padding: 0 22px;
+        border-radius: 999px;
+        color: var(--ink);
+        font-weight: 500;
+        text-decoration: none;
+        transition: transform 350ms var(--spring), background-color 250ms, color 250ms;
+
+        &:hover,
+        &:focus-visible {
+            background: var(--accent);
+            color: var(--accent-ink);
+            transform: translateY(-2px);
+
+            @media (prefers-reduced-motion: reduce) {
+                transform: none;
+            }
+        }
+    }
+
     // Phone: everything starts at the left edge, the name on two lines.
     @media (max-width: $phone) {
         justify-items: start;
@@ -1385,6 +1422,49 @@ main,
         &__text {
             grid-row: 2;
         }
+    }
+
+    // The stack at a glance, under the two paragraphs: group on the left, tools beside it.
+    &__stack {
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+
+        dl {
+            display: grid;
+            gap: 10px;
+            margin: 14px 0 0;
+        }
+
+        div {
+            display: grid;
+            grid-template-columns: minmax(0, 11em) minmax(0, 1fr);
+            gap: 4px 16px;
+        }
+
+        dt {
+            color: var(--muted);
+            font-size: var(--step-small);
+            padding-top: 0.15em;
+        }
+
+        dd {
+            margin: 0;
+        }
+
+        @media (max-width: $phone) {
+            div {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+
+    &__stack-heading {
+        font-family: var(--mono);
+        font-size: var(--step-small);
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
     }
 
     &__portrait {
@@ -2034,6 +2114,75 @@ main,
         }
     }
 
+    // The company under each role in the list, so "Software developer" says where.
+    &__tab-place {
+        display: block;
+        color: var(--muted);
+        font-size: var(--step-small);
+    }
+
+    // A role held in stages: a thin line down the left joins them, newest first.
+    &__stages {
+        display: grid;
+        gap: 14px;
+        margin: 8px 0 0;
+        padding: 0 0 0 16px;
+        border-left: 2px solid color-mix(in srgb, var(--ink) 18%, transparent);
+        list-style: none;
+
+        p {
+            line-height: 1.6;
+        }
+    }
+
+    &__stage-head {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2px 12px;
+        align-items: baseline;
+
+        b {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        span {
+            color: var(--muted);
+            font-size: var(--step-small);
+            font-variant-numeric: tabular-nums;
+        }
+    }
+
+    // The gaps between roles, small, under the board.
+    &__between {
+        max-width: 1140px;
+        margin: clamp(28px, 3.5vw, 48px) auto 0;
+        color: var(--muted);
+        font-size: var(--step-small);
+
+        h3 {
+            margin-bottom: 8px;
+            font-family: var(--mono);
+            font-size: inherit;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        ul {
+            display: grid;
+            gap: 6px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        span {
+            color: var(--ink);
+            font-variant-numeric: tabular-nums;
+        }
+    }
+
     @media (prefers-reduced-motion: no-preference) {
         &__role {
             animation: fade-up 400ms var(--ease-out) both;
@@ -2506,6 +2655,17 @@ main,
         font-weight: var(--display-weight);
         line-height: 0.95;
         letter-spacing: -0.02em;
+    }
+
+    &__actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+
+        @media (max-width: $phone) {
+            justify-content: flex-start;
+        }
     }
 
     &__list {

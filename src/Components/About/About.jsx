@@ -32,6 +32,17 @@ function About({ t }) {
                         <p key={paragraph}>{paragraph}</p>
                     ))}
                 </div>
+                <div className="about__stack" data-reveal>
+                    <h3 className="about__stack-heading">{t.stackHeading}</h3>
+                    <dl>
+                        {t.stack.map(([group, tools]) => (
+                            <div key={group}>
+                                <dt>{group}</dt>
+                                <dd>{tools}</dd>
+                            </div>
+                        ))}
+                    </dl>
+                </div>
             </div>
         </section>
     );

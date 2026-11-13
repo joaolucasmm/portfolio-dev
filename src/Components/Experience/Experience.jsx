@@ -21,10 +21,41 @@ function formatLength([from, to], units) {
     return [years && part(years, units.year), months && part(months, units.month)].filter(Boolean).join(units.and);
 }
 
-// The list names drop the internship prefix so they fit on one or two lines.
-function listName(title) {
-    const name = title.replace(/^(Rotation programme intern|Estagiário do programa de rotação), /, "");
-    return name.charAt(0).toUpperCase() + name.slice(1);
+// A role held in stages (SAP's rotation programme) lists them under its own text,
+// newest first, each with its dates and length.
+function Stages({ role, t }) {
+    if (!role.stages) return null;
+    return (
+        <ol className="experience__stages" aria-label={t.stagesLabel}>
+            {role.stages.map((stage) => (
+                <li key={stage.title}>
+                    <p className="experience__stage-head">
+                        <b>{stage.title}</b>{" "}
+                        <span>
+                            {formatDates(stage.dates, t.locale, t.units)} · {formatLength(stage.dates, t.units)}
+                        </span>
+                    </p>
+                    <p>{stage.text}</p>
+                </li>
+            ))}
+        </ol>
+    );
+}
+
+// The time between roles, said plainly so nobody has to ask.
+function Between({ t }) {
+    return (
+        <div className="experience__between" data-reveal>
+            <h3>{t.betweenHeading}</h3>
+            <ul>
+                {t.between.map((gap) => (
+                    <li key={gap.dates.join()}>
+                        <span>{formatDates(gap.dates, t.locale, t.units)}</span> {gap.text}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 
 // As on the first portfolio: the roles as a plain list with dividers, the chosen
@@ -135,6 +166,7 @@ function Experience({ t }) {
                                 </summary>
                                 <div className="experience__row-body">
                                     <p>{role.text}</p>
+                                    <Stages role={role} t={t} />
                                     <ul className="experience__pills" aria-label={t.tools}>
                                         {role.tools.split(", ").map((tool) => (
                                             <li key={tool}>{tool}</li>
@@ -148,6 +180,7 @@ function Experience({ t }) {
                         </li>
                     ))}
                 </ul>
+                <Between t={t} />
             </section>
         );
     }
@@ -174,7 +207,10 @@ function Experience({ t }) {
                             onClick={() => setChosen(i)}
                             onKeyDown={onKeyDown}
                         >
-                            {listName(role.title)}
+                            {role.title}
+                            <span className="experience__tab-place" translate="no">
+                                {role.place}
+                            </span>
                         </button>
                     ))}
                 </div>
@@ -195,6 +231,7 @@ function Experience({ t }) {
                         {item.place}
                     </p>
                     <p className="experience__text">{item.text}</p>
+                    <Stages role={item} t={t} />
                     <p className="experience__tools">
                         {t.tools}: {item.tools}.
                     </p>
@@ -203,6 +240,7 @@ function Experience({ t }) {
                     </a>
                 </div>
             </div>
+            <Between t={t} />
         </section>
     );
 }

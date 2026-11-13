@@ -56,6 +56,7 @@ const english = {
         company: "at Nelogica",
         before: "On the Profit and Tryd apps traders use every day. Before that, support, QA and development at SAP.",
         portrait: "Portrait of João Lucas",
+        resume: "Résumé (PDF)",
     },
     about: {
         heading: "About",
@@ -69,6 +70,15 @@ const english = {
             ["Based in", "Porto Alegre, Brazil"],
             ["Now", "Mobile developer at Nelogica"],
             ["Speaks", "English (fluent), Português"],
+        ],
+        stackHeading: "Stack",
+        // [group, tools]
+        stack: [
+            ["Every day", "Vue.js, TypeScript, JavaScript, Tailwind CSS, CapacitorJS"],
+            ["Native", "Kotlin, Swift (Capacitor plugins)"],
+            ["Also", "React, Rust, Tauri, Node.js, SAP UI5, SAP CAP"],
+            ["Testing and delivery", "Selenium WebDriver, Jest, GitHub Actions, GitLab, Git"],
+            ["Team", "Scrum, Figma, JIRA"],
         ],
     },
     work: {
@@ -117,6 +127,12 @@ const english = {
         company: "About the company",
         tools: "Tools",
         units: { year: ["year", "years"], month: ["month", "months"], and: " ", now: "now" },
+        stagesLabel: "Stages",
+        betweenHeading: "Between roles",
+        between: [
+            { dates: ["2025-04", "2025-08"], text: "Between SAP and Nelogica: personal projects and the job search." },
+            { dates: ["2020-08", "2023-02"], text: "Full-time studies in physics engineering at UFRGS." },
+        ],
         items: [
             {
                 title: "Software developer, mobile",
@@ -128,31 +144,30 @@ const english = {
                 link: "https://www.nelogica.com.br/",
             },
             {
-                title: "Rotation programme intern, software developer",
-                short: "Developer",
+                title: "Rotation programme intern",
+                short: "SAP rotation",
                 place: "SAP",
-                dates: ["2024-08", "2025-03"],
-                text: "Development on SAP Intelligent Agriculture, a logistics management product for farms, in a Scrum team. Fixed bugs and maintained logistics features, documented the code for the team, and brought the QA view into development by validating before every delivery.",
-                tools: "TypeScript, CAP, UI5, Fiori Elements, Node.js, Scrum",
+                dates: ["2023-03", "2025-03"],
+                text: "Two years in SAP’s rotation programme, following a bug through every desk it passes: customer support, then QA, then development.",
+                tools: "TypeScript, CAP, UI5, Fiori Elements, Node.js, Selenium WebDriver, JavaScript, Kibana, Dynatrace, ServiceNow, JIRA, Git, Scrum",
                 link: "https://www.sap.com/about/company.html",
-            },
-            {
-                title: "Rotation programme intern, QA engineer",
-                short: "QA engineer",
-                place: "SAP",
-                dates: ["2023-12", "2024-08"],
-                text: "Automated the product’s end-to-end tests with Selenium WebDriver. Built a way to insert the test data automatically, which ended recurring failures in the pipeline, and wrote testing protocols that kept problems from coming back to the deploy pipeline.",
-                tools: "Selenium WebDriver, JavaScript, Git",
-                link: "https://www.sap.com/about/company.html",
-            },
-            {
-                title: "Rotation programme intern, product support",
-                short: "Support",
-                place: "SAP",
-                dates: ["2023-03", "2023-12"],
-                text: "Handled more than 20 tickets a month from large SAP Commerce Cloud customers in several countries. Diagnosed and solved product problems, followed implementations through and reported the results to customers.",
-                tools: "Kibana, Dynatrace, ServiceNow, JIRA, Git",
-                link: "https://www.sap.com/about/company.html",
+                stages: [
+                    {
+                        title: "Software developer",
+                        dates: ["2024-08", "2025-03"],
+                        text: "Development on SAP Intelligent Agriculture, a logistics management product for farms, in a Scrum team. Fixed bugs and maintained logistics features, documented the code for the team, and brought the QA view into development by validating before every delivery.",
+                    },
+                    {
+                        title: "QA engineer",
+                        dates: ["2023-12", "2024-08"],
+                        text: "Automated the product’s end-to-end tests with Selenium WebDriver. Built a way to insert the test data automatically, which ended recurring failures in the pipeline, and wrote testing protocols that kept problems from coming back to the deploy pipeline.",
+                    },
+                    {
+                        title: "Product support",
+                        dates: ["2023-03", "2023-12"],
+                        text: "Handled more than 20 tickets a month from large SAP Commerce Cloud customers in several countries. Diagnosed and solved product problems, followed implementations through and reported the results to customers.",
+                    },
+                ],
             },
             {
                 title: "IT assistant",
@@ -239,11 +254,11 @@ const english = {
             {
                 title: "Physics engineering",
                 place: "UFRGS",
-                dates: "2017 – 2026",
+                dates: "2017 – 2027",
                 city: "Porto Alegre",
                 quote: "Where I learned to measure before I change anything.",
                 subjects: ["Quantum mechanics", "Electromagnetism", "Thermodynamics", "Electronics", "Programming", "Robotics", "Research"],
-                text: "An interdisciplinary degree that joins physics to engineering practice: quantum mechanics, electromagnetism and thermodynamics on one side, electronics, programming and robotics on the other, with a strong emphasis on research. It is where I learned to measure before I change anything. Expected to finish in 2026.",
+                text: "An interdisciplinary degree that joins physics to engineering practice: quantum mechanics, electromagnetism and thermodynamics on one side, electronics, programming and robotics on the other, with a strong emphasis on research. It is where I learned to measure before I change anything. Working alongside it since 2023; expected to finish in 2027.",
                 link: "https://engfis.if.ufrgs.br/index.php/P%C3%A1gina_principal",
             },
             {
@@ -260,6 +275,7 @@ const english = {
     },
     contact: {
         form: "Or use the form",
+        resume: "Résumé (PDF)",
         title: "Contact",
         copy: { email: "Copy email", phone: "Copy phone number" },
         copied: { email: "Email copied", phone: "Phone number copied" },
@@ -342,6 +358,7 @@ const portuguese = {
         company: "na Nelogica",
         before: "Nos apps do Profit e do Tryd que traders usam todos os dias. Antes, suporte, QA e desenvolvimento na SAP.",
         portrait: "Retrato de João Lucas",
+        resume: "Currículo (PDF)",
     },
     about: {
         heading: "Sobre",
@@ -355,6 +372,15 @@ const portuguese = {
             ["Mora em", "Porto Alegre, Brasil"],
             ["Agora", "Desenvolvedor mobile na Nelogica"],
             ["Fala", "Português, English (fluente)"],
+        ],
+        stackHeading: "Stack",
+        // [grupo, ferramentas]
+        stack: [
+            ["No dia a dia", "Vue.js, TypeScript, JavaScript, Tailwind CSS, CapacitorJS"],
+            ["Nativo", "Kotlin, Swift (plugins Capacitor)"],
+            ["Também", "React, Rust, Tauri, Node.js, SAP UI5, SAP CAP"],
+            ["Testes e entrega", "Selenium WebDriver, Jest, GitHub Actions, GitLab, Git"],
+            ["Time", "Scrum, Figma, JIRA"],
         ],
     },
     work: {
@@ -403,6 +429,12 @@ const portuguese = {
         company: "Sobre a empresa",
         tools: "Ferramentas",
         units: { year: ["ano", "anos"], month: ["mês", "meses"], and: " e ", now: "hoje" },
+        stagesLabel: "Etapas",
+        betweenHeading: "Entre cargos",
+        between: [
+            { dates: ["2025-04", "2025-08"], text: "Entre a SAP e a Nelogica: projetos pessoais e busca por emprego." },
+            { dates: ["2020-08", "2023-02"], text: "Dedicação integral à engenharia física na UFRGS." },
+        ],
         items: [
             {
                 title: "Desenvolvedor de software, mobile",
@@ -414,31 +446,30 @@ const portuguese = {
                 link: "https://www.nelogica.com.br/",
             },
             {
-                title: "Estagiário do programa de rotação, desenvolvedor",
-                short: "Desenvolvedor",
+                title: "Estagiário do programa de rotação",
+                short: "Rotação SAP",
                 place: "SAP",
-                dates: ["2024-08", "2025-03"],
-                text: "Desenvolvimento no SAP Intelligent Agriculture, solução de gestão logística de fazendas, em um time Scrum. Corrigi bugs e mantive funcionalidades de gestão logística, documentei o código para o time e levei a visão de qualidade do QA para o desenvolvimento, validando antes de cada entrega.",
-                tools: "TypeScript, CAP, UI5, Fiori Elements, Node.js, Scrum",
+                dates: ["2023-03", "2025-03"],
+                text: "Dois anos no programa de rotação da SAP, acompanhando um bug por todas as mesas por onde ele passa: suporte ao cliente, depois QA, depois desenvolvimento.",
+                tools: "TypeScript, CAP, UI5, Fiori Elements, Node.js, Selenium WebDriver, JavaScript, Kibana, Dynatrace, ServiceNow, JIRA, Git, Scrum",
                 link: "https://www.sap.com/about/company.html",
-            },
-            {
-                title: "Estagiário do programa de rotação, QA",
-                short: "QA",
-                place: "SAP",
-                dates: ["2023-12", "2024-08"],
-                text: "Automatizei os testes E2E do produto com Selenium WebDriver. Desenvolvi uma solução para inserir automaticamente os dados de teste, o que eliminou falhas recorrentes no pipeline, e criei protocolos de testagem que impediram a reincidência de problemas no pipeline de deploy.",
-                tools: "Selenium WebDriver, JavaScript, Git",
-                link: "https://www.sap.com/about/company.html",
-            },
-            {
-                title: "Estagiário do programa de rotação, suporte ao produto",
-                short: "Suporte",
-                place: "SAP",
-                dates: ["2023-03", "2023-12"],
-                text: "Atendi mais de 20 chamados por mês de grandes empresas clientes do SAP Commerce Cloud em diversos países. Diagnostiquei e resolvi problemas de uso do produto, acompanhei implementações e entreguei relatórios de resultados aos clientes.",
-                tools: "Kibana, Dynatrace, ServiceNow, JIRA, Git",
-                link: "https://www.sap.com/about/company.html",
+                stages: [
+                    {
+                        title: "Desenvolvedor",
+                        dates: ["2024-08", "2025-03"],
+                        text: "Desenvolvimento no SAP Intelligent Agriculture, solução de gestão logística de fazendas, em um time Scrum. Corrigi bugs e mantive funcionalidades de gestão logística, documentei o código para o time e levei a visão de qualidade do QA para o desenvolvimento, validando antes de cada entrega.",
+                    },
+                    {
+                        title: "QA",
+                        dates: ["2023-12", "2024-08"],
+                        text: "Automatizei os testes E2E do produto com Selenium WebDriver. Desenvolvi uma solução para inserir automaticamente os dados de teste, o que eliminou falhas recorrentes no pipeline, e criei protocolos de testagem que impediram a reincidência de problemas no pipeline de deploy.",
+                    },
+                    {
+                        title: "Suporte ao produto",
+                        dates: ["2023-03", "2023-12"],
+                        text: "Atendi mais de 20 chamados por mês de grandes empresas clientes do SAP Commerce Cloud em diversos países. Diagnostiquei e resolvi problemas de uso do produto, acompanhei implementações e entreguei relatórios de resultados aos clientes.",
+                    },
+                ],
             },
             {
                 title: "Assistente de TI",
@@ -525,11 +556,11 @@ const portuguese = {
             {
                 title: "Engenharia física",
                 place: "UFRGS",
-                dates: "2017 – 2026",
+                dates: "2017 – 2027",
                 city: "Porto Alegre",
                 quote: "Onde aprendi a medir antes de mudar qualquer coisa.",
                 subjects: ["Mecânica quântica", "Eletromagnetismo", "Termodinâmica", "Eletrônica", "Programação", "Robótica", "Pesquisa"],
-                text: "Uma graduação interdisciplinar que une a física à prática da engenharia: mecânica quântica, eletromagnetismo e termodinâmica de um lado, eletrônica, programação e robótica do outro, com forte ênfase em pesquisa. Foi onde aprendi a medir antes de mudar qualquer coisa. Previsão de conclusão: 2026.",
+                text: "Uma graduação interdisciplinar que une a física à prática da engenharia: mecânica quântica, eletromagnetismo e termodinâmica de um lado, eletrônica, programação e robótica do outro, com forte ênfase em pesquisa. Foi onde aprendi a medir antes de mudar qualquer coisa. Em paralelo ao trabalho desde 2023; previsão de conclusão: 2027.",
                 link: "https://engfis.if.ufrgs.br/index.php/P%C3%A1gina_principal",
             },
             {
@@ -546,6 +577,7 @@ const portuguese = {
     },
     contact: {
         form: "Ou use o formulário",
+        resume: "Currículo (PDF)",
         title: "Contato",
         copy: { email: "Copiar e-mail", phone: "Copiar telefone" },
         copied: { email: "E-mail copiado", phone: "Telefone copiado" },

@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { links } from "../../content";
+import resumeEnglish from "../../Assets/Documents/JoaoLucasMirandaMenegassoResume.pdf";
+import resumePortuguese from "../../Assets/Documents/JoaoLucasMirandaMenegassoCurriculo.pdf";
+
+// The résumé PDF in the page's language, linked from the hero and the contact section.
+export const resume = { english: resumeEnglish, portuguese: resumePortuguese };
 
 // The four ways to reach João, shared by the hero circles and the contact list.
 // GitHub and LinkedIn open in a new tab; email and phone are copied.
