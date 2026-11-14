@@ -3,9 +3,9 @@ import { useMedia } from "../../Functions/client";
 import type { Copy, Language } from "../../content";
 import { channels, icons, resume, useCopy, Toast } from "../Channels/Channels";
 
-// The name holds, erases and types itself again, like the first portfolio
+// The name types itself, holds, erases and types again, like the first portfolio
 // (typewriter-effect with pauseFor 5000). Letters keep their space while untyped,
-// so the line never shifts. The values live here and the caret in style.scss.
+// so the line never shifts. The values live here and the caret in components/_hero.scss.
 const WORDS = ["João", "Lucas"];
 const TOTAL = WORDS.join("").length;
 const START = 300;
@@ -16,9 +16,10 @@ const EMPTY = 600;
 
 function useTyping() {
     const still = useMedia("(prefers-reduced-motion: reduce)", { fallback: true });
-    // The name starts written, so it is there in the first frame and in the
-    // prerendered page; then it holds, erases and types itself again.
-    const [count, setCount] = useState(TOTAL);
+    // The name starts empty, in the prerendered page too, so the typing is the first
+    // thing seen. The letters keep their space and the h1 reads the whole name, so
+    // neither the layout nor screen readers wait for it.
+    const [count, setCount] = useState(0);
     const [erasing, setErasing] = useState(false);
 
     useEffect(() => {

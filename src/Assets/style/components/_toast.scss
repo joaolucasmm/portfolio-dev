@@ -1,0 +1,23 @@
+// A short confirmation at the bottom of its section (hero circles, contact list).
+.toast {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    margin: 0;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    translate: -50% 16px;
+    transition: opacity 250ms, translate 400ms var(--spring);
+
+    &.is-on {
+        opacity: 1;
+        translate: -50% 0;
+    }
+}

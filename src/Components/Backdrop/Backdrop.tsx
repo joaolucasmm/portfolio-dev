@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 // The page's background: liquid ink that flows slowly and is pushed aside by the
 // pointer, drawn by one WebGL shader at a fraction of the screen's resolution
-// (it is soft, so nobody sees the pixels), with film grain on top in style.scss.
+// (it is soft, so nobody sees the pixels), with film grain on top (base/_layout.scss).
 // Without WebGL the plain theme colour shows instead.
 //
 // It stays out of the way of the first screen: it starts once the page has loaded

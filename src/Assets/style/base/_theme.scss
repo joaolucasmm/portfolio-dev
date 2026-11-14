@@ -1,0 +1,103 @@
+@use "../tokens" as *;
+
+// Theme: the tokens on :root, the light theme and the inverse band.
+:root {
+    @include dark-tokens;
+    // Montserrat for headings, Roboto for text, JetBrains Mono for labels, tags, keys and counts.
+    --display: "Montserrat", system-ui, sans-serif;
+    --display-weight: 700;
+    --text: "Roboto", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+
+    --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+    --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+    --step-lead: clamp(1.3125rem, 1.05rem + 1.1vw, 2.125rem);
+    --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+    --step-display: clamp(3.5rem, 13vw, 13.75rem);
+
+    --margin: clamp(16px, 2.2vw, 32px);
+    --gap: clamp(16px, 1.7vw, 24px);
+    --section: clamp(120px, 12vw, 200px);
+    --header-height: 68px;
+    --radius-control: 8px; // buttons, fields, results
+    --radius-card: 12px; // pictures, panels, the dialog
+    --radius-glass: 18px; // glass cards
+
+    // Glass, as chosen in the "Vidro de volta" artifact (concept 1).
+    --glass-blur: 18px;
+    --glass-tint: 0.4;
+    // Film grain over the background, as on the first portfolio's light theme.
+    --grain: 0.55;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+    // Motion taken from the ui-library patterns; each group names its source.
+    // Shared spring (overshoot about 3%), exported as linear().
+    --spring: linear(0, 0.0019, 0.0073 1.19%, 0.0273, 0.0577 3.58%, 0.1033 4.97%, 0.2073 7.56%, 0.5701 15.72%,
+        0.6765 18.5%, 0.7614, 0.8322 23.67%, 0.8933, 0.9401 29.25%, 0.9587 30.64%, 0.9764 32.23%, 0.9983 34.82%,
+        1.0148 37.8%, 1.0243 40.98%, 1.0282 44.56%, 1.0262 49.74%, 1.0096 63.66%, 1.0028 72.42%, 0.9996 83.16%,
+        0.9994 99.87%);
+    --ease-ui: cubic-bezier(0, 0.55, 0.45, 1);
+
+    // The typed name: caret width, colour and blink.
+    --caret-width: 0.06em;
+    --caret-blink: 1s;
+
+    // logo-morph-mola
+    --morph-out: 300ms;
+    --morph-in: 500ms;
+    --morph-stagger: 50ms;
+    --morph-in-delay: 450ms; // set per swap by the footer, from the length of the word leaving
+    --morph-overlap: 150ms;
+    --morph-blur: 24px;
+
+    // The eclipse switch: the shadow and the rays move on the shared spring.
+    --eclipse: 500ms;
+    // The language letters roll on the same spring, the second 60ms after the first.
+    --lang-roll: 520ms;
+    // The search lens widens to its word on the same spring.
+    --search-grow: 420ms;
+    // The desktop bar: how wide the pill gets, how long it takes to shrink, and how
+    // long the highlight takes to reach the next section.
+    --bar-small: 1040px;
+    --bar-shrink: 560ms;
+    --bar-slide: 560ms;
+    --lang-roll-stagger: 60ms;
+
+    // tema-shift-t: only controls transition when the theme changes.
+    --theme-swap: 200ms;
+
+    // card-contorno-hover
+    --press-scale: 0.975;
+    --press-duration: 200ms;
+
+
+    // alt-foco-navegacao
+    --alt-blur: 16px;
+    --alt-fade: 0.2;
+    --alt-stagger: 100ms;
+
+    // busca-ctrl-k
+    --search-open: 100ms;
+    --search-blur: 8px;
+    --search-item: 150ms;
+    --highlight: #ffef3a;
+}
+
+// A section or item focused by a shortcut or the search should not draw a box.
+[tabindex="-1"]:focus {
+    outline: none;
+}
+
+:root[data-theme="light"] {
+    @include light-tokens;
+}
+
+:root[data-theme="light"] .inverse {
+    @include band-night;
+}
+
+.inverse {
+    @include band-pink;
+    background: var(--bg);
+    color: var(--ink);
+}

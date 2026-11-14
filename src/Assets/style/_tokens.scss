@@ -1,0 +1,79 @@
+// João Lucas — "the name as a monument". Night blue with pink kept for what you act on.
+// Every colour and size below is a token; sections reference tokens only.
+
+$phone: 720px;
+$tablet: 1000px;
+$header-menu: 1180px;
+
+@mixin dark-tokens {
+    color-scheme: dark;
+    --bg: #151a30;
+    --surface: #1d2340;
+    --ink: #eef0f8;
+    --muted: #a5abc6;
+    --accent: #ff7aa2; // framboesa
+    --accent-ink: #151a30;
+    --glass-rgb: 21 26 48;
+    --glass-edge: 0.14;
+    --glass-shine: 0.18;
+    --liquid-tint: 0.24;
+    --liquid-rim: 0.55;
+}
+
+@mixin light-tokens {
+    color-scheme: light;
+    --bg: #f7f6fa;
+    --surface: #ecebf3;
+    --ink: #151a30;
+    --muted: #575c78;
+    --accent: #a0106a; // fúcsia: holds 3.5:1 on the lilac ink, 7:1 under white text
+    --accent-ink: #ffffff;
+    --glass-rgb: 255 255 255;
+    --glass-edge: 0.7;
+    --glass-shine: 0.9;
+    --liquid-tint: 0.42;
+    --liquid-rim: 0.95;
+}
+
+// Content floats on glass over the flowing ink (the old portfolio's cards, made denser).
+@mixin glass {
+    background: rgb(var(--glass-rgb) / var(--glass-tint));
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.4); // taste-skill-ignore: glass cards asked for by João
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.4); // taste-skill-ignore: glass cards asked for by João
+    border: 1px solid rgb(255 255 255 / var(--glass-edge));
+    border-radius: var(--radius-glass);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / var(--glass-shine)), 0 12px 32px -12px rgb(0 0 0 / 0.45);
+}
+
+// Liquid glass, as on iOS 26: clearer than the cards, very saturated, with light on
+// the rims and a soft shadow. Used by the phone header and the hero circles.
+@mixin liquid {
+    background: rgb(var(--glass-rgb) / var(--liquid-tint));
+    backdrop-filter: blur(12px) saturate(1.9) brightness(1.06); // taste-skill-ignore: liquid glass asked for by João
+    -webkit-backdrop-filter: blur(12px) saturate(1.9) brightness(1.06); // taste-skill-ignore: liquid glass asked for by João
+    border: 0;
+    box-shadow: inset 0 1px 1px rgb(255 255 255 / var(--liquid-rim)), inset 0 -1px 1px rgb(255 255 255 / 0.14),
+        inset 1px 0 1px rgb(255 255 255 / 0.2), inset -1px 0 1px rgb(255 255 255 / 0.1),
+        inset 0 0 20px rgb(255 255 255 / 0.06), 0 10px 30px -10px rgb(0 0 0 / 0.5);
+}
+
+// The footer band: pink ground on the dark theme, night blue on the light one.
+@mixin band-pink {
+    color-scheme: light;
+    --bg: #ff7aa2;
+    --surface: #ff93b4;
+    --ink: #151a30;
+    --muted: #3a2340;
+    --accent: #151a30;
+    --accent-ink: #ff7aa2;
+}
+
+@mixin band-night {
+    color-scheme: dark;
+    --bg: #151a30;
+    --surface: #1d2340;
+    --ink: #eef0f8;
+    --muted: #a5abc6;
+    --accent: #ff7aa2;
+    --accent-ink: #151a30;
+}

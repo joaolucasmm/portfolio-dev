@@ -1,0 +1,90 @@
+@use "../tokens" as *;
+// Controls
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 24px;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius-control);
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-size: var(--step-body);
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--theme-swap) ease, color var(--theme-swap) ease,
+        border-color var(--theme-swap) ease, transform 120ms ease;
+
+    &:hover {
+        background: transparent;
+        color: var(--accent);
+    }
+
+    &:active {
+        transform: scale(0.97);
+    }
+
+    &:disabled {
+        cursor: progress;
+        opacity: 0.7;
+    }
+
+    // The second action beside a filled one: outlined, filled under the pointer.
+    &--ghost {
+        background: transparent;
+        color: var(--accent);
+
+        &:hover {
+            background: var(--accent);
+            color: var(--accent-ink);
+        }
+    }
+
+    &--small {
+        min-height: 44px;
+        padding: 0 18px;
+    }
+}
+
+.text-link {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font-size: var(--step-body);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+    cursor: pointer;
+    transition: text-decoration-thickness 150ms ease, text-underline-offset 150ms ease;
+
+    &:hover {
+        text-decoration-thickness: 3px;
+        text-underline-offset: 0.18em;
+    }
+}
+
+// Phones: every text link is at least 44px tall to the finger, without
+// changing how it looks.
+@media (max-width: $phone) {
+    .text-link,
+    .footer__sections a,
+    .footer__legal a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+    }
+
+}
+
+// Wider than a phone, every section title sits in the middle of the page.
+@media (min-width: $phone + 1) {
+    .work__heading,
+    .experience__heading {
+        margin-inline: auto;
+        text-align: center;
+    }
+}

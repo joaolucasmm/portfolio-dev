@@ -1,5 +1,6 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
+import { fileURLToPath } from "node:url";
 
 // GitHub Pages serves each repository under its own name: this one at
 // /portfolio-dev/, production (joaolucasmm/portfolio, which builds this same
@@ -10,6 +11,11 @@ const repository = process.env.GITHUB_REPOSITORY?.split("/")[1] || "portfolio-de
 export default defineConfig({
     base: `/${repository}/`,
     plugins: [react()],
+    resolve: {
+        // The font files of the @fontsource packages, for url() in base/_fonts.scss
+        // (a bare package name there would be read relative to the partial).
+        alias: { "@fonts": fileURLToPath(new URL("node_modules/@fontsource", import.meta.url)) },
+    },
     define: {
         // The month of the build, which the prerendered page counts a current role to.
         __BUILD_MONTH__: JSON.stringify(new Date().toISOString().slice(0, 7)),

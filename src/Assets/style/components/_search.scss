@@ -1,0 +1,336 @@
+@use "../tokens" as *;
+// Ctrl+K search over the blurred page (ui-library: busca-ctrl-k).
+
+.search {
+    overscroll-behavior: contain;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20vh var(--margin) 0;
+    background: color-mix(in srgb, var(--bg), transparent 40%);
+    backdrop-filter: blur(var(--search-blur)); // taste-skill-ignore: search overlay or Alt pulse, both transient
+    -webkit-backdrop-filter: blur(var(--search-blur)); // taste-skill-ignore: search overlay or Alt pulse, both transient
+    transition: opacity var(--search-open), backdrop-filter var(--search-open), visibility 0s;
+
+    &[hidden] {
+        display: flex;
+        opacity: 0;
+        visibility: hidden;
+        backdrop-filter: blur(0); // taste-skill-ignore: search overlay or Alt pulse, both transient
+        -webkit-backdrop-filter: blur(0); // taste-skill-ignore: search overlay or Alt pulse, both transient
+        pointer-events: none;
+        transition: opacity var(--search-open), backdrop-filter var(--search-open), visibility 0s var(--search-open);
+    }
+
+    // As Spotlight on the Mac: the field as a glass pill with shortcut circles
+    // beside it, and the results in a glass card below. On phones it sits at the
+    // top and never runs under the keyboard (Search.jsx sets --visible-height).
+    &__panel {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 12px;
+        width: min(760px, 100%);
+        max-height: min(640px, 80vh);
+    }
+
+    &__bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__head,
+    &__circle,
+    &__card {
+        @include glass;
+        background: rgb(var(--glass-rgb) / 0.82);
+    }
+
+    &__head {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 56px;
+        padding: 0 20px;
+        border-radius: 999px;
+
+        // The field itself draws no outline; the pill shows where typing goes.
+        &:focus-within {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        svg {
+            flex: none;
+            color: var(--muted);
+        }
+    }
+
+    &__shortcuts {
+        display: flex;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__shortcut {
+        display: grid;
+        justify-items: center;
+        gap: 6px;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: var(--ink);
+        font: inherit;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:focus-visible {
+            outline: none;
+        }
+
+        &:focus-visible .search__circle {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+    }
+
+    &__circle {
+        width: 56px;
+        height: 56px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        transition: background-color 200ms ease, color 200ms ease, transform 300ms var(--spring);
+
+        svg {
+            width: 22px;
+            height: 22px;
+        }
+    }
+
+    &__shortcut:hover &__circle {
+        background: var(--accent);
+        color: var(--accent-ink);
+        transform: translateY(-2px);
+    }
+
+    // The names show on phones, where there is no pointer to hover for the title.
+    &__shortcut-name {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+
+    &__card {
+        display: grid;
+        grid-template-rows: minmax(0, 1fr) auto auto;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    @media (max-width: $phone) {
+        padding-top: max(12px, env(safe-area-inset-top, 0px));
+
+        &__panel {
+            max-height: calc(var(--visible-height, 100dvh) - max(12px, env(safe-area-inset-top, 0px)) - 12px);
+            gap: 10px;
+        }
+
+        &__bar {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
+        }
+
+        &__head {
+            flex: none;
+            height: 52px;
+            padding: 0 18px;
+        }
+
+        &__shortcuts {
+            justify-content: space-between;
+            padding: 0 6px;
+        }
+
+        &__circle {
+            width: 52px;
+            height: 52px;
+        }
+
+        &__shortcut-name {
+            position: static;
+            width: auto;
+            height: auto;
+            overflow: visible;
+            clip-path: none;
+            font-size: 0.72rem;
+            font-weight: 500;
+        }
+
+        // No keyboard to press them on; the foot stays only to say the email was copied.
+        &__head .search__key,
+        &__result > .search__key,
+        &__enter,
+        &__foot:not(.has-status) {
+            display: none;
+        }
+    }
+
+    &__input {
+        flex: 1;
+        min-width: 0;
+        height: 36px;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: var(--ink);
+        caret-color: var(--accent);
+        font: inherit;
+        font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+        text-overflow: ellipsis;
+        outline: none;
+
+        &::placeholder {
+            color: var(--muted);
+            opacity: 0.85;
+        }
+    }
+
+    &__key {
+        padding: 3px 6px;
+        border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
+        border-radius: 5px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    &__results {
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding: 4px 8px 8px;
+
+        ul {
+            display: grid;
+            gap: 2px;
+        }
+    }
+
+    // The group's name, drawn from data-label so the listbox holds only options.
+    &__group::before {
+        content: attr(data-label);
+        margin: 10px 10px 2px;
+        font-family: var(--mono);
+        color: var(--muted);
+        font-size: 0.6875rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    &__result {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 2px 12px;
+        padding: 9px 10px;
+        border-radius: var(--radius-control);
+        cursor: pointer;
+        transition: background-color var(--search-item);
+
+        &.is-active {
+            background: color-mix(in srgb, var(--ink) 11%, transparent);
+        }
+    }
+
+    &__mark {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background: color-mix(in srgb, var(--ink) 8%, transparent);
+        color: var(--muted);
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    &__title {
+        grid-column: 2;
+        grid-row: 1;
+        overflow: hidden;
+        font-weight: 500;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__text {
+        grid-column: 2;
+        grid-row: 2;
+        overflow: hidden;
+        color: var(--muted);
+        font-size: var(--step-small);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__result > .search__key,
+    &__enter {
+        grid-column: 3;
+        grid-row: 1 / span 2;
+    }
+
+    &__enter {
+        color: var(--muted);
+        font-size: 0.75rem;
+        opacity: 0;
+        transition: opacity var(--search-item);
+    }
+
+    &__result.is-active &__enter {
+        opacity: 1;
+    }
+
+    &__empty {
+        padding: 16px 18px;
+        color: var(--muted);
+    }
+
+    &__foot {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 16px;
+        padding: 10px 18px;
+        border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+        color: var(--muted);
+        font-size: 0.75rem;
+    }
+
+    mark {
+        background: var(--highlight);
+        color: #151a30;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &,
+        &[hidden] {
+            transition: none;
+        }
+    }
+}
