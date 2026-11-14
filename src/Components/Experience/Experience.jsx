@@ -21,7 +21,14 @@ function formatLength([from, to], units) {
     return [years && part(years, units.year), months && part(months, units.month)].filter(Boolean).join(units.and);
 }
 
-// A role held in stages (SAP's rotation programme) lists them under its own text,
+// The list names drop the internship prefix so they fit on one or two lines;
+// the company sits under each name.
+function listName(title) {
+    const name = title.replace(/^(Rotation programme intern|Estagiário do programa de rotação), /, "");
+    return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+// A role held in stages (the UFRGS years) lists them under its own text,
 // newest first, each with its dates and length.
 function Stages({ role, t }) {
     if (!role.stages) return null;
@@ -207,7 +214,7 @@ function Experience({ t }) {
                             onClick={() => setChosen(i)}
                             onKeyDown={onKeyDown}
                         >
-                            {role.title}
+                            {listName(role.title)}
                             <span className="experience__tab-place" translate="no">
                                 {role.place}
                             </span>
