@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import "./Assets/style/style.scss";
 
-import content from "./content";
+import content, { type Language } from "./content";
 import Backdrop from "./Components/Backdrop/Backdrop";
 import Header from "./Components/Header/Header";
 import Hero from "./Components/Hero/Hero";
@@ -17,7 +17,7 @@ import useReveal from "./Functions/useReveal";
 import useShortcuts from "./Functions/useShortcuts";
 
 function App() {
-    const [language, setLanguage] = useState("english");
+    const [language, setLanguage] = useState<Language>("english");
     const [emailDialog, setEmailDialog] = useState(false);
     const [darkMode, setDarkMode] = useState(true);
     const [searchOpen, setSearchOpen] = useState(false);

@@ -57,7 +57,7 @@ describe("Experience", () => {
         // A finished role shows a range and its length in months or years.
         const done = pt.items.findIndex((i) => i.dates[1]);
         fireEvent.click(screen.getAllByRole("tab")[done]);
-        expect(screen.getByRole("tabpanel").querySelector(".experience__when").textContent).toMatch(
+        expect(screen.getByRole("tabpanel").querySelector(".experience__when")?.textContent).toMatch(
             new RegExp(pt.units.month.join("|") + "|" + pt.units.year.join("|"))
         );
     });

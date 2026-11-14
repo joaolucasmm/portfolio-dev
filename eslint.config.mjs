@@ -2,18 +2,20 @@ import js from "@eslint/js";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
+import tseslint from "typescript-eslint";
 
-export default [
+export default tseslint.config(
     { ignores: ["build/", "coverage/", "playwright-report/", "test-results/"] },
     js.configs.recommended,
     {
-        files: ["src/**/*.{js,jsx}"],
+        files: ["src/**/*.{ts,tsx}", "vite.config.ts"],
+        extends: [tseslint.configs.recommended],
+    },
+    {
+        files: ["src/**/*.{ts,tsx}"],
         ...react.configs.flat.recommended,
-        ...react.configs.flat["jsx-runtime"],
         languageOptions: {
             ...react.configs.flat.recommended.languageOptions,
-            ecmaVersion: "latest",
-            sourceType: "module",
             globals: globals.browser,
         },
         settings: { react: { version: "detect" } },
@@ -23,17 +25,18 @@ export default [
             ...react.configs.flat["jsx-runtime"].rules,
             "react-hooks/rules-of-hooks": "error",
             "react-hooks/exhaustive-deps": "warn",
-            // Props are documented by their use; the project has no PropTypes.
+            // TypeScript checks the props.
             "react/prop-types": "off",
         },
     },
     {
-        files: ["src/**/*.test.{js,jsx}", "src/setupTests.js"],
+        files: ["src/**/*.test.{ts,tsx}", "src/setupTests.ts"],
         languageOptions: { globals: { ...globals.browser, ...globals.vitest } },
     },
     {
         files: ["*.config.js", "scripts/**/*.js", "e2e/**/*.js"],
         languageOptions: { globals: globals.node, sourceType: "commonjs" },
+        rules: { "@typescript-eslint/no-require-imports": "off" },
     },
     {
         // Callbacks passed to page.evaluate run in the browser.
@@ -41,7 +44,7 @@ export default [
         languageOptions: { globals: { ...globals.node, ...globals.browser } },
     },
     {
-        files: ["*.config.mjs"],
+        files: ["*.config.{mjs,ts}"],
         languageOptions: { globals: globals.node },
-    },
-];
+    }
+);

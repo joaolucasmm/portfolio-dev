@@ -15,14 +15,18 @@
     "lint": "eslint --max-warnings=0 .",
     "size": "node scripts/check-size.js",
     "serve:build": "node scripts/serve-build.js",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "typecheck": "tsc && tsc -p tsconfig.node.json"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
     "@playwright/test": "^1.65.0",
-    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.6.10",
+    "@types/node": "^22.20.5",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "^6.3.0",
     "@vitest/coverage-v8": "^4.1.12",
     "eslint": "^9.39.5",
@@ -31,7 +35,14 @@
     "globals": "^17.14.0",
     "jest-axe": "^8.0.0",
     "jsdom": "^27.0.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.2",
     "vite": "^8.3.8",
     "vitest": "^4.1.12"
+  },
+  "overrides": {
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.8"
+    }
   }
 }

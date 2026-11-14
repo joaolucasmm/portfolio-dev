@@ -31,6 +31,8 @@ jobs:
       - run: npm ci
       - name: lint
         run: npm run lint
+      - name: types
+        run: npm run typecheck
       - name: build
         run: npm run build
       - name: bundle size
@@ -112,7 +114,7 @@ jobs:
         with:
           # What visitors see. Sites that turn bots away (403, 429) count as up.
           # index.html points at /favicon.ico and the like, served from public/.
-          args: --no-progress --max-retries 3 --accept 200..=299,403,429 --root-dir ${{ github.workspace }}/public src/content.js index.html
+          args: --no-progress --max-retries 3 --accept 200..=299,403,429 --root-dir ${{ github.workspace }}/public src/content.ts index.html
           fail: true
 
   audit:

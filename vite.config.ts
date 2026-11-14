@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 
 // GitHub Pages serves each repository under its own name: this one at
@@ -19,10 +19,10 @@ export default defineConfig({
     test: {
         environment: "jsdom",
         globals: true,
-        setupFiles: "src/setupTests.js",
+        setupFiles: "src/setupTests.ts",
         // An axe run over the whole page takes about 2 s, more on a cold first run.
         testTimeout: 15_000,
-        include: ["src/**/*.test.{js,jsx}"],
-        coverage: { include: ["src/**/*.{js,jsx}"] },
+        include: ["src/**/*.test.{ts,tsx}"],
+        coverage: { include: ["src/**/*.{ts,tsx}"] },
     },
 });

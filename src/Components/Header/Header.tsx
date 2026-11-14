@@ -1,10 +1,11 @@
-import { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from "react";
 import { sections } from "../../Functions/useShortcuts";
+import type { Copy, Language } from "../../content";
 import useDialogFocus from "../../Functions/useDialogFocus";
 
 // The theme switch is the sun itself: in dark mode its rays turn away and a
 // shadow slides across until it is a moon. The label is for screen readers only.
-function ThemeSwitch({ label, on, toggle }) {
+function ThemeSwitch({ label, on, toggle }: { label: string; on: boolean; toggle: () => void }) {
     return (
         <button
             type="button"
@@ -38,7 +39,7 @@ function ThemeSwitch({ label, on, toggle }) {
 // the word and the shortcut (ui-library: nav-pilulas-atalhos, the visible shortcut).
 const MAC = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
 
-function SearchButton({ label, open }) {
+function SearchButton({ label, open }: { label: string; open: () => void }) {
     return (
         <button type="button" className="search-grow" aria-label={label} aria-keyshortcuts="Control+K" onClick={open}>
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
@@ -55,7 +56,7 @@ function SearchButton({ label, open }) {
 
 // The language button shows the language being read; on a click its letters roll
 // like a counter, E→P and N→T, the second a beat after the first.
-function LanguageRoll({ label, portuguese, toggle }) {
+function LanguageRoll({ label, portuguese, toggle }: { label: string; portuguese: boolean; toggle: () => void }) {
     return (
         <button
             type="button"
@@ -79,9 +80,9 @@ function LanguageRoll({ label, portuguese, toggle }) {
 
 // Moves a marker under the link of the current section, measured from the link
 // itself. The first placement and layout changes skip the transition.
-function placeMarker(list, marker, id, animate) {
+function placeMarker(list: HTMLElement | null, marker: HTMLElement | null, id: string | null, animate: boolean) {
     if (!list || !marker) return;
-    const link = list.querySelector('[data-id="' + id + '"]');
+    const link = list.querySelector<HTMLElement>('[data-id="' + id + '"]');
     if (!link) {
         marker.style.opacity = "0";
         return;
@@ -100,25 +101,34 @@ function placeMarker(list, marker, id, animate) {
 // a glass pill in the middle, with a highlight that slides to the current section.
 // Phone and tablet: the top keeps only the initials and the three buttons. The
 // initials open a full-screen menu with the top of the page and the sections.
-function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch }) {
+interface Props {
+    t: Copy["nav"];
+    language: Language;
+    setLanguage: (language: Language) => void;
+    darkMode: boolean;
+    toggleTheme: () => void;
+    openSearch: () => void;
+}
+
+function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch }: Props) {
     const [small, setSmall] = useState(false);
-    const [currentSection, setCurrentSection] = useState(null);
-    const track = useRef(null);
-    const highlight = useRef(null);
+    const [currentSection, setCurrentSection] = useState<string | null>(null);
+    const track = useRef<HTMLDivElement>(null);
+    const highlight = useRef<HTMLSpanElement>(null);
     const placed = useRef(false);
-    const current = useRef(null);
+    const current = useRef<string | null>(null);
     const [menu, setMenu] = useState(false);
-    const menuBox = useRef(null);
+    const menuBox = useRef<HTMLDivElement>(null);
     const closeMenu = useCallback(() => setMenu(false), []);
     useDialogFocus(menu, menuBox, closeMenu);
 
     // Focus the first link once the menu is open.
     useEffect(() => {
-        if (menu) menuBox.current?.querySelector(".menu__link")?.focus({ preventScroll: true });
+        if (menu) menuBox.current?.querySelector<HTMLElement>(".menu__link")?.focus({ preventScroll: true });
     }, [menu]);
 
     // Close first so the page can scroll again, then go to the section and focus it.
-    const goTo = (e, id) => {
+    const goTo = (e: MouseEvent<HTMLAnchorElement>, id: string) => {
         e.preventDefault();
         setMenu(false);
         requestAnimationFrame(() => {
@@ -250,7 +260,7 @@ function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch })
                 </button>
                 <nav aria-label={t.sections}>
                     <ol className="menu__list">
-                        {["top", ...sections].map((id, i) => (
+                        {(["top", ...sections] as const).map((id, i) => (
                             <li key={id}>
                                 <a
                                     className="menu__link"

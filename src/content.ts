@@ -1,6 +1,163 @@
 // All copy on the page, in both languages. Components read `content[language]`.
 // Work history follows the LinkedIn profile, which is the source of truth for dates and titles.
 
+// The shape of the copy. Both languages are typed with it, so a text missing
+// from one of them fails to compile, not only the test in content.test.ts.
+
+/** A month as "YYYY-MM". */
+export type Month = string;
+/** From and to; a null end means the role is current. */
+export type MonthRange = [from: Month, to: Month | null];
+/** [label, value] pairs, read as a definition list. */
+export type Pair = [label: string, value: string];
+/** [title, line under it, extra words that find it] in the search. */
+export type SearchAction = [title: string, sub: string, keywords: string];
+export type Plural = [one: string, many: string];
+
+export interface Project {
+    name: string;
+    /** Alt text of the screenshot. */
+    shot: string;
+    kind: string;
+    description: string;
+}
+
+export interface Role {
+    title: string;
+    /** The tab label on phones. */
+    short: string;
+    place: string;
+    dates: MonthRange;
+    text: string;
+    points?: string[];
+    tools: string;
+    link: string;
+}
+
+export interface Gap {
+    dates: [from: Month, to: Month];
+    text: string;
+}
+
+export interface Course {
+    title: string;
+    place: string;
+    dates: string;
+    city: string;
+    note: string;
+    link: string;
+}
+
+export interface Copy {
+    nav: {
+        work: string;
+        experience: string;
+        education: string;
+        contact: string;
+        language: string;
+        languageShort: string;
+        languageNow: string;
+        theme: string;
+        top: string;
+        sections: string;
+        menu: string;
+        close: string;
+        toTop: string;
+        search: string;
+        skip: string;
+    };
+    hero: { role: string; company: string; before: string; portrait: string; resume: string };
+    about: {
+        heading: string;
+        lead: string;
+        first: string;
+        body: string[];
+        facts: Pair[];
+        stackHeading: string;
+        stack: Pair[];
+    };
+    work: {
+        heading: string;
+        run: string;
+        stop: string;
+        site: string;
+        code: string;
+        download: string;
+        post: string;
+        frameTitle: string;
+        windowsOnly: string;
+        hint: string;
+        next: string;
+        previous: string;
+        following: string;
+        goTo: string;
+        of: string;
+        items: Project[];
+    };
+    experience: {
+        locale: string;
+        heading: string;
+        company: string;
+        tools: string;
+        units: { year: Plural; month: Plural; and: string; now: string };
+        betweenHeading: string;
+        between: Gap[];
+        items: Role[];
+    };
+    education: { heading: string; more: string; items: Course[] };
+    contact: {
+        form: string;
+        resume: string;
+        title: string;
+        copy: { email: string; phone: string };
+        copied: { email: string; phone: string };
+    };
+    search: {
+        label: string;
+        placeholder: string;
+        enter: string;
+        empty: string;
+        goTo: string;
+        shortcuts: { label: string; experience: string; work: string; linkedin: string; email: string };
+        copied: string;
+        keys: { choose: string; open: string; close: string };
+        groups: { action: string; section: string; project: string; role: string; edu: string };
+        actions: { theme: SearchAction; language: SearchAction; email: SearchAction; download: SearchAction };
+    };
+    footer: {
+        sections: string;
+        rights: string;
+        top: string;
+        morph: string;
+        keys: { label: string; focus: string; jump: string; search: string; theme: string; debug: string };
+    };
+    dialog: {
+        title: string;
+        sub: string;
+        name: string;
+        subject: string;
+        email: string;
+        message: string;
+        send: string;
+        sending: string;
+        sent: string;
+        error: string;
+        close: string;
+    };
+}
+
+export type Language = "english" | "portuguese";
+
+export interface ProjectLink {
+    /** Live site; with `run`, it opens in the frame on the page. */
+    url?: string;
+    repo: string;
+    download?: string;
+    post?: string;
+    run?: boolean;
+    year: string;
+}
+
 const links = {
     email: "joaol_mm@hotmail.com",
     phone: "+55 48 99633-0209",
@@ -11,7 +168,7 @@ const links = {
 
 // One entry per project, in the order of `work.items`.
 // `run`: the live site can be opened inside the frame on the page.
-const projectLinks = [
+const projectLinks: ProjectLink[] = [
     {
         repo: "https://github.com/joaolucasmm/sizewise",
         download: "https://github.com/joaolucasmm/sizewise/releases/latest",
@@ -32,7 +189,7 @@ const projectLinks = [
     },
 ];
 
-const english = {
+const english: Copy = {
     nav: {
         work: "Projects",
         experience: "Experience",
@@ -279,7 +436,7 @@ const english = {
     },
 };
 
-const portuguese = {
+const portuguese: Copy = {
     nav: {
         work: "Projetos",
         experience: "Experiência",
@@ -526,7 +683,7 @@ const portuguese = {
     },
 };
 
-const content = { english, portuguese };
+const content: Record<Language, Copy> = { english, portuguese };
 
 export { links, projectLinks };
 export default content;

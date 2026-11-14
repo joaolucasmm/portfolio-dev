@@ -1,6 +1,7 @@
 import portrait from "../../Assets/Images/avatar.jpg";
+import type { Copy } from "../../content";
 
-function About({ t }) {
+function About({ t }: { t: Copy["about"] }) {
     return (
         <section id="about" className="section section--alt about">
             <div className="about__side" data-reveal>

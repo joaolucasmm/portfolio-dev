@@ -1,6 +1,8 @@
 // One line per course: the school, the course, the years and a note.
 
-function Education({ t }) {
+import type { Copy } from "../../content";
+
+function Education({ t }: { t: Copy["education"] }) {
     return (
         <section id="education" className="section section--alt education" tabIndex={-1}>
             <h2 className="education__heading" data-reveal>

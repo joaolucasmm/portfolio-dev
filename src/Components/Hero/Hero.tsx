@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type { Copy, Language } from "../../content";
 import { channels, icons, resume, useCopy, Toast } from "../Channels/Channels";
 
 // The name types itself, holds, erases and types again, like the first portfolio
@@ -20,7 +21,7 @@ function useTyping() {
 
     useEffect(() => {
         if (still) return undefined;
-        let wait;
+        let wait: number;
         if (!erasing && count < TOTAL) wait = (count === 0 ? START : 0) + TYPE * (0.6 + Math.random() * 0.8);
         else if (!erasing) wait = HOLD;
         else if (count > 0) wait = ERASE;
@@ -38,7 +39,7 @@ function useTyping() {
     return { count, typing: !still && (erasing || count < TOTAL) };
 }
 
-function Word({ text, offset, count }) {
+function Word({ text, offset, count }: { text: string; offset: number; count: number }) {
     return (
         <span className="hero__word" aria-hidden="true" translate="no">
             {[...text].map((letter, i) => {
@@ -57,7 +58,13 @@ function Word({ text, offset, count }) {
     );
 }
 
-function Hero({ t, language, contact }) {
+interface Props {
+    t: Copy["hero"];
+    language: Language;
+    contact: Copy["contact"];
+}
+
+function Hero({ t, language, contact }: Props) {
     const { count, typing } = useTyping();
     const [status, copy] = useCopy(contact);
     return (
@@ -80,7 +87,7 @@ function Hero({ t, language, contact }) {
                 <ul className="hero__channels">
                     {channels.map((channel) => (
                         <li key={channel.id}>
-                            {channel.href ? (
+                            {"href" in channel ? (
                                 <a
                                     className="hero__channel"
                                     href={channel.href}

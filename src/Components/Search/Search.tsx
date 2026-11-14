@@ -1,30 +1,60 @@
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type JSX, type KeyboardEvent, type SVGProps } from "react";
 import { sections } from "../../Functions/useShortcuts";
 import useDialogFocus from "../../Functions/useDialogFocus";
-import { links, projectLinks } from "../../content";
+import { links, projectLinks, type Copy, type Language } from "../../content";
 import { icons } from "../Channels/Channels";
 
 const MAX_RESULTS = 10;
 
-// Everything on the page a visitor might look for, as { type, title, text, sub, id }.
-function buildIndex(t) {
+type Kind = "section" | "project" | "role" | "edu";
+type ActionKey = keyof Copy["search"]["actions"];
+type ShortcutKey = Exclude<keyof Copy["search"]["shortcuts"], "label">;
+
+/** Something on the page; choosing it goes to the element with this id. */
+interface Entry {
+    type: Kind;
+    title: string;
+    /** What the search reads besides the title. */
+    text: string;
+    sub: string;
+    id: string;
+}
+
+/** Something the palette does, listed above the results. */
+interface Action {
+    type: "action";
+    key: ActionKey;
+    title: string;
+    sub: string;
+    shortcut?: string;
+    /** Leave the palette open afterwards, to show a status. */
+    keep?: boolean;
+    run: () => void;
+}
+
+type Result = Entry | Action;
+
+type Shortcut = { key: ShortcutKey; href: string } | { key: ShortcutKey; keep?: boolean; run: () => void };
+
+// Everything on the page a visitor might look for.
+function buildIndex(t: Copy): Entry[] {
     return [
-        ...sections.map((id) => ({ type: "section", title: t.nav[id], text: "", sub: t.search.goTo, id })),
-        ...t.work.items.map((p, i) => ({
+        ...sections.map((id): Entry => ({ type: "section", title: t.nav[id], text: "", sub: t.search.goTo, id })),
+        ...t.work.items.map((p, i): Entry => ({
             type: "project",
             title: p.name,
             text: p.kind + ". " + p.description,
             sub: p.kind,
             id: "project-" + i,
         })),
-        ...t.experience.items.map((e, i) => ({
+        ...t.experience.items.map((e, i): Entry => ({
             type: "role",
             title: e.title,
             text: [e.place + ".", e.text, ...(e.points || []), e.tools].join(" "),
             sub: e.place,
             id: "experience-" + i,
         })),
-        ...t.education.items.map((e, i) => ({
+        ...t.education.items.map((e, i): Entry => ({
             type: "edu",
             title: e.title,
             text: e.place + ". " + e.note,
@@ -35,7 +65,7 @@ function buildIndex(t) {
 }
 
 // Titles that contain the term first, then results found only in the text.
-function search(index, term) {
+function search(index: Entry[], term: string) {
     if (!term) return [];
     const inTitle = index.filter((it) => it.title.toLowerCase().includes(term));
     const inText = index.filter((it) => !it.title.toLowerCase().includes(term) && it.text.toLowerCase().includes(term));
@@ -43,9 +73,9 @@ function search(index, term) {
 }
 
 // The matched part in highlighter yellow; in the text, a window around it.
-function Highlight({ text, term, around }) {
+function Highlight({ text, term, around }: { text: string; term: string; around?: number }) {
     const at = term ? text.toLowerCase().indexOf(term) : -1;
-    if (at < 0) return text;
+    if (at < 0) return <Fragment>{text}</Fragment>;
     const start = around ? Math.max(0, at - around) : 0;
     return (
         <Fragment>
@@ -57,7 +87,7 @@ function Highlight({ text, term, around }) {
     );
 }
 
-function go(id) {
+function go(id: string) {
     const target = document.getElementById(id);
     if (!target) return;
     // A role in Experience is a tab: select it before moving there.
@@ -73,9 +103,9 @@ function go(id) {
     target.focus({ preventScroll: true });
 }
 
-const MARK = { action: "›", section: "#", project: "P", role: "C", edu: "E" };
+const MARK: Record<Result["type"], string> = { action: "›", section: "#", project: "P", role: "C", edu: "E" };
 
-const line = {
+const line: SVGProps<SVGSVGElement> = {
     viewBox: "0 0 24 24",
     fill: "none",
     stroke: "currentColor",
@@ -86,7 +116,7 @@ const line = {
 };
 
 // What a recruiter looks for first, one tap from the search field.
-const SHORTCUT_ICONS = {
+const SHORTCUT_ICONS: Record<ShortcutKey, JSX.Element> = {
     experience: (
         <svg {...line}>
             <rect x="3" y="7" width="18" height="13" rx="2.5" />
@@ -106,7 +136,7 @@ const SHORTCUT_ICONS = {
 };
 
 // Keeps the open search inside what the keyboard leaves visible on phones.
-function useVisibleHeight(open) {
+function useVisibleHeight(open: boolean) {
     useEffect(() => {
         const view = window.visualViewport;
         if (!open || !view) return undefined;
@@ -123,13 +153,22 @@ function useVisibleHeight(open) {
 
 // A command palette: actions and sections while empty, results grouped by kind
 // while typing, with the actions whose words match kept on top.
-function Search({ t, open, setOpen, toggleTheme, language, setLanguage }) {
+interface Props {
+    t: Copy;
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    toggleTheme: () => void;
+    language: Language;
+    setLanguage: (language: Language) => void;
+}
+
+function Search({ t, open, setOpen, toggleTheme, language, setLanguage }: Props) {
     const [query, setQuery] = useState("");
     const [active, setActive] = useState(0);
     const [status, setStatus] = useState("");
-    const input = useRef(null);
-    const panel = useRef(null);
-    const list = useRef(null);
+    const input = useRef<HTMLInputElement>(null);
+    const panel = useRef<HTMLDivElement>(null);
+    const list = useRef<HTMLUListElement>(null);
     const close = useCallback(() => setOpen(false), [setOpen]);
     useDialogFocus(open, panel, close);
     useVisibleHeight(open);
@@ -147,7 +186,7 @@ function Search({ t, open, setOpen, toggleTheme, language, setLanguage }) {
     );
 
     const actions = useMemo(
-        () => [
+        (): Action[] => [
             {
                 type: "action",
                 key: "theme",
@@ -188,16 +227,17 @@ function Search({ t, open, setOpen, toggleTheme, language, setLanguage }) {
             (a) => !term || (a.title + " " + s.actions[a.key][2]).toLowerCase().includes(term)
         );
         const found = term ? search(index, term) : index.filter((it) => it.type === "section");
-        const byType = {};
+        const byType: Partial<Record<Kind, Entry[]>> = {};
         found.forEach((it) => (byType[it.type] = byType[it.type] || []).push(it));
-        const out = [];
+        const out: [label: string, items: Result[]][] = [];
         if (matching.length) out.push([s.groups.action, matching]);
-        ["section", "project", "role", "edu"].forEach(
-            (type) => byType[type] && out.push([s.groups[type], byType[type]])
-        );
+        (["section", "project", "role", "edu"] as const).forEach((type) => {
+            const items = byType[type];
+            if (items) out.push([s.groups[type], items]);
+        });
         return out;
     }, [actions, index, term, s]);
-    const flat = useMemo(() => groups.flatMap(([, items]) => items), [groups]);
+    const flat = useMemo((): Result[] => groups.flatMap(([, items]) => items), [groups]);
 
     useEffect(() => {
         if (!open) return;
@@ -215,14 +255,14 @@ function Search({ t, open, setOpen, toggleTheme, language, setLanguage }) {
         if (row && typeof row.scrollIntoView === "function") row.scrollIntoView({ block: "nearest" });
     }, [open, active, flat]);
 
-    const shortcuts = [
+    const shortcuts: Shortcut[] = [
         { key: "experience", run: () => go("experience") },
         { key: "work", run: () => go("work") },
         { key: "linkedin", href: links.linkedin },
         { key: "email", keep: true, run: copyEmail },
     ];
 
-    const choose = (i) => {
+    const choose = (i: number) => {
         const item = flat[i];
         if (!item) return;
         if (item.type === "action") {
@@ -234,7 +274,7 @@ function Search({ t, open, setOpen, toggleTheme, language, setLanguage }) {
         setTimeout(() => go(item.id), 0);
     };
 
-    const onKeyDown = (e) => {
+    const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "ArrowDown" || e.key === "ArrowUp") {
             e.preventDefault();
             const n = Math.max(1, flat.length);
@@ -291,7 +331,7 @@ function Search({ t, open, setOpen, toggleTheme, language, setLanguage }) {
                     <ul className="search__shortcuts" aria-label={s.shortcuts.label}>
                         {shortcuts.map((item) => (
                             <li key={item.key}>
-                                {item.href ? (
+                                {"href" in item ? (
                                     <a
                                         className="search__shortcut"
                                         href={item.href}
@@ -331,10 +371,13 @@ function Search({ t, open, setOpen, toggleTheme, language, setLanguage }) {
                                     {items.map((item) => {
                                         at += 1;
                                         const i = at;
-                                        const inText = term && !item.title.toLowerCase().includes(term) && item.text;
+                                        const inText =
+                                            item.type !== "action" && term && !item.title.toLowerCase().includes(term)
+                                                ? item.text
+                                                : "";
                                         return (
                                             <li
-                                                key={item.key || item.id}
+                                                key={item.type === "action" ? item.key : item.id}
                                                 id={"search-result-" + i}
                                                 role="option"
                                                 aria-selected={i === active}
@@ -350,12 +393,12 @@ function Search({ t, open, setOpen, toggleTheme, language, setLanguage }) {
                                                 </span>
                                                 <span className="search__text">
                                                     {inText ? (
-                                                        <Highlight text={item.text} term={term} around={30} />
+                                                        <Highlight text={inText} term={term} around={30} />
                                                     ) : (
                                                         item.sub
                                                     )}
                                                 </span>
-                                                {item.shortcut ? (
+                                                {item.type === "action" && item.shortcut ? (
                                                     <kbd className="search__key">{item.shortcut}</kbd>
                                                 ) : (
                                                     <span className="search__enter" aria-hidden="true">
