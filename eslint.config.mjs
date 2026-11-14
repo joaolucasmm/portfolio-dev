@@ -5,10 +5,10 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-    { ignores: ["build/", "coverage/", "playwright-report/", "test-results/"] },
+    { ignores: ["build/", "build-ssr/", "coverage/", "playwright-report/", "test-results/"] },
     js.configs.recommended,
     {
-        files: ["src/**/*.{ts,tsx}", "vite.config.ts"],
+        files: ["src/**/*.{ts,tsx}", "vite.config.mts"],
         extends: [tseslint.configs.recommended],
     },
     {
@@ -44,7 +44,7 @@ export default tseslint.config(
         languageOptions: { globals: { ...globals.node, ...globals.browser } },
     },
     {
-        files: ["*.config.{mjs,ts}"],
+        files: ["*.config.{mjs,mts}", "scripts/**/*.mjs"],
         languageOptions: { globals: globals.node },
     }
 );
