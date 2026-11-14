@@ -6,7 +6,7 @@ import { render } from "./entry-server";
 
 test("the page renders to HTML without a browser", () => {
     const html = render();
-    expect(html).toContain('class="hero__name"');
+    expect(html).toMatch(/class="hero__name[ "]/);
     expect(html).toContain('id="experience"');
     expect(html).toContain('id="contact"');
 });

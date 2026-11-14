@@ -1,0 +1,111 @@
+@use "../tokens" as *;
+// Email dialog
+
+.email-dialog {
+    overscroll-behavior: contain;
+    width: min(720px, calc(100vw - 2 * var(--margin)));
+    max-height: calc(100svh - 2 * var(--margin));
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    color: var(--ink);
+
+    &::backdrop {
+        background: rgb(10 14 30 / 0.72);
+    }
+
+    &__inner {
+        display: grid;
+        gap: 16px;
+        padding: clamp(24px, 4vw, 48px);
+    }
+
+    &__head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: var(--gap);
+
+        h2 {
+            font-family: var(--display);
+            font-size: var(--step-head);
+            font-weight: var(--display-weight);
+            line-height: 1;
+        }
+    }
+
+    &__form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px var(--gap);
+        margin-top: 16px;
+
+        label {
+            display: grid;
+            gap: 8px;
+            font-size: var(--step-small);
+            color: var(--muted);
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid color-mix(in srgb, var(--ink) 30%, transparent);
+            border-radius: var(--radius-control);
+            background: var(--bg);
+            color: var(--ink);
+            font: inherit;
+            font-size: var(--step-body);
+
+            &:focus-visible {
+                outline-offset: 0;
+                border-bottom-color: var(--accent);
+            }
+        }
+
+        textarea {
+            resize: vertical;
+        }
+    }
+
+    &__wide {
+        grid-column: 1 / -1;
+    }
+
+    &__send {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px 24px;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        &[open] {
+            animation: fade-up 400ms var(--ease-out);
+        }
+    }
+
+    @media (max-width: $phone) {
+        &__form {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+@keyframes letters-out {
+    to {
+        filter: blur(var(--morph-blur));
+        opacity: 0;
+        scale: 0.9;
+    }
+}
+
+@keyframes letters-in {
+    from {
+        filter: blur(var(--morph-blur));
+        opacity: 0;
+        scale: 0.9;
+    }
+}

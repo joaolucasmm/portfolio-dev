@@ -2,7 +2,7 @@
 import "react";
 
 declare module "react" {
-    // Custom properties read by style.scss, e.g. style={{ "--k": i }}.
+    // Custom properties read by the stylesheets, e.g. style={{ "--k": i }}.
     interface CSSProperties {
         [property: `--${string}`]: string | number | undefined;
     }

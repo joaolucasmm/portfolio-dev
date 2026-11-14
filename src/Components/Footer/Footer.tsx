@@ -3,7 +3,7 @@ import { sections, type Shortcut } from "../../Functions/useShortcuts";
 import { useMac } from "../../Functions/client";
 import type { Copy } from "../../content";
 
-// Same values as --morph-out, --morph-stagger and --morph-overlap in style.scss.
+// Same values as --morph-out, --morph-stagger and --morph-overlap in base/_theme.scss.
 const MORPH_OUT = 300;
 const MORPH_STAGGER = 50;
 const MORPH_OVERLAP = 150;
@@ -20,7 +20,7 @@ const forms: Record<Form, string[]> = {
 };
 
 // Letters leave right to left and the other form arrives from the blur once
-// they have gone (ui-library: logo-morph-mola). Timings live in style.scss.
+// they have gone (ui-library: logo-morph-mola). Timings live in components/_footer.scss.
 function NameForm({ lines, state }: { lines: string[]; state: FormState }) {
     const total = lines.join("").length;
     let n = 0;

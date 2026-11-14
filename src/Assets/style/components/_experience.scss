@@ -1,0 +1,313 @@
+@use "../tokens" as *;
+// Experience: one role per poster line
+
+.experience {
+    &__heading {
+        font-family: var(--display);
+        font-size: var(--step-head);
+        font-weight: var(--display-weight);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin-bottom: clamp(28px, 3.5vw, 48px);
+    }
+
+    // As on the first portfolio: list on the left, the chosen role on the right, no
+    // cards, in a 1140px column in the middle of the page.
+    &__board {
+        max-width: 1140px;
+        margin-inline: auto;
+        display: grid;
+        grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+        gap: clamp(24px, 4vw, 56px);
+        align-items: start;
+    }
+
+    &__list {
+        position: relative;
+        display: grid;
+    }
+
+    // The chosen role's bar. Experience.jsx sets --offset and --size from the tab;
+    // the spring runs 1.5× the 620ms tried in the demo.
+    &__indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: 4px;
+        height: var(--size, 0);
+        border-radius: 0 2px 2px 0;
+        background: var(--accent);
+        transform: translateY(var(--offset, 0));
+        pointer-events: none;
+        transition: transform 930ms var(--spring), height 930ms var(--spring);
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
+        }
+    }
+
+    &__tab {
+        position: relative;
+        min-height: 48px;
+        padding: 12px 16px;
+        border: 0;
+        background: none;
+        color: inherit;
+        font-size: var(--step-body);
+        text-align: left;
+        cursor: pointer;
+        transition: background-color 200ms ease, padding-left 200ms ease;
+
+        // The thin divider between roles.
+        & + &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 16px;
+            right: 16px;
+            height: 1px;
+            background: color-mix(in srgb, var(--ink) 16%, transparent);
+        }
+
+        &:hover {
+            background: color-mix(in srgb, var(--ink) 6%, transparent);
+        }
+
+        &[aria-selected="true"] {
+            padding-left: 20px;
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: -2px;
+        }
+    }
+
+    &__role {
+        display: grid;
+        gap: 10px;
+        align-content: start;
+        max-width: 72ch;
+    }
+
+    &__head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 4px 24px;
+    }
+
+    &__title {
+        font-size: var(--step-lead);
+        font-weight: 400;
+        line-height: 1.2;
+    }
+
+    &__when {
+        font-variant-numeric: tabular-nums;
+    }
+
+    &__place {
+        font-weight: 500;
+    }
+
+    &__text {
+        margin-top: 6px;
+        line-height: 1.6;
+    }
+
+    &__tools {
+        margin-top: 6px;
+        color: var(--muted);
+    }
+
+    &__more {
+        justify-self: start;
+        margin-top: 10px;
+        padding: 6px 12px;
+        border-radius: var(--radius-control);
+        background: color-mix(in srgb, var(--ink) 12%, transparent);
+        color: var(--accent);
+        font-size: var(--step-small);
+        font-style: italic;
+        text-decoration: none;
+        transition: scale 200ms var(--spring);
+
+        &:hover {
+            scale: 1.06;
+        }
+    }
+
+    // The company under each role in the list, so "Software developer" says where.
+    &__tab-place {
+        display: block;
+        color: var(--muted);
+        font-size: var(--step-small);
+    }
+
+    // What came of the role, one result per line.
+    &__points {
+        display: grid;
+        gap: 8px;
+        margin: 10px 0 0;
+        // The reset takes the markers off every list; this one keeps them.
+        padding-left: 1.2em;
+        list-style: disc;
+        line-height: 1.55;
+
+        li::marker {
+            color: var(--accent);
+        }
+    }
+
+    // The gaps between roles, small, under the board.
+    &__between {
+        max-width: 1140px;
+        margin: clamp(28px, 3.5vw, 48px) auto 0;
+        color: var(--muted);
+        font-size: var(--step-small);
+
+        h3 {
+            margin-bottom: 8px;
+            font-family: var(--mono);
+            font-size: inherit;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        ul {
+            display: grid;
+            gap: 6px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        span {
+            color: var(--ink);
+            font-variant-numeric: tabular-nums;
+        }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        &__role {
+            animation: fade-up 400ms var(--ease-out) both;
+        }
+    }
+
+    // Phones: one row per role that opens in place, like Education.
+    &__rows {
+        display: grid;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__row {
+        border-radius: var(--radius-card);
+
+        &[open] {
+            @include glass;
+        }
+
+        summary {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 2px 14px;
+            padding: 16px;
+            border-radius: var(--radius-card);
+            cursor: pointer;
+            list-style: none;
+
+            &::-webkit-details-marker {
+                display: none;
+            }
+
+            &::after {
+                content: "+";
+                grid-column: 2;
+                grid-row: 1 / span 2;
+                align-self: center;
+                color: var(--accent);
+                font-size: 1.4rem;
+            }
+
+            &:focus-visible {
+                outline: 2px solid var(--accent);
+                outline-offset: -2px;
+            }
+        }
+
+        &[open] summary::after {
+            content: "−";
+        }
+    }
+
+    &__row-title {
+        font-weight: 600;
+    }
+
+    &__row-when {
+        grid-column: 1;
+        color: var(--muted);
+        font-size: var(--step-small);
+        font-variant-numeric: tabular-nums;
+
+        b {
+            color: var(--ink);
+            font-weight: 600;
+        }
+    }
+
+    &__row-body {
+        display: grid;
+        gap: 12px;
+        justify-items: start;
+        padding: 0 16px 16px;
+
+        p {
+            color: var(--muted);
+            line-height: 1.6;
+        }
+    }
+
+    &__pills {
+        font-family: var(--mono);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            padding: 3px 10px;
+            border: 1px solid rgb(255 255 255 / var(--glass-edge));
+            border-radius: 999px;
+            background: rgb(var(--glass-rgb) / var(--glass-tint));
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+    }
+
+    &__link {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        color: var(--accent);
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    // Tablet and phone: the list stays a vertical stack, above the role.
+    @media (max-width: $tablet) {
+        &__board {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 24px;
+        }
+    }
+}

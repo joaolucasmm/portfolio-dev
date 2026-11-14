@@ -1,0 +1,65 @@
+@use "../tokens" as *;
+// Education: one row per course
+
+.education {
+    &__heading {
+        font-family: var(--display);
+        font-size: var(--step-head);
+        font-weight: var(--display-weight);
+        line-height: 1;
+        letter-spacing: -0.02em;
+    }
+
+    &__list {
+        display: grid;
+        gap: 6px;
+        max-width: 760px;
+        margin: clamp(20px, 2.4vw, 32px) 0 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    // Wider than a phone: the title and the column of courses in the middle.
+    @media (min-width: $phone + 1) {
+        &__heading {
+            text-align: center;
+        }
+
+        &__list {
+            margin-inline: auto;
+        }
+    }
+
+    &__item {
+        @include glass;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 4px 16px;
+        align-items: baseline;
+        padding: clamp(16px, 2vw, 22px);
+        border-radius: var(--radius-card);
+    }
+
+    &__name {
+        font-weight: 600;
+
+        b {
+            margin-right: 8px;
+            font-family: var(--display);
+            font-size: 1.75rem;
+            font-weight: var(--display-weight);
+        }
+    }
+
+    &__when {
+        grid-column: 1;
+        color: var(--muted);
+        font-size: var(--step-small);
+        font-variant-numeric: tabular-nums;
+    }
+
+    &__note {
+        grid-column: 1 / -1;
+        color: var(--muted);
+    }
+}

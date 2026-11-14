@@ -1,0 +1,5 @@
+// Shift+D outlines every box to show the grid (ui-library: debug-css-shift-d).
+
+.debug-grid body * {
+    outline: 1px solid var(--accent) !important;
+}

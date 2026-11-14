@@ -1,0 +1,230 @@
+@use "../tokens" as *;
+
+// Hero
+.hero {
+    // The name, then the role as its second line, then one quiet line and the
+    // actions: a title block, centred, with no card under it.
+    position: relative;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: clamp(20px, 2.4vw, 32px);
+    min-height: 100svh;
+    padding: 96px var(--margin) 48px;
+    text-align: center;
+
+    &__name {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 0.12em;
+        font-family: var(--display);
+        font-size: var(--step-display);
+        font-weight: var(--display-weight);
+        line-height: 0.92;
+        letter-spacing: -0.03em;
+        font-kerning: normal;
+    }
+
+    &__foot {
+        display: grid;
+        justify-items: center;
+        gap: 20px;
+    }
+
+    &__role {
+        max-width: 22ch;
+        font-family: var(--display);
+        font-weight: var(--display-weight);
+        font-size: clamp(1.625rem, 1rem + 2.6vw, 3.25rem);
+        line-height: 1.1;
+        text-wrap: balance;
+
+        // Montserrat's own italic (loaded at 700), so the company reads apart from the role.
+        em {
+            color: var(--accent);
+            font-style: italic;
+        }
+    }
+
+    &__before {
+        max-width: 46ch;
+        color: var(--muted);
+    }
+
+    // Glass circles that turn accent under the pointer (ui demo: icones-grandes, option 1).
+    &__channels {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+        margin: 8px 0 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__channel {
+        @include liquid;
+        width: 52px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        color: var(--ink);
+        cursor: pointer;
+        transition: transform 350ms var(--spring), background-color 250ms, color 250ms;
+
+        svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        &:hover,
+        &:focus-visible {
+            background: var(--accent);
+            color: var(--accent-ink);
+            transform: translateY(-4px) scale(1.06);
+
+            // Less motion asked for: the colour changes, the circle stays put.
+            @media (prefers-reduced-motion: reduce) {
+                transform: none;
+            }
+        }
+    }
+
+    // The résumé, under the circles: a glass pill that turns accent like them.
+    &__resume {
+        @include liquid;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        margin-top: 4px;
+        padding: 0 22px;
+        border-radius: 999px;
+        color: var(--ink);
+        font-weight: 500;
+        text-decoration: none;
+        transition: transform 350ms var(--spring), background-color 250ms, color 250ms;
+
+        &:hover,
+        &:focus-visible {
+            background: var(--accent);
+            color: var(--accent-ink);
+            transform: translateY(-2px);
+
+            @media (prefers-reduced-motion: reduce) {
+                transform: none;
+            }
+        }
+    }
+
+    // Phone: everything starts at the left edge, the name on two lines.
+    @media (max-width: $phone) {
+        justify-items: start;
+        // A full screen, so the next section never shows under the circles.
+        min-height: 100svh;
+        padding-top: 120px;
+        text-align: left;
+
+        &__name {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
+            font-size: 27vw;
+            line-height: 0.86;
+        }
+
+        &__foot {
+            justify-items: start;
+        }
+
+        &__channels {
+            justify-content: flex-start;
+        }
+    }
+}
+
+// The name types itself with a caret, as on the first portfolio (Hero.jsx sets the classes).
+
+.hero__word {
+    display: inline-block;
+}
+
+.hero__letter {
+    position: relative;
+    display: inline-block;
+    transition: filter 200ms var(--ease-ui), opacity 200ms var(--ease-ui);
+
+    &.is-untyped {
+        visibility: hidden;
+    }
+
+    &.is-caret::after,
+    &.is-caret-before::before {
+        content: "";
+        position: absolute;
+        top: 0.12em;
+        bottom: 0.02em;
+        width: var(--caret-width);
+        background: var(--accent);
+        visibility: visible;
+    }
+
+    &.is-caret::after {
+        right: calc(var(--caret-width) * -1.5);
+    }
+
+    &.is-caret-before::before {
+        left: 0;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    // Solid while typing, blinking while it rests.
+    .hero__name:not(.is-typing) .hero__letter::after {
+        animation: caret-blink var(--caret-blink) steps(1) infinite;
+    }
+
+    // The first screen is there at once: the name arrives written and the lines
+    // under it are not animated (they are also the page's largest paint). Only the
+    // header rises in. "backwards", not "both": an animation that holds its end
+    // state keeps the header a backdrop root, and then the phone islands blur only
+    // the empty header instead of the page.
+    .header {
+        animation: fade-up 600ms var(--ease-out) backwards;
+    }
+}
+
+// Leaving the hero: the name and the lines under it fade and rise as the page
+// scrolls, so the next section takes over gently. Not the circles: an ancestor
+// with opacity would stop their glass from blurring the page.
+@supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        .hero__name,
+        .hero__role,
+        .hero__before {
+            // Longhands, not the shorthand: the build's minifier moves the shorthand
+            // after animation-timeline, which resets the timeline to auto.
+            animation-name: hero-leave;
+            animation-timing-function: linear;
+            animation-fill-mode: both;
+            animation-timeline: view();
+            animation-range: exit 0% exit 90%;
+        }
+    }
+}
+
+@keyframes hero-leave {
+    to {
+        opacity: 0;
+        transform: translateY(-48px);
+    }
+}
+
+@keyframes caret-blink {
+    50% {
+        opacity: 0;
+    }
+}
