@@ -61,4 +61,20 @@ describe("Experience", () => {
             new RegExp(pt.units.month.join("|") + "|" + pt.units.year.join("|"))
         );
     });
+
+    test("a role held in stages lists each stage with its dates", () => {
+        render(<Experience t={t} />);
+        const staged = t.items.findIndex((i) => i.stages);
+        fireEvent.click(screen.getAllByRole("tab")[staged]);
+        const stages = screen.getByRole("list", { name: t.stagesLabel });
+        expect(stages.children).toHaveLength(t.items[staged].stages.length);
+        t.items[staged].stages.forEach((stage) => expect(stages).toHaveTextContent(stage.title));
+    });
+
+    test("each tab names the company, and the gaps between roles are listed", () => {
+        render(<Experience t={t} />);
+        screen.getAllByRole("tab").forEach((tab, i) => expect(tab).toHaveTextContent(t.items[i].place));
+        expect(screen.getByRole("heading", { name: t.betweenHeading })).toBeInTheDocument();
+        t.between.forEach((gap) => expect(screen.getByText(gap.text, { exact: false })).toBeInTheDocument());
+    });
 });

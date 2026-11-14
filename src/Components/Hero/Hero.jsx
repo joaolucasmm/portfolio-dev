@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { channels, icons, useCopy, Toast } from "../Channels/Channels";
+import { channels, icons, resume, useCopy, Toast } from "../Channels/Channels";
 
 // The name types itself, holds, erases and types again, like the first portfolio
 // (typewriter-effect with pauseFor 5000). Letters keep their space while untyped,
@@ -103,6 +103,9 @@ function Hero({ t, language, contact }) {
                         </li>
                     ))}
                 </ul>
+                <a className="hero__resume" href={resume[language]} target="_blank" rel="noreferrer">
+                    {t.resume}
+                </a>
             </div>
             <Toast status={status} />
         </section>

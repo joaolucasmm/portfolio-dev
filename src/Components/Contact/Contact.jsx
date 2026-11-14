@@ -1,8 +1,8 @@
-import { channels, icons, useCopy, Toast } from "../Channels/Channels";
+import { channels, icons, resume, useCopy, Toast } from "../Channels/Channels";
 
 // The list from the original portfolio: one row per channel, an icon and the address.
 
-function Contact({ t, openDialog }) {
+function Contact({ t, language, openDialog }) {
     const [status, copy] = useCopy(t);
 
     return (
@@ -32,9 +32,14 @@ function Contact({ t, openDialog }) {
                     </li>
                 ))}
             </ul>
-            <button type="button" className="button" onClick={openDialog} data-reveal>
-                {t.form}
-            </button>
+            <div className="contact__actions" data-reveal>
+                <a className="button" href={resume[language]} target="_blank" rel="noreferrer">
+                    {t.resume}
+                </a>
+                <button type="button" className="button button--ghost" onClick={openDialog}>
+                    {t.form}
+                </button>
+            </div>
             <Toast status={status} />
         </section>
     );

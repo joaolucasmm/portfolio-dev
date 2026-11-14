@@ -64,7 +64,7 @@ function App() {
                 <Experience t={t.experience} />
                 <Services t={t.services} />
                 <Education t={t.education} />
-                <Contact t={t.contact} openDialog={openDialog} />
+                <Contact t={t.contact} language={language} openDialog={openDialog} />
             </main>
             <Footer t={t.footer} nav={t.nav} lastUsed={lastUsed} />
             <EmailDialog
