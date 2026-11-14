@@ -612,6 +612,31 @@ main,
         }
     }
 
+    // Desktop: two equal side columns, so the links sit in the middle of the bar
+    // however wide the initials and the switches are.
+    @media (min-width: $header-menu + 1) {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+
+        &__mark {
+            justify-self: start;
+        }
+
+        &__switches {
+            justify-self: end;
+        }
+
+        &__nav {
+            transition: translate var(--bar-shrink) var(--spring);
+        }
+
+        // The pill pads 22px on the left and 8px on the right; half the difference
+        // brings the links back to the middle of the page.
+        &--small &__nav {
+            translate: calc((8px - 22px) / 2) 0;
+        }
+    }
+
     // Phone and tablet: no section links; the top keeps two small
     // liquid glass islands in the corners, the initials and the three buttons,
     // with the middle left free.
