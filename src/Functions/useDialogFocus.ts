@@ -1,25 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, type RefObject } from "react";
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), textarea, select, [tabindex]:not([tabindex="-1"])';
 
 // For overlays that are not a native <dialog>: Esc closes, Tab stays inside,
 // the page behind does not scroll, and focus returns to what opened it.
-function useDialogFocus(open, container, onClose) {
+function useDialogFocus(open: boolean, container: RefObject<HTMLElement | null>, onClose: () => void) {
     useEffect(() => {
         if (!open) return undefined;
-        const opener = document.activeElement;
+        const opener = document.activeElement as HTMLElement | null;
         const box = container.current;
         const root = document.documentElement;
         root.classList.add("no-scroll");
 
-        const onKeyDown = (e) => {
+        const onKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Escape") {
                 e.preventDefault();
                 onClose();
                 return;
             }
             if (e.key !== "Tab" || !box) return;
-            const items = [...box.querySelectorAll(FOCUSABLE)].filter((el) => el.offsetParent !== null);
+            const items = [...box.querySelectorAll<HTMLElement>(FOCUSABLE)].filter((el) => el.offsetParent !== null);
             if (!items.length) return;
             const first = items[0];
             const last = items[items.length - 1];

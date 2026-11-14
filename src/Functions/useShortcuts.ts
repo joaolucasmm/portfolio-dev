@@ -1,24 +1,38 @@
 import { useEffect, useState } from "react";
 
-const sections = ["work", "experience", "education", "contact"];
+// The sections Alt 1–4 jump to, in order; also the header and footer links.
+const sections = ["work", "experience", "education", "contact"] as const;
+export type Section = (typeof sections)[number];
+
+/** The shortcut used last, so the footer can light up its key. */
+export type Shortcut = "search" | "jump" | "theme" | "debug";
+
+interface Options {
+    toggleTheme: () => void;
+    toggleSearch: () => void;
+    searchOpen: boolean;
+}
 
 // Keyboard layer, after the ui-library patterns tema-shift-t, debug-css-shift-d,
 // alt-foco-navegacao (with the Alt+n jumps of nav-pilulas-atalhos) and busca-ctrl-k.
-function useShortcuts({ toggleTheme, toggleSearch, searchOpen }) {
+function useShortcuts({ toggleTheme, toggleSearch, searchOpen }: Options) {
     const [altHeld, setAltHeld] = useState(false);
     const [debug, setDebug] = useState(false);
-    const [lastUsed, setLastUsed] = useState(null);
+    const [lastUsed, setLastUsed] = useState<Shortcut | null>(null);
 
     useEffect(() => {
-        let clear;
-        const flash = (id) => {
+        let clear: ReturnType<typeof setTimeout> | undefined;
+        const flash = (id: Shortcut) => {
             setLastUsed(id);
             clearTimeout(clear);
             clear = setTimeout(() => setLastUsed(null), 900);
         };
-        const typing = (e) => /input|textarea|select/i.test(e.target.tagName) || e.target.isContentEditable;
+        const typing = (e: KeyboardEvent) => {
+            const target = e.target as HTMLElement;
+            return /input|textarea|select/i.test(target.tagName) || target.isContentEditable;
+        };
 
-        const onKeyDown = (e) => {
+        const onKeyDown = (e: KeyboardEvent) => {
             if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
                 e.preventDefault();
                 toggleSearch();
@@ -52,7 +66,7 @@ function useShortcuts({ toggleTheme, toggleSearch, searchOpen }) {
                 flash("debug");
             }
         };
-        const onKeyUp = (e) => e.key === "Alt" && setAltHeld(false);
+        const onKeyUp = (e: KeyboardEvent) => e.key === "Alt" && setAltHeld(false);
         // Alt+Tab leaves the window with Alt still down.
         const onBlur = () => setAltHeld(false);
 

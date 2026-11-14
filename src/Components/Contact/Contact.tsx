@@ -1,8 +1,15 @@
+import type { Copy, Language } from "../../content";
 import { channels, icons, resume, useCopy, Toast } from "../Channels/Channels";
 
 // The list from the original portfolio: one row per channel, an icon and the address.
 
-function Contact({ t, language, openDialog }) {
+interface Props {
+    t: Copy["contact"];
+    language: Language;
+    openDialog: () => void;
+}
+
+function Contact({ t, language, openDialog }: Props) {
     const [status, copy] = useCopy(t);
 
     return (
@@ -13,7 +20,7 @@ function Contact({ t, language, openDialog }) {
             <ul className="contact__list" data-reveal>
                 {channels.map((channel) => (
                     <li key={channel.id}>
-                        {channel.href ? (
+                        {"href" in channel ? (
                             <a className="contact__row" href={channel.href} target="_blank" rel="noreferrer">
                                 {icons[channel.id]}
                                 <span translate="no">{channel.text}</span>

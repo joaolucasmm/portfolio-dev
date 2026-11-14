@@ -1,35 +1,38 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent } from "react";
 import usePhone from "../../Functions/usePhone";
+import type { Copy, Month, Plural, Role } from "../../content";
 
-const month = (iso) => new Date(iso + "-01T00:00:00Z");
+type Units = Copy["experience"]["units"];
+
+const month = (iso: Month) => new Date(iso + "-01T00:00:00Z");
 
 // ["2024-08", "2025-03"] → "Aug 2024 – Mar 2025"; a null end reads "now".
-function formatDates([from, to], locale, units) {
+function formatDates([from, to]: [Month, Month | null], locale: string, units: Units) {
     const format = new Intl.DateTimeFormat(locale, { month: "short", year: "numeric", timeZone: "UTC" });
     if (!to) return format.format(month(from)) + " – " + units.now;
     return format.formatRange(month(from), month(to));
 }
 
 // Counted like LinkedIn, both months included: Aug 2024 – Mar 2025 is 8 months.
-function formatLength([from, to], units) {
+function formatLength([from, to]: [Month, Month | null], units: Units) {
     const start = month(from);
     const end = to ? month(to) : new Date();
     const total = (end.getUTCFullYear() - start.getUTCFullYear()) * 12 + end.getUTCMonth() - start.getUTCMonth() + 1;
     const years = Math.floor(total / 12);
     const months = total % 12;
-    const part = (n, [one, many]) => n + " " + (n === 1 ? one : many);
+    const part = (n: number, [one, many]: Plural) => n + " " + (n === 1 ? one : many);
     return [years && part(years, units.year), months && part(months, units.month)].filter(Boolean).join(units.and);
 }
 
 // The list names drop the internship prefix so they fit on one or two lines;
 // the company sits under each name.
-function listName(title) {
+function listName(title: string) {
     const name = title.replace(/^(Rotation programme intern|Estagiário do programa de rotação), /, "");
     return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
 // What came of the role, one result per line. Roles without results show only their text.
-function Points({ role }) {
+function Points({ role }: { role: Role }) {
     if (!role.points) return null;
     return (
         <ul className="experience__points">
@@ -41,7 +44,7 @@ function Points({ role }) {
 }
 
 // The time between roles, said plainly so nobody has to ask.
-function Between({ t }) {
+function Between({ t }: { t: Copy["experience"] }) {
     return (
         <div className="experience__between" data-reveal>
             <h3>{t.betweenHeading}</h3>
@@ -60,21 +63,21 @@ function Between({ t }) {
 // one beside it with no card, all on one screen. Arrow keys move along the list.
 // On phones each role is a row that opens in place, like Education; -1 means
 // every row is closed there, and the computer shows the first role.
-function Experience({ t }) {
+function Experience({ t }: { t: Copy["experience"] }) {
     const phone = usePhone();
     const [chosen, setChosen] = useState(0);
-    const tabs = useRef([]);
-    const bar = useRef(null);
+    const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+    const bar = useRef<HTMLSpanElement>(null);
     const chosenRef = useRef(chosen);
     const count = t.items.length;
 
     // One bar slides to the chosen role on the site's spring. It is measured from the
     // tab, down the list; if the list is ever laid out as a row, it measures along it.
-    const placeBar = (animate) => {
+    const placeBar = (animate: boolean) => {
         const tab = tabs.current[chosenRef.current];
         const el = bar.current;
         if (!tab || !el) return;
-        const across = getComputedStyle(tab.parentElement).gridAutoFlow.startsWith("column");
+        const across = getComputedStyle(tab.parentElement!).gridAutoFlow.startsWith("column");
         if (!animate) el.style.transition = "none";
         el.style.setProperty("--offset", (across ? tab.offsetLeft : tab.offsetTop) + "px");
         el.style.setProperty("--size", (across ? tab.offsetWidth : tab.offsetHeight) + "px");
@@ -109,15 +112,15 @@ function Experience({ t }) {
 
     // The search palette opens the role it found.
     useEffect(() => {
-        const onOpen = (e) => setChosen(e.detail);
+        const onOpen = (e: CustomEvent<number>) => setChosen(e.detail);
         window.addEventListener("portfolio:open-experience", onOpen);
         return () => window.removeEventListener("portfolio:open-experience", onOpen);
     }, []);
 
     const shown = Math.max(chosen, 0);
 
-    const onKeyDown = (e) => {
-        const moves = {
+    const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
+        const moves: Record<string, number> = {
             ArrowDown: shown + 1,
             ArrowRight: shown + 1,
             ArrowUp: shown - 1,
@@ -133,7 +136,7 @@ function Experience({ t }) {
     };
 
     const item = t.items[shown];
-    const when = (role) => formatDates(role.dates, t.locale, t.units) + " · " + formatLength(role.dates, t.units);
+    const when = (role: Role) => formatDates(role.dates, t.locale, t.units) + " · " + formatLength(role.dates, t.units);
 
     if (phone) {
         return (

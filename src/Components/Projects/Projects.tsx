@@ -1,34 +1,42 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type MouseEvent, type PointerEvent } from "react";
 import usePhone from "../../Functions/usePhone";
 import sizewise from "../../Assets/Images/sizewise.png";
 import qrCodeGen from "../../Assets/Images/qrcodegen.png";
 import pokedex from "../../Assets/Images/pokedex.png";
 import sizewiseSmall from "../../Assets/Images/sizewise-760.jpg";
 import pokedexSmall from "../../Assets/Images/pokedex-760.jpg";
-import { projectLinks } from "../../content";
+import { projectLinks, type Copy } from "../../content";
+
+interface Image {
+    src: string;
+    width: number;
+    height: number;
+    /** A 760px copy, or src itself where that is already lighter. */
+    small: string;
+}
 
 // Same order as projectLinks and work.items, with each picture's own size. Phones
 // and the small "up next" cards take a 760px copy where it is lighter than the
 // original (the QR Code Gen PNG is already smaller than a JPEG would be).
-const images = [
+const images: Image[] = [
     { src: sizewise, width: 1477, height: 815, small: sizewiseSmall },
     { src: qrCodeGen, width: 1899, height: 911, small: qrCodeGen },
     { src: pokedex, width: 1364, height: 636, small: pokedexSmall },
 ];
 
-const srcSetOf = (image) => (image.small === image.src ? undefined : image.small + " 760w, " + image.src + " " + image.width + "w");
+const srcSetOf = (image: Image) => (image.small === image.src ? undefined : image.small + " 760w, " + image.src + " " + image.width + "w");
 
-const pad = (n) => String(n).padStart(2, "0");
+const pad = (n: number) => String(n).padStart(2, "0");
 
 // "Windows app, Rust + Tauri + Vue" as tags for the phone: Windows app · Rust · Tauri · Vue.
-const tagsOf = (kind) => kind.split(/, | \+ /);
+const tagsOf = (kind: string) => kind.split(/, | \+ /);
 
 // The ring repeats the projects until there are at least five slides, so two
 // layers show on each side of the chosen one even with three projects.
-const ringSize = (count) => count * Math.ceil(5 / count);
+const ringSize = (count: number) => count * Math.ceil(5 / count);
 
 // Where a slide sits around the chosen one: 0 is the centre, negative is left.
-function offsetOf(k, current, ring) {
+function offsetOf(k: number, current: number, ring: number) {
     let o = (k - current) % ring;
     if (o > ring / 2) o -= ring;
     if (o < -ring / 2) o += ring;
@@ -37,7 +45,7 @@ function offsetOf(k, current, ring) {
 
 // The 3D place of a slide at offset `o`. Past the second layer a slide waits far
 // behind the centre, so the one that comes round the back never crosses the stage.
-function placeOf(o, phone) {
+function placeOf(o: number, phone: boolean): CSSProperties {
     const a = Math.abs(o);
     const side = Math.sign(o);
     if (a > 2) return { transform: "translateZ(-1100px)", opacity: 0, zIndex: 0, "--dim": 1 };
@@ -54,7 +62,21 @@ function placeOf(o, phone) {
 // One slide: the project's picture as the ground, its name, facts and links over it,
 // and the next projects as small cards. Only the chosen slide can be used; the others
 // are pictures that bring themselves to the centre when clicked.
-function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goSlide }) {
+interface SlideProps {
+    t: Copy["work"];
+    /** Position in the ring, which repeats the projects. */
+    k: number;
+    /** The project shown. */
+    index: number;
+    offset: number;
+    phone: boolean;
+    running: number;
+    setRunning: (index: number) => void;
+    goProject: (index: number) => void;
+    goSlide: (k: number) => void;
+}
+
+function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goSlide }: SlideProps) {
     const item = t.items[index];
     const link = projectLinks[index];
     const image = images[index];
@@ -64,7 +86,7 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
     const href = link.url || link.repo;
     const tab = active ? 0 : -1;
 
-    const onClickCapture = (e) => {
+    const onClickCapture = (e: MouseEvent) => {
         if (active) return;
         e.preventDefault();
         e.stopPropagation();
@@ -206,32 +228,33 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
 // The projects as a 3D showcase: the chosen one large in the centre, the others
 // turning away on both sides. Arrows, dots, the small cards, a click on a side
 // slide, the arrow keys and a swipe all move it.
-function Projects({ t }) {
+function Projects({ t }: { t: Copy["work"] }) {
     const count = t.items.length;
     const ring = ringSize(count);
     const [current, setCurrent] = useState(0);
     const [running, setRunning] = useState(-1);
     const phone = usePhone();
-    const swipe = useRef(null);
+    // Where a touch started, then when a swipe ended, so the click after it is ignored.
+    const swipe = useRef<{ x?: number; at: number } | null>(null);
 
-    const goSlide = (k) => {
+    const goSlide = (k: number) => {
         setCurrent(((k % ring) + ring) % ring);
         setRunning(-1);
     };
-    const step = (dir) => goSlide(current + dir);
+    const step = (dir: number) => goSlide(current + dir);
     // The nearest copy of that project, the short way round.
-    const goProject = (index) => {
-        let best = null;
+    const goProject = (index: number) => {
+        let best = Infinity;
         for (let k = index; k < ring; k += count) {
             const o = offsetOf(k, current, ring);
-            if (best === null || Math.abs(o) < Math.abs(best)) best = o;
+            if (Math.abs(o) < Math.abs(best)) best = o;
         }
         goSlide(current + best);
     };
 
     // The search palette opens the project it found (the first copy carries its id).
     useEffect(() => {
-        const onOpen = (e) => {
+        const onOpen = (e: CustomEvent<number>) => {
             setCurrent(e.detail);
             setRunning(-1);
         };
@@ -239,9 +262,9 @@ function Projects({ t }) {
         return () => window.removeEventListener("portfolio:open-project", onOpen);
     }, []);
 
-    const onKeyDown = (e) => {
+    const onKeyDown = (e: KeyboardEvent) => {
         if (e.target !== e.currentTarget) return;
-        const moves = { ArrowRight: 1, ArrowLeft: -1 };
+        const moves: Record<string, number> = { ArrowRight: 1, ArrowLeft: -1 };
         if (e.key in moves) {
             e.preventDefault();
             step(moves[e.key]);
@@ -252,16 +275,16 @@ function Projects({ t }) {
     };
 
     // A horizontal swipe on touch screens; a click that follows it is ignored.
-    const onPointerDown = (e) => {
+    const onPointerDown = (e: PointerEvent) => {
         if (e.pointerType !== "mouse") swipe.current = { x: e.clientX, at: 0 };
     };
-    const onPointerUp = (e) => {
-        if (!swipe.current || e.pointerType === "mouse") return;
+    const onPointerUp = (e: PointerEvent) => {
+        if (swipe.current?.x === undefined || e.pointerType === "mouse") return;
         const dx = e.clientX - swipe.current.x;
         swipe.current = Math.abs(dx) > 45 ? { at: performance.now() } : null;
         if (Math.abs(dx) > 45) step(dx < 0 ? 1 : -1);
     };
-    const onClickCapture = (e) => {
+    const onClickCapture = (e: MouseEvent) => {
         if (swipe.current?.at && performance.now() - swipe.current.at < 400) {
             e.preventDefault();
             e.stopPropagation();

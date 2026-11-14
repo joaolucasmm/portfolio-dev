@@ -20,7 +20,7 @@ function renderSearch(props = {}) {
     return { ...utils, setOpen, input: screen.getByRole("combobox") };
 }
 
-const options = () => screen.queryAllByRole("option").map((o) => o.querySelector(".search__title").textContent);
+const options = () => screen.queryAllByRole("option").map((o) => o.querySelector(".search__title")?.textContent);
 
 beforeAll(() => {
     // jsdom has no layout, so nothing scrolls.

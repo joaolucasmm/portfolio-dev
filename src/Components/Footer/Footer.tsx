@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { sections } from "../../Functions/useShortcuts";
+import { sections, type Shortcut } from "../../Functions/useShortcuts";
+import type { Copy } from "../../content";
 
 // Same values as --morph-out, --morph-stagger and --morph-overlap in style.scss.
 const MORPH_OUT = 300;
@@ -7,18 +8,21 @@ const MORPH_STAGGER = 50;
 const MORPH_OVERLAP = 150;
 
 // When the last of n letters has left.
-const exitEnd = (n) => MORPH_OUT + (n - 1) * MORPH_STAGGER;
+const exitEnd = (n: number) => MORPH_OUT + (n - 1) * MORPH_STAGGER;
 
 const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
 
-const forms = {
+type Form = "long" | "short";
+type FormState = "shown" | "in" | "out" | "hidden";
+
+const forms: Record<Form, string[]> = {
     long: ["João Lucas", "Menegasso"],
     short: ["JL"],
 };
 
 // Letters leave right to left and the other form arrives from the blur once
 // they have gone (ui-library: logo-morph-mola). Timings live in style.scss.
-function NameForm({ lines, state }) {
+function NameForm({ lines, state }: { lines: string[]; state: FormState }) {
     const total = lines.join("").length;
     let n = 0;
     return (
@@ -39,18 +43,24 @@ function NameForm({ lines, state }) {
     );
 }
 
-function Footer({ t, nav, lastUsed }) {
-    const [form, setForm] = useState("long");
-    const [leaving, setLeaving] = useState(null);
+interface Props {
+    t: Copy["footer"];
+    nav: Copy["nav"];
+    lastUsed: Shortcut | null;
+}
+
+function Footer({ t, nav, lastUsed }: Props) {
+    const [form, setForm] = useState<Form>("long");
+    const [leaving, setLeaving] = useState<Form | null>(null);
     const [inStart, setInStart] = useState(0);
-    const timer = useRef();
+    const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
     const swapped = useRef(false);
 
     useEffect(() => () => clearTimeout(timer.current), []);
 
     const swap = () => {
         swapped.current = true;
-        const next = form === "long" ? "short" : "long";
+        const next: Form = form === "long" ? "short" : "long";
         setLeaving(form);
         setForm(next);
         // Hide the old form only once its last letter has left
@@ -63,7 +73,7 @@ function Footer({ t, nav, lastUsed }) {
     };
 
     // Before the first swap the name is simply shown, so nothing plays on load.
-    const stateOf = (name) => {
+    const stateOf = (name: Form): FormState => {
         if (name === leaving) return "out";
         if (name !== form) return "hidden";
         return leaving === null && name === "long" && !swapped.current ? "shown" : "in";
@@ -71,7 +81,7 @@ function Footer({ t, nav, lastUsed }) {
 
     // Keys joined by no-break spaces so a shortcut never splits across lines.
     const mod = isMac ? "⌘" : "Ctrl";
-    const shortcuts = [
+    const shortcuts: [id: Shortcut | "focus", key: string, label: string][] = [
         ["focus", "Alt", t.keys.focus],
         ["jump", "Alt 1–4", t.keys.jump],
         ["search", mod + " K", t.keys.search],

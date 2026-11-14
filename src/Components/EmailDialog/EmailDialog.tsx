@@ -1,10 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import emailjs from "@emailjs/browser";
+import type { Copy } from "../../content";
 
-const EmailDialog = ({ t, emailDialog, setEmailDialog }) => {
-    const dialog = useRef(null);
+interface Props {
+    t: Copy["dialog"];
+    emailDialog: boolean;
+    setEmailDialog: (open: boolean) => void;
+}
+
+const EmailDialog = ({ t, emailDialog, setEmailDialog }: Props) => {
+    const dialog = useRef<HTMLDialogElement>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [stateMessage, setStateMessage] = useState(null);
+    const [stateMessage, setStateMessage] = useState<string | null>(null);
 
     useEffect(() => {
         const el = dialog.current;
@@ -13,9 +20,9 @@ const EmailDialog = ({ t, emailDialog, setEmailDialog }) => {
         if (!emailDialog && el.open) el.close();
     }, [emailDialog]);
 
-    const sendEmail = (e) => {
+    const sendEmail = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const form = e.target;
+        const form = e.currentTarget;
         setIsSubmitting(true);
         emailjs
             .sendForm(

@@ -2,13 +2,16 @@ import content, { links, projectLinks } from "./content";
 
 // Every path to a value in an object, arrays included by index:
 // "nav.work", "work.items.0.name", …
-function paths(value, prefix = "") {
+type Tree = Record<string, unknown>;
+
+function paths(value: unknown, prefix = ""): string[] {
     if (value === null || typeof value !== "object") return [prefix];
-    return Object.keys(value).flatMap((key) => paths(value[key], prefix ? prefix + "." + key : key));
+    const tree = value as Tree;
+    return Object.keys(tree).flatMap((key) => paths(tree[key], prefix ? prefix + "." + key : key));
 }
 
-function valueAt(object, path) {
-    return path.split(".").reduce((v, key) => v[key], object);
+function valueAt(object: unknown, path: string): unknown {
+    return path.split(".").reduce((v, key) => (v as Tree)[key], object);
 }
 
 describe("content", () => {
@@ -24,7 +27,7 @@ describe("content", () => {
     // Some texts are empty on purpose (a figure with no unit), so only a text empty in
     // one language and written in the other counts: that is a missing translation.
     test("no text is translated in one language and empty in the other", () => {
-        const blank = (v) => v === "";
+        const blank = (v: unknown) => v === "";
         const missing = paths(english).filter(
             (p) => blank(valueAt(english, p)) !== blank(valueAt(portuguese, p))
         );
