@@ -9,7 +9,7 @@ My personal site: who I am, what I've built and where I've worked, in English an
 ## Stack
 
 - **React 18** and **TypeScript** (strict), built with **Vite**: plain function components and hooks, no UI library.
-- **Sass** for the styles: one stylesheet, design tokens as CSS custom properties, light and dark themes.
+- **Sass** for the styles: one partial per part of the page, design tokens as CSS custom properties, light and dark themes.
 - **WebGL** for the ink backdrop (`src/Components/Backdrop`), a fragment shader whose palette shifts from section to section. It starts once the page is idle, compiles off the main thread where the GPU allows, and holds still for visitors who ask for reduced motion.
 - **EmailJS** for the contact form, so the site stays static.
 
@@ -58,7 +58,7 @@ src/
   App.tsx             page composition, theme and language state
   Components/         one folder per section (Hero, About, Projects, Experience, …)
   Functions/          hooks: shortcuts, reveal on scroll, dialog focus, phone layout
-  Assets/style/       the stylesheet
+  Assets/style/       style.scss lists the partials in cascade order: _tokens, base/, components/
 e2e/                  Playwright tests
 scripts/              local server for the build, bundle size check
 ```

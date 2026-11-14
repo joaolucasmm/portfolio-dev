@@ -1,0 +1,154 @@
+// Motion shared by the sections: the Alt focus, the arrow, entrances and cards that open.
+// Holding Alt blurs the name and every link nods in turn (ui-library: alt-foco-navegacao).
+
+.alt-held .hero__letter {
+    filter: blur(var(--alt-blur));
+    opacity: var(--alt-fade);
+}
+
+.alt-held .header__key {
+    display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .alt-held .header__links a {
+        animation: nudge 350ms var(--ease-ui) calc(var(--k) * var(--alt-stagger));
+    }
+
+    .alt-held .header__links a::before {
+        animation: pulse 1s ease-out calc(var(--k) * var(--alt-stagger));
+    }
+}
+
+@keyframes nudge {
+    33% {
+        rotate: -2deg;
+    }
+    50% {
+        background-color: var(--ink);
+        color: var(--bg);
+        scale: 0.92;
+    }
+    66% {
+        rotate: 2deg;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink), transparent 50%); // taste-skill-ignore: search overlay or Alt pulse, both transient
+        opacity: 1;
+    }
+    40% {
+        box-shadow: 0 0 0 15px color-mix(in srgb, var(--ink), transparent 100%); // taste-skill-ignore: search overlay or Alt pulse, both transient
+        opacity: 1;
+    }
+}
+
+// The arrow jumps: up while accelerating, down while slowing (ui-library: nav-ancora-seta-pulando).
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+// Section entrances and exits. Where the browser ties animations to scrolling, each
+// block rises in as it enters and fades up and away as it leaves, like the hero.
+// The blocks never wrap a glass element: a running opacity animation on an
+// ancestor would stop that glass from blurring the page. Elsewhere, a one-time
+// entrance on IntersectionObserver (useReveal.js).
+
+@supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        // Two animations on one timeline: the leave starts from whatever the rise left.
+        [data-reveal] {
+            // Longhands for the same reason as the hero.
+            animation-name: section-rise, section-leave;
+            animation-timing-function: linear;
+            animation-fill-mode: both;
+            animation-timeline: view(), view();
+            animation-range: entry 0% entry 70%, exit 30% exit 100%;
+        }
+    }
+}
+
+// translate, not transform, so a button's pressed scale still works.
+@keyframes section-rise {
+    from {
+        opacity: 0;
+        translate: 0 24px;
+    }
+}
+
+@keyframes section-leave {
+    to {
+        opacity: 0;
+        translate: 0 -48px;
+    }
+}
+
+@supports not (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        .can-reveal [data-reveal] {
+            transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+        }
+
+        .can-reveal [data-reveal]:not(.is-in) {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        .can-reveal [data-reveal] + [data-reveal] {
+            transition-delay: 80ms;
+        }
+
+        .can-reveal [data-reveal] + [data-reveal] + [data-reveal] {
+            transition-delay: 160ms;
+        }
+    }
+}
+
+// Cards that open (Experience on phones):
+// the height eases open and shut, the content rises in, and the plus turns into
+// the minus. Browsers without ::details-content still open them, just at once.
+:root {
+    interpolate-size: allow-keywords;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .experience__row {
+        &::details-content {
+            block-size: 0;
+            overflow-y: clip;
+            transition: block-size 500ms var(--ease-out), content-visibility 500ms allow-discrete;
+        }
+
+        &[open]::details-content {
+            block-size: auto;
+        }
+
+        > summary::after {
+            transition: rotate 450ms var(--spring);
+        }
+
+        &[open] > summary::after {
+            rotate: 180deg;
+        }
+    }
+
+    .experience__row[open] .experience__row-body {
+        animation: card-open 450ms var(--ease-out) 80ms backwards;
+    }
+}
+
+@keyframes card-open {
+    from {
+        opacity: 0;
+        translate: 0 12px;
+    }
+}

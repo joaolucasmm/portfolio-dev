@@ -5,7 +5,7 @@ import { channels, icons, resume, useCopy, Toast } from "../Channels/Channels";
 
 // The name holds, erases and types itself again, like the first portfolio
 // (typewriter-effect with pauseFor 5000). Letters keep their space while untyped,
-// so the line never shifts. The values live here and the caret in style.scss.
+// so the line never shifts. The values live here and the caret in components/_hero.scss.
 const WORDS = ["João", "Lucas"];
 const TOTAL = WORDS.join("").length;
 const START = 300;
