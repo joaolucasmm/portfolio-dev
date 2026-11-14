@@ -12,31 +12,37 @@ const START = 300;
 const TYPE = 110; // per letter, with a little jitter so it reads as typing
 const ERASE = 55;
 const HOLD = 5000;
+const FIRST_HOLD = 700; // the first round starts soon, while the visitor is still looking
 const EMPTY = 600;
 
 function useTyping() {
     const still = useMedia("(prefers-reduced-motion: reduce)", { fallback: true });
     // The name starts written, so it is there in the first frame and in the
-    // prerendered page; then it holds, erases and types itself again.
+    // prerendered page; then it holds, erases and types itself again. The first
+    // hold is short, so the typing shows before anyone scrolls past it.
     const [count, setCount] = useState(TOTAL);
     const [erasing, setErasing] = useState(false);
+    const [first, setFirst] = useState(true);
 
     useEffect(() => {
         if (still) return undefined;
         let wait: number;
         if (!erasing && count < TOTAL) wait = (count === 0 ? START : 0) + TYPE * (0.6 + Math.random() * 0.8);
-        else if (!erasing) wait = HOLD;
+        else if (!erasing) wait = first ? FIRST_HOLD : HOLD;
         else if (count > 0) wait = ERASE;
         else wait = EMPTY;
 
         const timer = setTimeout(() => {
             if (!erasing && count < TOTAL) setCount(count + 1);
-            else if (!erasing) setErasing(true);
+            else if (!erasing) {
+                setErasing(true);
+                setFirst(false);
+            }
             else if (count > 0) setCount(count - 1);
             else setErasing(false);
         }, wait);
         return () => clearTimeout(timer);
-    }, [count, erasing, still]);
+    }, [count, erasing, first, still]);
 
     return { count: still ? TOTAL : count, typing: !still && (erasing || count < TOTAL) };
 }
