@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const sections = ["work", "experience", "services", "education", "contact"];
+const sections = ["work", "experience", "education", "contact"];
 
 // Keyboard layer, after the ui-library patterns tema-shift-t, debug-css-shift-d,
 // alt-foco-navegacao (with the Alt+n jumps of nav-pilulas-atalhos) and busca-ctrl-k.
@@ -32,7 +32,7 @@ function useShortcuts({ toggleTheme, toggleSearch, searchOpen }) {
                 setAltHeld(true);
                 return;
             }
-            if (e.altKey && /^Digit[1-5]$/.test(e.code)) {
+            if (e.altKey && /^Digit[1-4]$/.test(e.code)) {
                 e.preventDefault();
                 const target = document.getElementById(sections[Number(e.code.slice(-1)) - 1]);
                 if (target) {

@@ -53,18 +53,11 @@ describe("content", () => {
             .filter(({ dates: [from, to] }) => !month.test(from) || (to !== null && (!month.test(to) || to < from)))
             .map((item) => item.title);
         expect(wrong).toEqual([]);
-        // Stages and the gaps between roles follow the same rules, and stages sit inside their role.
-        const ranges = Object.values(content).flatMap((copy) => [
-            ...copy.experience.items.flatMap((item) =>
-                (item.stages || []).map((stage) => ({ title: stage.title, dates: stage.dates, within: item.dates }))
-            ),
-            ...copy.experience.between.map((gap) => ({ title: gap.text, dates: gap.dates })),
-        ]);
-        const bad = ranges
-            .filter(({ dates: [from, to], within }) =>
-                !month.test(from) || !month.test(to) || to < from || (within && (from < within[0] || to > within[1]))
-            )
-            .map((r) => r.title);
+        // The gaps between roles follow the same rules.
+        const bad = Object.values(content)
+            .flatMap((copy) => copy.experience.between)
+            .filter(({ dates: [from, to] }) => !month.test(from) || !month.test(to) || to < from)
+            .map((gap) => gap.text);
         expect(bad).toEqual([]);
         // Both languages list the same roles on the same dates.
         expect(portuguese.experience.items.map((i) => i.dates)).toEqual(english.experience.items.map((i) => i.dates));

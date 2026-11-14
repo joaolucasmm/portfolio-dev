@@ -376,8 +376,7 @@ button {
 // Wider than a phone, every section title sits in the middle of the page.
 @media (min-width: $phone + 1) {
     .work__heading,
-    .experience__heading,
-    .services__heading {
+    .experience__heading {
         margin-inline: auto;
         text-align: center;
     }
@@ -610,6 +609,31 @@ main,
         &,
         &__highlight {
             transition-duration: 1ms;
+        }
+    }
+
+    // Desktop: two equal side columns, so the links sit in the middle of the bar
+    // however wide the initials and the switches are.
+    @media (min-width: $header-menu + 1) {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+
+        &__mark {
+            justify-self: start;
+        }
+
+        &__switches {
+            justify-self: end;
+        }
+
+        &__nav {
+            transition: translate var(--bar-shrink) var(--spring);
+        }
+
+        // The pill pads 22px on the left and 8px on the right; half the difference
+        // brings the links back to the middle of the page.
+        &--small &__nav {
+            translate: calc((8px - 22px) / 2) 0;
         }
     }
 
@@ -1293,7 +1317,7 @@ main,
     }
 }
 
-// Cards that open (Education, Experience on phones, "see more" in How I work):
+// Cards that open (Experience on phones):
 // the height eases open and shut, the content rises in, and the plus turns into
 // the minus. Browsers without ::details-content still open them, just at once.
 :root {
@@ -1301,9 +1325,7 @@ main,
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .education__item,
-    .experience__row,
-    .service__more {
+    .experience__row {
         &::details-content {
             block-size: 0;
             overflow-y: clip;
@@ -1323,9 +1345,7 @@ main,
         }
     }
 
-    .education__item[open] .education__open,
-    .experience__row[open] .experience__row-body,
-    .service__more[open] .service__evidence {
+    .experience__row[open] .experience__row-body {
         animation: card-open 450ms var(--ease-out) 80ms backwards;
     }
 }
@@ -2121,35 +2141,18 @@ main,
         font-size: var(--step-small);
     }
 
-    // A role held in stages: a thin line down the left joins them, newest first.
-    &__stages {
+    // What came of the role, one result per line.
+    &__points {
         display: grid;
-        gap: 14px;
-        margin: 8px 0 0;
-        padding: 0 0 0 16px;
-        border-left: 2px solid color-mix(in srgb, var(--ink) 18%, transparent);
-        list-style: none;
+        gap: 8px;
+        margin: 10px 0 0;
+        // The reset takes the markers off every list; this one keeps them.
+        padding-left: 1.2em;
+        list-style: disc;
+        line-height: 1.55;
 
-        p {
-            line-height: 1.6;
-        }
-    }
-
-    &__stage-head {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2px 12px;
-        align-items: baseline;
-
-        b {
-            color: var(--ink);
-            font-weight: 600;
-        }
-
-        span {
-            color: var(--muted);
-            font-size: var(--step-small);
-            font-variant-numeric: tabular-nums;
+        li::marker {
+            color: var(--accent);
         }
     }
 
@@ -2303,201 +2306,7 @@ main,
     }
 }
 
-// Services: small proof beside text
-
-.services {
-    &__heading {
-        font-family: var(--display);
-        font-size: var(--step-head);
-        font-weight: var(--display-weight);
-        line-height: 1;
-        letter-spacing: -0.02em;
-        max-width: 14em;
-    }
-
-    // One column on phones and tablets, three side by side on wide screens.
-    &__grid {
-        display: grid;
-        gap: 14px;
-        align-items: start;
-        margin-top: clamp(28px, 4vw, 56px);
-
-        @media (min-width: $tablet) {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: var(--gap);
-        }
-    }
-}
-
-// A way of working: the figure first, then the title, one sentence and the tools;
-// the evidence opens under "see more".
-.service {
-    @include glass;
-    display: grid;
-    gap: 14px;
-    align-content: start;
-    padding: clamp(18px, 2vw, 28px);
-
-    &__figure {
-        display: grid;
-        gap: 6px;
-        padding-bottom: 14px;
-        border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
-    }
-
-    &__number {
-        font-family: var(--display);
-        font-weight: var(--display-weight);
-        font-size: clamp(3.4rem, 2.6rem + 2.4vw, 4.75rem);
-        line-height: 0.9;
-        letter-spacing: -0.03em;
-        font-variant-numeric: tabular-nums;
-
-        small {
-            margin-left: 0.08em;
-            font-size: 0.45em;
-            color: var(--muted);
-        }
-    }
-
-    &__caption {
-        color: var(--muted);
-        font-size: var(--step-small);
-    }
-
-    &__title {
-        font-size: var(--step-lead);
-        font-weight: 400;
-        line-height: 1.2;
-        text-wrap: balance;
-    }
-
-    &__tools {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-
-        li {
-            padding: 3px 10px;
-            border-radius: 999px;
-            background: color-mix(in srgb, var(--ink) 7%, transparent);
-            box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 12%, transparent);
-            font-size: var(--step-small);
-            font-weight: 500;
-        }
-    }
-
-    &__more summary {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4em;
-        min-height: 44px;
-        color: var(--accent);
-        font-size: var(--step-small);
-        font-weight: 500;
-        cursor: pointer;
-        list-style: none;
-
-        &::-webkit-details-marker {
-            display: none;
-        }
-
-        &::after {
-            content: "+";
-            font-size: 1.2em;
-            line-height: 1;
-        }
-
-        &:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-            border-radius: 4px;
-        }
-    }
-
-    &__more[open] summary::after {
-        content: "−";
-    }
-
-    &__evidence {
-        display: grid;
-        gap: 14px;
-        margin-top: 10px;
-    }
-}
-
-// Evidence inside "How I work": the measured baseline and a test run.
-
-.baseline {
-    display: grid;
-    gap: 12px;
-    padding: 14px 16px;
-    border-radius: var(--radius-card);
-    background: color-mix(in srgb, var(--bg) 55%, transparent);
-
-    &__title {
-        color: var(--muted);
-        font-size: var(--step-small);
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-    }
-
-    dl {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px 16px;
-    }
-
-    // The value reads first; the label sits under it.
-    dl div {
-        display: flex;
-        flex-direction: column-reverse;
-        gap: 2px;
-    }
-
-    dt {
-        font-size: var(--step-small);
-        color: var(--muted);
-    }
-
-    dd {
-        font-size: var(--step-lead);
-        font-variant-numeric: tabular-nums;
-    }
-
-    &__note {
-        font-size: var(--step-small);
-        color: var(--muted);
-    }
-}
-
-// Always dark, like a terminal, in both themes.
-.test-run {
-    padding: 12px 14px;
-    overflow-x: auto;
-    border-radius: var(--radius-card);
-    background: #0c0f1e;
-    color: #eef0f8;
-    font-size: 0.75rem;
-    line-height: 1.7;
-    // The test's long name wraps instead of hiding its "ok".
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-
-    &__prompt {
-        color: #a5abc6;
-    }
-
-    b {
-        color: #7fd6a4;
-        font-weight: 500;
-    }
-}
-
-// Education: one row per course that opens, like the contact list
+// Education: one row per course
 
 .education {
     &__heading {
@@ -2529,45 +2338,13 @@ main,
     }
 
     &__item {
+        @include glass;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 4px 16px;
+        align-items: baseline;
+        padding: clamp(16px, 2vw, 22px);
         border-radius: var(--radius-card);
-        transition: background-color 250ms;
-
-        &[open] {
-            @include glass;
-        }
-
-        summary {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
-            gap: 4px 16px;
-            align-items: baseline;
-            padding: clamp(16px, 2vw, 22px);
-            border-radius: var(--radius-card);
-            cursor: pointer;
-            list-style: none;
-            transition: background-color 200ms;
-
-            &::-webkit-details-marker {
-                display: none;
-            }
-
-            &::after {
-                content: "+";
-                grid-column: 2;
-                grid-row: 1 / span 3;
-                align-self: center;
-                color: var(--accent);
-                font-size: 1.4rem;
-            }
-        }
-
-        &:not([open]) summary:hover {
-            background: rgb(var(--glass-rgb) / var(--glass-tint));
-        }
-
-        &[open] summary::after {
-            content: "−";
-        }
     }
 
     &__name {
@@ -2588,43 +2365,9 @@ main,
         font-variant-numeric: tabular-nums;
     }
 
-    &__quote {
-        grid-column: 1;
-        margin-top: 6px;
-        font-family: var(--display);
-        font-weight: var(--display-weight);
-        font-size: clamp(1.2rem, 1rem + 0.6vw, 1.45rem);
-        line-height: 1.2;
-    }
-
-    &__open {
-        display: grid;
-        gap: 14px;
-        justify-items: start;
-        padding: 0 clamp(16px, 2vw, 22px) clamp(18px, 2.2vw, 24px);
-
-        p {
-            max-width: 62ch;
-            color: var(--muted);
-        }
-    }
-
-    &__subjects {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-
-        li {
-            padding: 3px 10px;
-            border: 1px solid rgb(255 255 255 / var(--glass-edge));
-            border-radius: 999px;
-            background: rgb(var(--glass-rgb) / var(--glass-tint));
-            font-size: 0.82rem;
-            font-weight: 600;
-        }
+    &__note {
+        grid-column: 1 / -1;
+        color: var(--muted);
     }
 }
 

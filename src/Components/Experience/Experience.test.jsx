@@ -62,13 +62,13 @@ describe("Experience", () => {
         );
     });
 
-    test("a role held in stages lists each stage with its dates", () => {
+    test("a role with results lists each one as its own point", () => {
         render(<Experience t={t} />);
-        const staged = t.items.findIndex((i) => i.stages);
-        fireEvent.click(screen.getAllByRole("tab")[staged]);
-        const stages = screen.getByRole("list", { name: t.stagesLabel });
-        expect(stages.children).toHaveLength(t.items[staged].stages.length);
-        t.items[staged].stages.forEach((stage) => expect(stages).toHaveTextContent(stage.title));
+        t.items.forEach((role, i) => {
+            fireEvent.click(screen.getAllByRole("tab")[i]);
+            const items = screen.getByRole("tabpanel").querySelectorAll(".experience__points li");
+            expect([...items].map((li) => li.textContent)).toEqual(role.points || []);
+        });
     });
 
     test("each tab names the company, and the gaps between roles are listed", () => {
