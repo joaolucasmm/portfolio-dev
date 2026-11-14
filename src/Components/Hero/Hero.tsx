@@ -3,7 +3,7 @@ import { useMedia } from "../../Functions/client";
 import type { Copy, Language } from "../../content";
 import { channels, icons, resume, useCopy, Toast } from "../Channels/Channels";
 
-// The name holds, erases and types itself again, like the first portfolio
+// The name types itself, holds, erases and types again, like the first portfolio
 // (typewriter-effect with pauseFor 5000). Letters keep their space while untyped,
 // so the line never shifts. The values live here and the caret in components/_hero.scss.
 const WORDS = ["João", "Lucas"];
@@ -12,37 +12,32 @@ const START = 300;
 const TYPE = 110; // per letter, with a little jitter so it reads as typing
 const ERASE = 55;
 const HOLD = 5000;
-const FIRST_HOLD = 700; // the first round starts soon, while the visitor is still looking
 const EMPTY = 600;
 
 function useTyping() {
     const still = useMedia("(prefers-reduced-motion: reduce)", { fallback: true });
-    // The name starts written, so it is there in the first frame and in the
-    // prerendered page; then it holds, erases and types itself again. The first
-    // hold is short, so the typing shows before anyone scrolls past it.
-    const [count, setCount] = useState(TOTAL);
+    // The name starts empty, in the prerendered page too, so the typing is the first
+    // thing seen. The letters keep their space and the h1 reads the whole name, so
+    // neither the layout nor screen readers wait for it.
+    const [count, setCount] = useState(0);
     const [erasing, setErasing] = useState(false);
-    const [first, setFirst] = useState(true);
 
     useEffect(() => {
         if (still) return undefined;
         let wait: number;
         if (!erasing && count < TOTAL) wait = (count === 0 ? START : 0) + TYPE * (0.6 + Math.random() * 0.8);
-        else if (!erasing) wait = first ? FIRST_HOLD : HOLD;
+        else if (!erasing) wait = HOLD;
         else if (count > 0) wait = ERASE;
         else wait = EMPTY;
 
         const timer = setTimeout(() => {
             if (!erasing && count < TOTAL) setCount(count + 1);
-            else if (!erasing) {
-                setErasing(true);
-                setFirst(false);
-            }
+            else if (!erasing) setErasing(true);
             else if (count > 0) setCount(count - 1);
             else setErasing(false);
         }, wait);
         return () => clearTimeout(timer);
-    }, [count, erasing, first, still]);
+    }, [count, erasing, still]);
 
     return { count: still ? TOTAL : count, typing: !still && (erasing || count < TOTAL) };
 }
