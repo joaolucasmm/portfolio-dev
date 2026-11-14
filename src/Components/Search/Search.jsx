@@ -20,21 +20,14 @@ function buildIndex(t) {
         ...t.experience.items.map((e, i) => ({
             type: "role",
             title: e.title,
-            text: [e.place + ".", e.text, ...(e.stages || []).map((s) => s.title + ". " + s.text), e.tools].join(" "),
+            text: [e.place + ".", e.text, ...(e.points || []), e.tools].join(" "),
             sub: e.place,
             id: "experience-" + i,
-        })),
-        ...t.services.items.map((s, i) => ({
-            type: "way",
-            title: s.title,
-            text: s.text + " " + s.tools,
-            sub: t.nav.services,
-            id: "service-" + i,
         })),
         ...t.education.items.map((e, i) => ({
             type: "edu",
             title: e.title,
-            text: e.place + ". " + e.text,
+            text: e.place + ". " + e.note,
             sub: e.place,
             id: "education-" + i,
         })),
@@ -80,7 +73,7 @@ function go(id) {
     target.focus({ preventScroll: true });
 }
 
-const MARK = { action: "›", section: "#", project: "P", role: "C", way: "T", edu: "E" };
+const MARK = { action: "›", section: "#", project: "P", role: "C", edu: "E" };
 
 const line = {
     viewBox: "0 0 24 24",
@@ -199,7 +192,7 @@ function Search({ t, open, setOpen, toggleTheme, language, setLanguage }) {
         found.forEach((it) => (byType[it.type] = byType[it.type] || []).push(it));
         const out = [];
         if (matching.length) out.push([s.groups.action, matching]);
-        ["section", "project", "role", "way", "edu"].forEach(
+        ["section", "project", "role", "edu"].forEach(
             (type) => byType[type] && out.push([s.groups[type], byType[type]])
         );
         return out;

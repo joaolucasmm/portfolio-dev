@@ -21,7 +21,7 @@ test.afterEach(async () => {
 
 test("loads with the name, every section and no horizontal scroll", async ({ page }) => {
     await expect(page.getByRole("heading", { level: 1, name: /João Lucas/ })).toBeVisible();
-    for (const id of ["work", "experience", "services", "education", "contact"]) {
+    for (const id of ["work", "experience", "education", "contact"]) {
         await expect(page.locator("#" + id)).toHaveCount(1);
     }
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);

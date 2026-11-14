@@ -73,7 +73,7 @@ function Footer({ t, nav, lastUsed }) {
     const mod = isMac ? "⌘" : "Ctrl";
     const shortcuts = [
         ["focus", "Alt", t.keys.focus],
-        ["jump", "Alt 1–5", t.keys.jump],
+        ["jump", "Alt 1–4", t.keys.jump],
         ["search", mod + " K", t.keys.search],
         ["theme", "Shift T", t.keys.theme],
         ["debug", "Shift D", t.keys.debug],

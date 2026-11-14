@@ -28,24 +28,15 @@ function listName(title) {
     return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
-// A role held in stages (the UFRGS years) lists them under its own text,
-// newest first, each with its dates and length.
-function Stages({ role, t }) {
-    if (!role.stages) return null;
+// What came of the role, one result per line. Roles without results show only their text.
+function Points({ role }) {
+    if (!role.points) return null;
     return (
-        <ol className="experience__stages" aria-label={t.stagesLabel}>
-            {role.stages.map((stage) => (
-                <li key={stage.title}>
-                    <p className="experience__stage-head">
-                        <b>{stage.title}</b>{" "}
-                        <span>
-                            {formatDates(stage.dates, t.locale, t.units)} · {formatLength(stage.dates, t.units)}
-                        </span>
-                    </p>
-                    <p>{stage.text}</p>
-                </li>
+        <ul className="experience__points">
+            {role.points.map((point) => (
+                <li key={point}>{point}</li>
             ))}
-        </ol>
+        </ul>
     );
 }
 
@@ -173,7 +164,7 @@ function Experience({ t }) {
                                 </summary>
                                 <div className="experience__row-body">
                                     <p>{role.text}</p>
-                                    <Stages role={role} t={t} />
+                                    <Points role={role} />
                                     <ul className="experience__pills" aria-label={t.tools}>
                                         {role.tools.split(", ").map((tool) => (
                                             <li key={tool}>{tool}</li>
@@ -238,7 +229,7 @@ function Experience({ t }) {
                         {item.place}
                     </p>
                     <p className="experience__text">{item.text}</p>
-                    <Stages role={item} t={t} />
+                    <Points role={item} />
                     <p className="experience__tools">
                         {t.tools}: {item.tools}.
                     </p>

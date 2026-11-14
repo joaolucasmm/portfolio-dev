@@ -8,7 +8,6 @@ import Hero from "./Components/Hero/Hero";
 import About from "./Components/About/About";
 import Projects from "./Components/Projects/Projects";
 import Experience from "./Components/Experience/Experience";
-import Services from "./Components/Services/Services";
 import Education from "./Components/Education/Education";
 import Contact from "./Components/Contact/Contact";
 import Footer from "./Components/Footer/Footer";
@@ -62,7 +61,6 @@ function App() {
                 <About t={t.about} />
                 <Projects t={t.work} />
                 <Experience t={t.experience} />
-                <Services t={t.services} />
                 <Education t={t.education} />
                 <Contact t={t.contact} language={language} openDialog={openDialog} />
             </main>

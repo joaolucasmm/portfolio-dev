@@ -16,7 +16,7 @@ My personal site: who I am, what I've built and where I've worked, in English an
 ## What's in it
 
 - **Two languages from one source.** Every text on the page lives in [`src/content.js`](src/content.js), once in English and once in Portuguese. A test fails if one language has a key, list item or text the other lacks.
-- **Accessibility as a requirement.** Skip link, real tabs and dialogs with focus handling, keyboard navigation everywhere (arrow keys in lists, `Ctrl K` search, `Alt 1–5` to jump to sections), `prefers-reduced-motion` respected. Checked by `jest-axe` in the unit tests and by Lighthouse in CI.
+- **Accessibility as a requirement.** Skip link, real tabs and dialogs with focus handling, keyboard navigation everywhere (arrow keys in lists, `Ctrl K` search, `Alt 1–4` to jump to sections), `prefers-reduced-motion` respected. Checked by `jest-axe` in the unit tests and by Lighthouse in CI.
 - **Search palette** (`Ctrl K`) over projects, roles, skills and actions.
 - **Projects that run in place.** Web projects can be opened live inside the page.
 
