@@ -11,17 +11,18 @@ const budgets = {
     css: 15 * 1024,
 };
 
-const root = path.join(__dirname, "..", "build", "static");
+// Vite puts the scripts and styles together in build/assets.
+const root = path.join(__dirname, "..", "build", "assets");
 let failed = false;
 
+if (!fs.existsSync(root)) {
+    console.error("No build/assets. Run npm run build first.");
+    process.exit(1);
+}
+
 for (const [type, budget] of Object.entries(budgets)) {
-    const dir = path.join(root, type);
-    if (!fs.existsSync(dir)) {
-        console.error(`No build/static/${type}. Run npm run build first.`);
-        process.exit(1);
-    }
-    const files = fs.readdirSync(dir).filter((f) => f.endsWith("." + type));
-    const total = files.reduce((sum, f) => sum + zlib.gzipSync(fs.readFileSync(path.join(dir, f))).length, 0);
+    const files = fs.readdirSync(root).filter((f) => f.endsWith("." + type));
+    const total = files.reduce((sum, f) => sum + zlib.gzipSync(fs.readFileSync(path.join(root, f))).length, 0);
     const kb = (n) => (n / 1024).toFixed(1) + " kB";
     const over = total > budget;
     failed = failed || over;

@@ -8,7 +8,7 @@ My personal site: who I am, what I've built and where I've worked, in English an
 
 ## Stack
 
-- **React 18** (Create React App), plain function components and hooks, no UI library.
+- **React 18** built with **Vite**, plain function components and hooks, no UI library.
 - **Sass** for the styles: one stylesheet, design tokens as CSS custom properties, light and dark themes.
 - **WebGL** for the ink backdrop (`src/Components/Backdrop`), a fragment shader whose palette shifts from section to section. It holds still for visitors who ask for reduced motion.
 - **EmailJS** for the contact form, so the site stays static.
@@ -24,8 +24,9 @@ My personal site: who I am, what I've built and where I've worked, in English an
 
 ```bash
 npm ci
-npm start            # dev server at http://localhost:3000
-npm test             # unit and accessibility tests (Jest + Testing Library + jest-axe)
+npm start            # dev server at http://localhost:5173/portfolio-dev/
+npm test             # unit and accessibility tests (Vitest + Testing Library + jest-axe)
+npm run lint         # ESLint, no warnings allowed
 npm run build        # production build in build/
 npm run serve:build  # serves build/ at /portfolio-dev/, as GitHub Pages does
 npm run e2e          # Playwright, desktop and phone, against the served build
