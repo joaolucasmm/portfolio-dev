@@ -1,4 +1,5 @@
-import { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState, type MouseEvent } from "react";
+import { useIsomorphicLayoutEffect, useMac } from "../../Functions/client";
 import { sections } from "../../Functions/useShortcuts";
 import type { Copy, Language } from "../../content";
 import useDialogFocus from "../../Functions/useDialogFocus";
@@ -37,9 +38,8 @@ function ThemeSwitch({ label, on, toggle }: { label: string; on: boolean; toggle
 
 // The search button is a lens; on hover or focus it widens with the spring to show
 // the word and the shortcut (ui-library: nav-pilulas-atalhos, the visible shortcut).
-const MAC = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
-
 function SearchButton({ label, open }: { label: string; open: () => void }) {
+    const mac = useMac();
     return (
         <button type="button" className="search-grow" aria-label={label} aria-keyshortcuts="Control+K" onClick={open}>
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
@@ -48,7 +48,7 @@ function SearchButton({ label, open }: { label: string; open: () => void }) {
             </svg>
             <span className="search-grow__more" aria-hidden="true">
                 {label}
-                <kbd className="search-grow__key">{MAC ? "⌘K" : "Ctrl K"}</kbd>
+                <kbd className="search-grow__key">{mac ? "⌘K" : "Ctrl K"}</kbd>
             </span>
         </button>
     );
@@ -175,7 +175,7 @@ function Header({ t, language, setLanguage, darkMode, toggleTheme, openSearch }:
     }, []);
 
     // Slide the highlight to the current section.
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         current.current = currentSection;
         const animate = placed.current;
         placeMarker(track.current, highlight.current, currentSection, animate);

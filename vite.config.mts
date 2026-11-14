@@ -10,6 +10,10 @@ const repository = process.env.GITHUB_REPOSITORY?.split("/")[1] || "portfolio-de
 export default defineConfig({
     base: `/${repository}/`,
     plugins: [react()],
+    define: {
+        // The month of the build, which the prerendered page counts a current role to.
+        __BUILD_MONTH__: JSON.stringify(new Date().toISOString().slice(0, 7)),
+    },
     // The EmailJS keys keep the names the Actions secrets already have.
     envPrefix: ["VITE_", "REACT_APP_"],
     build: {

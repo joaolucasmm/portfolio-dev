@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import { useMedia } from "../../Functions/client";
 import type { Copy, Language } from "../../content";
 import { channels, icons, resume, useCopy, Toast } from "../Channels/Channels";
 
-// The name types itself, holds, erases and types again, like the first portfolio
+// The name holds, erases and types itself again, like the first portfolio
 // (typewriter-effect with pauseFor 5000). Letters keep their space while untyped,
 // so the line never shifts. The values live here and the caret in style.scss.
 const WORDS = ["João", "Lucas"];
@@ -14,9 +15,10 @@ const HOLD = 5000;
 const EMPTY = 600;
 
 function useTyping() {
-    const still =
-        typeof window.matchMedia !== "function" || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const [count, setCount] = useState(still ? TOTAL : 0);
+    const still = useMedia("(prefers-reduced-motion: reduce)", { fallback: true });
+    // The name starts written, so it is there in the first frame and in the
+    // prerendered page; then it holds, erases and types itself again.
+    const [count, setCount] = useState(TOTAL);
     const [erasing, setErasing] = useState(false);
 
     useEffect(() => {
@@ -36,7 +38,7 @@ function useTyping() {
         return () => clearTimeout(timer);
     }, [count, erasing, still]);
 
-    return { count, typing: !still && (erasing || count < TOTAL) };
+    return { count: still ? TOTAL : count, typing: !still && (erasing || count < TOTAL) };
 }
 
 function Word({ text, offset, count }: { text: string; offset: number; count: number }) {
