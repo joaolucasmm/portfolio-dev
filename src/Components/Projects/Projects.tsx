@@ -114,7 +114,8 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
                 width={image.width}
                 height={image.height}
                 decoding="async"
-                loading={Math.abs(offset) <= 1 ? "eager" : "lazy"}
+                // The showcase is below the first screen: the pictures load as it comes near.
+                loading="lazy"
             />
             <div className="project__shade" />
             <div className="project__body">

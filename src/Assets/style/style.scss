@@ -118,7 +118,6 @@ $header-menu: 1180px;
     // The typed name: caret width, colour and blink.
     --caret-width: 0.06em;
     --caret-blink: 1s;
-    --hero-after-letters: 1300ms;
 
     // logo-morph-mola
     --morph-out: 300ms;
@@ -1162,12 +1161,13 @@ main,
         animation: caret-blink var(--caret-blink) steps(1) infinite;
     }
 
-    // The sentence and the header arrive once the name is typed. "backwards", not
-    // "both": an animation that holds its end state keeps the header a backdrop root,
-    // and then the phone islands blur only the empty header instead of the page.
-    .hero__foot,
+    // The first screen is there at once: the name arrives written and the lines
+    // under it are not animated (they are also the page's largest paint). Only the
+    // header rises in. "backwards", not "both": an animation that holds its end
+    // state keeps the header a backdrop root, and then the phone islands blur only
+    // the empty header instead of the page.
     .header {
-        animation: fade-up 700ms var(--ease-out) calc(var(--hero-after-letters) + 100ms) backwards;
+        animation: fade-up 600ms var(--ease-out) backwards;
     }
 }
 

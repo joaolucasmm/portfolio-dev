@@ -4,13 +4,16 @@
   "private": true,
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/montserrat": "^5.3.0",
+    "@fontsource/roboto": "^5.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.77.8"
   },
   "scripts": {
     "start": "vite",
-    "build": "vite build",
+    "build": "vite build && vite build --ssr src/entry-server.tsx --outDir build-ssr && node scripts/prerender.mjs",
     "test": "vitest run",
     "lint": "eslint --max-warnings=0 .",
     "size": "node scripts/check-size.js",

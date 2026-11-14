@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { sections, type Shortcut } from "../../Functions/useShortcuts";
+import { useMac } from "../../Functions/client";
 import type { Copy } from "../../content";
 
 // Same values as --morph-out, --morph-stagger and --morph-overlap in style.scss.
@@ -9,8 +10,6 @@ const MORPH_OVERLAP = 150;
 
 // When the last of n letters has left.
 const exitEnd = (n: number) => MORPH_OUT + (n - 1) * MORPH_STAGGER;
-
-const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
 
 type Form = "long" | "short";
 type FormState = "shown" | "in" | "out" | "hidden";
@@ -80,7 +79,7 @@ function Footer({ t, nav, lastUsed }: Props) {
     };
 
     // Keys joined by no-break spaces so a shortcut never splits across lines.
-    const mod = isMac ? "⌘" : "Ctrl";
+    const mod = useMac() ? "⌘" : "Ctrl";
     const shortcuts: [id: Shortcut | "focus", key: string, label: string][] = [
         ["focus", "Alt", t.keys.focus],
         ["jump", "Alt 1–4", t.keys.jump],

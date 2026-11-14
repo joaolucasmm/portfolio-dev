@@ -1,22 +1,28 @@
-import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import usePhone from "../../Functions/usePhone";
+import { useIsomorphicLayoutEffect, useThisMonth } from "../../Functions/client";
 import type { Copy, Month, Plural, Role } from "../../content";
 
 type Units = Copy["experience"]["units"];
 
 const month = (iso: Month) => new Date(iso + "-01T00:00:00Z");
 
+// Engines space a range differently (Node's ICU puts thin spaces around the dash,
+// Chrome plain ones). The prerendered page and the browser must write the same
+// text, so every special space becomes a plain one.
+const plainSpaces = (text: string) => text.replace(/[\u00a0\u2009\u202f]/g, " ");
+
 // ["2024-08", "2025-03"] → "Aug 2024 – Mar 2025"; a null end reads "now".
 function formatDates([from, to]: [Month, Month | null], locale: string, units: Units) {
     const format = new Intl.DateTimeFormat(locale, { month: "short", year: "numeric", timeZone: "UTC" });
-    if (!to) return format.format(month(from)) + " – " + units.now;
-    return format.formatRange(month(from), month(to));
+    if (!to) return plainSpaces(format.format(month(from))) + " – " + units.now;
+    return plainSpaces(format.formatRange(month(from), month(to)));
 }
 
 // Counted like LinkedIn, both months included: Aug 2024 – Mar 2025 is 8 months.
-function formatLength([from, to]: [Month, Month | null], units: Units) {
+function formatLength([from, to]: [Month, Month | null], units: Units, now: Month) {
     const start = month(from);
-    const end = to ? month(to) : new Date();
+    const end = month(to ?? now);
     const total = (end.getUTCFullYear() - start.getUTCFullYear()) * 12 + end.getUTCMonth() - start.getUTCMonth() + 1;
     const years = Math.floor(total / 12);
     const months = total % 12;
@@ -65,6 +71,7 @@ function Between({ t }: { t: Copy["experience"] }) {
 // every row is closed there, and the computer shows the first role.
 function Experience({ t }: { t: Copy["experience"] }) {
     const phone = usePhone();
+    const now = useThisMonth();
     const [chosen, setChosen] = useState(0);
     const tabs = useRef<(HTMLButtonElement | null)[]>([]);
     const bar = useRef<HTMLSpanElement>(null);
@@ -87,7 +94,7 @@ function Experience({ t }: { t: Copy["experience"] }) {
         }
     };
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         const shown = Math.max(chosen, 0);
         const first = chosenRef.current === shown;
         chosenRef.current = shown;
@@ -136,7 +143,7 @@ function Experience({ t }: { t: Copy["experience"] }) {
     };
 
     const item = t.items[shown];
-    const when = (role: Role) => formatDates(role.dates, t.locale, t.units) + " · " + formatLength(role.dates, t.units);
+    const when = (role: Role) => formatDates(role.dates, t.locale, t.units) + " · " + formatLength(role.dates, t.units, now);
 
     if (phone) {
         return (
@@ -223,7 +230,7 @@ function Experience({ t }: { t: Copy["experience"] }) {
                     <div className="experience__head">
                         <h3 className="experience__title">{item.title}</h3>
                         <p className="experience__when">
-                            {formatDates(item.dates, t.locale, t.units)} ({formatLength(item.dates, t.units)})
+                            {formatDates(item.dates, t.locale, t.units)} ({formatLength(item.dates, t.units, now)})
                         </p>
                     </div>
                     <p className="experience__place" translate="no">
