@@ -32,3 +32,6 @@ yarn-error.log*
 /.lhci-out
 /playwright-report
 /test-results
+
+# raw Lighthouse runs behind case-study/*/lighthouse-runs.csv
+/case-study/**/*.json
