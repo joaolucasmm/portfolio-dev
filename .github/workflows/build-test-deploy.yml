@@ -111,7 +111,8 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           # What visitors see. Sites that turn bots away (403, 429) count as up.
-          args: --no-progress --max-retries 3 --accept 200..=299,403,429 src/content.js index.html
+          # index.html points at /favicon.ico and the like, served from public/.
+          args: --no-progress --max-retries 3 --accept 200..=299,403,429 --root-dir ${{ github.workspace }}/public src/content.js index.html
           fail: true
 
   audit:
