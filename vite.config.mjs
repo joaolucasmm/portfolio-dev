@@ -20,6 +20,8 @@ export default defineConfig({
         environment: "jsdom",
         globals: true,
         setupFiles: "src/setupTests.js",
+        // An axe run over the whole page takes about 2 s, more on a cold first run.
+        testTimeout: 15_000,
         include: ["src/**/*.test.{js,jsx}"],
         coverage: { include: ["src/**/*.{js,jsx}"] },
     },
