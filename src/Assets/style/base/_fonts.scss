@@ -1,0 +1,24 @@
+// The type families, self-hosted (Latin subset, the weights in use).
+//
+// font-display: optional: a face is used only if it is there right away, which the
+// preload in build/index.html (scripts/prerender.mjs) makes likely; otherwise the page
+// keeps the system font for that visit and gets the face from the cache on the next.
+// The text never switches font while someone is reading it.
+
+@mixin face($family, $file, $weight, $style: normal) {
+    @font-face {
+        font-family: $family;
+        font-style: $style;
+        font-weight: $weight;
+        font-display: optional;
+        src: url("@fonts/#{$file}.woff2") format("woff2");
+    }
+}
+
+@include face("Montserrat", "montserrat/files/montserrat-latin-700-normal", 700);
+@include face("Montserrat", "montserrat/files/montserrat-latin-700-italic", 700, italic);
+@include face("Roboto", "roboto/files/roboto-latin-400-normal", 400);
+@include face("Roboto", "roboto/files/roboto-latin-500-normal", 500);
+@include face("JetBrains Mono", "jetbrains-mono/files/jetbrains-mono-latin-400-normal", 400);
+@include face("JetBrains Mono", "jetbrains-mono/files/jetbrains-mono-latin-500-normal", 500);
+@include face("JetBrains Mono", "jetbrains-mono/files/jetbrains-mono-latin-600-normal", 600);

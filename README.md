@@ -19,7 +19,7 @@ My personal site: who I am, what I've built and where I've worked, in English an
 - **Accessibility as a requirement.** Skip link, real tabs and dialogs with focus handling, keyboard navigation everywhere (arrow keys in lists, `Ctrl K` search, `Alt 1–4` to jump to sections), `prefers-reduced-motion` respected. Checked by `jest-axe` in the unit tests and by Lighthouse in CI.
 - **Search palette** (`Ctrl K`) over projects, roles, skills and actions.
 - **Projects that run in place.** Web projects can be opened live inside the page.
-- **Fast first screen.** The page is prerendered at build time (`src/entry-server.tsx`, `scripts/prerender.mjs`) and hydrated in the browser, so the first paint does not wait for the JavaScript. The fonts are self-hosted and load after that first paint; the shader waits for an idle moment. Lighthouse on a simulated phone went from 0.53–0.66 to 0.91, with the blocking time down from about 1 s to under 100 ms. A test hydrates the prerendered page and fails on any mismatch.
+- **Fast first screen.** The page is prerendered at build time (`src/entry-server.tsx`, `scripts/prerender.mjs`) and hydrated in the browser, so the first paint does not wait for the JavaScript. The fonts are self-hosted, and the ones on the first screen are preloaded with `font-display: optional`, so the text never switches font while someone reads it; the shader waits for an idle moment. Lighthouse on a simulated phone went from 0.53–0.66 to about 0.8, with the blocking time down from about 1 s to under 100 ms. Loading the fonts after the first paint scored 0.91, but the switch to them showed, so the score gives way to a steady first screen; measured without simulation, the first paint is about 0.3 s either way. A test hydrates the prerendered page and fails on any mismatch.
 
 ## Running it
 
@@ -44,7 +44,7 @@ npm run size         # fails if the bundle grows past its budget
 | `build` | ESLint with no warnings, type check, production build, bundle size |
 | `test` | Unit and accessibility tests, with coverage |
 | `e2e` | Playwright on a desktop and a phone viewport |
-| `lighthouse` | Accessibility, best practices and SEO ≥ 90; performance warns under 90 |
+| `lighthouse` | Accessibility, best practices and SEO ≥ 90; performance warns under 80 |
 | `links` | Every external link on the page still answers |
 | `audit` | `npm audit` on production dependencies, critical advisories |
 

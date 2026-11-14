@@ -2,6 +2,7 @@
 // tokens and mixins (_tokens.scss), the theme and base rules, then each section.
 // The order matters; a later partial may rely on overriding an earlier one.
 
+@use "base/fonts";
 @use "base/theme";
 @use "base/reset";
 @use "base/controls";
