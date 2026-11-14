@@ -89,7 +89,6 @@ function Experience({ t }) {
         const first = chosenRef.current === shown;
         chosenRef.current = shown;
         placeBar(!first);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chosen]);
 
     // Layout changes (fonts loading, the switch to tabs) move the bar without animating.
@@ -106,7 +105,6 @@ function Experience({ t }) {
         const observer = new ResizeObserver(replace);
         observer.observe(list);
         return () => observer.disconnect();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [phone]);
 
     // The search palette opens the role it found.

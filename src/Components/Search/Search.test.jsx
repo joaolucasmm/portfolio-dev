@@ -5,15 +5,15 @@ import Search from "./Search";
 const t = content.english;
 
 function renderSearch(props = {}) {
-    const setOpen = jest.fn();
+    const setOpen = vi.fn();
     const utils = render(
         <Search
             t={t}
             open
             setOpen={setOpen}
-            toggleTheme={jest.fn()}
+            toggleTheme={vi.fn()}
             language="english"
-            setLanguage={jest.fn()}
+            setLanguage={vi.fn()}
             {...props}
         />
     );
@@ -24,10 +24,10 @@ const options = () => screen.queryAllByRole("option").map((o) => o.querySelector
 
 beforeAll(() => {
     // jsdom has no layout, so nothing scrolls.
-    Element.prototype.scrollIntoView = jest.fn();
+    Element.prototype.scrollIntoView = vi.fn();
 });
 
-afterEach(() => jest.useRealTimers());
+afterEach(() => vi.useRealTimers());
 
 describe("Search", () => {
     test("while empty, lists the actions and the sections", () => {
@@ -60,12 +60,12 @@ describe("Search", () => {
     });
 
     test("Enter on a project closes the search and opens that project", () => {
-        jest.useFakeTimers();
+        vi.useFakeTimers();
         const target = document.createElement("li");
         const index = t.work.items.findIndex((p) => p.name === "Pokedex");
         target.id = "project-" + index;
         document.body.appendChild(target);
-        const opened = jest.fn();
+        const opened = vi.fn();
         window.addEventListener("portfolio:open-project", opened);
 
         const { setOpen, input } = renderSearch();
@@ -73,7 +73,7 @@ describe("Search", () => {
         // The first result row is the project (no action matches the word).
         fireEvent.keyDown(input, { key: "Enter" });
         expect(setOpen).toHaveBeenCalledWith(false);
-        act(() => jest.runAllTimers());
+        act(() => vi.runAllTimers());
         expect(opened).toHaveBeenCalledTimes(1);
         expect(opened.mock.calls[0][0].detail).toBe(index);
 

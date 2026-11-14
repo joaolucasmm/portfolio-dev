@@ -6,7 +6,7 @@ import App from "./App";
 const rules = { "color-contrast": { enabled: false } };
 
 beforeAll(() => {
-    Element.prototype.scrollIntoView = jest.fn();
+    Element.prototype.scrollIntoView = vi.fn();
 });
 
 describe("accessibility (axe)", () => {
