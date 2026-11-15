@@ -307,7 +307,7 @@ const english: Copy = {
                 link: "https://www.nelogica.com.br/",
             },
             {
-                title: "Rotation programme intern, software developer",
+                title: "Rotation program intern, software developer",
                 short: "Developer",
                 place: "SAP",
                 city: "São Leopoldo",
@@ -321,7 +321,7 @@ const english: Copy = {
                 link: "https://www.sap.com/about/company.html",
             },
             {
-                title: "Rotation programme intern, QA engineer",
+                title: "Rotation program intern, QA engineer",
                 short: "QA engineer",
                 place: "SAP",
                 city: "São Leopoldo",
@@ -336,7 +336,7 @@ const english: Copy = {
                 link: "https://www.sap.com/about/company.html",
             },
             {
-                title: "Rotation programme intern, product support",
+                title: "Rotation program intern, product support",
                 short: "Support",
                 place: "SAP",
                 city: "São Leopoldo",
