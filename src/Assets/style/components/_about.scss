@@ -1,172 +1,115 @@
 @use "../tokens" as *;
-// About: the portrait as a drop capital
+// About, editorial: the statement is the headline, the stack sits in plain columns
+// under a rule, no glass card.
 
 .about {
     display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--gap);
-
-    &__side {
-        grid-column: 1 / span 3;
-    }
+    gap: clamp(28px, 3.5vw, 44px);
 
     &__heading {
-        font-family: var(--display);
-        font-size: var(--step-head);
-        font-weight: var(--display-weight);
-        line-height: 1;
-        letter-spacing: -0.02em;
-    }
-
-    &__facts {
-        display: grid;
-        gap: 20px;
-        margin-top: 32px;
-        font-size: var(--step-small);
-
-        dt {
-            color: var(--muted);
-        }
-
-        dd {
-            font-size: var(--step-body);
-        }
-    }
-
-    &__text {
-        @include glass;
-        grid-column: 4 / -1;
-        padding: clamp(20px, 2.4vw, 36px);
-    }
-
-    &__statement {
-        max-width: 28em;
-        font-size: var(--step-lead);
-        line-height: 1.2;
-
-        strong {
-            font-weight: 500;
-        }
-    }
-
-    &__body {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--gap);
-        margin-top: 40px;
-        clear: left;
-
-        p {
-            max-width: 46ch;
-        }
-    }
-
-    // Wider than a phone: the title across the top in the middle, the facts and
-    // the card side by side under it.
-    @media (min-width: $phone + 1) {
-        &__side {
-            display: contents;
-        }
-
-        &__heading {
-            grid-column: 1 / -1;
-            margin-bottom: clamp(28px, 3.5vw, 48px);
-            text-align: center;
-        }
-
-        &__facts {
-            grid-column: 1 / span 3;
-            grid-row: 2;
-            align-self: start;
-            margin-top: 0;
-        }
-
-        &__text {
-            grid-row: 2;
-        }
-    }
-
-    // The stack at a glance, under the two paragraphs: group on the left, tools beside it.
-    &__stack {
-        margin-top: 32px;
-        padding-top: 24px;
-        border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
-
-        dl {
-            display: grid;
-            gap: 10px;
-            margin: 14px 0 0;
-        }
-
-        div {
-            display: grid;
-            grid-template-columns: minmax(0, 11em) minmax(0, 1fr);
-            gap: 4px 16px;
-        }
-
-        dt {
-            color: var(--muted);
-            font-size: var(--step-small);
-            padding-top: 0.15em;
-        }
-
-        dd {
-            margin: 0;
-        }
-
-        @media (max-width: $phone) {
-            div {
-                grid-template-columns: 1fr;
-            }
-        }
-    }
-
-    &__stack-heading {
         font-family: var(--mono);
         font-size: var(--step-small);
         font-weight: 600;
         letter-spacing: 0.08em;
         text-transform: uppercase;
+        color: var(--muted);
+    }
+
+    &__top {
+        display: grid;
+        grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+        gap: clamp(28px, 4vw, 56px);
+        align-items: end;
+    }
+
+    &__statement {
+        font-family: var(--display);
+        font-size: clamp(2rem, 1.1rem + 3.6vw, 3.75rem);
+        font-weight: 600;
+        line-height: 1.05;
+        letter-spacing: -0.025em;
+        text-wrap: balance;
+
+        em {
+            font-style: normal;
+            color: var(--accent);
+        }
+    }
+
+    &__aside {
+        display: grid;
+        gap: 16px;
+
+        p {
+            max-width: 46ch;
+            color: var(--muted);
+        }
+    }
+
+    &__who {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+
+        strong {
+            display: block;
+            font-weight: 500;
+        }
+
+        span {
+            font-size: var(--step-small);
+            color: var(--muted);
+        }
     }
 
     &__portrait {
-        float: left;
-        width: 3.6em;
-        height: 3.6em;
-        margin: 0.12em 0.5em 0 0;
-        border-radius: var(--radius-control);
+        flex: none;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
         object-fit: cover;
     }
 
+    &__columns {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px 32px;
+        margin: 0;
+        padding-top: 24px;
+        border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+
+        div {
+            display: grid;
+            gap: 8px;
+            align-content: start;
+        }
+
+        dt {
+            font-family: var(--mono);
+            font-size: var(--step-small);
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        dd {
+            margin: 0;
+        }
+    }
+
     @media (max-width: $phone) {
-        display: flex;
-        flex-direction: column;
-        gap: 32px;
-
-        &__side {
-            display: contents;
-        }
-
-        &__facts {
-            order: 2;
-            margin-top: 8px;
-        }
-
-        &__statement {
-            line-height: 1.25;
-        }
-
-        &__body {
+        &__top,
+        &__columns {
             grid-template-columns: 1fr;
         }
 
-        &__portrait {
-            width: 3.75em;
-            height: 3.75em;
+        &__top {
+            gap: 24px;
         }
 
-        &__facts {
-            grid-template-columns: repeat(3, 1fr);
+        &__columns {
+            gap: 22px;
         }
     }
 }
