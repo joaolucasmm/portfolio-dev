@@ -208,7 +208,7 @@ const english: Copy = {
         skip: "Skip to content",
     },
     hero: {
-        role: "mobile and front-end engineer",
+        role: "software engineer, web and mobile",
         company: "at Nelogica",
         before: "On the Profit and Tryd apps traders use every day. Before that, support, QA and development at SAP.",
         portrait: "Portrait of João Lucas",
@@ -233,7 +233,7 @@ const english: Copy = {
             ["Native", "Kotlin (Jetpack Compose), Java, Swift, Capacitor plugins"],
             ["Also", "React, SQL, Rust, Tauri, Node.js, SAP UI5, SAP CAP"],
             ["Testing and delivery", "Selenium WebDriver, Jest, GitHub Actions, GitLab, Git, OpenSearch"],
-            ["Team", "Scrum, Figma, JIRA"],
+            ["Tools and process", "Claude Code, Figma, JIRA, Scrum"],
         ],
     },
     work: {
@@ -338,7 +338,7 @@ const english: Copy = {
                 text: "Product support for SAP Commerce Cloud.",
                 points: [
                     "Handled more than 20 tickets a month from large customers in several countries.",
-                    "Diagnosed and solved product problems, followed implementations through and reported the results to customers.",
+                    "Diagnosed production incidents from logs and traces in Kibana and Dynatrace, followed the fixes through and reported the results to customers.",
                 ],
                 tools: "Kibana, Dynatrace, ServiceNow, JIRA, Git",
                 link: "https://www.sap.com/about/company.html",
@@ -455,7 +455,7 @@ const portuguese: Copy = {
         skip: "Pular para o conteúdo",
     },
     hero: {
-        role: "engenheiro mobile e front-end",
+        role: "engenheiro de software web e mobile",
         company: "na Nelogica",
         before: "Nos apps do Profit e do Tryd que traders usam todos os dias. Antes, suporte, QA e desenvolvimento na SAP.",
         portrait: "Retrato de João Lucas",
@@ -480,7 +480,7 @@ const portuguese: Copy = {
             ["Nativo", "Kotlin (Jetpack Compose), Java, Swift, plugins Capacitor"],
             ["Também", "React, SQL, Rust, Tauri, Node.js, SAP UI5, SAP CAP"],
             ["Testes e entrega", "Selenium WebDriver, Jest, GitHub Actions, GitLab, Git, OpenSearch"],
-            ["Time", "Scrum, Figma, JIRA"],
+            ["Ferramentas e processo", "Claude Code, Figma, JIRA, Scrum"],
         ],
     },
     work: {
@@ -585,7 +585,7 @@ const portuguese: Copy = {
                 text: "Suporte ao produto SAP Commerce Cloud.",
                 points: [
                     "Atendi mais de 20 chamados por mês de grandes clientes em diversos países.",
-                    "Diagnostiquei e resolvi problemas do produto, acompanhei implementações e entreguei relatórios de resultados aos clientes.",
+                    "Diagnostiquei incidentes em produção a partir de logs e traces no Kibana e no Dynatrace, acompanhei as correções e entreguei relatórios de resultados aos clientes.",
                 ],
                 tools: "Kibana, Dynatrace, ServiceNow, JIRA, Git",
                 link: "https://www.sap.com/about/company.html",
