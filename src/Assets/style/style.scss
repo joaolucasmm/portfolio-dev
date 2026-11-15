@@ -1,16 +1,24 @@
-@import '../../App';
-@import '../../Components/Header/Header';
-@import '../../Components/Hero/Hero';
-@import '../../Components/EmailDialog/EmailDialog';
-@import '../../Components/About/About';
-@import '../../Components/Banner/Banner';
-@import '../../Components/Skills/Skills';
-@import '../../Components/Projects/Projects';
-@import '../../Components/Info/Info';
-@import '../../Components/Return/Return';
-@import '../../Components/Experience/Experience';
-@import '../../Components/Services/Services';
-@import '../../Components/Education/Education';
-@import '../../Components/Footer/Footer';
+// The site's styles, one partial per part of the page, in cascade order: the
+// tokens and mixins (_tokens.scss), the theme and base rules, then each section.
+// The order matters; a later partial may rely on overriding an earlier one.
 
-@import '../../Components/UI/globalStyle';
+@use "base/fonts";
+@use "base/theme";
+@use "base/reset";
+@use "base/controls";
+@use "base/layout";
+@use "components/header";
+@use "components/menu";
+@use "components/switches";
+@use "components/hero";
+@use "base/motion";
+@use "components/about";
+@use "components/projects";
+@use "components/experience";
+@use "components/education";
+@use "components/contact";
+@use "components/toast";
+@use "components/footer";
+@use "components/email-dialog";
+@use "base/debug";
+@use "components/search";

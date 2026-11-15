@@ -1,0 +1,120 @@
+@use "../tokens" as *;
+// About: the title like every other section, then two columns in the 1140px
+// column the Experience uses: the statement, portrait and paragraph on the left,
+// the stack as a list (one row per group) on the right. No glass card.
+
+.about {
+    &__heading {
+        font-family: var(--display);
+        font-size: var(--step-head);
+        font-weight: var(--display-weight);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin-bottom: clamp(28px, 3.5vw, 48px);
+    }
+
+    // Wider than a phone: the title in the middle, as in the other sections.
+    @media (min-width: $phone + 1) {
+        &__heading {
+            text-align: center;
+        }
+    }
+
+    &__layout {
+        display: grid;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        gap: clamp(32px, 5vw, 72px);
+        align-items: start;
+        max-width: 1140px;
+        margin-inline: auto;
+    }
+
+    &__story {
+        display: grid;
+        gap: 20px;
+    }
+
+    &__statement {
+        font-family: var(--display);
+        font-size: clamp(1.75rem, 1rem + 2.6vw, 3rem);
+        font-weight: 600;
+        line-height: 1.08;
+        letter-spacing: -0.025em;
+        text-wrap: balance;
+
+        em {
+            font-style: normal;
+            color: var(--accent);
+        }
+    }
+
+    &__who {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+
+        strong {
+            display: block;
+            font-weight: 500;
+        }
+
+        span {
+            font-size: var(--step-small);
+            color: var(--muted);
+        }
+    }
+
+    &__portrait {
+        flex: none;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    &__body {
+        max-width: 46ch;
+        color: var(--muted);
+    }
+
+    // Label on the left, tools on the right, a rule between rows.
+    &__list {
+        margin: 0;
+
+        div {
+            display: grid;
+            grid-template-columns: 11em minmax(0, 1fr);
+            gap: 4px 20px;
+            padding-block: 12px;
+            border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+
+            &:last-child {
+                border-bottom: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+            }
+        }
+
+        dt {
+            padding-top: 0.2em;
+            font-family: var(--mono);
+            font-size: var(--step-small);
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        dd {
+            margin: 0;
+        }
+    }
+
+    @media (max-width: $phone) {
+        &__layout {
+            grid-template-columns: 1fr;
+        }
+
+        &__list div {
+            grid-template-columns: 1fr;
+        }
+    }
+}

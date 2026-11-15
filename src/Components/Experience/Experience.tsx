@@ -1,0 +1,255 @@
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import usePhone from "../../Functions/usePhone";
+import { useIsomorphicLayoutEffect, useThisMonth } from "../../Functions/client";
+import type { Copy, Month, Plural, Role } from "../../content";
+
+type Units = Copy["experience"]["units"];
+
+const month = (iso: Month) => new Date(iso + "-01T00:00:00Z");
+
+// Engines space a range differently (Node's ICU puts thin spaces around the dash,
+// Chrome plain ones). The prerendered page and the browser must write the same
+// text, so every special space becomes a plain one.
+const plainSpaces = (text: string) => text.replace(/[\u00a0\u2009\u202f]/g, " ");
+
+// ["2024-08", "2025-03"] → "Aug 2024 – Mar 2025"; a null end reads "now".
+function formatDates([from, to]: [Month, Month | null], locale: string, units: Units) {
+    const format = new Intl.DateTimeFormat(locale, { month: "short", year: "numeric", timeZone: "UTC" });
+    if (!to) return plainSpaces(format.format(month(from))) + " – " + units.now;
+    return plainSpaces(format.formatRange(month(from), month(to)));
+}
+
+// Counted like LinkedIn, both months included: Aug 2024 – Mar 2025 is 8 months.
+function formatLength([from, to]: [Month, Month | null], units: Units, now: Month) {
+    const start = month(from);
+    const end = month(to ?? now);
+    const total = (end.getUTCFullYear() - start.getUTCFullYear()) * 12 + end.getUTCMonth() - start.getUTCMonth() + 1;
+    const years = Math.floor(total / 12);
+    const months = total % 12;
+    const part = (n: number, [one, many]: Plural) => n + " " + (n === 1 ? one : many);
+    return [years && part(years, units.year), months && part(months, units.month)].filter(Boolean).join(units.and);
+}
+
+// The list names drop the internship prefix so they fit on one or two lines;
+// the company sits under each name.
+function listName(title: string) {
+    const name = title.replace(/^(Rotation program intern|Estagiário do programa de rotação), /, "");
+    return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+// What came of the role, one result per line. Roles without results show only their text.
+function Points({ role }: { role: Role }) {
+    if (!role.points) return null;
+    return (
+        <ul className="experience__points">
+            {role.points.map((point) => (
+                <li key={point}>{point}</li>
+            ))}
+        </ul>
+    );
+}
+
+// The time between roles, said plainly so nobody has to ask.
+function Between({ t }: { t: Copy["experience"] }) {
+    return (
+        <div className="experience__between" data-reveal>
+            <h3>{t.betweenHeading}</h3>
+            <ul>
+                {t.between.map((gap) => (
+                    <li key={gap.dates.join()}>
+                        <span>{formatDates(gap.dates, t.locale, t.units)}</span> {gap.text}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+// As on the first portfolio: the roles as a plain list with dividers, the chosen
+// one beside it with no card, all on one screen. Arrow keys move along the list.
+// On phones each role is a row that opens in place, like Education; -1 means
+// every row is closed there, and the computer shows the first role.
+function Experience({ t }: { t: Copy["experience"] }) {
+    const phone = usePhone();
+    const now = useThisMonth();
+    const [chosen, setChosen] = useState(0);
+    const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+    const bar = useRef<HTMLSpanElement>(null);
+    const chosenRef = useRef(chosen);
+    const count = t.items.length;
+
+    // One bar slides to the chosen role on the site's spring. It is measured from the
+    // tab, down the list; if the list is ever laid out as a row, it measures along it.
+    const placeBar = (animate: boolean) => {
+        const tab = tabs.current[chosenRef.current];
+        const el = bar.current;
+        if (!tab || !el) return;
+        const across = getComputedStyle(tab.parentElement!).gridAutoFlow.startsWith("column");
+        if (!animate) el.style.transition = "none";
+        el.style.setProperty("--offset", (across ? tab.offsetLeft : tab.offsetTop) + "px");
+        el.style.setProperty("--size", (across ? tab.offsetWidth : tab.offsetHeight) + "px");
+        if (!animate) {
+            el.getBoundingClientRect();
+            el.style.transition = "";
+        }
+    };
+
+    useIsomorphicLayoutEffect(() => {
+        const shown = Math.max(chosen, 0);
+        const first = chosenRef.current === shown;
+        chosenRef.current = shown;
+        placeBar(!first);
+    }, [chosen]);
+
+    // Layout changes (fonts loading, the switch to tabs) move the bar without animating.
+    useEffect(() => {
+        const list = bar.current?.parentElement;
+        if (!list) return;
+        const replace = () => placeBar(false);
+        document.fonts?.ready.then(replace);
+        // Without ResizeObserver (older browsers, the test environment), window resizes still move it.
+        if (typeof ResizeObserver === "undefined") {
+            window.addEventListener("resize", replace);
+            return () => window.removeEventListener("resize", replace);
+        }
+        const observer = new ResizeObserver(replace);
+        observer.observe(list);
+        return () => observer.disconnect();
+    }, [phone]);
+
+    // The search palette opens the role it found.
+    useEffect(() => {
+        const onOpen = (e: CustomEvent<number>) => setChosen(e.detail);
+        window.addEventListener("portfolio:open-experience", onOpen);
+        return () => window.removeEventListener("portfolio:open-experience", onOpen);
+    }, []);
+
+    const shown = Math.max(chosen, 0);
+
+    const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
+        const moves: Record<string, number> = {
+            ArrowDown: shown + 1,
+            ArrowRight: shown + 1,
+            ArrowUp: shown - 1,
+            ArrowLeft: shown - 1,
+            Home: 0,
+            End: count - 1,
+        };
+        if (!(e.key in moves)) return;
+        e.preventDefault();
+        const next = (moves[e.key] + count) % count;
+        setChosen(next);
+        tabs.current[next]?.focus();
+    };
+
+    const item = t.items[shown];
+    const when = (role: Role) => formatDates(role.dates, t.locale, t.units) + " · " + formatLength(role.dates, t.units, now);
+
+    if (phone) {
+        return (
+            <section id="experience" className="section section--alt experience" tabIndex={-1}>
+                <h2 className="experience__heading" data-reveal>
+                    {t.heading}
+                </h2>
+                <ul className="experience__rows">
+                    {t.items.map((role, i) => (
+                        <li key={role.dates.join()} id={"experience-" + i} tabIndex={-1}>
+                            <details
+                                className="experience__row"
+                                open={i === chosen}
+                                data-reveal
+                                onToggle={(e) => {
+                                    const open = e.currentTarget.open;
+                                    // Opening one closes the others; closing the open one closes all.
+                                    setChosen((c) => (open ? i : c === i ? -1 : c));
+                                }}
+                            >
+                                <summary>
+                                    <span className="experience__row-title">{role.title}</span>
+                                    <span className="experience__row-when">
+                                        <b translate="no">{role.place}</b> · {when(role)}
+                                    </span>
+                                </summary>
+                                <div className="experience__row-body">
+                                    <p className="experience__row-city">{role.city}</p>
+                                    <p>{role.text}</p>
+                                    <Points role={role} />
+                                    <ul className="experience__pills" aria-label={t.tools}>
+                                        {role.tools.split(", ").map((tool) => (
+                                            <li key={tool}>{tool}</li>
+                                        ))}
+                                    </ul>
+                                    <a className="experience__link" href={role.link} target="_blank" rel="noreferrer">
+                                        {t.company} <span aria-hidden="true">↗</span>
+                                    </a>
+                                </div>
+                            </details>
+                        </li>
+                    ))}
+                </ul>
+                <Between t={t} />
+            </section>
+        );
+    }
+
+    return (
+        <section id="experience" className="section section--alt experience" tabIndex={-1}>
+            <h2 className="experience__heading" data-reveal>
+                {t.heading}
+            </h2>
+            <div className="experience__board" data-reveal>
+                <div className="experience__list" role="tablist" aria-orientation="vertical" aria-label={t.heading}>
+                    <span ref={bar} className="experience__indicator" aria-hidden="true" />
+                    {t.items.map((role, i) => (
+                        <button
+                            key={role.dates.join()}
+                            ref={(el) => (tabs.current[i] = el)}
+                            id={"experience-" + i}
+                            type="button"
+                            role="tab"
+                            className="experience__tab"
+                            aria-selected={i === shown}
+                            aria-controls="experience-panel"
+                            tabIndex={i === shown ? 0 : -1}
+                            onClick={() => setChosen(i)}
+                            onKeyDown={onKeyDown}
+                        >
+                            {listName(role.title)}
+                            <span className="experience__tab-place" translate="no">
+                                {role.place}
+                            </span>
+                        </button>
+                    ))}
+                </div>
+                <div
+                    key={shown}
+                    id="experience-panel"
+                    className="experience__role"
+                    role="tabpanel"
+                    aria-labelledby={"experience-" + shown}
+                >
+                    <div className="experience__head">
+                        <h3 className="experience__title">{item.title}</h3>
+                        <p className="experience__when">
+                            {formatDates(item.dates, t.locale, t.units)} ({formatLength(item.dates, t.units, now)})
+                        </p>
+                    </div>
+                    <p className="experience__place">
+                        <span translate="no">{item.place}</span> · {item.city}
+                    </p>
+                    <p className="experience__text">{item.text}</p>
+                    <Points role={item} />
+                    <p className="experience__tools">
+                        {t.tools}: {item.tools}.
+                    </p>
+                    <a className="experience__more" href={item.link} target="_blank" rel="noreferrer">
+                        {t.company}
+                    </a>
+                </div>
+            </div>
+            <Between t={t} />
+        </section>
+    );
+}
+
+export default Experience;

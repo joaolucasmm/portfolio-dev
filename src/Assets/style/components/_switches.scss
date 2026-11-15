@@ -1,0 +1,185 @@
+// Header switches: the search lens, the language roll and the theme eclipse.
+// Search: a lens that widens on hover or focus to the word and the shortcut.
+.search-grow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 13px;
+    border: 0;
+    border-radius: 999px;
+    background: none;
+    color: inherit;
+    font-size: var(--step-body);
+    cursor: pointer;
+    overflow: hidden;
+    transition: background-color var(--theme-swap) ease;
+
+    svg {
+        flex: none;
+    }
+
+    &__more {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        max-width: 0;
+        opacity: 0;
+        white-space: nowrap;
+        transition: max-width var(--search-grow) var(--spring), opacity 200ms ease;
+    }
+
+    &__key {
+        padding: 3px 6px;
+        border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
+        border-radius: 5px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        line-height: 1;
+
+        // A touch screen has no keyboard to press it on.
+        @media (hover: none) {
+            display: none;
+        }
+    }
+
+    &:hover,
+    &:focus-visible {
+        background: color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+
+    &:hover &__more,
+    &:focus-visible &__more {
+        max-width: 160px;
+        opacity: 1;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &__more {
+            transition-duration: 1ms;
+        }
+    }
+}
+
+// Language: the code of the language being read; the letters roll on a click.
+.lang-roll {
+    display: grid;
+    place-items: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 8px;
+    border: 0;
+    border-radius: 999px;
+    background: none;
+    color: inherit;
+    font-size: var(--step-body);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background-color var(--theme-swap) ease;
+
+    &:hover {
+        background: color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
+
+    &__wheel {
+        display: flex;
+        gap: 0.02em;
+    }
+
+    &__letter {
+        display: grid;
+        height: 1.3em;
+        overflow: hidden;
+
+        span {
+            display: block;
+            height: 1.3em;
+            line-height: 1.3em;
+            transition: translate var(--lang-roll) var(--spring) calc(var(--k) * var(--lang-roll-stagger));
+        }
+    }
+
+    &.is-pt &__letter span {
+        translate: 0 -100%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &__letter span {
+            transition-duration: 1ms;
+            transition-delay: 0ms;
+        }
+    }
+}
+
+// Theme switch: the sun becomes a moon. Moved with transforms, not cx or r,
+// so Safari animates it too.
+.eclipse {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    transition: background-color var(--theme-swap) ease;
+
+    &:hover {
+        background: color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
+
+    svg {
+        overflow: visible;
+    }
+
+    &__bite,
+    &__core,
+    &__rays {
+        transform-box: view-box;
+        transform-origin: 12px 12px;
+        transition: transform var(--eclipse) var(--spring), opacity calc(var(--eclipse) * 0.6) ease;
+    }
+
+    &[aria-checked="true"] {
+        .eclipse__bite {
+            transform: translate(-13px, 13px);
+        }
+
+        .eclipse__core {
+            transform: scale(1.8);
+        }
+
+        .eclipse__rays {
+            transform: rotate(90deg) scale(0.4);
+            opacity: 0;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &__bite,
+        &__core,
+        &__rays {
+            transition-duration: 1ms;
+        }
+    }
+}

@@ -1,0 +1,238 @@
+@use "../tokens" as *;
+// Header
+
+// The bar stays at the top while scrolling and marks the current section.
+// Desktop: open over the hero with no ground; once the page scrolls, a glass pill
+// in the middle. Phone and tablet: two small glass islands, the initials and the
+// buttons; the sections are reached through search and the footer.
+.header {
+    position: fixed;
+    top: 8px;
+    left: var(--margin);
+    right: var(--margin);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: calc(var(--header-height) - 16px);
+    padding: 0 20px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-glass);
+    background: rgb(var(--glass-rgb) / 0);
+    font-size: var(--step-small);
+    transition: top var(--bar-shrink) var(--spring), left var(--bar-shrink) var(--spring),
+        right var(--bar-shrink) var(--spring), padding var(--bar-shrink) var(--spring),
+        border-radius var(--bar-shrink) var(--spring), background-color 300ms ease, border-color 300ms ease,
+        box-shadow 300ms ease, backdrop-filter 300ms ease;
+
+    &--small {
+        @include glass;
+        // Denser than the cards: the pill also passes over the pink footer band.
+        background: rgb(var(--glass-rgb) / calc(var(--glass-tint) + 0.3));
+        top: 10px;
+        left: max(var(--margin), calc(50% - var(--bar-small) / 2));
+        right: max(var(--margin), calc(50% - var(--bar-small) / 2));
+        padding: 0 8px 0 22px;
+        border-radius: 999px;
+    }
+
+    &__mark,
+    &__menu {
+        font-family: var(--display);
+        font-weight: var(--display-weight);
+        font-size: var(--step-lead);
+        line-height: 1;
+        text-decoration: none;
+    }
+
+    // The initials as a button that opens the menu, only where the links are hidden.
+    &__menu {
+        display: none;
+        padding: 0;
+        border: 0;
+        color: inherit;
+        cursor: pointer;
+    }
+
+    &__nav {
+        display: flex;
+        align-items: center;
+    }
+
+    // The links and the highlight that slides under the current one.
+    &__track {
+        position: relative;
+    }
+
+    &__highlight {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: var(--w, 0);
+        height: 38px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--ink) 12%, transparent);
+        box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 16%, transparent);
+        transform: translate(var(--x, 0), -50%);
+        pointer-events: none;
+        transition: transform var(--bar-slide) var(--spring), width var(--bar-slide) var(--spring), opacity 200ms ease;
+
+        // A pink dot under the pill names the colour of the site.
+        &::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent);
+            translate: -50% 0;
+        }
+    }
+
+    &__links {
+        display: flex;
+        gap: 2px;
+
+        a {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 9px 14px;
+            border-radius: 999px;
+            font-size: var(--step-body);
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background-color 200ms ease;
+
+            &:hover {
+                background: color-mix(in srgb, var(--ink) 6%, transparent);
+            }
+
+            &:focus-visible {
+                outline: 2px solid var(--accent);
+                outline-offset: 2px;
+            }
+
+            // Pulse ring for the Alt focus mode.
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: inherit;
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+    }
+
+    &__key {
+        font-family: var(--mono);
+        display: none;
+        min-width: 1.4em;
+        padding: 0 0.3em;
+        border-radius: 4px;
+        background: var(--ink);
+        color: var(--bg);
+        font-size: var(--step-small);
+        font-variant-numeric: tabular-nums;
+        line-height: 1.5;
+        text-align: center;
+    }
+
+    &__switches {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &,
+        &__highlight {
+            transition-duration: 1ms;
+        }
+    }
+
+    // Desktop: two equal side columns, so the links sit in the middle of the bar
+    // however wide the initials and the switches are.
+    @media (min-width: $header-menu + 1) {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+
+        &__mark {
+            justify-self: start;
+        }
+
+        &__switches {
+            justify-self: end;
+        }
+
+        &__nav {
+            transition: translate var(--bar-shrink) var(--spring);
+        }
+
+        // The pill pads 22px on the left and 8px on the right; half the difference
+        // brings the links back to the middle of the page.
+        &--small &__nav {
+            translate: calc((8px - 22px) / 2) 0;
+        }
+    }
+
+    // Phone and tablet: no section links; the top keeps two small
+    // liquid glass islands in the corners, the initials and the three buttons,
+    // with the middle left free.
+    @media (max-width: $header-menu) {
+        &,
+        &--small {
+            top: max(10px, env(safe-area-inset-top, 0px));
+            left: var(--margin);
+            right: var(--margin);
+            height: 48px;
+            padding: 0;
+            border: 0;
+            background: none;
+            box-shadow: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            pointer-events: none;
+        }
+
+        &__mark {
+            display: none;
+        }
+
+        &__menu,
+        &__switches {
+            @include liquid;
+            pointer-events: auto;
+        }
+
+        // While the menu is open its own close button takes this place.
+        &--menu &__menu {
+            visibility: hidden;
+        }
+
+        &__menu {
+            display: grid;
+            place-items: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+        }
+
+        &__switches {
+            height: 48px;
+            padding: 0 2px;
+            gap: 0;
+            border-radius: 999px;
+        }
+
+        &__nav {
+            display: none;
+        }
+    }
+}

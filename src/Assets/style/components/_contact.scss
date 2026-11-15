@@ -1,0 +1,94 @@
+@use "../tokens" as *;
+// Contact: the list from the original portfolio, one row per channel
+
+.contact {
+    position: relative;
+    display: grid;
+    // Phones: title, list and form start at the margin; wider, all in the middle.
+    justify-items: start;
+
+    @media (min-width: $phone + 1) {
+        justify-items: center;
+        text-align: center;
+    }
+
+    gap: clamp(24px, 3vw, 36px);
+    // The bottom leaves room for the toast under the form button.
+    padding: clamp(64px, 8vw, 128px) var(--margin) clamp(104px, 9vw, 136px);
+
+    @media (max-width: $phone) {
+        padding-block: 56px 88px;
+    }
+
+    &__title {
+        font-family: var(--display);
+        font-size: var(--step-head);
+        font-weight: var(--display-weight);
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+    }
+
+    &__actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+
+        @media (max-width: $phone) {
+            justify-content: flex-start;
+        }
+    }
+
+    &__list {
+        width: 100%;
+        max-width: 420px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li + li {
+            border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+        }
+    }
+
+    // The row lights up and the icon grows, as on the original.
+    &__row {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 16px 14px;
+        border: 0;
+        border-radius: 12px;
+        background: none;
+        color: inherit;
+        font: inherit;
+        font-size: 1.05rem;
+        font-weight: 500;
+        text-align: left;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 200ms;
+
+        svg {
+            width: 26px;
+            height: 26px;
+            flex: none;
+            transition: transform 300ms var(--spring);
+        }
+
+        span {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        &:hover,
+        &:focus-visible {
+            background: color-mix(in srgb, var(--ink) 8%, transparent);
+
+            svg {
+                transform: scale(1.25);
+            }
+        }
+    }
+}
