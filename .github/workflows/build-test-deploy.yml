@@ -24,7 +24,7 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v7
       - name: use node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20.x'
           cache: npm
@@ -50,7 +50,7 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v7
       - name: use node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20.x'
           cache: npm
@@ -64,7 +64,7 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v7
       - name: use node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20.x'
           cache: npm
@@ -92,7 +92,7 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v7
       - name: use node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20.x'
       - uses: actions/download-artifact@v4
@@ -123,7 +123,7 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v7
       - name: use node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20.x'
       # Fails on critical advisories only; lower ones are left to Dependabot.
@@ -151,7 +151,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: use node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20.x'
           cache: npm
