@@ -171,6 +171,7 @@ function Experience({ t }: { t: Copy["experience"] }) {
                                     </span>
                                 </summary>
                                 <div className="experience__row-body">
+                                    <p className="experience__row-city">{role.city}</p>
                                     <p>{role.text}</p>
                                     <Points role={role} />
                                     <ul className="experience__pills" aria-label={t.tools}>
@@ -233,8 +234,8 @@ function Experience({ t }: { t: Copy["experience"] }) {
                             {formatDates(item.dates, t.locale, t.units)} ({formatLength(item.dates, t.units, now)})
                         </p>
                     </div>
-                    <p className="experience__place" translate="no">
-                        {item.place}
+                    <p className="experience__place">
+                        <span translate="no">{item.place}</span> · {item.city}
                     </p>
                     <p className="experience__text">{item.text}</p>
                     <Points role={item} />
