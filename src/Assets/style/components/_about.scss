@@ -1,7 +1,7 @@
 @use "../tokens" as *;
-// About: the title like every other section, then the statement as a headline,
-// the portrait and paragraph beside it, and the stack in plain columns under a
-// rule. No glass card.
+// About: the title like every other section, then two columns in the 1140px
+// column the Experience uses: the statement, portrait and paragraph on the left,
+// the stack as a list (one row per group) on the right. No glass card.
 
 .about {
     &__heading {
@@ -20,16 +20,18 @@
         }
     }
 
-    &__card {
+    &__layout {
         display: grid;
-        gap: clamp(24px, 3vw, 36px);
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        gap: clamp(32px, 5vw, 72px);
+        align-items: start;
+        max-width: 1140px;
+        margin-inline: auto;
     }
 
-    &__top {
+    &__story {
         display: grid;
-        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-        gap: clamp(24px, 3.5vw, 48px);
-        align-items: start;
+        gap: 20px;
     }
 
     &__statement {
@@ -43,16 +45,6 @@
         em {
             font-style: normal;
             color: var(--accent);
-        }
-    }
-
-    &__aside {
-        display: grid;
-        gap: 14px;
-
-        p {
-            max-width: 46ch;
-            color: var(--muted);
         }
     }
 
@@ -80,21 +72,29 @@
         object-fit: cover;
     }
 
-    &__columns {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 24px 32px;
+    &__body {
+        max-width: 46ch;
+        color: var(--muted);
+    }
+
+    // Label on the left, tools on the right, a rule between rows.
+    &__list {
         margin: 0;
-        padding-top: clamp(20px, 2.4vw, 28px);
-        border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
 
         div {
             display: grid;
-            gap: 6px;
-            align-content: start;
+            grid-template-columns: 11em minmax(0, 1fr);
+            gap: 4px 20px;
+            padding-block: 12px;
+            border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+
+            &:last-child {
+                border-bottom: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+            }
         }
 
         dt {
+            padding-top: 0.2em;
             font-family: var(--mono);
             font-size: var(--step-small);
             font-weight: 600;
@@ -108,21 +108,13 @@
         }
     }
 
-    @media (max-width: $tablet) {
-        &__columns {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-    }
-
     @media (max-width: $phone) {
-        &__top {
+        &__layout {
             grid-template-columns: 1fr;
-            gap: 20px;
         }
 
-        &__columns {
+        &__list div {
             grid-template-columns: 1fr;
-            gap: 18px;
         }
     }
 }
