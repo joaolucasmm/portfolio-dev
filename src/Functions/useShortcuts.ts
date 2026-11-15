@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 // The sections Alt 1–4 jump to, in order; also the header and footer links.
-const sections = ["work", "experience", "education", "contact"] as const;
+const sections = ["experience", "work", "education", "contact"] as const;
 export type Section = (typeof sections)[number];
 
 /** The shortcut used last, so the footer can light up its key. */

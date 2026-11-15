@@ -208,7 +208,7 @@ const english: Copy = {
         skip: "Skip to content",
     },
     hero: {
-        role: "mobile and front-end engineer",
+        role: "software engineer, web and mobile",
         company: "at Nelogica",
         before: "On the Profit and Tryd apps traders use every day. Before that, support, QA and development at SAP.",
         portrait: "Portrait of João Lucas",
@@ -217,13 +217,12 @@ const english: Copy = {
     about: {
         heading: "About",
         lead: "I’m João Lucas Miranda Menegasso",
-        first: ", and I have sat at every desk a bug passes: support, QA and development at SAP, and now mobile at Nelogica.",
+        first: ", and I measure before I change anything.",
         body: [
-            "I build the mobile apps of Nelogica’s trading platforms and go below the interface when the problem asks for it, down to native Kotlin and Swift. Before software came a mechatronics diploma and physics engineering at UFRGS, where I learned to measure before I change anything.",
+            "The habit comes from a mechatronics diploma and physics engineering at UFRGS. At Nelogica it takes me below the interface when the problem asks for it, down to native Kotlin and Swift.",
         ],
         facts: [
             ["Based in", "Porto Alegre, Brazil"],
-            ["Now", "Software engineer, mobile, at Nelogica"],
             ["Speaks", "Português, English (fluent), Español (intermediate)"],
         ],
         stackHeading: "Stack",
@@ -233,7 +232,7 @@ const english: Copy = {
             ["Native", "Kotlin (Jetpack Compose), Java, Swift, Capacitor plugins"],
             ["Also", "React, SQL, Rust, Tauri, Node.js, SAP UI5, SAP CAP"],
             ["Testing and delivery", "Selenium WebDriver, Jest, GitHub Actions, GitLab, Git, OpenSearch"],
-            ["Team", "Scrum, Figma, JIRA"],
+            ["Tools and process", "Claude Code, Figma, JIRA, Scrum"],
         ],
     },
     work: {
@@ -338,7 +337,7 @@ const english: Copy = {
                 text: "Product support for SAP Commerce Cloud.",
                 points: [
                     "Handled more than 20 tickets a month from large customers in several countries.",
-                    "Diagnosed and solved product problems, followed implementations through and reported the results to customers.",
+                    "Diagnosed production incidents from logs and traces in Kibana and Dynatrace, followed the fixes through and reported the results to customers.",
                 ],
                 tools: "Kibana, Dynatrace, ServiceNow, JIRA, Git",
                 link: "https://www.sap.com/about/company.html",
@@ -455,7 +454,7 @@ const portuguese: Copy = {
         skip: "Pular para o conteúdo",
     },
     hero: {
-        role: "engenheiro mobile e front-end",
+        role: "engenheiro de software web e mobile",
         company: "na Nelogica",
         before: "Nos apps do Profit e do Tryd que traders usam todos os dias. Antes, suporte, QA e desenvolvimento na SAP.",
         portrait: "Retrato de João Lucas",
@@ -464,13 +463,12 @@ const portuguese: Copy = {
     about: {
         heading: "Sobre",
         lead: "Sou João Lucas Miranda Menegasso",
-        first: " e já sentei em todas as mesas por onde um bug passa: suporte, QA e desenvolvimento na SAP, e agora mobile na Nelogica.",
+        first: " e meço antes de mudar qualquer coisa.",
         body: [
-            "Desenvolvo os apps mobile das plataformas de trading da Nelogica e desço abaixo da interface quando o problema pede, até o Kotlin e o Swift nativos. Antes do software vieram o técnico em mecatrônica e a engenharia física na UFRGS, onde aprendi a medir antes de mudar qualquer coisa.",
+            "O hábito vem do técnico em mecatrônica e da engenharia física na UFRGS. Na Nelogica, ele me leva para baixo da interface quando o problema pede, até o Kotlin e o Swift nativos.",
         ],
         facts: [
             ["Mora em", "Porto Alegre, Brasil"],
-            ["Agora", "Engenheiro de software mobile na Nelogica"],
             ["Fala", "Português, English (fluente), Español (intermediário)"],
         ],
         stackHeading: "Stack",
@@ -480,7 +478,7 @@ const portuguese: Copy = {
             ["Nativo", "Kotlin (Jetpack Compose), Java, Swift, plugins Capacitor"],
             ["Também", "React, SQL, Rust, Tauri, Node.js, SAP UI5, SAP CAP"],
             ["Testes e entrega", "Selenium WebDriver, Jest, GitHub Actions, GitLab, Git, OpenSearch"],
-            ["Time", "Scrum, Figma, JIRA"],
+            ["Ferramentas e processo", "Claude Code, Figma, JIRA, Scrum"],
         ],
     },
     work: {
@@ -585,7 +583,7 @@ const portuguese: Copy = {
                 text: "Suporte ao produto SAP Commerce Cloud.",
                 points: [
                     "Atendi mais de 20 chamados por mês de grandes clientes em diversos países.",
-                    "Diagnostiquei e resolvi problemas do produto, acompanhei implementações e entreguei relatórios de resultados aos clientes.",
+                    "Diagnostiquei incidentes em produção a partir de logs e traces no Kibana e no Dynatrace, acompanhei as correções e entreguei relatórios de resultados aos clientes.",
                 ],
                 tools: "Kibana, Dynatrace, ServiceNow, JIRA, Git",
                 link: "https://www.sap.com/about/company.html",
