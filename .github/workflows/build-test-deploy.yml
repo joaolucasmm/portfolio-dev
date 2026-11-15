@@ -206,6 +206,9 @@ jobs:
           # repository name.
           rsync -av --delete --exclude='.git' --exclude='.github/workflows/' ./ /tmp/portfolio/
           cd /tmp/portfolio
+          # Dependencies are updated here, not in production: without this file there,
+          # Dependabot opens no pull requests in joaolucasmm/portfolio.
+          rm -f .github/dependabot.yml
           git config --global user.email "joaol_mm@hotmail.com"
           git config --global user.name "joaolucasmm"
           git add --all
