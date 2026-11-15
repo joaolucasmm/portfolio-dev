@@ -198,15 +198,17 @@ jobs:
         run: git clone https://joaolucasmm:${{ secrets.PROD_TOKEN }}@github.com/joaolucasmm/portfolio.git /tmp/portfolio
       - name: copy files
         run: |
-          rsync -av --exclude='.git' ./ /tmp/portfolio/
+          # --delete removes from production what is gone here (the old Create React
+          # App files, for one), so production holds exactly this repository.
+          # Production keeps its own workflow: excluded paths are neither copied nor
+          # deleted. package.json and the lockfile go across, so it builds with the
+          # same tools; vite.config.mts takes the /portfolio/ path from the
+          # repository name.
+          rsync -av --delete --exclude='.git' --exclude='.github/workflows/' ./ /tmp/portfolio/
           cd /tmp/portfolio
           git config --global user.email "joaol_mm@hotmail.com"
           git config --global user.name "joaolucasmm"
-          git add .
-          # Production keeps its own workflow. package.json and the lockfile go
-          # across, so it builds with the same tools; vite.config.mjs takes the
-          # /portfolio/ path from the repository name.
-          git restore --staged ./.github/workflows/build-test-deploy.yml
+          git add --all
       - name: commit changes if any
         run: |
           cd /tmp/portfolio
