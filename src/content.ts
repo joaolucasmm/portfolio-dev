@@ -27,6 +27,8 @@ export interface Role {
     /** The tab label on phones. */
     short: string;
     place: string;
+    /** Where the role was, shown beside the company. */
+    city: string;
     dates: MonthRange;
     text: string;
     points?: string[];
@@ -292,11 +294,12 @@ const english: Copy = {
                 title: "Software engineer, mobile",
                 short: "Mobile",
                 place: "Nelogica",
+                city: "Porto Alegre",
                 dates: ["2025-09", null],
                 text: "Hybrid Android and iOS apps (Vue + Capacitor) for Profit, Tryd and other Nelogica trading products, used by more than 100,000 people.",
                 points: [
                     "Cut the cold start to the home screen from 16 s to about 1.2 s by moving bundle cleanup during updates to a worker thread, after native Kotlin and Swift plugins showed where the time went.",
-                    "Built Cloud Automation into Profit Mobile from flow design to launch: traders run strategy bots on the server without the desktop app open.",
+                    "Built Cloud Automation into Profit Mobile from flow design to launch: the screens and the TypeScript modules that integrate with the backend API, which I tested from early development through release. Traders now run strategy bots on the server without the desktop app open.",
                     "Cut overall load time by about 35% with critical, deferred and lazy loading, dependency upgrades and GPU-friendly animations.",
                     "Rebuilt the navigation bar with an iOS Liquid Glass–style effect and gestures, with the UX team, and set up OpenSearch dashboards on product usage.",
                 ],
@@ -307,6 +310,7 @@ const english: Copy = {
                 title: "Rotation programme intern, software developer",
                 short: "Developer",
                 place: "SAP",
+                city: "São Leopoldo",
                 dates: ["2024-08", "2025-03"],
                 text: "SAP Intelligent Agriculture, a logistics management product for farms, in a Scrum team.",
                 points: [
@@ -320,6 +324,7 @@ const english: Copy = {
                 title: "Rotation programme intern, QA engineer",
                 short: "QA engineer",
                 place: "SAP",
+                city: "São Leopoldo",
                 dates: ["2023-12", "2024-08"],
                 text: "Test automation for the product’s delivery pipeline.",
                 points: [
@@ -334,6 +339,7 @@ const english: Copy = {
                 title: "Rotation programme intern, product support",
                 short: "Support",
                 place: "SAP",
+                city: "São Leopoldo",
                 dates: ["2023-03", "2023-12"],
                 text: "Product support for SAP Commerce Cloud.",
                 points: [
@@ -347,6 +353,7 @@ const english: Copy = {
                 title: "Developer and IT assistant",
                 short: "UFRGS",
                 place: "UFRGS",
+                city: "Porto Alegre",
                 dates: ["2017-01", "2020-07"],
                 text: "Three roles during the degree: full stack and then front-end developer on teaching and research sites (2017–2019), then IT support for the Faculty of Veterinary Medicine (2019–2020).",
                 tools: "JavaScript, HTML5, CSS, PHP, Apache Server, hardware, operating systems, networks",
@@ -536,11 +543,12 @@ const portuguese: Copy = {
                 title: "Engenheiro de software, mobile",
                 short: "Mobile",
                 place: "Nelogica",
+                city: "Porto Alegre",
                 dates: ["2025-09", null],
                 text: "Apps híbridos (Vue + Capacitor) Android e iOS do Profit, do Tryd e de outros produtos de trading da Nelogica, usados por mais de 100 mil pessoas.",
                 points: [
                     "Reduzi a abertura a frio até a tela inicial de 16 s para cerca de 1,2 s movendo a limpeza de bundles nas atualizações para uma worker thread, depois que plugins nativos em Kotlin e Swift mostraram para onde o tempo ia.",
-                    "Construí o Cloud Automation no Profit Mobile do desenho dos fluxos ao lançamento: traders rodam robôs de estratégia no servidor sem o app desktop aberto.",
+                    "Construí o Cloud Automation no Profit Mobile do desenho dos fluxos ao lançamento: as telas e os módulos em TypeScript que se integram à API do backend, que testei do início ao lançamento. Agora traders rodam robôs de estratégia no servidor sem o app desktop aberto.",
                     "Reduzi o carregamento geral em cerca de 35% com carregamento crítico, adiado e lazy loading, atualização de dependências e animações otimizadas para GPU.",
                     "Reconstruí a barra de navegação com efeito no estilo Liquid Glass do iOS e gestos, com o time de UX, e criei dashboards no OpenSearch sobre o uso do produto.",
                 ],
@@ -551,6 +559,7 @@ const portuguese: Copy = {
                 title: "Estagiário do programa de rotação, desenvolvedor",
                 short: "Desenvolvedor",
                 place: "SAP",
+                city: "São Leopoldo",
                 dates: ["2024-08", "2025-03"],
                 text: "SAP Intelligent Agriculture, solução de gestão logística de fazendas, em um time Scrum.",
                 points: [
@@ -564,6 +573,7 @@ const portuguese: Copy = {
                 title: "Estagiário do programa de rotação, QA",
                 short: "QA",
                 place: "SAP",
+                city: "São Leopoldo",
                 dates: ["2023-12", "2024-08"],
                 text: "Automação de testes no pipeline de entrega do produto.",
                 points: [
@@ -578,6 +588,7 @@ const portuguese: Copy = {
                 title: "Estagiário do programa de rotação, suporte ao produto",
                 short: "Suporte",
                 place: "SAP",
+                city: "São Leopoldo",
                 dates: ["2023-03", "2023-12"],
                 text: "Suporte ao produto SAP Commerce Cloud.",
                 points: [
@@ -591,6 +602,7 @@ const portuguese: Copy = {
                 title: "Desenvolvedor e assistente de TI",
                 short: "UFRGS",
                 place: "UFRGS",
+                city: "Porto Alegre",
                 dates: ["2017-01", "2020-07"],
                 text: "Três funções durante a graduação: desenvolvedor full stack e depois front-end em sites de ensino e pesquisa (2017–2019), e então suporte de TI na Faculdade de Veterinária (2019–2020).",
                 tools: "JavaScript, HTML5, CSS, PHP, Apache Server, hardware, sistemas operacionais, redes",
