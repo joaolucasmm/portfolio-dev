@@ -33,7 +33,7 @@ function formatLength([from, to]: [Month, Month | null], units: Units, now: Mont
 // The list names drop the internship prefix so they fit on one or two lines;
 // the company sits under each name.
 function listName(title: string) {
-    const name = title.replace(/^(Rotation programme intern|Estagiário do programa de rotação), /, "");
+    const name = title.replace(/^(Rotation program intern|Estagiário do programa de rotação), /, "");
     return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
