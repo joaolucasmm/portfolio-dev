@@ -38,7 +38,7 @@ jobs:
       - name: bundle size
         run: npm run size
       - name: keep the build for the browser checks
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: build
           path: build/
@@ -79,7 +79,7 @@ jobs:
         run: npm run e2e
       - name: report on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-report
           path: playwright-report/
