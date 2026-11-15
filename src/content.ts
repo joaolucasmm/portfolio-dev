@@ -217,13 +217,12 @@ const english: Copy = {
     about: {
         heading: "About",
         lead: "I’m João Lucas Miranda Menegasso",
-        first: ", and I have sat at every desk a bug passes: support, QA and development at SAP, and now mobile at Nelogica.",
+        first: ", and I measure before I change anything.",
         body: [
-            "I build the mobile apps of Nelogica’s trading platforms and go below the interface when the problem asks for it, down to native Kotlin and Swift. Before software came a mechatronics diploma and physics engineering at UFRGS, where I learned to measure before I change anything.",
+            "The habit comes from a mechatronics diploma and physics engineering at UFRGS. At Nelogica it takes me below the interface when the problem asks for it, down to native Kotlin and Swift.",
         ],
         facts: [
             ["Based in", "Porto Alegre, Brazil"],
-            ["Now", "Software engineer, mobile, at Nelogica"],
             ["Speaks", "Português, English (fluent), Español (intermediate)"],
         ],
         stackHeading: "Stack",
@@ -464,13 +463,12 @@ const portuguese: Copy = {
     about: {
         heading: "Sobre",
         lead: "Sou João Lucas Miranda Menegasso",
-        first: " e já sentei em todas as mesas por onde um bug passa: suporte, QA e desenvolvimento na SAP, e agora mobile na Nelogica.",
+        first: " e meço antes de mudar qualquer coisa.",
         body: [
-            "Desenvolvo os apps mobile das plataformas de trading da Nelogica e desço abaixo da interface quando o problema pede, até o Kotlin e o Swift nativos. Antes do software vieram o técnico em mecatrônica e a engenharia física na UFRGS, onde aprendi a medir antes de mudar qualquer coisa.",
+            "O hábito vem do técnico em mecatrônica e da engenharia física na UFRGS. Na Nelogica, ele me leva para baixo da interface quando o problema pede, até o Kotlin e o Swift nativos.",
         ],
         facts: [
             ["Mora em", "Porto Alegre, Brasil"],
-            ["Agora", "Engenheiro de software mobile na Nelogica"],
             ["Fala", "Português, English (fluente), Español (intermediário)"],
         ],
         stackHeading: "Stack",

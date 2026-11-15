@@ -231,7 +231,7 @@ function Search({ t, open, setOpen, toggleTheme, language, setLanguage }: Props)
         found.forEach((it) => (byType[it.type] = byType[it.type] || []).push(it));
         const out: [label: string, items: Result[]][] = [];
         if (matching.length) out.push([s.groups.action, matching]);
-        (["section", "project", "role", "edu"] as const).forEach((type) => {
+        (["section", "role", "project", "edu"] as const).forEach((type) => {
             const items = byType[type];
             if (items) out.push([s.groups[type], items]);
         });

@@ -58,9 +58,9 @@ function App() {
             />
             <main id="main" tabIndex={-1}>
                 <Hero t={t.hero} language={language} contact={t.contact} />
-                <About t={t.about} />
-                <Projects t={t.work} />
                 <Experience t={t.experience} />
+                <Projects t={t.work} />
+                <About t={t.about} />
                 <Education t={t.education} />
                 <Contact t={t.contact} language={language} openDialog={openDialog} />
             </main>
