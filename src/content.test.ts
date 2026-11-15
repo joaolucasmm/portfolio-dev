@@ -34,6 +34,12 @@ describe("content", () => {
         expect(missing).toEqual([]);
     });
 
+    test("the About accent is part of its statement", () => {
+        for (const { about } of [english, portuguese]) {
+            expect(about.statement).toContain(about.accent);
+        }
+    });
+
     test("each value has the same type in both languages", () => {
         const differ = paths(english).filter((p) => typeof valueAt(english, p) !== typeof valueAt(portuguese, p));
         expect(differ).toEqual([]);

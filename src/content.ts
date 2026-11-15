@@ -69,12 +69,15 @@ export interface Copy {
     hero: { role: string; company: string; before: string; portrait: string; resume: string };
     about: {
         heading: string;
-        lead: string;
-        first: string;
+        /** The section's headline; `accent` is the part of it set in the accent colour. */
+        statement: string;
+        accent: string;
+        name: string;
+        place: string;
         body: string[];
-        facts: Pair[];
-        stackHeading: string;
+        /** Columns under the headline: the stack groups, then the facts. */
         stack: Pair[];
+        facts: Pair[];
     };
     work: {
         heading: string;
@@ -216,16 +219,14 @@ const english: Copy = {
     },
     about: {
         heading: "About",
-        lead: "I’m João Lucas Miranda Menegasso",
-        first: ", and I measure before I change anything.",
+        statement: "I measure before I change anything.",
+        accent: "change anything",
+        name: "João Lucas Miranda Menegasso",
+        place: "Porto Alegre, Brazil",
         body: [
             "The habit comes from a mechatronics diploma and physics engineering at UFRGS. At Nelogica it takes me below the interface when the problem asks for it, down to native Kotlin and Swift.",
         ],
-        facts: [
-            ["Based in", "Porto Alegre, Brazil"],
-            ["Speaks", "Português, English (fluent), Español (intermediate)"],
-        ],
-        stackHeading: "Stack",
+        facts: [["Speaks", "Português, English (fluent), Español (intermediate)"]],
         // [group, tools]
         stack: [
             ["Every day", "Vue.js, TypeScript, JavaScript, HTML, CSS, Tailwind CSS, CapacitorJS"],
@@ -462,16 +463,14 @@ const portuguese: Copy = {
     },
     about: {
         heading: "Sobre",
-        lead: "Sou João Lucas Miranda Menegasso",
-        first: " e meço antes de mudar qualquer coisa.",
+        statement: "Meço antes de mudar qualquer coisa.",
+        accent: "mudar qualquer coisa",
+        name: "João Lucas Miranda Menegasso",
+        place: "Porto Alegre, Brasil",
         body: [
             "O hábito vem do técnico em mecatrônica e da engenharia física na UFRGS. Na Nelogica, ele me leva para baixo da interface quando o problema pede, até o Kotlin e o Swift nativos.",
         ],
-        facts: [
-            ["Mora em", "Porto Alegre, Brasil"],
-            ["Fala", "Português, English (fluente), Español (intermediário)"],
-        ],
-        stackHeading: "Stack",
+        facts: [["Fala", "Português, English (fluente), Español (intermediário)"]],
         // [grupo, ferramentas]
         stack: [
             ["No dia a dia", "Vue.js, TypeScript, JavaScript, HTML, CSS, Tailwind CSS, CapacitorJS"],

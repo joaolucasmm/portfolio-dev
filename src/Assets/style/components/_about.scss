@@ -1,172 +1,120 @@
 @use "../tokens" as *;
-// About: the portrait as a drop capital
+// About: the title like every other section, then two columns in the 1140px
+// column the Experience uses: the statement, portrait and paragraph on the left,
+// the stack as a list (one row per group) on the right. No glass card.
 
 .about {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--gap);
-
-    &__side {
-        grid-column: 1 / span 3;
-    }
-
     &__heading {
         font-family: var(--display);
         font-size: var(--step-head);
         font-weight: var(--display-weight);
         line-height: 1;
         letter-spacing: -0.02em;
+        margin-bottom: clamp(28px, 3.5vw, 48px);
     }
 
-    &__facts {
+    // Wider than a phone: the title in the middle, as in the other sections.
+    @media (min-width: $phone + 1) {
+        &__heading {
+            text-align: center;
+        }
+    }
+
+    &__layout {
+        display: grid;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        gap: clamp(32px, 5vw, 72px);
+        align-items: start;
+        max-width: 1140px;
+        margin-inline: auto;
+    }
+
+    &__story {
         display: grid;
         gap: 20px;
-        margin-top: 32px;
-        font-size: var(--step-small);
-
-        dt {
-            color: var(--muted);
-        }
-
-        dd {
-            font-size: var(--step-body);
-        }
-    }
-
-    &__text {
-        @include glass;
-        grid-column: 4 / -1;
-        padding: clamp(20px, 2.4vw, 36px);
     }
 
     &__statement {
-        max-width: 28em;
-        font-size: var(--step-lead);
-        line-height: 1.2;
+        font-family: var(--display);
+        font-size: clamp(1.75rem, 1rem + 2.6vw, 3rem);
+        font-weight: 600;
+        line-height: 1.08;
+        letter-spacing: -0.025em;
+        text-wrap: balance;
+
+        em {
+            font-style: normal;
+            color: var(--accent);
+        }
+    }
+
+    &__who {
+        display: flex;
+        gap: 12px;
+        align-items: center;
 
         strong {
+            display: block;
             font-weight: 500;
         }
+
+        span {
+            font-size: var(--step-small);
+            color: var(--muted);
+        }
+    }
+
+    &__portrait {
+        flex: none;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
     }
 
     &__body {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--gap);
-        margin-top: 40px;
-        clear: left;
-
-        p {
-            max-width: 46ch;
-        }
+        max-width: 46ch;
+        color: var(--muted);
     }
 
-    // Wider than a phone: the title across the top in the middle, the facts and
-    // the card side by side under it.
-    @media (min-width: $phone + 1) {
-        &__side {
-            display: contents;
-        }
-
-        &__heading {
-            grid-column: 1 / -1;
-            margin-bottom: clamp(28px, 3.5vw, 48px);
-            text-align: center;
-        }
-
-        &__facts {
-            grid-column: 1 / span 3;
-            grid-row: 2;
-            align-self: start;
-            margin-top: 0;
-        }
-
-        &__text {
-            grid-row: 2;
-        }
-    }
-
-    // The stack at a glance, under the two paragraphs: group on the left, tools beside it.
-    &__stack {
-        margin-top: 32px;
-        padding-top: 24px;
-        border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
-
-        dl {
-            display: grid;
-            gap: 10px;
-            margin: 14px 0 0;
-        }
+    // Label on the left, tools on the right, a rule between rows.
+    &__list {
+        margin: 0;
 
         div {
             display: grid;
-            grid-template-columns: minmax(0, 11em) minmax(0, 1fr);
-            gap: 4px 16px;
+            grid-template-columns: 11em minmax(0, 1fr);
+            gap: 4px 20px;
+            padding-block: 12px;
+            border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+
+            &:last-child {
+                border-bottom: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+            }
         }
 
         dt {
-            color: var(--muted);
+            padding-top: 0.2em;
+            font-family: var(--mono);
             font-size: var(--step-small);
-            padding-top: 0.15em;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
         }
 
         dd {
             margin: 0;
         }
-
-        @media (max-width: $phone) {
-            div {
-                grid-template-columns: 1fr;
-            }
-        }
-    }
-
-    &__stack-heading {
-        font-family: var(--mono);
-        font-size: var(--step-small);
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-    }
-
-    &__portrait {
-        float: left;
-        width: 3.6em;
-        height: 3.6em;
-        margin: 0.12em 0.5em 0 0;
-        border-radius: var(--radius-control);
-        object-fit: cover;
     }
 
     @media (max-width: $phone) {
-        display: flex;
-        flex-direction: column;
-        gap: 32px;
-
-        &__side {
-            display: contents;
-        }
-
-        &__facts {
-            order: 2;
-            margin-top: 8px;
-        }
-
-        &__statement {
-            line-height: 1.25;
-        }
-
-        &__body {
+        &__layout {
             grid-template-columns: 1fr;
         }
 
-        &__portrait {
-            width: 3.75em;
-            height: 3.75em;
-        }
-
-        &__facts {
-            grid-template-columns: repeat(3, 1fr);
+        &__list div {
+            grid-template-columns: 1fr;
         }
     }
 }
