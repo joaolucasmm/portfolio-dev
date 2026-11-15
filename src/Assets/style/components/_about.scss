@@ -1,32 +1,44 @@
 @use "../tokens" as *;
-// About, editorial: the statement is the headline, the stack sits in plain columns
-// under a rule, no glass card.
+// About: the title like every other section, then one glass card with the
+// statement as its headline, the portrait and paragraph beside it, and the stack
+// in plain columns under a rule.
 
 .about {
-    display: grid;
-    gap: clamp(28px, 3.5vw, 44px);
-
     &__heading {
-        font-family: var(--mono);
-        font-size: var(--step-small);
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--muted);
+        font-family: var(--display);
+        font-size: var(--step-head);
+        font-weight: var(--display-weight);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin-bottom: clamp(28px, 3.5vw, 48px);
+    }
+
+    // Wider than a phone: the title in the middle, as in the other sections.
+    @media (min-width: $phone + 1) {
+        &__heading {
+            text-align: center;
+        }
+    }
+
+    &__card {
+        @include glass;
+        display: grid;
+        gap: clamp(24px, 3vw, 36px);
+        padding: clamp(20px, 2.4vw, 36px);
     }
 
     &__top {
         display: grid;
-        grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
-        gap: clamp(28px, 4vw, 56px);
-        align-items: end;
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        gap: clamp(24px, 3.5vw, 48px);
+        align-items: start;
     }
 
     &__statement {
         font-family: var(--display);
-        font-size: clamp(2rem, 1.1rem + 3.6vw, 3.75rem);
+        font-size: clamp(1.75rem, 1rem + 2.6vw, 3rem);
         font-weight: 600;
-        line-height: 1.05;
+        line-height: 1.08;
         letter-spacing: -0.025em;
         text-wrap: balance;
 
@@ -38,7 +50,7 @@
 
     &__aside {
         display: grid;
-        gap: 16px;
+        gap: 14px;
 
         p {
             max-width: 46ch;
@@ -73,14 +85,14 @@
     &__columns {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 28px 32px;
+        gap: 24px 32px;
         margin: 0;
-        padding-top: 24px;
+        padding-top: clamp(20px, 2.4vw, 28px);
         border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
 
         div {
             display: grid;
-            gap: 8px;
+            gap: 6px;
             align-content: start;
         }
 
@@ -98,18 +110,21 @@
         }
     }
 
+    @media (max-width: $tablet) {
+        &__columns {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
     @media (max-width: $phone) {
-        &__top,
+        &__top {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
         &__columns {
             grid-template-columns: 1fr;
-        }
-
-        &__top {
-            gap: 24px;
-        }
-
-        &__columns {
-            gap: 22px;
+            gap: 18px;
         }
     }
 }

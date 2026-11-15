@@ -8,41 +8,45 @@ function About({ t }: { t: Copy["about"] }) {
 
     return (
         <section id="about" className="section section--alt about">
-            <h2 className="about__heading">{t.heading}</h2>
-            <div className="about__top">
-                <p className="about__statement" data-reveal>
-                    {before}
-                    <em>{t.accent}</em>
-                    {after}
-                </p>
-                <div className="about__aside" data-reveal>
-                    <div className="about__who">
-                        <img
-                            className="about__portrait"
-                            src={portrait}
-                            alt=""
-                            width="640"
-                            height="640"
-                            loading="lazy"
-                        />
-                        <div>
-                            <strong>{t.name}</strong>
-                            <span>{t.place}</span>
+            <h2 className="about__heading" data-reveal>
+                {t.heading}
+            </h2>
+            <div className="about__card" data-reveal>
+                <div className="about__top">
+                    <p className="about__statement">
+                        {before}
+                        <em>{t.accent}</em>
+                        {after}
+                    </p>
+                    <div className="about__aside">
+                        <div className="about__who">
+                            <img
+                                className="about__portrait"
+                                src={portrait}
+                                alt=""
+                                width="640"
+                                height="640"
+                                loading="lazy"
+                            />
+                            <div>
+                                <strong>{t.name}</strong>
+                                <span>{t.place}</span>
+                            </div>
                         </div>
+                        {t.body.map((paragraph) => (
+                            <p key={paragraph}>{paragraph}</p>
+                        ))}
                     </div>
-                    {t.body.map((paragraph) => (
-                        <p key={paragraph}>{paragraph}</p>
-                    ))}
                 </div>
+                <dl className="about__columns">
+                    {[...t.stack, ...t.facts].map(([label, value]) => (
+                        <div key={label}>
+                            <dt>{label}</dt>
+                            <dd>{value}</dd>
+                        </div>
+                    ))}
+                </dl>
             </div>
-            <dl className="about__columns" data-reveal>
-                {[...t.stack, ...t.facts].map(([label, value]) => (
-                    <div key={label}>
-                        <dt>{label}</dt>
-                        <dd>{value}</dd>
-                    </div>
-                ))}
-            </dl>
         </section>
     );
 }
