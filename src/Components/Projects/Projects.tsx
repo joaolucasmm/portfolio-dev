@@ -153,6 +153,11 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
                                 {t.run}
                             </button>
                         )}
+                        {link.url && !link.run && (
+                            <a className="button button--small" href={link.url} target="_blank" rel="noreferrer" tabIndex={tab}>
+                                {t.site}
+                            </a>
+                        )}
                         {link.download && !phone && (
                             <a
                                 className="button button--small"

@@ -172,12 +172,12 @@ const links = {
 };
 
 // One entry per project, in the order of `work.items`.
-// `run`: the live site can be opened inside the frame on the page.
+// `run`: the live site can be opened inside the frame on the page; without it, a
+// project with a `url` gets a button that opens the site in a new tab.
 const projectLinks: ProjectLink[] = [
     {
         url: "https://joaolucasmm.github.io/outlay-admin/",
         repo: "https://github.com/joaolucasmm/outlay-admin",
-        run: true,
         year: "2026",
     },
     {
