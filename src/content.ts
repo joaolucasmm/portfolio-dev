@@ -232,9 +232,10 @@ const english: Copy = {
         // [group, tools]
         stack: [
             ["Every day", "Vue.js, TypeScript, JavaScript, HTML, CSS, Tailwind CSS, CapacitorJS"],
-            ["Native", "Kotlin (Jetpack Compose), Java, Swift, Capacitor plugins"],
-            ["Also", "React, SQL, Rust, Tauri, Node.js, SAP UI5, SAP CAP"],
-            ["Testing and delivery", "Selenium WebDriver, Jest, GitHub Actions, GitLab, Git, OpenSearch"],
+            ["Web and APIs", "React, Redux Toolkit, Node.js, Python (FastAPI), OpenAPI, SQL, SAP UI5, SAP CAP"],
+            ["AI", "Claude API, structured output, LLM evals"],
+            ["Native and desktop", "Kotlin (Jetpack Compose), Java, Swift, Capacitor plugins, Rust (Tauri)"],
+            ["Testing and delivery", "Vitest, Jest, Playwright, Selenium WebDriver, GitHub Actions, GitLab, Git, OpenSearch"],
             ["Tools and process", "Claude Code, Figma, JIRA, Scrum"],
         ],
     },
@@ -481,9 +482,10 @@ const portuguese: Copy = {
         // [grupo, ferramentas]
         stack: [
             ["No dia a dia", "Vue.js, TypeScript, JavaScript, HTML, CSS, Tailwind CSS, CapacitorJS"],
-            ["Nativo", "Kotlin (Jetpack Compose), Java, Swift, plugins Capacitor"],
-            ["Também", "React, SQL, Rust, Tauri, Node.js, SAP UI5, SAP CAP"],
-            ["Testes e entrega", "Selenium WebDriver, Jest, GitHub Actions, GitLab, Git, OpenSearch"],
+            ["Web e APIs", "React, Redux Toolkit, Node.js, Python (FastAPI), OpenAPI, SQL, SAP UI5, SAP CAP"],
+            ["IA", "Claude API, saída estruturada, evals de LLM"],
+            ["Nativo e desktop", "Kotlin (Jetpack Compose), Java, Swift, plugins Capacitor, Rust (Tauri)"],
+            ["Testes e entrega", "Vitest, Jest, Playwright, Selenium WebDriver, GitHub Actions, GitLab, Git, OpenSearch"],
             ["Ferramentas e processo", "Claude Code, Figma, JIRA, Scrum"],
         ],
     },
