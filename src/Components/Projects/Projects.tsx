@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type MouseEvent, type PointerEvent } from "react";
 import usePhone from "../../Functions/usePhone";
+import outlay from "../../Assets/Images/outlay.png";
 import sizewise from "../../Assets/Images/sizewise.png";
 import qrCodeGen from "../../Assets/Images/qrcodegen.png";
-import pokedex from "../../Assets/Images/pokedex.png";
+import outlaySmall from "../../Assets/Images/outlay-760.jpg";
 import sizewiseSmall from "../../Assets/Images/sizewise-760.jpg";
-import pokedexSmall from "../../Assets/Images/pokedex-760.jpg";
 import { projectLinks, type Copy } from "../../content";
 
 interface Image {
@@ -19,9 +19,9 @@ interface Image {
 // and the small "up next" cards take a 760px copy where it is lighter than the
 // original (the QR Code Gen PNG is already smaller than a JPEG would be).
 const images: Image[] = [
+    { src: outlay, width: 1480, height: 816, small: outlaySmall },
     { src: sizewise, width: 1477, height: 815, small: sizewiseSmall },
     { src: qrCodeGen, width: 1899, height: 911, small: qrCodeGen },
-    { src: pokedex, width: 1364, height: 636, small: pokedexSmall },
 ];
 
 const srcSetOf = (image: Image) => (image.small === image.src ? undefined : image.small + " 760w, " + image.src + " " + image.width + "w");
@@ -152,6 +152,11 @@ function Slide({ t, k, index, offset, phone, running, setRunning, goProject, goS
                             >
                                 {t.run}
                             </button>
+                        )}
+                        {link.url && !link.run && (
+                            <a className="button button--small" href={link.url} target="_blank" rel="noreferrer" tabIndex={tab}>
+                                {t.site}
+                            </a>
                         )}
                         {link.download && !phone && (
                             <a

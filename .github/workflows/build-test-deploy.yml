@@ -22,9 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: use node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20.x'
           cache: npm
@@ -38,7 +38,7 @@ jobs:
       - name: bundle size
         run: npm run size
       - name: keep the build for the browser checks
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: build
           path: build/
@@ -48,9 +48,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: use node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20.x'
           cache: npm
@@ -62,14 +62,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: use node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20.x'
           cache: npm
       - run: npm ci
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: build
           path: build/
@@ -79,7 +79,7 @@ jobs:
         run: npm run e2e
       - name: report on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-report
           path: playwright-report/
@@ -90,12 +90,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: use node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20.x'
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: build
           path: build/
@@ -108,7 +108,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: check the links on the page
         uses: lycheeverse/lychee-action@v2
         with:
@@ -121,9 +121,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: use node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20.x'
       # Fails on critical advisories only; lower ones are left to Dependabot.
@@ -147,16 +147,16 @@ jobs:
 
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: use node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20.x'
           cache: npm
       - name: configure github pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v6
       - run: npm ci
       - run: npm run build
         env:
@@ -189,7 +189,7 @@ jobs:
 
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: configure git safe directory

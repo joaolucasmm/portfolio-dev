@@ -3,7 +3,10 @@ version: 2
 # next publication. Dependabot reads this file from the default branch (main), so
 # a change here takes effect once it is published.
 updates:
-  # npm updates arrive grouped in one weekly PR; security fixes still come on their own.
+  # npm updates arrive grouped; security fixes still come on their own. A package
+  # goes into the first group that matches it, so the groups of packages that must
+  # move together come first, for every kind of update: split apart, a major
+  # update fails `npm ci` on the peer dependency of its partner.
   - package-ecosystem: npm
     directory: /
     target-branch: Development
@@ -11,6 +14,12 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     groups:
+      react:
+        patterns: ["react", "react-dom", "@types/react", "@types/react-dom", "@testing-library/*"]
+      vitest:
+        patterns: ["vitest", "@vitest/*"]
+      lint-and-types:
+        patterns: ["eslint", "@eslint/*", "eslint-plugin-*", "typescript", "typescript-eslint"]
       minor-and-patch:
         update-types: [minor, patch]
 

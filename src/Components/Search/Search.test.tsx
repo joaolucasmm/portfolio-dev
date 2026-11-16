@@ -40,9 +40,9 @@ describe("Search", () => {
 
     test("finds a project by name and marks the match", () => {
         renderSearch();
-        fireEvent.change(screen.getByRole("combobox"), { target: { value: "pokedex" } });
-        expect(options()).toContain("Pokedex");
-        expect(screen.getByRole("listbox").querySelector("mark")).toHaveTextContent(/pokedex/i);
+        fireEvent.change(screen.getByRole("combobox"), { target: { value: "qr code" } });
+        expect(options()).toContain("QR Code Gen");
+        expect(screen.getByRole("listbox").querySelector("mark")).toHaveTextContent(/qr code/i);
     });
 
     test("finds roles through the tools they used", () => {
@@ -62,14 +62,14 @@ describe("Search", () => {
     test("Enter on a project closes the search and opens that project", () => {
         vi.useFakeTimers();
         const target = document.createElement("li");
-        const index = t.work.items.findIndex((p) => p.name === "Pokedex");
+        const index = t.work.items.findIndex((p) => p.name === "QR Code Gen");
         target.id = "project-" + index;
         document.body.appendChild(target);
         const opened = vi.fn();
         window.addEventListener("portfolio:open-project", opened);
 
         const { setOpen, input } = renderSearch();
-        fireEvent.change(input, { target: { value: "pokedex" } });
+        fireEvent.change(input, { target: { value: "qr code" } });
         // The first result row is the project (no action matches the word).
         fireEvent.keyDown(input, { key: "Enter" });
         expect(setOpen).toHaveBeenCalledWith(false);
