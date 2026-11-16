@@ -48,10 +48,10 @@ test("the search finds a project and opens it in the showcase", async ({ page })
     await page.getByRole("button", { name: "Search" }).first().click();
     const field = page.getByRole("combobox");
     await expect(field).toBeFocused();
-    await field.fill("pokedex");
+    await field.fill("qr code");
     await field.press("Enter");
-    await expect(page.locator(".project.is-active .project__name")).toHaveText("Pokedex");
-    await expect(page.locator(".work__dot[aria-current='true']")).toHaveAttribute("aria-label", /Pokedex/);
+    await expect(page.locator(".project.is-active .project__name")).toHaveText("QR Code Gen");
+    await expect(page.locator(".work__dot[aria-current='true']")).toHaveAttribute("aria-label", /QR Code Gen/);
 });
 
 test("the showcase moves with its arrows", async ({ page }) => {

@@ -172,8 +172,14 @@ const links = {
 };
 
 // One entry per project, in the order of `work.items`.
-// `run`: the live site can be opened inside the frame on the page.
+// `run`: the live site can be opened inside the frame on the page; without it, a
+// project with a `url` gets a button that opens the site in a new tab.
 const projectLinks: ProjectLink[] = [
+    {
+        url: "https://joaolucasmm.github.io/outlay-admin/",
+        repo: "https://github.com/joaolucasmm/outlay-admin",
+        year: "2026",
+    },
     {
         repo: "https://github.com/joaolucasmm/sizewise",
         download: "https://github.com/joaolucasmm/sizewise/releases/latest",
@@ -185,12 +191,6 @@ const projectLinks: ProjectLink[] = [
         post: "https://www.linkedin.com/feed/update/urn:li:activity:7316523182281187329/",
         run: true,
         year: "2025",
-    },
-    {
-        url: "https://joaolucasmm.github.io/Pokedex/",
-        repo: "https://github.com/joaolucasmm/Pokedex",
-        run: true,
-        year: "2022",
     },
 ];
 
@@ -256,6 +256,13 @@ const english: Copy = {
         of: "of",
         items: [
             {
+                name: "Outlay Admin",
+                shot: "Outlay Admin receipts screen: a hotel receipt read by AI, its fields ready for review, and the policy check flagging R$1,850.00 above the R$1,000.00 limit",
+                kind: "Admin console, React + Redux + FastAPI + Claude",
+                description:
+                    "Runs corporate expense programs: tenant onboarding and lifecycle, a policy grid, CSV import and an audit log. Claude reads receipts and a rules engine decides; evals measure the extraction at 99% field accuracy. Contract-first OpenAPI, tested end to end.",
+            },
+            {
                 name: "Sizewise",
                 shot: "Sizewise window after scanning drive C: totals for size, files and folders, and the largest folders with their share of the disk",
                 kind: "Windows app, Rust + Tauri + Vue",
@@ -268,13 +275,6 @@ const english: Copy = {
                 kind: "QR generator, REST API",
                 description:
                     "Type a link or a line of text and get its QR code back from a RESTful API, ready to save.",
-            },
-            {
-                name: "Pokedex",
-                shot: "Pokedex page drawn as a red Pokédex, showing 6 - Charizard, a name or number search field and Prev and Next buttons",
-                kind: "REST API client",
-                description:
-                    "Search any Pokémon by name or number; the data comes live from a public RESTful API.",
             },
         ],
     },
@@ -505,6 +505,13 @@ const portuguese: Copy = {
         of: "de",
         items: [
             {
+                name: "Outlay Admin",
+                shot: "Tela de recibos do Outlay Admin: um recibo de hotel lido pela IA, os campos prontos para revisão e a checagem de política apontando R$1.850,00 acima do limite de R$1.000,00",
+                kind: "Console de administração, React + Redux + FastAPI + Claude",
+                description:
+                    "Administra programas de despesas corporativas: onboarding e ciclo de vida de clientes, grade de políticas, importação CSV e log de auditoria. O Claude lê os recibos e um motor de regras decide; evals medem a extração em 99% de acerto por campo. API por contrato OpenAPI, testada de ponta a ponta.",
+            },
+            {
                 name: "Sizewise",
                 shot: "Janela do Sizewise depois de analisar o disco C: totais de tamanho, arquivos e pastas, e as maiores pastas com a fatia de cada uma no disco",
                 kind: "App Windows, Rust + Tauri + Vue",
@@ -517,13 +524,6 @@ const portuguese: Copy = {
                 kind: "Gerador de QR, API REST",
                 description:
                     "Digite um link ou uma frase e receba o QR code de uma API RESTful, pronto para salvar.",
-            },
-            {
-                name: "Pokedex",
-                shot: "Página do Pokedex desenhada como uma Pokédex vermelha, mostrando 6 - Charizard, a busca por nome ou número e os botões Prev e Next",
-                kind: "Cliente de API REST",
-                description:
-                    "Pesquise qualquer Pokémon por nome ou número; os dados chegam ao vivo de uma API RESTful pública.",
             },
         ],
     },
